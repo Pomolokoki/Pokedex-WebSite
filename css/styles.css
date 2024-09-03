@@ -1,0 +1,29 @@
+body {
+    background-color: lightblue;
+}
+
+
+#Title {
+    width: 30%;
+    text-align: center;
+    text-align: left;
+}
+
+#Logo {
+    width: 100px;
+    height: 100%;
+}
+
+#boxes{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+div{
+    float: left;
+    height: 100px;
+    width: 33%;
+    padding: 0 10px;    
+}
+
