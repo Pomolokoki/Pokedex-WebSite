@@ -29,3 +29,6 @@ compte utilisateur (photo, nom, mdp, description)
 	pokemon
 		attaques = "2-3-65"
 		attaque1 = 2
+
+
+data = https://github.com/pokemondb/database/tree/master/data
