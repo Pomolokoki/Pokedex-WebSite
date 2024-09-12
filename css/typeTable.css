@@ -1,0 +1,70 @@
+html{
+    margin: 0;
+    height: 100%;
+}
+body{
+    margin: 0;
+    height: 100%;
+    background-color: black;
+}
+#header{
+    background-color: red;
+    width: 100%;
+    height: 20%;
+    /* z-index: -1; */
+}
+#typeTableFrame{
+    position: relative;
+    width: 80%;
+    height: 65%;
+    margin: 5% auto;
+}
+
+#grid{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 0.5% inset white;
+    display: grid;
+    box-sizing: border-box;
+    grid-gap: 0.5%;
+    grid-template-columns: repeat(19, 4.79%);
+    grid-template-rows: repeat(19, 4.79%);
+}
+
+#gridParameters{
+    position: relative;
+    width: 100%;
+    height: 3%;
+}
+
+#doubleTypeLabel{
+    position: absolute;
+    color: white;
+    bottom: 0;
+    font-size: 0.875em
+}
+
+.gridElement{
+    border-radius: 10%;
+    background-color: white;
+    border: none;
+    padding: 0;
+}
+
+#highlight{
+    pointer-events: none;
+    position: absolute;
+    width: 100.5%;
+    height: 5%;
+    border: solid red;
+    border-width: 3% 3% 3% 3%;
+    opacity: 0;
+    /* border-radius: 5%; */
+    /* margin-left: -1.4%; */
+    left: -0.5%;
+    /* top: 2.3%; */
+    /* margin-top: -1.2%; */
+    z-index: 1;
+    /* background-color: blue; */
+}
