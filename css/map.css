@@ -1,0 +1,33 @@
+html{
+    margin: 0;
+    height: 100%;
+}
+body{
+    margin: 0;
+    height: 100%;
+    background-color: black;
+}
+#header{
+    background-color: red;
+    width: 100%;
+    height: 20%;
+}
+#mapFrame{
+    position: absolute;
+    right: 0%;
+    width: 80%;
+    height: 80%;
+    background-color: darkblue;
+}
+
+#info{
+    position: relative;
+    width: 20%;
+    height: 80%;
+}
+
+    position: relative;
+    height: 100%;
+    width: 100%;
+    vertical-align: top;
+}
