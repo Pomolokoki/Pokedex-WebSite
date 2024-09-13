@@ -81,9 +81,19 @@ body {
 }
 
 #pokedex{
+    box-sizing: border-box;
     width: 95%;
     height: 100%;
     background-color: purple;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10.5%;
+    grid-column-gap: 0.5%;
+}
+
+.pokemon{
+    background-color: aqua;
+    height: 75px;
 }
 
 #scrollBar{

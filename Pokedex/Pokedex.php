@@ -27,7 +27,7 @@
 						<option value="g6">Gen 6</option>
 						<option value="g7">Gen 7</option>
 						<option value="g8">Gen 8</option>
-						<option value="g9">Gen 9</option> 
+						<option value="g9">Gen 9</option>
 					</select>
 				</div>
 				<div id="filter_2">
@@ -50,7 +50,7 @@
 						<option value="insect">Insecte</option>
 						<option value="vol">Vol</option>
 						<option value="tenebre">Ténèbre</option>
-						<option value="fee">Fée</option> 
+						<option value="fee">Fée</option>
 					</select>
 				</div>
 				<div id="filter_3">
@@ -61,15 +61,18 @@
 					</select>
 				</div>
 				<div id="searchBar">
-					<input type="text" name="text" id ="an" class="search" placeholder="Rechercher"/>				
+					<input type="text" name="text" id="an" class="search" placeholder="Rechercher" />
 				</div>
 			</div>
 			<div id="pokedexCore">
-				<div id="pokedex"></div>
-				<div id="scrollBar"></div>
+				<div id="pokedex">
+					<div class="pokemon"></div>
+					<div class="pokemon"></div>
 			</div>
+			<div id="scrollBar"></div>
 		</div>
-		<div id="img_r"></div>
+	</div>
+	<div id="img_r"></div>
 	</div>
 </body>
 
