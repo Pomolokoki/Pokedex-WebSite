@@ -26,26 +26,46 @@ div.mycontainer div#Logo{
     aspect-ratio: 1;
 }
 
-#test{
+#Access{
     float: right;
     width: 100%;
     overflow: visible;
 }
+
 
 #PokeLogo{
     width: 100%;
     height: 100%;
-
 }
 
-div.Connexion{
+#Login:hover{
+    filter: brightness(150%);
+}
+#Login{
+    background-color: dodgerblue;
+}
+
+#Register{
+    background-color: green;
+}
+
+#Register:hover{
+    filter: brightness(150%);
+}
+
+.Connexion{
     background-color: black;
     float: right;
-    height: 20%;
+    height: 25%;
     position: relative;
     overflow: visible;
     padding: 0%;
+    border-radius: 5px;
+    width: 25%;
+    
 }
+
+ 
 
 div.mycontainer div#BackHeader{
     width: 100%;
@@ -75,6 +95,7 @@ div.mycontainer div#Buttons{
 
 }
 
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
     margin: 0;
     padding: 0;
@@ -82,7 +103,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     outline: 0;
     vertical-align: baseline;
     background: transparent;
-    font-family: Pokemon;
+    font-family:'pokefont';
 }
 
 #box1, #box2, #box3, #box4, #box5 {
