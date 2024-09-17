@@ -10,7 +10,7 @@ body {
 }
 
 #header {
-    background-color: rgb(255, 0, 0);
+    background-color: red;
     width: 100%;
     height: 20%;
     /* z-index: -1; */
@@ -44,7 +44,7 @@ body {
 }
 
 #filter_1{
-    margin: 2%;
+   margin: 2%;
 }
 
 #filter_2{
@@ -81,51 +81,25 @@ body {
 }
 
 #pokedex{
-    width: 100%;
+    box-sizing: border-box;
+    width: 95%;
     height: 100%;
-    background-color: gray;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    display: inline-block;
+    background-color: purple;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10.5%;
+    grid-column-gap: 0.5%;
 }
 
 .pokemon{
-    background-color: gray;
-    height: 10.5%;
-    margin-bottom: 0.3%;
-    display: flex;
-    clip: auto;
-    overflow: hidden;
+    background-color: aqua;
+    height: 75px;
 }
 
-.type1color{
-    transform: skew(-45deg);
-    background-color: blue;
-    width: 65%;
+#scrollBar{
+    width: 5%;
     height: 100%;
-    margin-left: -15%;
-    
-}
-
-.type2color{
-    transform: skew(-45deg);
-    background-color: green;
-    width: 65%;
-    height: 100%;
-    margin-right: -15%;
-}
-
-.info{
-    position: absolute;
-    width: 20%;
-    height: 10.5%;
-    background-color: aliceblue;
-    opacity: 0.5;
-}
-
-.img_Pokemon{
-
+    background-color: teal;
 }
 
 #img_r{
