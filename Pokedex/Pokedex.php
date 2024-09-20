@@ -69,12 +69,23 @@
 					<?php for ($i = 0; $i < 30; $i++) {
 						?>
 						<div class="pokemon">
-							<div class="type1color"></div>
-							<div class="type2color"></div>
+							<div class="colors">
+							</div>
 							<div class="info">
 								<div class="img_Pokemon"></div>
-								<div class="id_Pokemon"></div>
-								<div class="nom_Pokemon"></div>
+								<div class="info_Pokemon">
+									<div class="info_l">
+										<div class="id_Pokemon"></div>
+										<div class="nom_Pokemon"></div>
+										<div class="type">
+											<div class="type_1"></div>
+											<div class="type_2"></div>
+										</div>
+									</div>
+									<div class="info_r">
+										<div class="niveau"></div>
+									</div>
+								</div>
 							</div>
 
 						</div>

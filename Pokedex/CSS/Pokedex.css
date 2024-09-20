@@ -93,39 +93,105 @@ body {
 .pokemon{
     background-color: gray;
     height: 10.5%;
-    margin-bottom: 0.3%;
-    display: flex;
-    clip: auto;
+    width: 100%;
+    margin-bottom: 0.8%;
     overflow: hidden;
 }
 
-.type1color{
-    transform: skew(-45deg);
-    background-color: blue;
-    width: 65%;
+.colors{
+    position: relative;
+    background: linear-gradient(35deg, black,red);
+    width: 100%;
     height: 100%;
-    margin-left: -15%;
-    
-}
-
-.type2color{
-    transform: skew(-45deg);
-    background-color: green;
-    width: 65%;
-    height: 100%;
-    margin-right: -15%;
 }
 
 .info{
-    position: absolute;
-    width: 20%;
-    height: 10.5%;
-    background-color: aliceblue;
-    opacity: 0.5;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    z-index: 2;
+    display: flex;
+    margin-bottom: 0.3%;
+    align-content: center;
 }
 
 .img_Pokemon{
+    position: relative;
+    background-color: grey;
+    width: auto;
+    margin-top: 8px;
+    margin-left: 3%;
+    height: 80%;
+    aspect-ratio: 1/1;
 
+}
+
+.info_Pokemon{
+    display: flex;
+    width: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.info_l{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}
+
+.id_Pokemon{
+    background-color: grey;
+    width: 20%;
+    height: 15%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.nom_Pokemon{
+    background-color: grey;
+    width: 35%;
+    height: 20%;
+    margin-left: 5%;
+    margin-top: 4%;
+}
+
+.type{
+    display: flex;
+    width: 60%;
+    height: 20%;
+    margin-left: 5%;
+    margin-top: 4%;
+}
+
+.type_1{
+    height: 100%;
+    width: 50%;
+    background: radial-gradient(rgb(228, 26, 228), purple);
+    border-radius: 150px;
+}
+
+.type_2{
+    height: 100%;
+    width: 50%;
+    background: radial-gradient(rgb(0, 255, 0),rgb(0, 99, 0));
+    border-radius: 150px;
+}
+
+.info_r{
+    height: 100%;
+    width: 50%;
+}
+
+.niveau{
+    position: relative;
+    margin-top: 5%;
+    margin-right: 5%;
+    float: right;
+    width: 25%;
+    height: 20%;
+    background-color: grey;
 }
 
 #img_r{
