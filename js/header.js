@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }, false);
 
 document.getElementById('pokedexPage').addEventListener('click',function(){
-  document.location.href = './Pokedex/Pokedex.php';
+  document.location.href = 'Pokedex.php';
 });
 
 document.getElementById('typeTablePage').addEventListener('click',function(){
@@ -36,4 +36,8 @@ document.getElementById('typeTablePage').addEventListener('click',function(){
 
 document.getElementById('mapPage').addEventListener('click',function(){
   document.location.href = 'map.php';
+});
+
+document.getElementById('PokeLogo').addEventListener('click',function(){
+  document.location.href='header.html';
 });

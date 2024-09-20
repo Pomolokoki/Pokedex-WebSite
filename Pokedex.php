@@ -5,14 +5,15 @@
 	<meta charset="utf-8">
 	<title>Pokedex</title>
 	<link rel="stylesheet" type="text/css" href="css/Pokedex.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<?php
+include_once("header.html");
+?>
 
 <body>
 	<script src="scripts/typeTable.js"></script>
-	<?php
-	include_once("header.php");
-	?>
 
 	<div id="content">
 		<div id="img_l"></div>
