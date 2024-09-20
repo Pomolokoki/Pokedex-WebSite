@@ -43,13 +43,6 @@ body{
     overflow: auto;
 }
 
-<<<<<<< Updated upstream
-    /* position: relative;
-    height: 100%;
-    width: 100%;
-    vertical-align: top;
-} */
-=======
 #map{
     position: absolute;
     display: block;
@@ -151,4 +144,3 @@ select {
     background-color: aqua;
     height: 10%;
 }
->>>>>>> Stashed changes

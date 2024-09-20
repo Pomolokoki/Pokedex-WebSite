@@ -123,23 +123,27 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     text-align: center;
     /* overflow:hidden; */
     border: 2px solid black;
+    transition-duration: 0.1s;
+    user-select: none;
 }
 
 #pokedexPage {
-    margin-left: -5%; 
+    margin-left: -5%;         
 }
-
-#pokedexPage:hover{
-    filter: brightness(150%);
-    cursor: pointer;
-}
-
 
 .navButton:hover{
-    filter: brightness(150%);
+    background-color: #FFF;
     cursor: pointer;
+    box-shadow: 0 5px 9px 0 rgba(0,0,0,0.24);
 }
+
+.navButton:active {
+    box-shadow:
+      inset -2px -2px 3px rgb(255 255 255 / 60%),
+      inset 2px 2px 3px rgb(0 0 0 / 60%);
+  }
 
 .textButton {
     transform: skew(45deg);
+    pointer-events: none;
 }
