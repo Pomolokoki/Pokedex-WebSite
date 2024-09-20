@@ -74,7 +74,7 @@ function HighLight()
         if (xy[0] == selectedType.type1)
         {
             console.log(childs[i].offsetTop)
-            highlight.style.top = (childs[i].offsetTop + 15) + "px"
+            highlight.style.top = ((childs[i].offsetTop) / grid.clientHeight ) *100 + 2.4 + "%"
             return;
         }
     }

@@ -17,17 +17,138 @@ body{
     right: 0%;
     width: 80%;
     height: 80%;
-    background-color: darkblue;
+    background-color: blueviolet;
 }
+#smallMapFrame{
+    position: relative;
+    top: 10%;
+    margin: auto;
+    width: 80%;
+    height: 80%;
+    background-color: blueviolet;
 
+    background-color: rgb(0, 132, 255);
+    background: radial-gradient(rgb(57, 188, 231), rgb(48, 48, 230));
+    /* align-content: center; */
+    overflow: hidden;
+    clip: auto;
+}
 #info{
+    max-width: 50%;
     position: relative;
     width: 20%;
     height: 80%;
+    flex-direction: column;
+    display: flex;
+    overflow: auto;
 }
 
+<<<<<<< Updated upstream
     /* position: relative;
     height: 100%;
     width: 100%;
     vertical-align: top;
 } */
+=======
+#map{
+    position: absolute;
+    display: block;
+    width: auto;
+    height: 80%;
+    min-height: 30px;
+    min-width: 30px;
+    max-height: 3000px;
+    max-width: 3000px;
+    clip: auto;
+    pointer-events: none;
+    
+}
+
+#centered{
+    position: absolute;
+    height: 2.5vh;
+    width: 12vh;
+    bottom: 1vh;
+    right: 2vh;
+    color: white;
+    text-align: right;
+    font-size: 2vh;
+}
+
+#refocus{
+    position: absolute;
+    height: 100%;
+    width: auto;
+    left: 0;
+    color: white;
+    text-align: right;
+    font-size: 2vh;
+}
+
+#currentgen{
+    width: 100%;
+    height: auto;
+    /* padding: 2%; */
+    color: white;
+    font-size: auto;
+}
+
+#mapList{
+    position: relative;
+    color: black;
+    width: 80%;
+    left: 10%;
+    font-size: 1.8vw;
+    margin-top: 3%;
+}
+select {
+      /* Arrow */
+  border: unset;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1vw top 50%;
+  background-size: 1vw auto;
+}
+.select-selected{
+    
+  border: 6px solid transparent;
+}
+
+.gens{
+    background-color: red;
+    color: white;
+    align-content: center;
+}
+
+#radioButtonsHolder{
+    display: inline;
+    padding-top:12px;
+    margin-top: 5%;
+}
+
+.radioLabel{
+    position: relative;
+    color: white;
+    margin-left: 35px;
+    top: -9px;
+}
+
+#mapLocation{
+    position: absolute;
+    bottom: 5%;
+    height: 40%;
+    width: 80%;
+    left: 10%;
+    display: inline-block;
+    background-color: blue;
+    overflow-y: scroll;
+    vertical-align: middle;
+}
+
+.location{
+    margin-top: 1%;
+    background-color: aqua;
+    height: 10%;
+}
+>>>>>>> Stashed changes
