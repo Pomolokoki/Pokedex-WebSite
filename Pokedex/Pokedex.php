@@ -66,13 +66,25 @@
 			</div>
 			<div id="pokedexCore">
 				<div id="pokedex">
-					<div class="pokemon"></div>
-					<div class="pokemon"></div>
+					<?php for ($i = 0; $i < 30; $i++) {
+						?>
+						<div class="pokemon">
+							<div class="type1color"></div>
+							<div class="type2color"></div>
+							<div class="info">
+								<div class="img_Pokemon"></div>
+								<div class="id_Pokemon"></div>
+								<div class="nom_Pokemon"></div>
+							</div>
+
+						</div>
+						<?php
+					}
+					?>
+				</div>
 			</div>
-			<div id="scrollBar"></div>
 		</div>
-	</div>
-	<div id="img_r"></div>
+		<div id="img_r"></div>
 	</div>
 </body>
 
