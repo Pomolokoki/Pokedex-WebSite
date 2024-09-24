@@ -12,7 +12,7 @@ imgP.addEventListener("wheel", function(e) {
     if (e.deltaY < 0)
     {
         console.log(img.style.height)
-        if (parseFloat(img.style.height) > 3000)
+        if (img.clientHeight * 1.1> 3000)
             return
 
         img.style.height = img.clientHeight * 1.1 + "px";

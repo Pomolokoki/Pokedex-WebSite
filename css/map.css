@@ -84,6 +84,7 @@ body{
     /* padding: 2%; */
     color: white;
     font-size: auto;
+    text-align: center;
 }
 
 #mapList{
@@ -91,8 +92,8 @@ body{
     color: black;
     width: 80%;
     left: 10%;
-    font-size: 1.8vw;
-    margin-top: 3%;
+    /* font-size: 20px; */
+    margin-top: 10%;
 }
 select {
       /* Arrow */
@@ -123,24 +124,34 @@ select {
 .radioLabel{
     position: relative;
     color: white;
-    margin-left: 35px;
+    margin-left: calc(10% + 28px);
     top: -9px;
 }
 
 #mapLocation{
-    position: absolute;
-    bottom: 5%;
-    height: 40%;
+    position: relative;
+    height: auto;
     width: 80%;
     left: 10%;
-    display: inline-block;
-    background-color: blue;
-    overflow-y: scroll;
+    display: inline;
+    background-color: red;
+    overflow: hidden;
     vertical-align: middle;
+    margin-top: 10%;
+    padding-bottom: 2%;
+    border-radius: 1vw;
+    min-height: 50px;
 }
 
 .location{
+    border: double;
     margin-top: 1%;
-    background-color: aqua;
-    height: 10%;
+    background-color: grey;
+    height: auto;
+    font-size-adjust: inherit;
+    font-size: min(16px, 2.4vw);
+    border-radius: 1vw;
+    padding-left: 4%;
+    width: 80%;
+    margin-left: 7%;
 }
