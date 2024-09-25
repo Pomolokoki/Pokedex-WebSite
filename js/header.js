@@ -38,9 +38,9 @@ document.getElementById('mapPage').addEventListener('click',function(){
   document.location.href = 'map.php';
 });
 
-document.getElementById('PokeLogo').addEventListener('click',function(){
-  document.location.href='header.html';
-});
+// document.getElementById('PokeLogo').addEventListener('click',function(){
+//   document.location.href='header.html';
+// });
 
 
 const profile = document.querySelectorAll(".Connexion");

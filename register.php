@@ -14,7 +14,9 @@
         <div class="mycontainer">
             <div id="BackHeader">
                 <div id="Logo" style="background-color: aqua;">
-                    <img src="img/PokeLogo.jpg" alt="PokeLogo bien carré" id="PokeLogo" />
+                    <a href="header.html">
+                        <img src="img/PokeLogo.jpg" href="header.html" alt="PokeLogo bien carré" id="PokeLogo" />
+                    </a>
                 </div>
 
                 <div id="Title">
@@ -25,7 +27,7 @@
                     <button type="button" class="Connexion" id="Register">S'inscrire</button>
                 </div>
             </div>
-            
+
         </div>
     </header>
     <div>
