@@ -6,6 +6,7 @@
 	<title>Pokedex</title>
 	<link rel="stylesheet" type="text/css" href="css/Pokedex.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <body>
@@ -16,7 +17,7 @@
 		<div id="img_l"></div>
 		<div id="core">
 			<div id="headerPokedex">
-				<div id="filter_1">
+				<div class="filter">
 					<select id="gen">
 						<option value="all">All</option>
 						<option value="g1">Gen 1</option>
@@ -30,7 +31,7 @@
 						<option value="g9">Gen 9</option>
 					</select>
 				</div>
-				<div id="filter_2">
+				<div class="filter">
 					<select id="type">
 						<option value="all">All</option>
 						<option value="eau">Eau</option>
@@ -53,7 +54,7 @@
 						<option value="fee">Fée</option>
 					</select>
 				</div>
-				<div id="filter_3">
+				<div class="filter">
 					<select id="rarete">
 						<option value="all">All</option>
 						<option value="c">Commun</option>
@@ -68,13 +69,24 @@
 				<div id="pokedex">
 					<?php for ($i = 0; $i < 30; $i++) {
 						?>
-						<div class="pokemon">
-							<div class="type1color"></div>
-							<div class="type2color"></div>
+						<div class="pokemon" id="<?php echo $i ?>">
+							<div class="colors">
+							</div>
 							<div class="info">
 								<div class="img_Pokemon"></div>
-								<div class="id_Pokemon"></div>
-								<div class="nom_Pokemon"></div>
+								<div class="info_Pokemon">
+									<div class="info_l">
+										<div class="id_Pokemon"></div>
+										<div class="nom_Pokemon"></div>
+										<div class="type">
+											<div class="type_1"></div>
+											<div class="type_2"></div>
+										</div>
+									</div>
+									<div class="info_r">
+										<div class="niveau"></div>
+									</div>
+								</div>
 							</div>
 
 						</div>
@@ -86,6 +98,7 @@
 		</div>
 		<div id="img_r"></div>
 	</div>
+	<script src="./script.js"></script>
 </body>
 
 </html>
