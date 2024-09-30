@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-	<meta charset="utf-8">
-	<title>Pokedex</title>
-	<link rel="stylesheet" type="text/css" href="css/Pokedex.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+        <meta charset="utf-8">
+        <title>Pokedex</title>
+        <link rel="stylesheet" type="text/css" href="css/Pokedex.css">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
 <?php
-include_once("header.html");
-?>
+	include_once("header.html");
+	?>
 
 <body>
 	<script src="scripts/typeTable.js"></script>
+	
 
 	<div id="content">
 		<div id="img_l"></div>
 		<div id="core">
 			<div id="headerPokedex">
-				<div id="filter_1">
+				<div class="filter">
 					<select id="gen">
 						<option value="all">All</option>
 						<option value="g1">Gen 1</option>
@@ -33,7 +33,7 @@ include_once("header.html");
 						<option value="g9">Gen 9</option>
 					</select>
 				</div>
-				<div id="filter_2">
+				<div class="filter">
 					<select id="type">
 						<option value="all">All</option>
 						<option value="eau">Eau</option>
@@ -56,7 +56,7 @@ include_once("header.html");
 						<option value="fee">Fée</option>
 					</select>
 				</div>
-				<div id="filter_3">
+				<div class="filter">
 					<select id="rarete">
 						<option value="all">All</option>
 						<option value="c">Commun</option>
@@ -69,14 +69,38 @@ include_once("header.html");
 			</div>
 			<div id="pokedexCore">
 				<div id="pokedex">
-					<div class="pokemon"></div>
-					<div class="pokemon"></div>
+					<?php for ($i = 0; $i < 30; $i++) {
+						?>
+						<div class="pokemon" id="<?php echo $i ?>">
+							<div class="colors">
+							</div>
+							<div class="info">
+								<div class="img_Pokemon"></div>
+								<div class="info_Pokemon">
+									<div class="info_l">
+										<div class="id_Pokemon"></div>
+										<div class="nom_Pokemon"></div>
+										<div class="type">
+											<div class="type_1"></div>
+											<div class="type_2"></div>
+										</div>
+									</div>
+									<div class="info_r">
+										<div class="niveau"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<?php
+					}
+					?>
 				</div>
-				<div id="scrollBar"></div>
 			</div>
 		</div>
 		<div id="img_r"></div>
 	</div>
+	<script src="scripts/script.js"></script>
 </body>
 
 </html>
