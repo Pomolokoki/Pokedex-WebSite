@@ -11,12 +11,11 @@
 
 <body>
 	<script src="scripts/typeTable.js"></script>
-	<?php
-	include_once("header.php");
-	?>
+	<div id="header">
+	</div>
 
 	<div id="content">
-		<div id="img_l"></div>
+		<div id="img_background"></div>
 		<div id="core">
 			<div id="headerPokedex">
 				<div class="filter">
@@ -32,8 +31,7 @@
 						<option value="g8">Gen 8</option>
 						<option value="g9">Gen 9</option>
 					</select>
-				</div>
-				<div class="filter">
+
 					<select id="type">
 						<option value="all">All</option>
 						<option value="eau">Eau</option>
@@ -55,11 +53,11 @@
 						<option value="tenebre">Ténèbre</option>
 						<option value="fee">Fée</option>
 					</select>
-				</div>
-				<div class="filter">
+
 					<select id="rarete">
 						<option value="all">All</option>
 						<option value="c">Commun</option>
+						<option value="f">Fabuleux</option>
 						<option value="l">Légendaire</option>
 					</select>
 				</div>
@@ -98,7 +96,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="img_r"></div>
 	</div>
 	<script src="./script.js"></script>
 </body>
