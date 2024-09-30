@@ -5,21 +5,21 @@
 	<meta charset="utf-8">
 	<title>Pokedex</title>
 	<link rel="stylesheet" type="text/css" href="css/Pokedex.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
+<?php
+include_once("header.html");
+?>
 
 <body>
 	<script src="scripts/typeTable.js"></script>
-	<?php
-	include_once("header.php");
-	?>
 
 	<div id="content">
 		<div id="img_l"></div>
 		<div id="core">
 			<div id="headerPokedex">
-				<div class="filter">
+				<div id="filter_1">
 					<select id="gen">
 						<option value="all">All</option>
 						<option value="g1">Gen 1</option>
@@ -33,7 +33,7 @@
 						<option value="g9">Gen 9</option>
 					</select>
 				</div>
-				<div class="filter">
+				<div id="filter_2">
 					<select id="type">
 						<option value="all">All</option>
 						<option value="eau">Eau</option>
@@ -56,7 +56,7 @@
 						<option value="fee">Fée</option>
 					</select>
 				</div>
-				<div class="filter">
+				<div id="filter_3">
 					<select id="rarete">
 						<option value="all">All</option>
 						<option value="c">Commun</option>
@@ -69,38 +69,14 @@
 			</div>
 			<div id="pokedexCore">
 				<div id="pokedex">
-					<?php for ($i = 0; $i < 30; $i++) {
-						?>
-						<div class="pokemon" id="<?php echo $i ?>">
-							<div class="colors">
-							</div>
-							<div class="info">
-								<div class="img_Pokemon"></div>
-								<div class="info_Pokemon">
-									<div class="info_l">
-										<div class="id_Pokemon"></div>
-										<div class="nom_Pokemon"></div>
-										<div class="type">
-											<div class="type_1"></div>
-											<div class="type_2"></div>
-										</div>
-									</div>
-									<div class="info_r">
-										<div class="niveau"></div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-						<?php
-					}
-					?>
+					<div class="pokemon"></div>
+					<div class="pokemon"></div>
 				</div>
+				<div id="scrollBar"></div>
 			</div>
 		</div>
 		<div id="img_r"></div>
 	</div>
-	<script src="./script.js"></script>
 </body>
 
 </html>
