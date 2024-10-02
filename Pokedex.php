@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-        <meta charset="utf-8">
-        <title>Pokedex</title>
-        <link rel="stylesheet" type="text/css" href="css/Pokedex.css">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
 
-<?php
-	include_once("header.html");
-	?>
+<head>
+	<meta charset="utf-8">
+	<title>Pokedex</title>
+	<link rel="stylesheet" type="text/css" href="css/Pokedex.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
 
 <body>
 	<script src="scripts/typeTable.js"></script>
-	
+	<div id="header">
+	</div>
 
 	<div id="content">
-		<div id="img_l"></div>
+		<div id="img_background"></div>
 		<div id="core">
 			<div id="headerPokedex">
 				<div class="filter">
@@ -32,8 +31,7 @@
 						<option value="g8">Gen 8</option>
 						<option value="g9">Gen 9</option>
 					</select>
-				</div>
-				<div class="filter">
+
 					<select id="type">
 						<option value="all">All</option>
 						<option value="eau">Eau</option>
@@ -55,11 +53,11 @@
 						<option value="tenebre">Ténèbre</option>
 						<option value="fee">Fée</option>
 					</select>
-				</div>
-				<div class="filter">
+
 					<select id="rarete">
 						<option value="all">All</option>
 						<option value="c">Commun</option>
+						<option value="f">Fabuleux</option>
 						<option value="l">Légendaire</option>
 					</select>
 				</div>
@@ -98,9 +96,8 @@
 				</div>
 			</div>
 		</div>
-		<div id="img_r"></div>
 	</div>
-	<script src="scripts/script.js"></script>
+	<script src="./script.js"></script>
 </body>
 
 </html>

@@ -9,65 +9,92 @@
     <title>PokeKrazy</title>
 </head>
 
-    <header id="header">
-        <div class="mycontainer">
-            <div id="BackHeader">
-                <div id="Logo">
-                    <a href="Pokedex.php">
-                        <img src="img/PokeLogo.png" alt="PokeLogo bien carré" id="PokeLogo" />
-                    </a>
+<header id="header">
+    <div class="mycontainer">
+        <div id="BackHeader">
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </label>
+                <div class="nav-items">
+                    <ul class="overview">
+                        <h3>PokeWorld :</h3>
+                        <li id="pokedexPage"><a href="#">- Pokedex</a></li>
+                        <li id="typeTablePage"><a href="#">
+                                <pre>- Table des types</pre>
+                            </a></li>
+                        <li id="mapPage"><a href="#"> -Maps</a></li>
+                        <li id=""><a href="#">- Attaques</a></li>
+                        <li id=""><a href="#">- Objet</a></li>
+                        <li id=""><a href="#">- Combat</a></li>
+                    </ul>
+                    <hr>
+                    <ul class="account">
+                        <h3>Compte :</h3>
+                        <li><a href="#">- Profil</a></li>
+                    </ul>
                 </div>
-
-                <div id="Title">
-                    <p>PokeDex</p>
-                </div>
-                <div id="Profile">
-                    <button type="button" class="Connexion" id="Login">Connexion</button>
-                    <button type="button" class="Connexion" id="Register">S'inscrire</button>
-                </div>
-
+            </nav>
+            <div id="Logo">
+                <a href="Pokedex.php">
+                    <img src="img/PokeLogo.png" alt="PokeLogo bien carré" id="PokeLogo" />
+                </a>
             </div>
-            <div id="Nav" style="background-color: lightgrey;">
-                <div id="pokedexPage" class="navButton">
-                    <div class="textButton">
-                        <p>Pokedex</p>
-                    </div>
-                </div>
 
-                <div id="typeTablePage" class="navButton">
-                    <div class="textButton">
-                        <p>Table des types</p>
-                    </div>
+            <div id="Title">
+                <p>PokeDex</p>
+            </div>
+            <div id="Profile">
+                <button type="button" class="Connexion" id="Login">Connexion</button>
+            </div>
+        </div>
+        <div id="Nav">
+            <div id="pokedexPage" class="navButton">
+                <div class="textButton">
+                    <p>Pokedex</p>
                 </div>
+            </div>
 
-                <div id="mapPage" class="navButton">
-                    <div class="textButton">
-                        <p>Maps</p>
-                    </div>
+            <div id="typeTablePage" class="navButton">
+                <div class="textButton">
+                    <p>Table des types</p>
                 </div>
+            </div>
 
-                <div id="box4" class="navButton">
-                    <div class="textButton">
-                        <p>Attaques</p>
-                    </div>
+            <div id="mapPage" class="navButton">
+                <div class="textButton">
+                    <p>Maps</p>
                 </div>
+            </div>
 
-                <div id="box5" class="navButton">
-                    <div class="textButton">
-                        <p>Objet</p>
-                    </div>
+            <div id="box4" class="navButton">
+                <div class="textButton">
+                    <p>Attaques</p>
                 </div>
+            </div>
 
-                <div id="box6" class="navButton">
-                    <div class="textButton">
-                        <p>Combat</p>
-                    </div>
+            <div id="box5" class="navButton">
+                <div class="textButton">
+                    <p>Objet</p>
+                </div>
+            </div>
+
+            <div id="box6" class="navButton">
+                <div class="textButton">
+                    <p>Combat</p>
                 </div>
             </div>
         </div>
-    </header>
-    <div>
 
     </div>
+
+</header>
+<div>
+</div>
 
 </html>
