@@ -10,17 +10,14 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 <head>
 	<meta charset="utf-8">
 	<title>Pokedex</title>
-	<link rel="stylesheet" type="text/css" href="css/Pokedex.css">
-	<link rel="stylesheet" type="text/css" href="css/TypeColor.php">
-	<link rel="stylesheet" type="text/html" href="css/StatName.php">
+	<link rel="stylesheet" type="text/css" href="css/pokedex.css">
+	<link rel="stylesheet" type="text/css" href="css/typeColor.php">
+	<link rel="stylesheet" type="text/html" href="css/statName.php">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-
+<?php include_once("header.html"); ?>
 <body>
-	<div id="header">
-	</div>
-
 	<div id="content">
 		<div id="img_background"></div>
 		<div id="core">
@@ -184,12 +181,20 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 			<h2 class="name_section">Statistique :</h2>
 			<div id="Stat">
 				<div id="Name_stat">
-					<?php include_once("./css/StatName.php"); ?>
+					<?php include_once("./css/statName.php"); ?>
 				</div>
 				<div id="Val_stat">
 					<?php for ($i = 0; $i < 7; $i++) {
 						?>
-						<div class="Val_stat_case"></div>
+						<div class="Val_stat_case">
+						<?php 
+						if($i==0){
+							?>
+							<h3>Valeur</h3>
+							<?php
+						} 
+						?>
+						</div>
 						<?php
 					}
 					?>
@@ -197,7 +202,15 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 				<div id="Graph_stat">
 					<?php for ($i = 0; $i < 7; $i++) {
 						?>
-						<div class="Graph_stat_case"></div>
+						<div class="Graph_stat_case">
+						<?php 
+						if($i==0){
+							?>
+							<h3>Graphique</h3>
+							<?php
+						} 
+						?>
+						</div>
 						<?php
 					}
 					?>
@@ -222,7 +235,7 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 			<div id="Attaque"></div>
 		</div>
 	</div>
-	<script src="./script.js"></script>
+	<script src="./scripts/pokedex.js"></script>
 </body>
 
 </html>
