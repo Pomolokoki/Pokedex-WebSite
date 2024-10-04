@@ -400,3 +400,5 @@ Thumbs.db
 
 #My own files
 database/v2/*.*
+./database/v2/*.*
+**/database/v2/
