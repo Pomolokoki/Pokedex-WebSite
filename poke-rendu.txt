@@ -1,0 +1,8 @@
+tom:
+travail à partir de maquettes
+creation bdd:
+	php api ->sql
+	pioche dans plusieurs api ?
+	table ability (is hidden ?) -> table ability_pokemon -> (idPoke, idAbil, isHidden) -> pas caché sur tous les poké
+	for loop though all but id non consecutive, so foreach thought a file with all subfiles listed
+	api -> dowload api -> get data thought file instead of apicalls
