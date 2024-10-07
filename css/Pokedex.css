@@ -264,6 +264,8 @@ select {
 #img {
     background-color: white;
     width: auto;
+    background-position: center;
+    background-size: 100px;
     margin-top: 8px;
     margin-left: 27px;
     height: 70%;
@@ -304,8 +306,9 @@ select {
 #nom_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 60%;
+    width: 90%;
     margin: 12px;
+
 }
 
 #categorie_Pokemon {
@@ -318,7 +321,7 @@ select {
 #type_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 80%;
+    width: 90%;
     margin: 8px;
 }
 
@@ -338,7 +341,7 @@ select {
 
 #gen_Pokemon {
     background-color: rgb(81, 255, 0);
-    width: 25%;
+    width: 30%;
     height: 25px;
     margin: 12px;
 }
@@ -346,21 +349,21 @@ select {
 #taille_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 35%;
+    width: 45%;
     margin: 12px;
 }
 
 #poids_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 35%;
+    width: 45%;
     margin: 12px;
 }
 
 #catch_rate_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 25%;
+    width: 80%;
     margin: 12px;
 }
 

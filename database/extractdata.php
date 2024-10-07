@@ -17,9 +17,13 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 die('Erreur : '.$exception->getMessage());
 }
 
-function getDataFromDB($table, $columns, $condition)
+function getDataFromDB($table, $columns, $condition, $fullRequest = false)
 {
-    if ($condition == null)
+    if ($fullRequest)
+    {
+        $sqlQuery = $table;
+    }
+    else if ($condition == null)
     {
         $sqlQuery = "SELECT " . $columns . " FROM " . $table;
     }
