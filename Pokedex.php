@@ -14,14 +14,12 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 	<title>Pokedex</title>
 	<link rel="stylesheet" type="text/css" href="css/pokedex.css">
 	<link rel="stylesheet" type="text/css" href="css/typeColor.php">
+	<link rel="stylesheet" type="text/html" href="css/statName.php">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 <?php include_once("header.html"); ?>
-
 <body>
-
-
 	<div id="content">
 		<div id="img_background"></div>
 		<div id="core">
@@ -191,13 +189,13 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 					<?php for ($i = 0; $i < 7; $i++) {
 						?>
 						<div class="Val_stat_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Valeur</h3>
-								<?php
-							}
+						<?php 
+						if($i==0){
 							?>
+							<h3>Valeur</h3>
+							<?php
+						} 
+						?>
 						</div>
 						<?php
 					}
@@ -207,13 +205,13 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 					<?php for ($i = 0; $i < 7; $i++) {
 						?>
 						<div class="Graph_stat_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Graphique</h3>
-								<?php
-							}
+						<?php 
+						if($i==0){
 							?>
+							<h3>Graphique</h3>
+							<?php
+						} 
+						?>
 						</div>
 						<?php
 					}

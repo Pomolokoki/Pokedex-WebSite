@@ -27,7 +27,7 @@ h3 {
 }
 
 #content {
-    height: calc(100% - 100px);
+    height: calc(100% - 140px);
     width: 100%;
     display: flex;
 }
@@ -35,7 +35,7 @@ h3 {
 #img_background {
     position: absolute;
     z-index: 0;
-    height: calc(100% - 100px);
+    height: calc(100% - 140px);
     width: 100%;
     background: linear-gradient(15deg, rgb(0, 217, 255), rgb(68, 0, 255), rgb(94, 255, 0), rgb(255, 187, 0));
 }
@@ -264,8 +264,6 @@ select {
 #img {
     background-color: white;
     width: auto;
-    background-position: center;
-    background-size: 100px; 
     margin-top: 8px;
     margin-left: 27px;
     height: 70%;
@@ -433,6 +431,7 @@ select {
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 2px;
     margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     height: 155px;
     background-color: aqua;
@@ -458,6 +457,7 @@ select {
 /*#region Description*/
 #Description {
     margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     height: 120px;
     background-color: aqua;
@@ -468,6 +468,7 @@ select {
 /*#region Stat*/
 #Stat {
     margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     height: 450px;
     background-color: aqua;
@@ -519,7 +520,7 @@ select {
     width: 100%;
     margin-bottom: 1px;
     height: calc(100%/7 - 0.9px);
-    background-color: rgb(65, 100, 255);
+    background-color: rgb(42, 19, 255);
     display: grid;
     justify-content: center;
     align-items: center;
@@ -534,6 +535,7 @@ select {
     grid-template-columns: repeat(18, 1fr);
     grid-gap: 2px;
     margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     height: auto;
     background-color: rgb(0, 0, 0);
@@ -560,6 +562,7 @@ select {
 /*#region Attaque*/
 #Attaque {
     margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     height: 500px;
     background-color: aqua;
