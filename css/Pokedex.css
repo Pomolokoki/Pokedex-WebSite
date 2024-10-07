@@ -3,42 +3,58 @@ html {
     height: 100%;
 }
 
+
 body {
     margin: 0;
     height: 100%;
     background-color: black;
 }
 
+h3 {
+    margin: 0;
+}
+
+.name_section {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 #header {
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(0, 0, 0);
     width: 100%;
-    height: 20%;
+    height: 140px;
 }
 
-#content{
-    height: 80%;
+#content {
+    height: calc(100% - 100px);
     width: 100%;
+    display: flex;
 }
 
-#img_background{
+#img_background {
     position: absolute;
     z-index: 0;
-    height: 80%;
+    height: calc(100% - 100px);
     width: 100%;
-    background:linear-gradient(15deg, rgb(0, 217, 255),rgb(68, 0, 255), rgb(94, 255, 0), rgb(255, 187, 0));
+    background: linear-gradient(15deg, rgb(0, 217, 255), rgb(68, 0, 255), rgb(94, 255, 0), rgb(255, 187, 0));
 }
 
-#core{
+#core {
     position: relative;
     height: 100%;
     width: 100%;
     background-color: gray;
-    max-width: 900px;
-    margin: 0 auto;
+    /* max-width: 900px; */
+    max-width: 450px;
+    /* margin: 0 auto; */
+    margin: 0;
+    margin-left: 12%;
     z-index: 5;
 }
 
-#headerPokedex{
+/*#region headerPokedex*/
+#headerPokedex {
     width: 100%;
     height: 5%;
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
@@ -46,7 +62,7 @@ body {
     font-size: 1.8vh;
 }
 
-.filter{
+.filter {
     position: relative;
     box-sizing: content-box;
     display: inline;
@@ -54,7 +70,6 @@ body {
     margin-left: 2%;
     height: 40em;
     border: 0;
-    font-size: 1.8vh;
 }
 
 select {
@@ -73,7 +88,7 @@ select {
 }
 
 
-#searchBar{
+#searchBar {
     position: relative;
     float: right;
     right: 2%;
@@ -84,7 +99,7 @@ select {
     font-size: 1.8vh;
 }
 
-.search{
+.search {
     margin: 0;
     padding: 0;
     border: 0;
@@ -93,14 +108,17 @@ select {
     font-size: 80%;
 }
 
-#pokedexCore{
+/*#endregion */
+
+/*#region Pokedex*/
+#pokedexCore {
     display: flex;
     width: 100%;
     height: 95%;
     background-color: azure;
 }
 
-#pokedex{
+#pokedex {
     width: 100%;
     height: 100%;
     background-color: rgb(255, 0, 0);
@@ -110,22 +128,22 @@ select {
     display: inline-block;
 }
 
-.pokemon{
+.pokemon {
     background-color: rgb(255, 255, 255);
-    height: 100px;
+    height: 85px;
     width: 100%;
     margin-bottom: 0.8%;
     overflow: hidden;
 }
 
-.colors{
+.colors {
     position: relative;
-    background: linear-gradient(35deg, black,red);
+    background: linear-gradient(35deg, black, red);
     width: 100%;
     height: 100%;
 }
 
-.info{
+.info {
     position: relative;
     width: 100%;
     height: 100%;
@@ -136,55 +154,58 @@ select {
     z-index: 2;
 }
 
-.img_Pokemon{
+.img_pokemon {
     position: relative;
     background-color: grey;
     width: auto;
     margin-top: 10px;
-    margin-left: 18px;
+    margin-left: 12px;
     height: 80%;
     aspect-ratio: 1/1;
 }
 
-.info_Pokemon{
+.info_pokemon {
     display: flex;
     width: auto;
     height: 100%;
     width: 100%;
 }
 
-.info_l{
+/*#endregion */
+
+/*#region info_l*/
+.info_l {
     display: flex;
     flex-direction: column;
     width: 50%;
     height: 100%;
-    padding-top:10px ;
+    padding-top: 10px;
     gap: 10%;
-    
+
 }
 
-.id_Pokemon{
+.id_pokemon {
     background-color: grey;
     width: 20%;
     height: 15%;
     margin-left: 5%;
 }
 
-.nom_Pokemon{
+.nom_pokemon {
     background-color: grey;
     width: 35%;
     height: 20%;
     margin-left: 5%;
 }
 
-.type{
+.type {
     display: flex;
     width: 60%;
     height: 20%;
     margin-left: 5%;
 }
 
-.type_1{
+.type_1 {
     height: 100%;
     width: 50%;
     background: radial-gradient(rgb(228, 26, 228), purple);
@@ -192,21 +213,24 @@ select {
     margin: 0%;
 }
 
-.type_2{
+.type_2 {
     height: 100%;
     width: 50%;
-    background: radial-gradient(rgb(0, 255, 0),rgb(0, 99, 0));
+    background: radial-gradient(rgb(0, 255, 0), rgb(0, 99, 0));
     border-radius: 150px;
 
 }
 
-.info_r{
+/*#endregion */
+
+/*#region info_r*/
+.info_r {
     width: 50%;
     height: 100%;
-    padding-top:10px ;
+    padding-top: 10px;
 }
 
-.niveau{
+.niveau {
     float: right;
     margin-right: 15px;
     width: 25%;
@@ -214,11 +238,355 @@ select {
     background-color: grey;
 }
 
+#Pokemon {
+    position: relative;
+    height: 100%;
+    background-color: grey;
+    overflow-y: scroll;
+}
+
+#Info_Pokemon {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 12em;
+    background-color: aqua;
+    display: flex;
+}
+
+#sprit {
+    background-color: rgb(255, 0, 0);
+    width: auto;
+    height: 90%;
+    margin: 10px;
+    aspect-ratio: 1/1;
+}
+
+#img {
+    background-color: white;
+    width: auto;
+    background-position: center;
+    background-size: 100px; 
+    margin-top: 8px;
+    margin-left: 27px;
+    height: 70%;
+    aspect-ratio: 1/1;
+    background-repeat: no-repeat;
+}
+
+#button {
+    background-color: rgb(255, 255, 255);
+    margin: 8px;
+    height: 30px;
+}
+
+#Info {
+    background-color: red;
+    display: flex;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 10px;
+    width: 730px;
+    height: 90%;
+}
+
+#Info_Pok_l {
+    background-color: white;
+    width: 40%;
+    height: 90%;
+    margin: 8px;
+}
+
+#id_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 40%;
+    margin: 12px;
+}
+
+#nom_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 60%;
+    margin: 12px;
+}
+
+#categorie_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 60%;
+    margin: 12px;
+}
+
+#type_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 80%;
+    margin: 8px;
+}
+
+#Info_Pok_r {
+    display: flex;
+    background-color: white;
+    width: 60%;
+    height: 90%;
+    margin: 8px;
+}
+
+#data_pokemon {
+    background-color: white;
+    width: 80%;
+    height: 100%;
+}
+
+#gen_Pokemon {
+    background-color: rgb(81, 255, 0);
+    width: 25%;
+    height: 25px;
+    margin: 12px;
+}
+
+#taille_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 35%;
+    margin: 12px;
+}
+
+#poids_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 35%;
+    margin: 12px;
+}
+
+#catch_rate_Pokemon {
+    background-color: rgb(81, 255, 0);
+    height: 25px;
+    width: 25%;
+    margin: 12px;
+}
+
+#button_user {
+    background-color: green;
+    width: 20%;
+    height: 100%;
+}
+
+/*#region fav-bt*/
+#check_fav+label .star-dotted {
+    display: block;
+}
+
+#check_fav+label .star-fill {
+    display: none;
+}
+
+#check_fav:checked+label .star-dotted {
+    display: none;
+}
+
+#check_fav:checked+label .star-fill{
+    display: block;
+}
+/*#endregion*/
+/*#region catch-bt*/
+#check_capture+label .circle-dotted {
+    display: block;
+}
+
+#check_capture+label .circle-fill {
+    display: none;
+}
+
+#check_capture:checked+label .circle-dotted {
+    display: none;
+}
+
+#check_capture:checked+label .circle-fill{
+    display: block;
+}
+/*#endregion*/
+/*#region add_equip-bt*/
+#check_equipe+label .circle-dotted {
+    display: block;
+}
+
+#check_equipe+label .circle-fill {
+    display: none;
+}
+
+#check_equipe:checked+label .circle-dotted {
+    display: none;
+}
+
+#check_equipe:checked+label .circle-fill{
+    display: block;
+}
+/*#endregion*/
+
+/*#endregion */
+
+/*#region Talent*/
+#Talent {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 155px;
+    background-color: aqua;
+}
+
+.nom_talent {
+    width: 100%;
+    height: 100%;
+    border: 1px;
+    background-color: blueviolet;
+}
+
+.desc_talent {
+    width: 100%;
+    height: 100%;
+    border: 1px;
+    background-color: rgb(255, 251, 0);
+
+}
+
+/*#endregion */
+
+/*#region Description*/
+#Description {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 120px;
+    background-color: aqua;
+}
+
+/*#endregion */
+
+/*#region Stat*/
+#Stat {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 450px;
+    background-color: aqua;
+    display: flex;
+}
+
+#Name_stat {
+    width: 20%;
+    height: 100%;
+    background-color: rgb(0, 238, 255);
+    padding: 1px;
+}
+
+.Name_stat_case {
+    width: 100%;
+    margin-bottom: 1px;
+    height: calc(100%/7 - 0.9px);
+    background-color: rgb(143, 77, 77);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+#Val_stat {
+    width: 15%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    padding: 1px;
+}
+
+.Val_stat_case {
+    width: 100%;
+    margin-bottom: 1px;
+    height: calc(100%/7 - 0.9px);
+    background-color: rgb(121, 121, 121);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+#Graph_stat {
+    width: 65%;
+    height: 100%;
+    background-color: rgb(255, 0, 0);
+    padding: 1px;
+}
+
+.Graph_stat_case {
+    width: 100%;
+    margin-bottom: 1px;
+    height: calc(100%/7 - 0.9px);
+    background-color: rgb(65, 100, 255);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+/*#endregion */
+
+/*#region Table_type*/
+#Table_type {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(18, 1fr);
+    grid-gap: 2px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: auto;
+    background-color: rgb(0, 0, 0);
+}
+
+.tab_Type {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: 100%;
+    border: 1px;
+    background-color: rgb(255, 251, 0);
+}
+
+.Faibless_Resistance {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: 100%;
+    border: 1px;
+    background-color: blueviolet;
+}
+
+/*#endregion */
+
+/*#region Attaque*/
+#Attaque {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 500px;
+    background-color: aqua;
+}
+
+/*#endregion */
+
+/*#region media*/
 @media only screen and (max-width: 500px) {
-    .pokemon{
+    .pokemon {
         height: 60px;
         width: 100%;
         margin-bottom: 0.8%;
         overflow: hidden;
     }
+
+    select {
+        background-size: 1.5vw auto;
+    }
+
+    .img_pokemon {
+        width: auto;
+        margin-top: 7px;
+        margin-left: 12px;
+        height: 80%;
+        aspect-ratio: 1/1;
+    }
 }
+
+/*#endregion */
