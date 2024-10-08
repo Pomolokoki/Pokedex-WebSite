@@ -19,6 +19,7 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 
 </head>
 <?php include_once("header.html"); ?>
+
 <body>
 	<div id="content">
 		<div id="img_background"></div>
@@ -63,12 +64,11 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 			<div id="pokedexCore">
 				<div id="pokedex">
 					<?php
-					$datapokemon = getDataFromDB("pokemon", "*", "WHERE id<10000");
+					$datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 10000 ORDER BY pokemon.id", null, null, true);
 					for ($i = 0; $i < count($datapokemon); $i++) {
 						?>
 						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>">
-							<div class="colors">
-							</div>
+							<div class="colors"></div>
 							<div class="info">
 								<div class="img_pokemon">
 									<?php
@@ -77,15 +77,27 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 								</div>
 								<div class="info_pokemon">
 									<div class="info_l">
-										<div class="id_pokemon"></div>
+										<div class="id_pokemon">
+											<?php
+											echo $datapokemon[$i]["id"];
+											?>
+										</div>
 										<div class="nom_pokemon">
 											<?php
 											echo '<option value="' . getTextFr($datapokemon[$i]["name"]) . '">' . getTextFr($datapokemon[$i]["name"]) . '</option>';
 											?>
 										</div>
 										<div class="type">
-											<div class="type_1"></div>
-											<div class="type_2"></div>
+											<div class="type_1">
+											<?php
+											echo getTextFr($datapokemon[$i]["type1"]);
+											?>
+											</div>
+											<div class="type_2">
+											<?php
+											echo getTextFr($datapokemon[$i]["type2"]);
+											?>
+											</div>
 										</div>
 									</div>
 									<div class="info_r">
@@ -189,13 +201,13 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 					<?php for ($i = 0; $i < 7; $i++) {
 						?>
 						<div class="Val_stat_case">
-						<?php 
-						if($i==0){
-							?>
-							<h3>Valeur</h3>
 							<?php
-						} 
-						?>
+							if ($i == 0) {
+								?>
+								<h3>Valeur</h3>
+								<?php
+							}
+							?>
 						</div>
 						<?php
 					}
@@ -205,13 +217,13 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 					<?php for ($i = 0; $i < 7; $i++) {
 						?>
 						<div class="Graph_stat_case">
-						<?php 
-						if($i==0){
-							?>
-							<h3>Graphique</h3>
 							<?php
-						} 
-						?>
+							if ($i == 0) {
+								?>
+								<h3>Graphique</h3>
+								<?php
+							}
+							?>
 						</div>
 						<?php
 					}
@@ -239,7 +251,7 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 	</div>
 	<!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->
 	<script src="./scripts/pokedex.js"></script>
-	
+
 </body>
 
 </html>
