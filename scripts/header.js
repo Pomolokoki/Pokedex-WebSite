@@ -1,4 +1,3 @@
-
 document.getElementById('pokedexPage').addEventListener('click',function(){
   document.location.href = 'Pokedex.php';
 });
@@ -11,13 +10,7 @@ document.getElementById('mapPage').addEventListener('click',function(){
   document.location.href = 'map.php';
 });
 
-
-const profile = document.querySelectorAll(".Connexion");
-
-profile[0].addEventListener('click',function(){
-  document.location.href='login.php';
+document.getElementById('Login').addEventListener('click',function(){
+  document.location.href = 'login.php';
 });
 
-profile[1].addEventListener('click',function(){
-  document.location.href='register.php';
-});
