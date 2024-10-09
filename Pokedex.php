@@ -1,5 +1,5 @@
 <?php
-include_once("./database/extractdata.php");
+// include_once("./database/extractdata.php");
 
 $type = array("Acier", "Combat", "Dragon", "Eau", "Electrik", "Fee", "Feu", "Glace", "Insecte", "Normal", "Plante", "Poison", "Psy", "Roche", "Sol", "Spectre", "Tenebre", "Vol");
 
@@ -42,11 +42,11 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 					<select id="type">
 						<option value="all">All</option>
 						<?php
-						$typeData = getDataFromDB("type", "name", "ORDER BY name ASC");
-						for ($i = 0; $i < count($typeData); $i++) {
-							echo '<option value="' . getTextFr($typeData[$i]["name"]) . '">' . getTextFr($typeData[$i]["name"]) . '</option>';
-
-						}
+						// $typeData = getDataFromDB("type", "name", "ORDER BY name ASC");
+						// for ($i = 0; $i < count($typeData); $i++) {
+						// 	echo '<option value="' . getTextFr($typeData[$i]["name"]) . '">' . getTextFr($typeData[$i]["name"]) . '</option>';
+						
+						// }
 						?>
 					</select>
 
@@ -64,44 +64,48 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 			<div id="pokedexCore">
 				<div id="pokedex">
 					<?php
-					$datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 10000 ORDER BY pokemon.id", null, null, true);
-					for ($i = 0; $i < count($datapokemon); $i++) {
+					// $datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 10000 ORDER BY pokemon.id", null, null, true);
+					for ($i = 0; $i < 1000 /*count($datapokemon)*/; $i++) {
 						?>
-						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>">
+						<div class="pokemon" id="<?php /*echo $datapokemon[$i]["id"]*/?>">
 							<div class="colors"></div>
 							<div class="info">
 								<div class="img_pokemon">
 									<?php
-									echo '<img src="' . $datapokemon[$i]["spriteM"] . '"/>';
+									// echo '<img src="' . $datapokemon[$i]["spriteM"] . '"/>';
 									?>
 								</div>
 								<div class="info_pokemon">
 									<div class="info_l">
 										<div class="id_pokemon">
 											<?php
-											echo $datapokemon[$i]["id"];
+											// echo $datapokemon[$i]["id"];
 											?>
 										</div>
 										<div class="nom_pokemon">
 											<?php
-											echo '<option value="' . getTextFr($datapokemon[$i]["name"]) . '">' . getTextFr($datapokemon[$i]["name"]) . '</option>';
+											// echo '<option value="' . getTextFr($datapokemon[$i]["name"]) . '">' . getTextFr($datapokemon[$i]["name"]) . '</option>';
 											?>
 										</div>
 										<div class="type">
 											<div class="type_1">
-											<?php
-											echo getTextFr($datapokemon[$i]["type1"]);
-											?>
+												<?php
+												// echo getTextFr($datapokemon[$i]["type1"]);
+												?>
 											</div>
 											<div class="type_2">
-											<?php
-											echo getTextFr($datapokemon[$i]["type2"]);
-											?>
+												<?php
+												// echo getTextFr($datapokemon[$i]["type2"]);
+												?>
 											</div>
 										</div>
 									</div>
 									<div class="info_r">
-										<div class="niveau"></div>
+										<div class="niveau">
+											<?php
+											// echo $datapokemon[$i]["category"];
+											?>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -155,7 +159,7 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 							</label>
 							<input type="checkbox" id="check_capture">
 							<label for="check_capture" id="capture">
-
+								<img source="https://www.svgrepo.com/show/370529/pokeball.svg">
 							</label>
 							<input type="checkbox" id="check_equipe">
 							<label for="check_equipe" id="equipe">
@@ -234,7 +238,7 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 			<div id="Table_type">
 				<?php for ($i = 0; $i < 18; $i++) {
 					?>
-					<div class="tab_Type <?php echo $type[$i] ?>"></div>
+					<div class="tab_Type <?php /*echo $type[$i]*/?>"></div>
 					<?php
 				}
 				?>
@@ -246,7 +250,120 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 				?>
 			</div>
 			<h2 class="name_section">Attaque :</h2>
-			<div id="Attaque"></div>
+			<div id="Attaque">
+				<div id="Name_atk">
+					<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>Nom</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<div id="Type_atk">
+					<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>Type</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<div id="Category_atk">
+				<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>Categorie</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<div id="Puissance_atk">
+					<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>Puissance</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<div id="Precision_atk">
+				<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>Précision</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<div id="PP_atk">
+					<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>PP</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<div id="Learning_atk">
+				<?php for ($i = 0; $i < 7; $i++) {
+						?>
+						<div class="Val_atk_case">
+							<?php
+							if ($i == 0) {
+								?>
+								<h3>Apprentissage</h3>
+								<?php
+							}
+							?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> -->

@@ -47,8 +47,8 @@ var myFunction = function() {
               const colorType2_2 = getText(JSON.parse(this.responseText)[0]["type2"]);
               document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #000000, #ffffff)';
               document.getElementById("gen_Pokemon").innerHTML = "Gen : " + JSON.parse(this.responseText)[0]["generation"];
-              document.getElementById("taille_Pokemon").innerHTML = "Taille : " + JSON.parse(this.responseText)[0]["height"]/10.0;
-              document.getElementById("poids_Pokemon").innerHTML = "Poids : " + JSON.parse(this.responseText)[0]["weight"];
+              document.getElementById("taille_Pokemon").innerHTML = "Taille : " + JSON.parse(this.responseText)[0]["height"]/10.0 + " m";
+              document.getElementById("poids_Pokemon").innerHTML = "Poids : " + JSON.parse(this.responseText)[0]["weight"] + " Kg";
               document.getElementById("catch_rate_Pokemon").innerHTML = "Taux de capture : " + JSON.parse(this.responseText)[0]["catch_rate"] ;
             }
           }
