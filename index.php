@@ -1,3 +1,5 @@
+<?php if(isset(($_SESSION['LOGGED_USER']))): ?>
 <?php
-	include_once("Pokedex.php");
+	include("Pokedex.php");
 ?>
+<?php endif ?>
