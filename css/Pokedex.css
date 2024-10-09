@@ -356,7 +356,7 @@ select {
 #poids_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 45%;
+    width: 55%;
     margin: 12px;
 }
 
@@ -493,6 +493,7 @@ select {
     display: grid;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 #Val_stat {
