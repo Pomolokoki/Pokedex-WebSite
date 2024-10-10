@@ -11,31 +11,39 @@
 
 <?php include_once("header.html") ?>
 <body>
-    <h1>Formulaire d'inscription:</h1>
+    
     <div class="container">
+    <h1>Formulaire d'inscription:</h1>
+    <br>
         <form action="/action_page.php" method="POST">
             <div class="row">
                 <div class="col-25">
                     <label for="fname">Votre nom d'utilisateur</label>
+                    <br><br>
                 </div>
                 <div class="col-75">
                     <input type="text" id="uname" name="username" placeholder="Votre pseudo...">
+                    <br><br>
                 </div>
             </div>
             <div class="row">
                 <div class="col-25">
                     <label for="lname">Votre Email</label>
+                    
                 </div>
                 <div class="col-75">
                     <input type="email" id="email" name="email" placeholder="poke@mon.com">
+                    <br><br>
                 </div>
             </div>
             <div class="row">
                 <div class="col-25">
                     <label for="pword">Votre mot de passe</label>
+                    
                 </div>
                 <div class="col-75">
                     <input type="password" id="pword" name="password">
+                    <br><br>
                 </div>
             </div>            
             <br>

@@ -25,9 +25,9 @@ session_start();
 <?php
 $users = [
     [
-        'username' => 'Bawa',
-        'email' => 'bawahm@exemple.com',
-        'password' => 'bawa'
+        'username' => 'Testeur',
+        'email' => 'test@exemple.com',
+        'password' => 'test'
     ],
 ];
 ?>
@@ -40,41 +40,32 @@ $identifierErr = $emailErr = $pwordErr = "";
 
 $length = strlen($_SESSION["identifier"]);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    for ($i=0; $i < $length ; $i++) {
-        if (empty($_POST["identifier"])) {
-            $identifierErr = "Veuillez entrer un identifiant correct";
-        }        
-        elseif($_POST["indentifier"][$i] === "@"){
-            $identifierErr = "balls";
-        }       
+
+    if (empty($_POST["id"])) {
+        $identifierErr = "Veuillez entrer un identifiant correct";
+    } 
+    else{
+        $_SESSION["identifier"] = test_input($_POST["id"]);
+        /*        
+        //Check si le nom contient seulement des lettres et espace
+        // preg_match() recherche un pattern de string, et retourne vrai si le pattern existe
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $_SESSION["uname"])) {
+            $identifierErr = "Seulement des lettres et des espaces sont autorisés";
+        }
+        */
     }
 
     if (empty($_POST["identifier"])) {
-        $identifierErr = "Veuillez entrer un identifiant correct";
+        $emailErr = "Veuillez entrer un email";
     } 
-    // else{
-    //     $_SESSION["identifier"] = test_input($_POST["identifier"]);
-    //     //Check si le nom contient seulement des lettres et espace
-    //     // preg_match() recherche un pattern de string, et retourne vrai si le pattern existe
-    //     if (!preg_match("/^[a-zA-Z-' ]*$/", $_SESSION["uname"])) {
-    //         $identifierErr = "Seulement des lettres et des espaces sont autorisés";
-    //     }
-    // }
-
-    // if (empty($_POST["identifier"])) {
-    //     $emailErr = "Veuillez entrer un email";
-    // } 
-    // else {
-    //     $_SESSION["email"] = test_input($_POST["email"]);
-    
-    
-    //     /* A mettre dans l'inscription
-    //     //Check si l'adresse est bien formulée
-    //     if (!filter_var($_SESSION["email"], FILTER_VALIDATE_EMAIL)) {
-    //         $emailErr = "Email invalide";
-    //     }*/
-    // }
+    else {
+        $_SESSION["identifier"] = test_input($_POST["identifier"]);    
+        /* A mettre dans l'inscription
+        //Check si l'adresse est bien formulée
+        if (!filter_var($_SESSION["email"], FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Email invalide";
+        }*/
+    }
 
     if (empty($_POST["password"])) {
         $pwordErr = "Veuillez entrer un mot de passe";
@@ -92,15 +83,31 @@ function test_input($data)
     return $data;
 }
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (isset($_POST['id']) && isset($_POST['password'])) {
+
     foreach ($users as $user) {
         if (
-            $user['email'] === $_POST['email'] &&
+            
+            $user['email'] === $_POST['id'] || $user['username'] === $_POST['id'] &&
             $user['password'] === $_POST['password']
         ) {
             $_SESSION['LOGGED_USER'] = $user['email'];
+            echo "Logged user =";
+            echo $_SESSION['LOGGED_USER'];
+            echo "<br>";
+            echo "postId = ";
+            echo $_POST['id'];
+            echo "<br>";
+            echo "passwordSession = ";
+            echo $_POST['password'];
+            echo "<br>";
+            echo "userPassword = ";
+            echo $user['password'];
+            echo "<br>";
+
+            
         } else {
-            $errorMessage = sprintf("L'email ou le mot de passe est invalide.");
+            $errorMessage = sprintf("L'identifiant ou le mot de passe est invalide.");
         }
     }
 }
@@ -113,6 +120,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
             <h1>Connexion a votre compte:</h1>
             <br>
+            <span class="error"><strong>* champ obligatoire</strong></span>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" autocomplete="off">
                 <!-- Affiche l'erreur dans le cas où il y en a une -->
                 <?php if (isset($errorMessage)): ?>
@@ -121,24 +129,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
                         <br><br>
                     </div>
                 <?php endif; ?>
-                <!--
-                <div class="row">
-                    <div class="col-25">
-                        <label for="fname">Votre nom d'utilisateur</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="uname" name="username" placeholder="Votre pseudo...">
-                        <span class="error">* <?/*php echo $unameErr; */?></span>
-                        <br><br>
-                    </div>
-                </div>
-                 -->
+
                 <div class="row">
                     <div class="col-25">
                         <label for="lname">Votre Email ou nom d'utilisateur</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="identifier" name="identifier" placeholder="sacha.dubourgpalette@pokemon.com">
+                        <input type="text" id="identifier" name="id" placeholder="sacha.dubourgpalette@pokemon.com">
                         <span class="error">* <?php echo $identifierErr; ?></span>
                         <br><br>
                     </div>
@@ -168,9 +165,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         <?php
         echo "Test : ";
         echo "<br>";
-        echo $_SESSION["uname"];
+        echo $_POST['id'];
         echo "<br>";
-        echo $_SESSION["email"];
+        echo $_SESSION["identifier"];
         echo "<br>";
         echo $_SESSION["pword"];
         ?>
@@ -178,7 +175,16 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     </div>
     <?php if (isset($_SESSION['LOGGED_USER'])): ?>
         <?php 
-            echo 'edfhg';
+            echo "ddd";
+            echo "<br>";
+            echo $user['email'];
+            echo "<br>";
+            echo "ty";
+            echo "<br>";
+            echo $_SESSION['LOGGED_USER'];
+            echo $_POST['id'];
+            echo "<br>";
+            session_destroy();
         ?>
     <?php endif; ?>
     <footer>

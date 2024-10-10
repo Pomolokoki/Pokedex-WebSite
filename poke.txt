@@ -1,0 +1,35 @@
+pokedex global et par région (génération)
+	-> tri / filtre / recherche (légendaire / commun / types / gen / )
+	-> pokemon (image, nom, id, type1, type2, talent, gen, evolution, base, description, taux de capture, rareté //if combat = object, attaque1 attaque2 attaque3 attaque4, attaques, vitesse, statut)
+		-> evolutions (recur)
+		-> faiblesse / résistance / inneficacité 
+
+Table des types
+Effacité des balls
+Carte par génération
+Chercher des joueurs (voir leur progression par ex, faire des combats)
+Creer des pokemons
+	
+// if combat : Table des objets, pv	
+attaque
+	
+compte utilisateur (photo, nom, mdp, description)
+	-> progression pokedex
+	-> favoris
+	-> equipe (+ combat ????? = en ligne ?????? = probleme)
+	
+	
+	attaque
+	1
+	2
+	3
+	4
+	65
+	6
+	pokemon
+		attaques = "2-3-65"
+		attaque1 = 2
+
+
+data = https://github.com/pokemondb/database/tree/master/data
+api  = https://tyradex.tech/
