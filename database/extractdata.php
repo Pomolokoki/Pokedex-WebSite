@@ -21,7 +21,7 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
     return $statement->fetchAll();
 }
  
-function getTextFr($str, $language = "fr")
+function getTextLang($str, $language = "fr")
 {
 
     if ($language == "fr")

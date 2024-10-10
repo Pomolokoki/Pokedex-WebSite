@@ -1,6 +1,6 @@
 <?php
 
-$type=array("Acier","Combat","Dragon","Eau","Electrik","Fee","Feu","Glace","Insecte","Normal","Plante","Poison","Psy","Roche","Sol","Spectre","Tenebre","Vol");
+$type=array("Steel", "Fighting", "Dragon", "Water", "Electric", "Fairy", "Fire", "Ice", "Bug", "Normal", "Grass", "Poison", "Psychic", "Rock", "Ground", "Ghost", "Dark", "Flying");
 $typeColors=array(
     "605e5e",27,"969494",86, 	#Acier
     "ffb400",13,"7d5f05",100, 	#Combat
@@ -24,6 +24,7 @@ $typeColors=array(
 
 header("Content-type: text/css; charset: UTF-8"); 
 for ($i = 0; $i <count($type) ; $i++) {
-    echo ".".$type[$i]."{background: radial-gradient(#".$typeColors[$i*4]." ".$typeColors[$i*4+1]."%, #".$typeColors[$i*4+2]." ".$typeColors[$i*4+3]."%); }";
+    echo ".".$type[$i]."{background: radial-gradient(#".$typeColors[$i*4]." ".$typeColors[$i*4+1]."%, #".$typeColors[$i*4+2]." ".$typeColors[$i*4+3]."%); }"
+    ;
    }
 ?>

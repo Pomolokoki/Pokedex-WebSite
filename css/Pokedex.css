@@ -160,6 +160,7 @@ select {
     width: auto;
     margin-top: 10px;
     margin-left: 12px;
+    display: contents;
     height: 80%;
     aspect-ratio: 1/1;
 }
@@ -186,39 +187,44 @@ select {
 
 .id_pokemon {
     background-color: grey;
-    width: 20%;
-    height: 15%;
+    width: fit-content;
+    height: 25%;
     margin-left: 5%;
+    padding-left: 3px;
+    margin-top: -3px;
 }
 
 .nom_pokemon {
     background-color: grey;
-    width: 35%;
-    height: 20%;
+    width: fit-content;
+    height: 25%;
     margin-left: 5%;
 }
 
 .type {
     display: flex;
-    width: 60%;
+    width: fit-content;
     height: 20%;
     margin-left: 5%;
+
 }
 
 .type_1 {
-    height: 100%;
-    width: 50%;
+    height: 130%;
+    width: fit-content;
     background: radial-gradient(rgb(228, 26, 228), purple);
     border-radius: 150px;
-    margin: 0%;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .type_2 {
-    height: 100%;
-    width: 50%;
+    height: 130%;
+    width: fit-content;
     background: radial-gradient(rgb(0, 255, 0), rgb(0, 99, 0));
     border-radius: 150px;
-
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /*#endregion */
@@ -262,7 +268,7 @@ select {
 }
 
 #img {
-    background-color: white;
+    background-color: gray;
     width: auto;
     background-position: center;
     background-size: 100px;
@@ -277,13 +283,22 @@ select {
     background-color: rgb(255, 255, 255);
     margin: 8px;
     height: 30px;
-    justify-content: center;
-    
+
 }
 
-#gender_button{
+#gender_button {
     align-items: center;
-    
+    height: 25px;
+    width: 40%;
+    font-size: 18px;
+    color: #0000ff;
+    transform: translate(+78%, +12%);
+
+}
+
+.symbole {
+    width: 40px;
+    height: 20px;
 }
 
 #Info {
@@ -306,14 +321,14 @@ select {
 #id_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 40%;
+    width: fit-content;
     margin: 12px;
 }
 
 #nom_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 90%;
+    width: fit-content;
     margin: 12px;
 
 }
@@ -321,15 +336,30 @@ select {
 #categorie_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 60%;
+    width: fit-content;
     margin: 12px;
 }
 
 #type_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 90%;
+    min-width: 50%;
+    text-align: center;
+    padding-left: 8px;
+    padding-right: 5px;
+    width: fit-content;
     margin: 12px;
+}
+
+.textcolor{
+    animation: colorchange 4s infinite;
+}
+
+@keyframes colorchange {
+    0%{color: black;}
+    33%{color: red;}
+    66%{color: white;}
+    100%{color: black;}
 }
 
 #Info_Pok_r {
@@ -348,7 +378,7 @@ select {
 
 #gen_Pokemon {
     background-color: rgb(81, 255, 0);
-    width: 30%;
+    width: fit-content;
     height: 25px;
     margin: 12px;
 }
@@ -356,21 +386,21 @@ select {
 #taille_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 45%;
+    width: fit-content;
     margin: 12px;
 }
 
 #poids_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 55%;
+    width: fit-content;
     margin: 12px;
 }
 
 #catch_rate_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 80%;
+    width: fit-content;
     margin: 12px;
 }
 
@@ -393,26 +423,28 @@ select {
     display: none;
 }
 
-#check_fav:checked+label .star-fill{
+#check_fav:checked+label .star-fill {
     display: block;
 }
+
 /*#endregion*/
 /*#region catch-bt*/
-#check_capture+label .circle-dotted {
+#check_capture+label .pokeball-empty {
     display: block;
 }
 
-#check_capture+label .circle-fill {
+#check_capture+label .pokeball-fill {
     display: none;
 }
 
-#check_capture:checked+label .circle-dotted {
+#check_capture:checked+label .pokeball-empty {
     display: none;
 }
 
-#check_capture:checked+label .circle-fill{
+#check_capture:checked+label .pokeball-fill {
     display: block;
 }
+
 /*#endregion*/
 /*#region add_equip-bt*/
 #check_equipe+label .circle-dotted {
@@ -427,9 +459,10 @@ select {
     display: none;
 }
 
-#check_equipe:checked+label .circle-fill{
+#check_equipe:checked+label .circle-fill {
     display: block;
 }
+
 /*#endregion*/
 
 /*#endregion */
@@ -527,14 +560,27 @@ select {
     padding: 1px;
 }
 
+#titre_case {
+    text-align: center;
+}
+
 .Graph_stat_case {
     width: 100%;
     margin-bottom: 1px;
     height: calc(100%/7 - 0.9px);
     background-color: rgb(42, 19, 255);
     display: grid;
-    justify-content: center;
     align-items: center;
+}
+
+.graphique {
+    margin: 15px;
+    border: solid;
+    border-width: 2px;
+    border-color: black;
+    background-color: black;
+
+    height: 25px;
 }
 
 /*#endregion */
@@ -558,6 +604,11 @@ select {
     height: 100%;
     border: 1px;
     background-color: rgb(255, 251, 0);
+}
+
+.type_img{
+    width: 50px;
+    height: 50px;
 }
 
 .Faibless_Resistance {
@@ -630,7 +681,7 @@ select {
     padding: 1px;
 }
 
-.Val_atk_case{
+.Val_atk_case {
     width: 100%;
     margin-bottom: 1px;
     height: calc(100%/7 - 0.9px);
