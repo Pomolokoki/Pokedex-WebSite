@@ -4,4 +4,4 @@
 	include_once("Pokedex.php");
 	echo "jaws";
 ?>
-<?php endif ?>
+<?php endif; ?>

@@ -277,6 +277,13 @@ select {
     background-color: rgb(255, 255, 255);
     margin: 8px;
     height: 30px;
+    justify-content: center;
+    
+}
+
+#gender_button{
+    align-items: center;
+    
 }
 
 #Info {
@@ -356,7 +363,7 @@ select {
 #poids_Pokemon {
     background-color: rgb(81, 255, 0);
     height: 25px;
-    width: 45%;
+    width: 55%;
     margin: 12px;
 }
 
@@ -493,6 +500,7 @@ select {
     display: grid;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 #Val_stat {
@@ -567,8 +575,69 @@ select {
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
     height: 500px;
     background-color: aqua;
+}
+
+#Name_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(30, 255, 0, 0.219);
+    padding: 1px;
+}
+
+#Type_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 0, 212, 0.219);
+    padding: 1px;
+}
+
+#Category_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 251, 0, 0.671);
+    padding: 1px;
+}
+
+#Puissance_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.219);
+    padding: 1px;
+}
+
+#Precision_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(0, 195, 255, 0.774);
+    padding: 1px;
+}
+
+#PP_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(162, 0, 255, 0.952);
+    padding: 1px;
+}
+
+#Learning_atk {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(229, 255, 0, 0.952);
+    padding: 1px;
+}
+
+.Val_atk_case{
+    width: 100%;
+    margin-bottom: 1px;
+    height: calc(100%/7 - 0.9px);
+    background-color: rgb(255, 255, 255);
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 /*#endregion */
