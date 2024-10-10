@@ -1,26 +1,88 @@
 <?php
 include_once("extractApi.php");
-// $sqlCreateMovePokemonLink = 
-// "CREATE TABLE move_pokemon(
-// moveId SMALLINT UNSIGNED,
-// pokemonId SMALLINT UNSIGNED,
-// learnMethod TINYINT UNSIGNED,
-// learnAtLevel TINYINT UNSIGNED,
-// CONSTRAINT move_pokemon_moveId_FK FOREIGN KEY (moveId) REFERENCES move(id),
-// CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id)
-// );";
+// "CREATE TABLE evolution_pokemon(
+// basePokemonId SMALLINT UNSIGNED,
+// evoluedPokemonId SMALLINT UNSIGNED,
+// evolutionCondition TEXT,
+// itemId SMALLINT UNSIGNED,
+// gender INT,
+// heldItem INT,
+// item INT,
+// knownMove INT,
+// knownType INT,
+// location INt,
+// minEffection TINYINT,
+// minHapiness TINYINT,
+// minLevel TINYINT,
+// needsOverworldRain BOOLEAN,
+// partySpecies INT,
+// partyType INT,
+// relativePhysicalStats INT,
+// timeOfDay INT,
+// tradSpecies INT,
+// trigger VARCHAR(50),
+// TurnUpsideDown BOOLEAN,
+// CONSTRAINT move_evolution_basePokemonId_FK FOREIGN KEY (basePokemonId) REFERENCES pokemon(id),
+// CONSTRAINT move_evolution_evoluedPokemonId_FK FOREIGN KEY (evoluedPokemonId) REFERENCES pokemon(id),
+// CONSTRAINT move_evolution_itemId_FK FOREIGN KEY (itemId) REFERENCES item(id)
+
+function setEvolution($pokemonEvolutionData, $pokemonData, &$EPvalues)
+{
+    for ($j = 0; $j < count($pokemonEvolutionData->evolves_to); $j++)
+    {
+        $EPvalue = "(";
+        $EPvalue = $EPvalue . $pokemonData->id . ","; //id
+        $EPvalue = $EPvalue . getidFromUrl($pokemonEvolutionData->species->url) . ","; //baseId
+        $EPvalue = $EPvalue . getIdFromUrl($pokemonEvolutionData->evolves_to[$j]->species->url) . ","; //evoluedId
+        $evolutionRequires = $pokemonEvolutionData->evolves_to[$j]->evolution_details;
+
+        if (count($evolutionRequires) == 0) { echo "issue"; continue;}
+        $EPvalue = $EPvalue . IntValue($evolutionRequires[0]->gender) . ","; //gender
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["held_item", "url"])) . ","; //helditemId
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["item", "url"])) . ","; //itemId
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["known_move", "url"])) . ","; //knownMoveId
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["known_move_type" , "url"])) . ","; //knownMoveTypeid
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["location", "url"])) . ","; //locationId
+        $EPvalue = $EPvalue . IntValue($evolutionRequires[0]->min_affection) . ","; //minAffection
+        $EPvalue = $EPvalue . IntValue($evolutionRequires[0]->min_beauty) . ","; //minBeauty
+        $EPvalue = $EPvalue . IntValue($evolutionRequires[0]->min_happiness) . ","; //minHappiness
+        $EPvalue = $EPvalue . IntValue($evolutionRequires[0]->min_level) . ","; //mionLevel
+        $EPvalue = $EPvalue . BooleanValue($evolutionRequires[0]->needs_overworld_rain) . ","; //needsOverworldRain
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["party_species", "url"])) . ","; //partySpeciesName
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["party_type", "url"])) . ","; //partytypeId
+        $EPvalue = $EPvalue . IntValue($evolutionRequires[0]->relative_physical_stats) . ","; //physicalRelativeStats
+        $EPvalue = $EPvalue . getStringReplace($evolutionRequires[0]->time_of_day) . ",";//timeOfDay
+        $EPvalue = $EPvalue . getIdFromUrl(exists($evolutionRequires[0], ["trade_species", "url"])) . ","; //tradeSpecies
+        $EPvalue = $EPvalue . getTextFromData(exists(getDataFromFile("/evolution-trigger/" . getIdFromUrl(exists($evolutionRequires[0], ["trigger", "url"]))), ["names"]), "name") . ",";
+        $EPvalue = $EPvalue . BooleanValue($evolutionRequires[0]->turn_upside_down);
+        $EPvalues = $EPvalues . $EPvalue . "),,";
+        
+        if ($pokemonEvolutionData->evolves_to[$j]->evolves_to != null && $pokemonData->id != 489 && $pokemonData->id != 490)
+        {
+            setEvolution($pokemonEvolutionData->evolves_to[$j], $pokemonData, $EPvalues);
+        }
+    }
+}
+
 $sqlInsertAbilityPokemon = "INSERT INTO ability_pokemon (abilityId, pokemonId, isHidden) VALUES ";
 $sqlInsertMovePokemon = "INSERT INTO move_pokemon (moveId, pokemonId, learnMethod, learnAtLevel) VALUES ";
-$sqlInsertPokemon = "INSERT INTO pokemon (id, name, description, species, category, generation, spriteM, spriteF, type1, type2, hp, attack, defense, atackspe, defensespe, speed ,mega ,height, weight, catch_rate, form) VALUES ";
+$sqlInsertEvolutionPokemon = "INSERT INTO evolution_pokemon (id, basePokemonId, evoluedPokemonId, gender, heldItemId, itemId, knownMoveId, knownMoveTypeId, locationId, minAffection, minBeauty, minHappiness, minLevel, needsOverworldRain, partySpeciesId, partyTypeId, relativePhysicalStats, timeOfDay, tradeSpeciesId, evolutionTrigger, turnUpsideDown) VALUES ";
+$sqlInsertFormPokemon = "INSERT INTO form_pokemon (pokemonId, formId) VALUES ";
+$sqlInsertPokemon = "INSERT INTO pokemon (id, name, description, species, category, generation, spriteM, spriteF, type1, type2, hp, attack, defense, atackspe, defensespe, speed ,mega ,height, weight, catch_rate, form, typeEfficiency) VALUES ";
 $APvalues = "";
 $MPvalues = "";
+$EPvalues = "";
+$FPvalues = "";
 $values = "";
+$typeEfficiencyData = getDataFromFile("pokemon.json", false);
 
 echo count(getDataFromFile("/pokemon")->results);
 //echo "<br>";
 set_time_limit(120);
 saveToDb($sqlInsertAbilityPokemon, "ability_pokemon", "", true, true);
 saveToDb($sqlInsertMovePokemon, "move_pokemon", "", true, true);
+saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", "", true, true);
+saveToDb($sqlInsertFormPokemon, "form_pokemon", "", true, true);
 saveToDb($sqlInsertMovePokemon, "pokemon", "", true, true);
 
 foreach (getDataFromFile("/pokemon")->results as $move)
@@ -29,14 +91,15 @@ foreach (getDataFromFile("/pokemon")->results as $move)
     $pokemonData = getDataFromFile("/pokemon/" .$id);
     $pokemonFormData = getDataFromFile("/pokemon-form/" . getIdFromUrl($pokemonData->forms[0]->url));
     $pokemonSpeciesData = getDataFromFile("/pokemon-species/" . getIdFromUrl($pokemonData->species->url));
-    $pokemonEvolutionData = getDataFromFile("/evolutionChain/" . getIdFromUrl($pokemonSpeciesData->evolution_chain->url));
+    $pokemonEvolutionData = getDataFromFile("/evolution-chain/" . getIdFromUrl($pokemonSpeciesData->evolution_chain->url));
     //echo $pokemonData->id;
     //echo "<br>";
 
 
     for ($j = 0; $j < count($pokemonData->abilities); $j++)
     {
-        $APvalues = $APvalues . "(" . getIdFromUrl($pokemonData->abilities[$j]->ability->url) . ",". $pokemonData->id . "," . BooleanValue($pokemonData->abilities[$j]->is_hidden) . "),"; //ability_pokemon (table)
+        if ($pokemonData->abilities[$j]->slot == 3 && exists($pokemonData->abilities[0], ["ability", "url"]) == $pokemonData->abilities[$j]->ability->url)
+        $APvalues = $APvalues . "(" . getIdFromUrl($pokemonData->abilities[$j]->ability->url) . ",". $pokemonData->id . "," . BooleanValue($pokemonData->abilities[$j]->is_hidden) . "),,"; //ability_pokemon (table)
     }
 
 
@@ -58,12 +121,21 @@ foreach (getDataFromFile("/pokemon")->results as $move)
             $MPvalue = $MPvalue . $pokemonData->id . ",";
             $MPvalue = $MPvalue . getTextFromData(getDataFromFile("/move-learn-method/" . $learnMethodId)->names, "name") . ",";
             $MPvalue = $MPvalue . IntValue($group->level_learned_at) . ")";
-            $MPvalues = $MPvalues . $MPvalue . ",";
+            $MPvalues = $MPvalues . $MPvalue . ",,";
     }
 
-
-
-
+    if ($pokemonEvolutionData != null && $pokemonData->id != 489 && $pokemonData->id != 490)
+    {
+        setEvolution($pokemonEvolutionData->chain, $pokemonData, $EPvalues);
+    }
+    if ($pokemonData->id < 10000)
+    {
+        for ($j = 1; $j < count($pokemonSpeciesData->varieties); $j++)
+        {
+            $FPvalues = $FPvalues . "(" . getIdFromUrl($pokemonSpeciesData->varieties[0]->pokemon->url) . "," . getIdFromUrl($pokemonSpeciesData->varieties[$j]->pokemon->url) . "),,";
+        }
+    }
+        
     $value = "(" . $pokemonData->id . ','; //id
     $value = $value . getTextFromData($pokemonSpeciesData->names, "name") . ","; //name
     $value = $value . getTextFromData($pokemonSpeciesData->flavor_text_entries, "flavor_text") . ","; //description
@@ -76,7 +148,8 @@ foreach (getDataFromFile("/pokemon")->results as $move)
     {
         $value = $value . "2,";
     }
-    else {
+    else
+    {
         $value = $value . "0,";
     }
     $value = $value . getIdFromUrl($pokemonSpeciesData->generation->url) . ","; //generation
@@ -114,18 +187,40 @@ foreach (getDataFromFile("/pokemon")->results as $move)
     $value = $value . $pokemonData->height. ","; //height
     $value = $value . $pokemonData->weight . ","; //weight
     $value = $value . $pokemonSpeciesData->capture_rate . ","; //catch_rate
-    $value = $value . count($pokemonData->forms); //number of forms
-
-    $value = $value . ')';
-    $values = $value . "," . $values;
-    if ($pokemonData->id % 300 == 0)
+    $value = $value . count($pokemonData->forms) . ","; //number of forms
+    
+    if ($pokemonData->id < count($typeEfficiencyData))
     {
-        saveToDb($sqlInsertPokemon, "pokemon", $values, false);
-        $values = "";
+        $typeData = ["Normal" => 0, "Combat" => 0, "Vol" => 0, "Poison" => 0, "Sol" => 0, "Roche" => 0, "Insecte" => 0, "Spectre" => 0, "Acier" => 0, "Feu" => 0, "Eau" => 0, "Plante" => 0, "Électrik" => 0, "Psy" => 0, "Glace" => 0, "Dragon" => 0, "Ténèbres" => 0, "Fée" => 0] ;
+        $resistances = $typeEfficiencyData[$pokemonData->id]->resistances;
+        for ($j = 0; $j < count($resistances); $j++)
+        {
+            $typeData[$resistances[$j]->name] = $resistances[$j]->multiplier;
+        }
+        $value = $value . '"' . $typeData["Normal"];
+        foreach($typeData as $key)
+        {
+            $value = $value . "/" . $key;
+        }
+        $value = $value . '"';
     }
+    else
+    {
+        $value = $value . "NULL";
+    }
+    $values = $values . $value . "),,";
     
 }
 saveToDb($sqlInsertPokemon, "pokemon", $values, false);
 saveToDb($sqlInsertAbilityPokemon, "ability_pokemon", $APvalues);
 saveToDb($sqlInsertMovePokemon, "move_pokemon", $MPvalues);
+saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", $EPvalues);
+saveToDb($sqlInsertFormPokemon, "form_pokemon", $FPvalues);
+$sqlAddBonusData = "UPDATE pokemon SET category=4 WHERE id IN (793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806);";
+$sqlAddBonusData = $sqlAddBonusData ."INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (840, 1011, 2109, \"Use item/Utilisation d'un objet\");";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (884, 1018, 100000, \"Use item/Utilisation d'un objet\");";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (1012, 1013, 2110, \"Use item/Utilisation d'un objet\");";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (1012, 1013, 2111, \"Use item/Utilisation d'un objet\");";
+$statement = $db->prepare($sqlAddBonusData);
+$statement->execute();
 ?>

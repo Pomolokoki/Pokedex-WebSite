@@ -1,7 +1,7 @@
 <?php
 include_once("extractApi.php");
 
-$sqlInsertAbility = "INSERT INTO ability (id, name, description, smallDescription) VALUES ";
+$sqlInsertAbility = "INSERT INTO ability (id, name, description, smallDescription, effect) VALUES ";
 $values = "";
 echo getDataFromfile("/ability")->count;
 echo "<br>";
@@ -15,9 +15,10 @@ foreach(getDataFromFile("/ability")->results as $ability)
     $value = "(" . $abilityData->id . ','; //id
     $value = $value . getTextFromData($abilityData->names, "name") . ","; //name
     $value = $value . getTextFromData($abilityData->effect_entries, "effect") . ","; //description
-    $value = $value . getTextFromData($abilityData->effect_entries, "short_effect"); //smallDescription
+    $value = $value . getTextFromData($abilityData->effect_entries, "short_effect") . ","; //smallDescription
+    $value = $value . getTextFromData($abilityData->flavor_text_entries, "flavor_text"); //effect
     $value = $value . ")";
-    $values = $values . $value . ",";
+    $values = $values . $value . ",,";
     // if ($i == 20)
     // {
     //     break;

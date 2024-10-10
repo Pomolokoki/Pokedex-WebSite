@@ -2,7 +2,15 @@ tom:
 travail à partir de maquettes
 creation bdd:
 	php api ->sql
-	pioche dans plusieurs api ?
+	pioche dans plusieurs api ? (oui)
 	table ability (is hidden ?) -> table ability_pokemon -> (idPoke, idAbil, isHidden) -> pas caché sur tous les poké
 	for loop though all but id non consecutive, so foreach thought a file with all subfiles listed
 	api -> dowload api -> get data thought file instead of apicalls
+	trop gros packet de donnée a envoyer, envoie un plusieurs packet de 200data
+	différenttes verison php -> s'adapter a la plus ancienne
+	functions réutilisable pour chaque type de valeurs
+
+Database needs: 
+	ability effect
+	move effect
+	Fr 

@@ -3,18 +3,13 @@
 
 include_once("extractdata.php");
 
-$sqlCreateBD = 
-"DROP DATABASE IF EXISTS pokedex;
-CREATE DATABASE pokedex CHARACTER SET utf8;
-USE pokedex;";
-
 $sqlCreateAbility =
 "CREATE TABLE ability(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(70),
 description TEXT,
 smallDescription TEXT,
-effect VARCHAR(25),
+effect TEXT,
 effectValue FLOAT,
 effectDuration TINYINT,
 -- isHidden BOOLEAN,
@@ -24,7 +19,7 @@ moment TINYINT
 
 $sqlCreateType =
 "CREATE TABLE type(
-id TINYINT UNSIGNED PRIMARY KEY,
+id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(30),
 sprite TEXT,
 efficiency VARCHAR(75) 
@@ -38,7 +33,7 @@ name VARCHAR(70),
 description TEXT,
 smallDescription TEXT,
 accuracy TINYINT UNSIGNED,
-type TINYINT UNSIGNED,
+type SMALLINT UNSIGNED,
 pc TINYINT UNSIGNED,
 pp TINYINT UNSIGNED,
 statut VARCHAR(25),
@@ -56,6 +51,21 @@ criticity FLOAT,
 CONSTRAINT move_type_FK FOREIGN KEY (type) REFERENCES type(id)
 );";
 
+$sqlCreateRegion =
+"CREATE TABLE region(
+id TINYINT UNSIGNED PRIMARY KEY,
+name VARCHAR(75)
+);";
+
+$sqlCreateLocation =
+"CREATE TABLE location(
+id SMALLINT UNSIGNED PRIMARY KEY,
+name VARCHAR(100),
+regionId TINYINT UNSIGNED,
+CONSTRAINT location_regionId_FK FOREIGN KEY (regionId) REFERENCES region(id)
+);";
+
+
 $sqlCreatePokemon =
 "CREATE TABLE pokemon(
 id SMALLINT UNSIGNED PRIMARY KEY,
@@ -66,8 +76,8 @@ generation TINYINT UNSIGNED,
 category TINYINT UNSIGNED,
 spriteM TEXT,
 spriteF TEXT,
-type1 TINYINT UNSIGNED,
-type2 TINYINT UNSIGNED,
+type1 SMALLINT UNSIGNED,
+type2 SMALLINT UNSIGNED,
 -- ability1 SMALLINT UNSIGNED,
 -- ability2 SMALLINT UNSIGNED,
 -- ability3 SMALLINT UNSIGNED,
@@ -100,7 +110,8 @@ abilityId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 isHidden BOOLEAN,
 CONSTRAINT ability_pokemon_abilityId_FK FOREIGN KEY (abilityId) REFERENCES ability(id),
-CONSTRAINT ability_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id)
+CONSTRAINT ability_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
+CONSTRAINT ability_pokemon_PKU UNIQUE (abilityId, pokemonId)
 );";
 
 $sqlCreateMovePokemonLink = 
@@ -110,39 +121,83 @@ pokemonId SMALLINT UNSIGNED,
 learnMethod TINYINT UNSIGNED,
 learnAtLevel TINYINT UNSIGNED,
 CONSTRAINT move_pokemon_moveId_FK FOREIGN KEY (moveId) REFERENCES move(id),
-CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id)
+CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
+CONSTRAINT move_pokemon_PKU UNIQUE (moveId, pokemonId)
 );";
 
 $sqlCreateItem =
 "CREATE TABLE item(
 id SMALLINT UNSIGNED PRIMARY KEY,
+name VARCHAR(60),
+description TEXT,
+smallDescription TEXT,
+sprite TEXT,
+category VARCHAR(30),
+pocket VARCHAR(30),
+effect TEXT,
+throwEffect TEXT,
+throwValue TINYINT,
+machineName VARCHAR(50),
+machineId SMALLINT UNSIGNED,
+CONSTRAINT item_machineId_FK FOREIGN KEY (machineId) REFERENCES move(id)
+);";
+
+/*
+$sqlCreateBery=
+"CREATE TABLE berry(
+id TINYINT UNSIGNED PRIMARY KEY,
 name VARCHAR(50),
 description TEXT,
 sprite TEXT,
-statut VARCHAR(25),
-effect VARCHAR(25),
-effectValue FLOAT,
-oneUse BOOLEAN
+maxHarvestableByTree TINYINT UNSIGNED,
+growTime TINYINT UNSIGNED,
+soilDryness TINYINT UNSIGNED,
 );";
+*/
 
 $sqlCreateEvolutionPokemonLink = 
 "CREATE TABLE evolution_pokemon(
+id SMALLINT UNSIGNED,
 basePokemonId SMALLINT UNSIGNED,
 evoluedPokemonId SMALLINT UNSIGNED,
-evolutionCondition TEXT,
+gender INT,
+heldItemId SMALLINT UNSIGNED,
 itemId SMALLINT UNSIGNED,
+knownMoveId SMALLINT UNSIGNED,
+knownMoveTypeId SMALLINT UNSIGNED,
+locationId SMALLINT UNSIGNED,
+minAffection TINYINT UNSIGNED,
+minBeauty TINYINT UNSIGNED,
+minHappiness TINYINT UNSIGNED,
+minLevel TINYINT UNSIGNED,
+needsOverworldRain BOOLEAN,
+partySpeciesId VARCHAR(55),
+partyTypeId SMALLINT UNSIGNED,
+relativePhysicalStats TINYINT,
+timeOfDay VARCHAR(50),
+tradeSpeciesId SMALLINT UNSIGNED,
+evolutionTrigger VARCHAR(70),
+turnUpsideDown BOOLEAN,
 CONSTRAINT move_evolution_basePokemonId_FK FOREIGN KEY (basePokemonId) REFERENCES pokemon(id),
 CONSTRAINT move_evolution_evoluedPokemonId_FK FOREIGN KEY (evoluedPokemonId) REFERENCES pokemon(id),
-CONSTRAINT move_evolution_itemId_FK FOREIGN KEY (itemId) REFERENCES item(id)
+CONSTRAINT move_evolution_heldItemId_FK FOREIGN KEY (heldItemId) REFERENCES item(id),
+CONSTRAINT move_evolution_itemId_FK FOREIGN KEY (itemId) REFERENCES item(id),
+CONSTRAINT move_evolution_knownMoveId_FK FOREIGN KEY (knownMoveTypeId) REFERENCES type(id),
+CONSTRAINT move_evolution_knownMoveTypeId_FK FOREIGN KEY (knownMoveId) REFERENCES move(id),
+CONSTRAINT move_evolution_locationId_FK FOREIGN KEY (locationId) REFERENCES location(id),
+CONSTRAINT move_evolution_partyTypeId_FK FOREIGN KEY (partyTypeId) REFERENCES type(id),
+CONSTRAINT move_evolution_tradeSpeciesId_FK FOREIGN KEY (tradeSpeciesId) REFERENCES pokemon(id),
+CONSTRAINT move_evolution_PKU UNIQUE (id, basePokemonId, evoluedPokemonId)
 );";
 
-$sqlCreatePokeball =
-"CREATE TABLE pokeball(
-id TINYINT UNSIGNED PRIMARY KEY,
-name VARCHAR(25),
-description TEXT,
-sprite TEXT,
-captureRate FLOAT
+
+$sqlCreateFormPokemon =
+"CREATE TABLE form_pokemon(
+pokemonId SMALLINT UNSIGNED,
+formId SMALLINT UNSIGNED,
+CONSTRAINT move_form_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
+CONSTRAINT move_form_formId_FK FOREIGN KEY (formId) REFERENCES pokemon(id),
+CONSTRAINT form_pokemon_PKU UNIQUE (pokemonId, formId)
 );";
 
 $sqlCreateTeam =
@@ -157,42 +212,62 @@ spriteBonus TEXT
 );";
 
 $sqlCreateCombatTeam =
-"CREATE TABLE combatTeam
-(
+"CREATE TABLE combatTeam(
 id INT UNSIGNED PRIMARY KEY,
 name VARCHAR(25),
-pokemon1 FLOAT,
-pokemon2 FLOAT,
-pokemon3 FLOAT,
-pokemon4 FLOAT,
-pokemon5 FLOAT,
-pokemon6 FLOAT
+pokemon1Id SMALLINT UNSIGNED,
+pokemon2Id SMALLINT UNSIGNED,
+pokemon3Id SMALLINT UNSIGNED,
+pokemon4Id SMALLINT UNSIGNED,
+pokemon5Id SMALLINT UNSIGNED,
+pokemon6Id SMALLINT UNSIGNED,
+CONSTRAINT move_form_pokemon1Id_FK FOREIGN KEY (pokemon1Id) REFERENCES pokemon(id),
+CONSTRAINT move_form_pokemon2Id_FK FOREIGN KEY (pokemon2Id) REFERENCES pokemon(id),
+CONSTRAINT move_form_pokemon3Id_FK FOREIGN KEY (pokemon3Id) REFERENCES pokemon(id),
+CONSTRAINT move_form_pokemon4Id_FK FOREIGN KEY (pokemon4Id) REFERENCES pokemon(id),
+CONSTRAINT move_form_pokemon5Id_FK FOREIGN KEY (pokemon5Id) REFERENCES pokemon(id),
+CONSTRAINT move_form_pokemon6Id_FK FOREIGN KEY (pokemon6Id) REFERENCES pokemon(id)
 );";
 
 $sqlCreatePlayer =
 "CREATE TABLE player(
 id INT UNSIGNED PRIMARY KEY,
 nickname VARCHAR(50),
+email VARCHAR(100),
+password VARCHAR(100),
 level SMALLINT UNSIGNED,
 xp SMALLINT UNSIGNED,
 team TINYINT UNSIGNED,
 picture TEXT,
-combatTeam1 INT UNSIGNED, 
-combatTeam2 INT UNSIGNED,
-combatTeam3 INT UNSIGNED,
-selectedTeam INT UNSIGNED,
-favorites TEXT,
-pokedex TEXT,
+combatTeam1Id INT UNSIGNED, 
+combatTeam2Id INT UNSIGNED,
+combatTeam3Id INT UNSIGNED,
+selectedCombatTeamId INT UNSIGNED,
 friends TEXT,
 CONSTRAINT player_team_FK FOREIGN KEY (team) REFERENCES team(id),
-CONSTRAINT player_combatTeam1_FK FOREIGN KEY (combatTeam1) REFERENCES combatTeam(id),
-CONSTRAINT player_combatTeam2_FK FOREIGN KEY (combatTeam2) REFERENCES combatTeam(id),
-CONSTRAINT player_combatTeam_FK FOREIGN KEY (combatTeam3) REFERENCES combatTeam(id)
+CONSTRAINT player_combatTeam1Id_FK FOREIGN KEY (combatTeam1Id) REFERENCES combatTeam(id),
+CONSTRAINT player_combatTeam2Id_FK FOREIGN KEY (combatTeam2Id) REFERENCES combatTeam(id),
+CONSTRAINT player_combatTeam3Id_FK FOREIGN KEY (combatTeam3Id) REFERENCES combatTeam(id),
+CONSTRAINT player_selectedCombatTeamId_FK FOREIGN KEY (selectedCombatTeamId) REFERENCES combatTeam(id)
 );";
 
+$sqlCreatePlayerPokedexLink =
+"CREATE TABLE player_pokemon(
+playerId INT UNSIGNED,
+pokemonId SMALLINT UNSIGNED,
+CONSTRAINT player_pokemon_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
+CONSTRAINT player_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
+CONSTRAINT player_pokemon_PKU UNIQUE (playerId, pokemonId)
+);";
 
-$statement = $db->prepare($sqlCreateBD);
-$statement->execute();
+$sqlCreatePlayerFavoriteLink =
+"CREATE TABLE player_favorites(
+playerId INT UNSIGNED,
+pokemonId SMALLINT UNSIGNED,
+CONSTRAINT player_favorites_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
+CONSTRAINT player_favorites_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
+CONSTRAINT player_favorites_PKU UNIQUE (playerId, pokemonId)
+);";
 
 $statement = $db->prepare($sqlCreateAbility);
 $statement->execute();
@@ -201,6 +276,12 @@ $statement = $db->prepare($sqlCreateType);
 $statement->execute();
 
 $statement = $db->prepare($sqlCreateMove);
+$statement->execute();
+
+$statement = $db->prepare($sqlCreateRegion);
+$statement->execute();
+
+$statement = $db->prepare($sqlCreateLocation);
 $statement->execute();
 
 $statement = $db->prepare($sqlCreatePokemon);
@@ -218,7 +299,7 @@ $statement->execute();
 $statement = $db->prepare($sqlCreateEvolutionPokemonLink);
 $statement->execute();
 
-$statement = $db->prepare($sqlCreatePokeball);
+$statement = $db->prepare($sqlCreateFormPokemon);
 $statement->execute();
 
 $statement = $db->prepare($sqlCreateTeam);
@@ -228,6 +309,12 @@ $statement = $db->prepare($sqlCreateCombatTeam);
 $statement->execute();
 
 $statement = $db->prepare($sqlCreatePlayer);
+$statement->execute();
+
+$statement = $db->prepare($sqlCreatePlayerPokedexLink);
+$statement->execute();
+
+$statement = $db->prepare($sqlCreatePlayerFavoriteLink);
 $statement->execute();
 
 //$state = $statement->fetchAll();

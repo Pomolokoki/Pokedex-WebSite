@@ -21,13 +21,24 @@ function getDataFromApi($curl, $where)
 }
 
 
-function getDataFromFile($path)
+function getDataFromFile($path, $usebasePath = true)
 {
-    static $basePath = "./v2";
-    if (file_exists($basePath . $path . "/index.json"))
+    if ($usebasePath)
     {
-        return json_decode(file_get_contents($basePath . $path . "/index.json"));
-    }   
+
+        static $basePath = "./v2";
+        if (file_exists($basePath . $path . "/index.json"))
+        {
+            return json_decode(file_get_contents($basePath . $path . "/index.json"));
+        }   
+    }
+    else
+    {
+        if (file_exists($path))
+        {
+            return json_decode(file_get_contents($path));
+        } 
+    }
 }
 include_once("getDataFunction.php");
 ?>
