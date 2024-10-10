@@ -277,6 +277,13 @@ select {
     background-color: rgb(255, 255, 255);
     margin: 8px;
     height: 30px;
+    justify-content: center;
+    
+}
+
+#gender_button{
+    align-items: center;
+    
 }
 
 #Info {

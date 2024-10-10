@@ -5,6 +5,20 @@ var Pokemon = document.createElement("div");
 var content = document.getElementById("conteneur")
 var language = "Fr";
 
+
+document.getElementById('gender_button').addEventListener('click',function(){
+  // if (JSON.parse(this.responseText)[0]["id"].spriteF != null){
+  //   document.getElementById("img").style.backgroundImage = "url('" + JSON.parse(this.responseText)[0]["spriteF"] + "')";
+  // }
+  if(document.getElementById("gender_button").innerHTML === "♂"){
+    document.getElementById("gender_button").innerHTML = "♀";
+  }
+  else{
+    document.getElementById("gender_button").innerHTML = "♂";
+  }
+});
+
+
 function getText(str)
 {
     if (language === "Fr"){

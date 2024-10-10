@@ -124,8 +124,7 @@ $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "D�
 				<div id="sprit">
 					<div id="img"></div>
 					<div id="button">
-						<div type="button" id="M_button"></div>
-						<div type="button" id="F_button"></div>
+						<button type="button" id="gender_button" >♂</button>
 					</div>
 				</div>
 				<div id="Info">
