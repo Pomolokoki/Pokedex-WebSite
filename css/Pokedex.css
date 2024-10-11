@@ -73,35 +73,36 @@ h3 {
 }
 
 select {
-    width: 12%;
+    width: max-content;
     height: 75%;
-    margin-top: 0.5%;
-    margin-right: 2%;
+    margin-top: 3px;
+    margin-right: 4px;
     font-size: 95%;
     border: none;
     padding-left: 1%;
+    padding-right: 2.5%;
     appearance: none;
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.5vw top 50%;
-    background-size: 0.8vw auto;
+    background-position: right 0.1vw top 50%;
+    background-size: 0.5vw auto;
 }
 
 
 #searchBar {
     position: relative;
+    display: block;
     float: right;
     right: 2%;
-    margin-top: 0.5%;
-    width: 35%;
+    width: 30%;
     height: 75%;
-    background-color: black;
-    font-size: 1.8vh;
 }
 
 .search {
-    margin: 0;
-    padding: 0;
+    display: block;
+    position: relative;
+    margin-top: 3px;
+    padding-left: 5px;
     border: 0;
     width: 100%;
     height: 100%;
@@ -156,11 +157,10 @@ select {
 
 .img_pokemon {
     position: relative;
-    background-color: grey;
     width: auto;
     margin-top: 10px;
-    margin-left: 12px;
-    display: contents;
+    margin-left: 8px;
+    display: flex;
     height: 80%;
     aspect-ratio: 1/1;
 }
@@ -189,7 +189,7 @@ select {
     background-color: grey;
     width: fit-content;
     height: 25%;
-    margin-left: 5%;
+    margin-left: 2%;
     padding-left: 3px;
     margin-top: -3px;
 }
@@ -198,14 +198,14 @@ select {
     background-color: grey;
     width: fit-content;
     height: 25%;
-    margin-left: 5%;
+    margin-left: 2%;
 }
 
 .type {
     display: flex;
     width: fit-content;
     height: 20%;
-    margin-left: 5%;
+    margin-left: 2%;
 
 }
 
@@ -255,6 +255,7 @@ select {
 #Info_Pokemon {
     margin-left: 20px;
     margin-bottom: 20px;
+    margin-right: 20px;
     height: 12em;
     background-color: aqua;
     display: flex;
@@ -297,8 +298,8 @@ select {
 
 }
 
-.symbole {
-    width: 40px;
+#symbole {
+    width: 20px;
     height: 20px;
 }
 
@@ -308,7 +309,7 @@ select {
     margin-left: 8px;
     margin-right: 8px;
     margin-top: 10px;
-    width: 730px;
+    width: 100%;
     height: 90%;
 }
 
@@ -503,8 +504,14 @@ select {
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
-    height: 120px;
-    background-color: aqua;
+    height: fit-content;
+    width: 950px;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+}
+
+#textDescription{
+    padding-bottom: 15px;
+    padding-left: 5px;
 }
 
 /*#endregion */
@@ -515,14 +522,14 @@ select {
     margin-right: 20px;
     margin-bottom: 20px;
     height: 450px;
-    background-color: aqua;
+    background-color: rgb(0, 0, 0);
     display: flex;
 }
 
 #Name_stat {
     width: 20%;
     height: 100%;
-    background-color: rgb(0, 238, 255);
+    background-color: rgb(0, 0, 0);
     padding: 1px;
 }
 
@@ -530,7 +537,7 @@ select {
     width: 100%;
     margin-bottom: 1px;
     height: calc(100%/7 - 0.9px);
-    background-color: rgb(143, 77, 77);
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     display: grid;
     justify-content: center;
     align-items: center;
@@ -540,7 +547,7 @@ select {
 #Val_stat {
     width: 15%;
     height: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
     padding: 1px;
 }
 
@@ -548,7 +555,7 @@ select {
     width: 100%;
     margin-bottom: 1px;
     height: calc(100%/7 - 0.9px);
-    background-color: rgb(121, 121, 121);
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     display: grid;
     justify-content: center;
     align-items: center;
@@ -557,7 +564,7 @@ select {
 #Graph_stat {
     width: 65%;
     height: 100%;
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(0, 0, 0);
     padding: 1px;
 }
 
@@ -569,7 +576,7 @@ select {
     width: 100%;
     margin-bottom: 1px;
     height: calc(100%/7 - 0.9px);
-    background-color: rgb(42, 19, 255);
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     display: grid;
     align-items: center;
 }
@@ -604,12 +611,13 @@ select {
     width: 100%;
     height: 100%;
     border: 1px;
-    background-color: rgb(255, 251, 0);
+    background-color: rgb(0, 0, 0);
 }
 
 .type_img{
     width: 50px;
     height: 50px;
+    filter: brightness(0);
 }
 
 .Faibless_Resistance {
@@ -617,7 +625,7 @@ select {
     width: 100%;
     height: 100%;
     border: 1px;
-    background-color: blueviolet;
+    background-color: rgb(0, 0, 0);
 }
 
 .Faibless_Resistance_Value {

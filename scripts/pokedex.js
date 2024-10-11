@@ -32,18 +32,18 @@ var language = "Fr";
 
 
 document.getElementById('gender_button').addEventListener('click', function () {
-  if (dataPokemon != undefined && dataPokemon["spriteF"] != "") {
+  if (dataPokemon != undefined && dataPokemon["spriteF"] != null) {
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     document.getElementById("img").style.backgroundImage = "url('" + dataPokemon["spriteF"] + "')";
-    document.getElementById('gender_button').style.color = "#ee82ee";
+    console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
   }
-  if (document.getElementById("gender_button").innerHTML === "♂") {
-    document.getElementById("gender_button").innerHTML = "♀";
-    document.getElementById('gender_button').style.color = "#ee82ee";
+  console.log(document.getElementById("symbole").getAttribute("src"));
+  if (document.getElementById("symbole").getAttribute("src") === "./img/M.png") {
+    document.getElementById("symbole").src = "./img/F.png";
   }
   else {
     document.getElementById("img").style.backgroundImage = "url('" + dataPokemon["spriteM"] + "')";
-    document.getElementById("gender_button").innerHTML = "♂";
-    document.getElementById('gender_button').style.color = "#0000ff";
+    document.getElementById("symbole").src = "./img/M.png";
   }
 });
 
@@ -52,6 +52,17 @@ function getText(str) {
     return str.split('/')[1];
   }
 }
+
+// filtre 1
+
+
+// filtre 2
+
+
+// filtre 3
+
+
+// search bar
 
 
 var myFunction = function () {
@@ -91,7 +102,7 @@ var myFunction = function () {
           document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType][0] + ', #' + TableColor[colorType][1] + ')';
         }
         else {
-          document.getElementById("type_Pokemon").innerHTML = getText(dataPokemon["type1"]) + " / " + getText(dataPokemon["type2"]);
+          document.getElementById("type_Pokemon").innerHTML = getText(dataPokemon["type1"]) + "/" + getText(dataPokemon["type2"]);
           const colorType1 = getText(dataPokemon["type1"]);
           const colorType2 = getText(dataPokemon["type2"]);
           document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType1][0] + ', #' + TableColor[colorType2][0] + ')';
@@ -100,7 +111,8 @@ var myFunction = function () {
         document.getElementById("taille_Pokemon").innerHTML = "Taille : " + dataPokemon["height"] / 10.0 + " m";
         document.getElementById("poids_Pokemon").innerHTML = "Poids : " + dataPokemon["weight"] / 10.0 + " Kg";
         document.getElementById("catch_rate_Pokemon").innerHTML = "Taux de capture : " + dataPokemon["catch_rate"];
-
+        // Description
+        document.getElementById("textDescription").innerHTML = getText(dataPokemon["description"]);
         // Stat pokemon
         for (let i = 1; i < 7; i++) {
           document.getElementById('val_Stat' + i).innerHTML = dataPokemon[8+i];
@@ -109,13 +121,11 @@ var myFunction = function () {
         let parentWidth = document.getElementsByClassName("Graph_stat_case")[0].clientWidth;
         for (let i = 1; i < 7; i++) {
           document.getElementById('graph_Stat' + i).style.width =  parseInt(dataPokemon[8+i]*parentWidth/255) + "px";
-          console.log(parentWidth);
           document.getElementById('graph_Stat' + i).style.backgroundColor = colorStat[i-1];
         }
         // Faiblesse/Resistance
         let Resistance_Value = dataPokemon[15].split("/");
         for (let i = 0; i < 18; i++) {
-          console.log(document.getElementById('Faibless_Resistance_Value' + i));
           document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i+1];
           if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25"){
             document.getElementById('Faibless_Resistance_Value' + i).style.background ='radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
@@ -138,12 +148,12 @@ var myFunction = function () {
         }
       }
     }
-    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.spriteF,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, pokemon.hp, pokemon.attack, pokemon.defense, pokemon.atackspe, pokemon.defensespe, pokemon.speed, typeEfficiency, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id = " + this.id, true);
+    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.spriteF,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, pokemon.hp, pokemon.attack, pokemon.defense, pokemon.atackspe, pokemon.defensespe, pokemon.speed, typeEfficiency, pokemon.description, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id = " + this.id, true);
     xmlhttp.send();
     last_id = this.id;
     core.style.margin = "0px";
     // core.style.marginLeft = "275px";
-    core.style.maxWidth = "400px";
+    core.style.maxWidth = "450px";
   }
 };
 for (var i = 0; i < pokemons.length; i++) {

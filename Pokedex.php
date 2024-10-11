@@ -47,7 +47,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 						<option value="all">All</option>
 						<?php
 						for ($i = 0; $i < 18; $i++) {
-							echo '<option value="' . getTextLang($dataType[$i]["name"],"en") . '">' . getTextLang($dataType[$i]["name"]) . '</option>';
+							echo '<option value="' . getTextLang($dataType[$i]["name"], "en") . '">' . getTextLang($dataType[$i]["name"]) . '</option>';
 						}
 						?>
 					</select>
@@ -57,10 +57,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 						<option value="c">Commun</option>
 						<option value="f">Fabuleux</option>
 						<option value="l">Légendaire</option>
+						<option value="l">Ultra-Chimère</option>
 					</select>
 				</div>
 				<div id="searchBar">
-					<input type="text" name="text" id="an" class="search" placeholder="Rechercher" />
+					<input type="text" name="text" class="search" placeholder="Rechercher" />
 				</div>
 			</div>
 			<div id="pokedexCore">
@@ -89,22 +90,25 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 											?>
 										</div>
 										<div class="type">
-											<div class="type_1 textcolor <?php echo getTextLang($datapokemon[$i]["type1"], 'en');?>">
+											<div
+												class="type_1 textcolor <?php echo getTextLang($datapokemon[$i]["type1"], 'en'); ?>">
 												<?php
 												echo getTextLang($datapokemon[$i]["type1"]);
 												?>
 											</div>
-											<?php 
-												if ($datapokemon[$i]["type2"] != null) : ?>
-													<div class="type_2 textcolor <?php echo getTextLang($datapokemon[$i]["type2"], 'en');?>">
-														<?php
-														echo getTextLang($datapokemon[$i]["type2"]
+											<?php
+											if ($datapokemon[$i]["type2"] != null): ?>
+												<div
+													class="type_2 textcolor <?php echo getTextLang($datapokemon[$i]["type2"], 'en'); ?>">
+													<?php
+													echo getTextLang(
+														$datapokemon[$i]["type2"]
 													);
-														?>
-													</div>
+													?>
+												</div>
 												<?php
-												endif;
-												?>
+											endif;
+											?>
 
 										</div>
 									</div>
@@ -133,7 +137,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<div id="img"></div>
 					<div id="button">
 						<button type="button" id="gender_button">
-							<img class="symbole" src="../img/M.png">
+							<img id="symbole" src="./img/M.png">
 						</button>
 					</div>
 				</div>
@@ -212,7 +216,9 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				?>
 			</div>
 			<h2 class="name_section">Description :</h2>
-			<div id="Description"></div>
+			<div id="Description">
+				<h4 id="textDescription"></h4>
+			</div>
 
 			<h2 class="name_section">Statistique :</h2>
 			<div id="Stat">
@@ -259,15 +265,15 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			<h2 class="name_section">Faiblesses/Résistances :</h2>
 			<div id="Table_type">
 				<?php for ($i = 0; $i < count($dataType); $i++) {
-					if ($dataType[$i]["id"] > 18){
+					if ($dataType[$i]["id"] > 18) {
 						continue;
 
 					}
 					?>
 					<div class="tab_Type <?php echo getTextLang($dataType[$i]["name"], "en") ?>">
-						<img class="type_img" src="<?php echo $dataType[$i]["sprite"]?>">
+						<img class="type_img" src="<?php echo $dataType[$i]["sprite"] ?>">
 					</div>
-					
+
 					<?php
 				}
 				?>
