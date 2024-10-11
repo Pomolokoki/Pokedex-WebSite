@@ -1,6 +1,6 @@
 <?php
 
-include_once("./database/extractdata.php");
+include_once("./database/extractDataFromDB.php");
 
 $type = array("Steel", "Fighting", "Dragon", "Water", "Electric", "Fairy", "Fire", "Ice", "Bug", "Normal", "Grass", "Poison", "Psychic", "Rock", "Ground", "Ghost", "Dark", "Flying");
 

@@ -60,7 +60,7 @@ var myFunction = function () {
     last_id = "x";
     core.style.margin = "";
     core.style.maxWidth = "";
-    dataPokemon = undefined
+    dataPokemon = undefined;
   }
   else {
     var xmlhttp = new XMLHttpRequest();
@@ -140,7 +140,6 @@ var myFunction = function () {
     }
     xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.spriteF,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, pokemon.hp, pokemon.attack, pokemon.defense, pokemon.atackspe, pokemon.defensespe, pokemon.speed, typeEfficiency, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id = " + this.id, true);
     xmlhttp.send();
-    console.log(this.id)
     last_id = this.id;
     core.style.margin = "0px";
     // core.style.marginLeft = "275px";
