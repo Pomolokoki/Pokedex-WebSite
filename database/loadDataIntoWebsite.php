@@ -12,13 +12,13 @@ function loadSQL($file)
         for ( $i = 0; $i < count($sql); $i++ )
         {
             echo "". $sql[$i] ."";
-            if ($i != 1)
+            if ($i == 0)
             {
-                $statemnt = $db->prepare("INSERT INTO" . $sql[$i]);
+                $statemnt = $db->prepare($sql[$i]);
                 $statemnt->execute();
                 continue;
             }
-            $statemnt = $db->prepare("INSERT INTO" . $sql[$i]);
+            $statemnt = $db->prepare("INSERT INTO " . $sql[$i]);
             $statemnt->execute();
         }
     }

@@ -1,5 +1,6 @@
 <?php
 include_once("connectSQL.php");
+include_once("sqlQuery.php");
 
 function getStringReplace($string, $addQuote = true)
 {
@@ -76,12 +77,6 @@ function BooleanValue($value)
     return $value == true ? "TRUE" : "FALSE";
 }
 
-if (!file_exists("pokedexFromPhp.sql"))
-{
-    $file = 'pokedexFromPhp.sql';
-    file_put_contents($file, "DROP DATABASE IF EXISTS pokedex; CREATE DATABASE pokedex CHARACTER SET utf8; USE pokedex;\n");
-}
-
 function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
 {
     $values = rtrim($values, ",,");
@@ -90,12 +85,12 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
     $current = file_get_contents($file);
     if ($delete)
     {
+        //$current .= "DELETE FROM " . $table . " WHERE 1 = 1;\n";
         $statement = $db->prepare("DELETE FROM " . $table . " WHERE 1 = 1;");
         $statement->execute();
-        $current .= "DELETE FROM " . $table . " WHERE 1 = 1;\n";
         if ($deleteOnly)
         { 
-            file_put_contents($file, $current);
+            //file_put_contents($file, $current);
             return;
         }
     }
@@ -114,7 +109,7 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
             $dataToSave = $dataToSave . $data[$i];
             $dataToSave = rtrim($dataToSave, ",,");
             echo $insert . $dataToSave;
-            $current .= $insert . $dataToSave . ";\n";
+            $current .= $insert . "\n" . $dataToSave . ";\n";
             $statement = $db->prepare($insert . $dataToSave);
             $statement->execute();
             $dataToSave = "";
