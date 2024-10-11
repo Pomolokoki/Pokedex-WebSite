@@ -118,7 +118,7 @@ $sqlCreateMovePokemonLink =
 "CREATE TABLE move_pokemon(
 moveId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
-learnMethod TINYINT UNSIGNED,
+learnMethod VARCHAR(100),
 learnAtLevel TINYINT UNSIGNED,
 CONSTRAINT move_pokemon_moveId_FK FOREIGN KEY (moveId) REFERENCES move(id),
 CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
@@ -136,7 +136,7 @@ category VARCHAR(30),
 pocket VARCHAR(30),
 effect TEXT,
 throwEffect TEXT,
-throwValue TINYINT,
+throwValue SMALLINT,
 machineName VARCHAR(50),
 machineId SMALLINT UNSIGNED,
 CONSTRAINT item_machineId_FK FOREIGN KEY (machineId) REFERENCES move(id)

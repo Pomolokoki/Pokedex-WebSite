@@ -98,7 +98,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
 
     for ($j = 0; $j < count($pokemonData->abilities); $j++)
     {
-        if ($pokemonData->abilities[$j]->slot == 3 && exists($pokemonData->abilities[0], ["ability", "url"]) == $pokemonData->abilities[$j]->ability->url)
+        if ($pokemonData->abilities[$j]->slot == 3 && exists($pokemonData->abilities[0], ["ability", "url"]) == $pokemonData->abilities[$j]->ability->url) { continue; }
         $APvalues = $APvalues . "(" . getIdFromUrl($pokemonData->abilities[$j]->ability->url) . ",". $pokemonData->id . "," . BooleanValue($pokemonData->abilities[$j]->is_hidden) . "),,"; //ability_pokemon (table)
     }
 
@@ -108,8 +108,6 @@ foreach (getDataFromFile("/pokemon")->results as $move)
     {
         $groups = $pokemonData->moves[$j]->version_group_details;
         $group = $groups[count($groups) - 1];
-        if ($group->version_group->name != "scarlet-violet")
-        { break; }
             
             $learnMethodId = getIdFromUrl($group->move_learn_method->url);
             if ($learnMethodId == 9 || $learnMethodId == 8 || $learnMethodId == 7)

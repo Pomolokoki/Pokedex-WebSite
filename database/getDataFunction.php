@@ -25,16 +25,25 @@ function getTextFromData($data, $value)
     }
     $return = '"';
     $fr = -1;
+    $en = -1;
     for ($j = 0; $j < count($data); $j++) //name
     {
         if ($data[$j]->language->name == "en")
         {
-            $return = $return . getStringReplace($data[$j]->$value, false);
+            $en = $j;
         }
         if ($data[$j]->language->name == "fr")
         {
             $fr = $j;
         }
+    }
+    if ($en == -1)
+    {
+        $return = $return . 'NULL';
+    }
+    else
+    {
+        $return = $return . getStringReplace($data[$en]->$value, false);
     }
     if ($fr == -1)
     {
@@ -67,39 +76,56 @@ function BooleanValue($value)
     return $value == true ? "TRUE" : "FALSE";
 }
 
+if (!file_exists("pokedexFromPhp.sql"))
+{
+    $file = 'pokedexFromPhp.sql';
+    file_put_contents($file, "DROP DATABASE IF EXISTS pokedex; CREATE DATABASE pokedex CHARACTER SET utf8; USE pokedex;\n");
+}
+
 function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
 {
-    //$values = rtrim($values, ",");
+    $values = rtrim($values, ",,");
     global $db;
+    $file = 'pokedexFromPhp.sql';
+    $current = file_get_contents($file);
     if ($delete)
     {
         $statement = $db->prepare("DELETE FROM " . $table . " WHERE 1 = 1;");
         $statement->execute();
-        if ($deleteOnly) { return; }
+        $current .= "DELETE FROM " . $table . " WHERE 1 = 1;\n";
+        if ($deleteOnly)
+        { 
+            file_put_contents($file, $current);
+            return;
+        }
     }
     $data = preg_split("(,,)", $values);
-    echo $values;
-    echo "<br>";
-    echo "<br>";
-    echo count($data);
-    echo "<br>";
-    echo "<br>";
+    // echo $values;
+    // echo "<br>";
+    // echo "<br>";
+    // echo count($data);
+    // echo "<br>";
+    // echo "<br>";
     $dataToSave = "";
     for ($i = 0; $i < count($data); $i++)
     {
         if (($i != 0 && $i % 100 == 0) || $i == count($data) - 1)
         {
-            $dataToSave = $dataToSave . $data[$i] . ",";
+            $dataToSave = $dataToSave . $data[$i];
             $dataToSave = rtrim($dataToSave, ",,");
             echo $insert . $dataToSave;
+            $current .= $insert . $dataToSave . ";\n";
             $statement = $db->prepare($insert . $dataToSave);
             $statement->execute();
             $dataToSave = "";
         }
         else {
-            $dataToSave = $dataToSave . $data[$i] . ",";
+            $dataToSave = $dataToSave . $data[$i] . ",\n";
         }
     }
+    
+    file_put_contents($file, $current);
+
     //$statement = $db->prepare($insert . $values);
     //$statement->execute();
     $statement = $db->prepare("SELECT * FROM " . $table);

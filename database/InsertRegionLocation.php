@@ -34,6 +34,7 @@ foreach(getDataFromFile("/location")->results as $location)
     $locationData = getDataFromFile("/location/" . getIdFromUrl($location->url));
     $value = "(" . $locationData->id . ','; //id
     $value = $value . getTextFromData($locationData->names, "name") . ","; //name
+    str_replace("NULL/NULL", $locationData->name, $value);
     $value = $value . getIdFromUrl(exists($locationData, ["region", "url"])); //region
     $valuesL = $valuesL . $value . "),,";
 }

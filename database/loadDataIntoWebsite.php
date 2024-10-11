@@ -24,5 +24,5 @@ function loadSQL($file)
     }
 }
 
-loadSQL("pokedex.sql");
+loadSQL("pokedexFromPhp.sql");
 ?>
