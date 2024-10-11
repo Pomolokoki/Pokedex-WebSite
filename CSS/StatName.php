@@ -1,5 +1,5 @@
 <?php
-$type = array("Acier", "Combat", "Dragon", "Eau", "Electrik", "Fee", "Feu", "Glace", "Insecte", "Normal", "Plante", "Poison", "Psy", "Roche", "Sol", "Spectre", "Tenebre", "Vol");
+$type = array("Steel", "Fighting", "Dragon", "Water", "Electric", "Fairy", "Fire", "Ice", "Bug", "Normal", "Grass", "Poison", "Psychic", "Rock", "Ground", "Ghost", "Dark", "Flying");
 
 $Stat_name=array("Stat","PV","Attaque","Défense","Attaque Spéciale","Défense Spéciale","Vitesse");
 for ($i = 0; $i <count($Stat_name) ; $i++) {
