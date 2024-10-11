@@ -46,10 +46,8 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<select id="type">
 						<option value="all">All</option>
 						<?php
-						$typeData = getDataFromDB("type", "name", "ORDER BY name ASC");
-						for ($i = 0; $i < count($typeData); $i++) {
-							echo '<option value="' . getTextLang($typeData[$i]["name"],"en") . '">' . getTextLang($typeData[$i]["name"]) . '</option>';
-
+						for ($i = 0; $i < 18; $i++) {
+							echo '<option value="' . getTextLang($dataType[$i]["name"],"en") . '">' . getTextLang($dataType[$i]["name"]) . '</option>';
 						}
 						?>
 					</select>
@@ -275,7 +273,9 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				?>
 				<?php for ($j = 0; $j < 18; $j++) {
 					?>
-					<div class="Faibless_Resistance"></div>
+					<div class="Faibless_Resistance" id="Faibless_Resistance<?php echo ($j) ?>">
+						<h2 class="Faibless_Resistance_Value" id="Faibless_Resistance_Value<?php echo ($j) ?>"></h2>
+					</div>
 					<?php
 				}
 				?>

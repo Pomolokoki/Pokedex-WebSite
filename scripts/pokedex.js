@@ -18,7 +18,7 @@ var TableColor = {
   Normal: ["d0d0cf","918f8f"],
   Plante: ["00ff15","0a7000"],
   Poison: ["be33ed","6c0279"],
-  Psy: ["e76dee","c113aa",],
+  Psy: ["b857be","c113aa",],
   Roche: ["bda777","6c551e"],
   Sol: ["be8f2a","573d02"],
   Spectre: ["a05da2","4f1154"],
@@ -91,10 +91,10 @@ var myFunction = function () {
           document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType][0] + ', #' + TableColor[colorType][1] + ')';
         }
         else {
-          document.getElementById("type_Pokemon").innerHTML = getText(JSON.parse(this.responseText)[0]["type1"]) + " / " + getText(JSON.parse(this.responseText)[0]["type2"]);
+          document.getElementById("type_Pokemon").innerHTML = getText(dataPokemon["type1"]) + " / " + getText(dataPokemon["type2"]);
           const colorType1 = getText(dataPokemon["type1"]);
           const colorType2 = getText(dataPokemon["type2"]);
-          document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType1][0] + ', #' + TableColor[colorType2][1] + ')';
+          document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType1][0] + ', #' + TableColor[colorType2][0] + ')';
         }
         document.getElementById("gen_Pokemon").innerHTML = "Gen : " + dataPokemon["generation"];
         document.getElementById("taille_Pokemon").innerHTML = "Taille : " + dataPokemon["height"] / 10.0 + " m";
@@ -112,10 +112,33 @@ var myFunction = function () {
           console.log(parentWidth);
           document.getElementById('graph_Stat' + i).style.backgroundColor = colorStat[i-1];
         }
-
+        // Faiblesse/Resistance
+        let Resistance_Value = dataPokemon[15].split("/");
+        for (let i = 0; i < 18; i++) {
+          console.log(document.getElementById('Faibless_Resistance_Value' + i));
+          document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i+1];
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25"){
+            document.getElementById('Faibless_Resistance_Value' + i).style.background ='radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.5"){
+            document.getElementById('Faibless_Resistance_Value'+ i).style.background ='radial-gradient(circle, rgba(157,252,142,1) 7%, rgba(138,231,132,1) 21%, rgba(115,194,99,1) 48%, rgba(129,237,101,1) 64%, rgba(125,196,121,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0"){
+            document.getElementById('Faibless_Resistance_Value'+ i).style.background ='radial-gradient(circle, rgba(142,142,142,1) 7%, rgba(184,184,184,1) 21%, rgba(133,128,128,1) 48%, rgba(181,178,178,1) 64%, rgba(94,94,94,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x1"){
+            document.getElementById('Faibless_Resistance_Value'+ i).style.background ='radial-gradient(circle, rgba(255,218,89,1) 7%, rgba(210,160,82,1) 21%, rgba(246,208,64,1) 48%, rgba(213,172,70,1) 64%, rgba(255,198,51,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x2"){
+            document.getElementById('Faibless_Resistance_Value'+ i).style.background ='radial-gradient(circle, rgba(255,119,119,1) 7%, rgba(193,88,88,1) 21%, rgba(232,106,106,1) 48%, rgba(207,69,69,1) 64%, rgba(255,93,93,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x4"){
+            document.getElementById('Faibless_Resistance_Value'+ i).style.background ='radial-gradient(circle, rgba(193,31,31,1) 7%, rgba(207,81,81,1) 21%, rgba(193,16,16,1) 48%, rgba(237,12,12,1) 64%, rgba(157,2,2,1) 90%)';
+          }
+        }
       }
     }
-    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.spriteF,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, pokemon.hp, pokemon.attack, pokemon.defense, pokemon.atackspe, pokemon.defensespe, pokemon.speed, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id = " + this.id, true);
+    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.spriteF,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, pokemon.hp, pokemon.attack, pokemon.defense, pokemon.atackspe, pokemon.defensespe, pokemon.speed, typeEfficiency, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id = " + this.id, true);
     xmlhttp.send();
     console.log(this.id)
     last_id = this.id;
