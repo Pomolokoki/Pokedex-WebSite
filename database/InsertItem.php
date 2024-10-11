@@ -71,6 +71,6 @@ foreach(getDataFromFile("/item")->results as $item)
     // }
 }
 saveToDb($sqlInsertItem, "item", $values);
-$statement = $db->prepare("INSERT INTO item (id, name) VALUES (100000, 'Metal alloy/Métal Composite')");
+$statement = $db->prepare("INSERT INTO item (id, name) VALUES (10000, 'Metal alloy/Métal Composite')");
 $statement->execute();
 ?>

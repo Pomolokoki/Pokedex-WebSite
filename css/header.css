@@ -104,7 +104,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     background-color: dodgerblue;
     border: 0.25em solid black;
     width: 100px;
-    font-size: 15px;
+    font-size: 13px;
     min-height: 20px;
     max-height: 100%;
     max-width: 100%;
@@ -206,7 +206,7 @@ nav a:hover::after {
     user-select: none;
     position: static;
     padding: 0;
-    transition-duration: 1s;
+    transition-duration: 0.5s;
 }
 
 #pokedexPage {
@@ -236,6 +236,10 @@ nav a:hover::after {
 
 /*#region Media Query for Mobile Version*/
 @media only screen and (max-width: 600px) {
+
+    header{
+        height: 100px;
+    }
 
     .textButton {
         font-size: 0.5rem;
