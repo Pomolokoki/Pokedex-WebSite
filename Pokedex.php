@@ -202,7 +202,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			</div>
 			<h2 class="name_section">Talent :</h2>
 			<div id="Talent">
-				<?php for ($i = 0; $i < 3; $i++) {
+				<!-- <?php for ($i = 0; $i < 3; $i++) {
 					?>
 					<div class="nom_talent"></div>
 					<?php
@@ -213,7 +213,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<div class="desc_talent"></div>
 					<?php
 				}
-				?>
+				?> -->
 			</div>
 			<h2 class="name_section">Description :</h2>
 			<div id="Description">
