@@ -7,11 +7,11 @@ body{
     height: 100%;
     background-color: black;
 }
-#header{
+/* #header{
     background-color: red;
     width: 100%;
     height: 20%;
-}
+} */
 #mapFrame{
     position: absolute;
     right: 0%;
