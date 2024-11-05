@@ -47,21 +47,54 @@ document.getElementById('gender_button').addEventListener('click', function () {
 
 function getText(str) {
   if (language === "Fr") {
+    if(str.split('/')[1] == "NULL")
+      return str.split('/')[0];
     return str.split('/')[1];
   }
 }
 
-// filtre 1
+function filtre() {
+  let gen, type, rarete, searchBar;
+  gen = document.getElementById('gen').value;
+  type = document.getElementById('type').value;
+  rarete = document.getElementById('rarete').value;
+  searchBar = document.querySelector('#searchBar input').value.toLowerCase();
+  console.log(gen, type, rarete, searchBar);
+  [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
+    pokemon.style.display = "none";
+  });
+  if(gen != 'all')
+    gen = "[data-gen='"+ gen +"']";
+  else
+    gen = "";
+  if(type != 'all')
+    type = "[data-type*='"+ type +"']";
+  else
+    type = "";
+  if(rarete != 'all')
+    rarete = "[data-category='"+ rarete +"']";
+  else
+  rarete = "";
+  if(searchBar != '')
+    searchBar = "[data-name*='"+ searchBar +"']";
+  else
+  searchBar = "";
+  [...document.querySelectorAll(".pokemon"+ gen + type + rarete + searchBar)].forEach(pokemon => {
+    pokemon.style.display = "inline-block";
+  });
+}
 
+// filtre 1
+document.getElementById('gen').addEventListener('change', filtre);
 
 // filtre 2
-
+document.getElementById('type').addEventListener('change', filtre);
 
 // filtre 3
-
+document.getElementById('rarete').addEventListener('change', filtre);
 
 // search bar
-
+document.getElementById('searchBar').addEventListener('input', filtre);
 
 var myFunction = function () {
   if (last_id === this.id) {
@@ -177,20 +210,27 @@ var myFunction = function () {
       if (this.readyState == 4 && this.status == 200) {
         dataAbility = JSON.parse(this.responseText);
         console.log(dataAbility);
+        document.getElementById("Talent").innerText = "";
+        document.getElementById("Talent").classList.remove("NB_talent0","NB_talent1","NB_talent2","NB_talent3")
+        document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
         for (let i = 0; i < dataAbility.length ; i++) {
           let divElementName = document.createElement("div");
-          divElementName.class = "nom_talent";
+          divElementName.classList.add("nom_talent");
+          divElementName.innerHTML = getText(dataAbility[i][0]);
+          document.querySelector("body #content #Pokemon #Talent").appendChild(divElementName);
+        }
+        for (let i = 0; i < dataAbility.length ; i++) {
           let divElementDesc = document.createElement("div");
-          divElementDesc.class = "desc_talent";
-          document.body.content.core.Pokemon.Talent.appendChild(divElementName);
-          document.body.content.core.Pokemon.Talent.appendChild(divElementDesc);
+          divElementDesc.classList.add("desc_talent");
+          divElementDesc.innerHTML = getText(dataAbility[i][1]);
+          document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
         }
       }
     }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
       ability.name,
-      ability.description,
+      ability.smallDescription,
       ap.isHidden 
       FROM ability_pokemon AS ap 
       INNER JOIN ability ON ap.abilityId = ability.id 

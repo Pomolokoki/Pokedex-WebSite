@@ -32,15 +32,15 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				<div class="filter">
 					<select id="gen">
 						<option value="all">All</option>
-						<option value="g1">Gen 1</option>
-						<option value="g2">Gen 2</option>
-						<option value="g3">Gen 3</option>
-						<option value="g4">Gen 4</option>
-						<option value="g5">Gen 5</option>
-						<option value="g6">Gen 6</option>
-						<option value="g7">Gen 7</option>
-						<option value="g8">Gen 8</option>
-						<option value="g9">Gen 9</option>
+						<option value="1">Gen 1</option>
+						<option value="2">Gen 2</option>
+						<option value="3">Gen 3</option>
+						<option value="4">Gen 4</option>
+						<option value="5">Gen 5</option>
+						<option value="6">Gen 6</option>
+						<option value="7">Gen 7</option>
+						<option value="8">Gen 8</option>
+						<option value="9">Gen 9</option>
 					</select>
 
 					<select id="type">
@@ -54,10 +54,10 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 
 					<select id="rarete">
 						<option value="all">All</option>
-						<option value="c">Commun</option>
-						<option value="f">Fabuleux</option>
-						<option value="l">Légendaire</option>
-						<option value="l">Ultra-Chimère</option>
+						<option value="0">Commun</option>
+						<option value="2">Fabuleux</option>
+						<option value="1">Légendaire</option>
+						<option value="3">Ultra-Chimère</option>
 					</select>
 				</div>
 				<div id="searchBar">
@@ -69,7 +69,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<?php
 					for ($i = 0; $i < count($datapokemon); $i++) {
 						?>
-						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>">
+						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>" data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>" data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"]  ?>" data-category="<?php echo $datapokemon[$i]["category"] ?>" data-gen="<?php echo $datapokemon[$i]["generation"] ?>">
 							<div class="colors"></div>
 							<div class="info">
 								<div class="img_pokemon">
@@ -202,18 +202,6 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			</div>
 			<h2 class="name_section">Talent :</h2>
 			<div id="Talent">
-				<!-- <?php for ($i = 0; $i < 3; $i++) {
-					?>
-					<div class="nom_talent"></div>
-					<?php
-				}
-				?>
-				<?php for ($j = 0; $j < 3; $j++) {
-					?>
-					<div class="desc_talent"></div>
-					<?php
-				}
-				?> -->
 			</div>
 			<h2 class="name_section">Description :</h2>
 			<div id="Description">
