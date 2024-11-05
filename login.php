@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include_once("database/connectSQL.php");
+?>
 <!-- Inclusion du header -->
 <?php include_once("header.html") ?>
 
@@ -11,18 +13,6 @@
 
 
 
-<!--#region Tableau de tests utilisateurs -->
-
-<?php
-$users = [
-    [
-        'username' => 'Testeur',
-        'email' => 'test@exemple.com',
-        'password' => 'test'
-    ],
-];
-?>
-<!--#endregion -->
 
 <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
 <?php
@@ -32,31 +22,12 @@ $users = [
 $_SESSION["identifier"] = $_SESSION["pword"] = "";
 $identifierErr = $emailErr = $pwordErr = "";
 
-$length = strlen($_SESSION["identifier"]);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($_POST["id"])) {
         $identifierErr = "Veuillez entrer un identifiant correct";
     } else {
         $_SESSION["identifier"] = test_input($_POST["id"]);
-        /*        
-        //Check si le nom contient seulement des lettres et espace
-        // preg_match() recherche un pattern de string, et retourne vrai si le pattern existe
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $_SESSION["uname"])) {
-            $identifierErr = "Seulement des lettres et des espaces sont autorisés";
-        }
-        */
-    }
-
-    if (empty($_POST["identifier"])) {
-        $emailErr = "Veuillez entrer un email";
-    } else {
-        $_SESSION["identifier"] = test_input($_POST["identifier"]);
-        /* A mettre dans l'inscription
-        //Check si l'adresse est bien formulée
-        if (!filter_var($_SESSION["email"], FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Email invalide";
-        }*/
     }
 
     if (empty($_POST["password"])) {
@@ -72,22 +43,31 @@ function test_input($data)
     $data = htmlspecialchars($data);
     return $data;
 }
-
 #endregion
 
 #region Validation du formulaire -->
 
-if (isset($_POST['id']) && isset($_POST['password'])) {
+if (!empty($_POST["id"]) && !empty($_POST["password"])) {
 
-    foreach ($users as $user) {
-        if (
+    $parcoursPlayerTable = $db->prepare("SELECT id,nickname,email,password FROM player");
+    $parcoursPlayerTable->execute();
+    $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
 
-            $user['email'] === $_POST['id'] || $user['username'] === $_POST['id'] &&
-            $user['password'] === $_POST['password']
-        ) {
-            $_SESSION['LOGGED_USER'] = $user['email'];
-        } else {
+    while($row = $parcoursPlayerTable->fetch()){
+        if($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']){
+            if(password_verify($_POST['password'],$row['password'])){
+                // $_SESSION["LOGGED_USER"] = $row['email'];
+                $emailDB = $row['email'];
+                $idForm = $_POST['id'];
+                $sql = "SELECT email FROM player WHERE (? = ?)";
+                $stmt = $db->prepare($sql);
+                $stmt->execute([$emailDB,$idForm]);
+                $_SESSION["LOGGED_USER"] = $row['email'];
+            }
+        }
+        else{
             $errorMessage = sprintf("L'identifiant ou le mot de passe est invalide.");
+            echo $row['email'];            
         }
     }
 }
@@ -133,29 +113,21 @@ if (isset($_POST['id']) && isset($_POST['password'])) {
                 <br>
                 <div class="row">
                     <p>Pas de compte ? <a href="register.php">Inscrivez-vous !</a></p>
-                    <input type="submit" id="submitButton" value="Connectez-vous !">
+                    <input type="submit" id="submitButton" value="Connectez-vous !">                    
                 </div>
             </form>
-        <?php else: ?>
+        <?php else: ?>            
             <div class="alert alert-success" role="alert">
                 Bonjour <?php echo $_SESSION['LOGGED_USER']; ?> et bienvenue notre PokeSite !
                 <?php
-                $new_url = 'index.php';
+                $new_url = 'pokedex.php';
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
                 
             </div>
         <?php endif; ?>
-
-        <?php
-        echo "Test : ";
-        echo "<br>";
-        echo $_POST['id'];
-        echo "<br>";
-        echo $_SESSION["identifier"];
-        echo "<br>";
-        echo $_SESSION["pword"];
-        // session_destroy();
+        <?php 
+            session_destroy();
         ?>
     </div>
     <footer>
