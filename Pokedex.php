@@ -200,9 +200,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					</div>
 				</div>
 			</div>
+
 			<h2 class="name_section">Talent :</h2>
 			<div id="Talent">
 			</div>
+
 			<h2 class="name_section">Description :</h2>
 			<div id="Description">
 				<h4 id="textDescription"></h4>
@@ -276,118 +278,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			</div>
 			<h2 class="name_section">Attaque :</h2>
 			<div id="Attaque">
-				<div id="Name_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Nom</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<div id="Type_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Type</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<div id="Category_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Categorie</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<div id="Puissance_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Puissance</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<div id="Precision_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Précision</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<div id="PP_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>PP</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<div id="Learning_atk">
-					<?php for ($i = 0; $i < 7; $i++) {
-						?>
-						<div class="Val_atk_case">
-							<?php
-							if ($i == 0) {
-								?>
-								<h3>Apprentissage</h3>
-								<?php
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
+				
 			</div>
 		</div>
 	</div>

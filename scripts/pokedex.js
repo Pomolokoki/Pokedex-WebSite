@@ -47,7 +47,7 @@ document.getElementById('gender_button').addEventListener('click', function () {
 
 function getText(str) {
   if (language === "Fr") {
-    if(str.split('/')[1] == "NULL")
+    if (str.split('/')[1] == "NULL")
       return str.split('/')[0];
     return str.split('/')[1];
   }
@@ -63,23 +63,23 @@ function filtre() {
   [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
     pokemon.style.display = "none";
   });
-  if(gen != 'all')
-    gen = "[data-gen='"+ gen +"']";
+  if (gen != 'all')
+    gen = "[data-gen='" + gen + "']";
   else
     gen = "";
-  if(type != 'all')
-    type = "[data-type*='"+ type +"']";
+  if (type != 'all')
+    type = "[data-type*='" + type + "']";
   else
     type = "";
-  if(rarete != 'all')
-    rarete = "[data-category='"+ rarete +"']";
+  if (rarete != 'all')
+    rarete = "[data-category='" + rarete + "']";
   else
-  rarete = "";
-  if(searchBar != '')
-    searchBar = "[data-name*='"+ searchBar +"']";
+    rarete = "";
+  if (searchBar != '')
+    searchBar = "[data-name*='" + searchBar + "']";
   else
-  searchBar = "";
-  [...document.querySelectorAll(".pokemon"+ gen + type + rarete + searchBar)].forEach(pokemon => {
+    searchBar = "";
+  [...document.querySelectorAll(".pokemon" + gen + type + rarete + searchBar)].forEach(pokemon => {
     pokemon.style.display = "inline-block";
   });
 }
@@ -209,20 +209,19 @@ var myFunction = function () {
     xmlhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         dataAbility = JSON.parse(this.responseText);
-        console.log(dataAbility);
         document.getElementById("Talent").innerText = "";
-        document.getElementById("Talent").classList.remove("NB_talent0","NB_talent1","NB_talent2","NB_talent3")
+        document.getElementById("Talent").classList.remove("NB_talent0", "NB_talent1", "NB_talent2", "NB_talent3")
         document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
-        for (let i = 0; i < dataAbility.length ; i++) {
+        for (let i = 0; i < dataAbility.length; i++) {
           let divElementName = document.createElement("div");
           divElementName.classList.add("nom_talent");
-          divElementName.innerHTML = getText(dataAbility[i][0]);
+          divElementName.innerHTML = getText(dataAbility[i]["name"]);
           document.querySelector("body #content #Pokemon #Talent").appendChild(divElementName);
         }
-        for (let i = 0; i < dataAbility.length ; i++) {
+        for (let i = 0; i < dataAbility.length; i++) {
           let divElementDesc = document.createElement("div");
           divElementDesc.classList.add("desc_talent");
-          divElementDesc.innerHTML = getText(dataAbility[i][1]);
+          divElementDesc.innerHTML = getText(dataAbility[i]["smallDescription"]);
           document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
         }
       }
@@ -236,13 +235,125 @@ var myFunction = function () {
       INNER JOIN ability ON ap.abilityId = ability.id 
       WHERE ap.pokemonId = ` + this.id, true);
     xmlhttp.send();
-        last_id = this.id;
-        core.style.margin = "0px";
-        // core.style.marginLeft = "275px";
-        core.style.maxWidth = "450px";
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        dataMove = JSON.parse(this.responseText);
+        document.getElementById("Attaque").innerText = "";
+        document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + dataMove.length + ",1fr)"
+        let noob = ["Nom", "Type", "c", "b", "v", "d", "e"]
+        let noob2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+        for (let i = -1; i < dataMove.length; i++) {
+          for (let j = 0; j < 7; ++j)
+            {
+              let divElementName = document.createElement("div");
+              divElementName.classList.add("Val_atk_case");
+              if (i == -1) {
+                divElementName.innerHTML = "<h3>" + noob[j] + "</h3>"
+              }
+              else {
+                if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
+                 divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
+                else if (j == 2 || j == 3 || j == 4 || j == 5)
+                  divElementName.innerHTML = dataMove[i][noob2[j]];
+                else
+                  divElementName.innerHTML = getText(dataMove[i][noob2[j]]);
+              }
+              document.getElementById("Attaque").appendChild(divElementName);
+          }
+        }
+
+    //     document.getElementById("Type_atk").innerText = "";
+    //     for (let i = -1; i < dataMove.length; i++) {
+    //       let divElementName = document.createElement("div");
+    //       divElementName.classList.add("Val_atk_case");
+    //       if (i == -1)
+    //       else
+    //         divElementName.innerHTML = getText(dataMove[i]["type"]);
+    //       document.getElementById("Type_atk").appendChild(divElementName);
+    //     }
+
+    //     document.getElementById("Category_atk").innerText = "";
+    //     for (let i = -1; i < dataMove.length; i++) {
+    //       let divElementName = document.createElement("div");
+    //       divElementName.classList.add("Val_atk_case");
+    //       if (i == -1)
+    //         divElementName.innerHTML = "<h3>Catégorie</h3>"
+    //       else
+    //         divElementName.innerHTML = dataMove[i]["effectType"];
+    //       document.getElementById("Category_atk").appendChild(divElementName);
+    //     }
+
+    //     document.getElementById("Puissance_atk").innerText = "";
+    //     for (let i = -1; i < dataMove.length; i++) {
+    //       let divElementName = document.createElement("div");
+    //       divElementName.classList.add("Val_atk_case");
+    //       if (i == -1)
+    //         divElementName.innerHTML = "<h3>Puissance</h3>"
+    //       else
+    //         divElementName.innerHTML = dataMove[i]["pc"];
+    //       document.getElementById("Puissance_atk").appendChild(divElementName);
+    //     }
+
+    //     document.getElementById("Precision_atk").innerText = "";
+    //     for (let i = -1; i < dataMove.length; i++) {
+    //       let divElementName = document.createElement("div");
+    //       divElementName.classList.add("Val_atk_case");
+    //       if (i == -1)
+    //         divElementName.innerHTML = "<h3>Précision</h3>"
+    //       else
+    //         divElementName.innerHTML = dataMove[i]["accuracy"];
+    //       document.getElementById("Precision_atk").appendChild(divElementName);
+    //     }
+
+    //     document.getElementById("PP_atk").innerText = "";
+    //     for (let i = -1; i < dataMove.length; i++) {
+    //       let divElementName = document.createElement("div");
+    //       divElementName.classList.add("Val_atk_case");
+    //       if (i == -1)
+    //         divElementName.innerHTML = "<h3>PP</h3>"
+    //       else
+    //         divElementName.innerHTML = dataMove[i]["pp"];
+    //       document.getElementById("PP_atk").appendChild(divElementName);
+    //     }
+
+    //     document.getElementById("Learning_atk").innerText = "";
+    //     for (let i = -1; i < dataMove.length; i++) {
+    //       let divElementName = document.createElement("div");
+    //       divElementName.classList.add("Val_atk_case");
+    //       if (i == -1)
+    //         divElementName.innerHTML = "<h3>Apprentissage</h3>"
+    //       else
+    //         if (getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
+    //           divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
+    //         else
+    //         divElementName.innerHTML = getText(dataMove[i]["learnMethod"]);
+    //       document.getElementById("Learning_atk").appendChild(divElementName);
+    //     }
       }
-    };
-    for (var i = 0; i < pokemons.length; i++) {
-      pokemons[i].addEventListener('click', myFunction, false);
     }
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      SELECT 
+      move.name,
+      type.name AS type,
+      move.effectType,
+      move.pc,
+      move.accuracy,
+      mp.learnMethod,
+      mp.learnAtLevel,
+      move.pp 
+      FROM move_pokemon AS mp 
+      INNER JOIN move ON mp.moveId = move.id 
+      JOIN type ON move.type = type.id 
+      WHERE mp.pokemonId = ` + this.id, true);
+    xmlhttp.send();
+    last_id = this.id;
+    core.style.margin = "0px";
+    // core.style.marginLeft = "275px";
+    core.style.maxWidth = "450px";
+  }
+};
+for (var i = 0; i < pokemons.length; i++) {
+  pokemons[i].addEventListener('click', myFunction, false);
+}
 

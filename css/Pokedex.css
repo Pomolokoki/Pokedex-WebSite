@@ -350,15 +350,26 @@ select {
     margin: 12px;
 }
 
-.textcolor{
+.textcolor {
     animation: colorchange 4s infinite;
 }
 
 @keyframes colorchange {
-    0%{color: black;}
-    33%{color: red;}
-    66%{color: white;}
-    100%{color: black;}
+    0% {
+        color: black;
+    }
+
+    33% {
+        color: red;
+    }
+
+    66% {
+        color: white;
+    }
+
+    100% {
+        color: black;
+    }
 }
 
 #Info_Pok_r {
@@ -474,8 +485,10 @@ select {
     margin-right: 20px;
     margin-bottom: 20px;
     height: auto;
-    max-width: 950px;;
+    max-width: 950px;
+    ;
     background-color: aqua;
+    font-size: 14px;
 }
 
 .NB_talent1 {
@@ -492,11 +505,13 @@ select {
     grid-template-columns: 1fr 1fr 1fr;
     height: auto;
 }
+
 .nom_talent {
     width: 100%;
     height: 100%;
     border: 1px;
     background-color: blueviolet;
+    padding: 5px;
 }
 
 .desc_talent {
@@ -504,6 +519,7 @@ select {
     height: 100%;
     border: 1px;
     background-color: rgb(255, 251, 0);
+    padding: 5px;
 
 }
 
@@ -519,7 +535,7 @@ select {
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
-#textDescription{
+#textDescription {
     padding-bottom: 15px;
     padding-left: 5px;
 }
@@ -624,7 +640,7 @@ select {
     background-color: rgb(0, 0, 0);
 }
 
-.type_img{
+.type_img {
     width: 50px;
     height: 50px;
     filter: brightness(0);
@@ -654,68 +670,23 @@ select {
     margin-right: 20px;
     margin-bottom: 20px;
     font-size: 14px;
-    display: flex;
-    height: 500px;
-    background-color: aqua;
-}
-
-#Name_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(30, 255, 0, 0.219);
-    padding: 1px;
-}
-
-#Type_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(255, 0, 212, 0.219);
-    padding: 1px;
-}
-
-#Category_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(255, 251, 0, 0.671);
-    padding: 1px;
-}
-
-#Puissance_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(255, 0, 0, 0.219);
-    padding: 1px;
-}
-
-#Precision_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(0, 195, 255, 0.774);
-    padding: 1px;
-}
-
-#PP_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(162, 0, 255, 0.952);
-    padding: 1px;
-}
-
-#Learning_atk {
-    width: 20%;
-    height: 100%;
-    background-color: rgba(229, 255, 0, 0.952);
-    padding: 1px;
+    width: 950px;
+    gap: 2px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: max-content;
+    background-color: rgb(112, 255, 76);
 }
 
 .Val_atk_case {
     width: 100%;
     margin-bottom: 1px;
-    height: calc(100%/7 - 0.9px);
+    height: 25px;
     background-color: rgb(255, 255, 255);
     display: grid;
     justify-content: center;
     align-items: center;
+    background-color: #ff009d;
 }
 
 /*#endregion */
