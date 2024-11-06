@@ -8,7 +8,7 @@ $db = new PDO(
 sprintf('mysql:host=%s;port=%s;charset=utf8',
 MYSQL_HOST, MYSQL_PORT),
 MYSQL_USER,
-// MYSQL_PASSWORD
+//MYSQL_PASSWORD
 );
 $sqlCreateBD = 
 "DROP DATABASE IF EXISTS pokedex;

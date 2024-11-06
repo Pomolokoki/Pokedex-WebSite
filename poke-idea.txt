@@ -42,7 +42,8 @@ data = https://github.com/PokeAPI/api-data/blob/master/data/api/v2
 
 api  = https://tyradex.tech/
 
-
+carte interactive : https://www.youtube.com/watch?v=UZs8l50gxjU
+https://faqs.neoseeker.com/Games/3DS/pokemon_oras_hoenn.png
 
 
 

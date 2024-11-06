@@ -33,3 +33,4 @@ compte utilisateur (photo, nom, mdp, description)
 
 data = https://github.com/pokemondb/database/tree/master/data
 api  = https://tyradex.tech/
+https://www.youtube.com/watch?v=UZs8l50gxjU

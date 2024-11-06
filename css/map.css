@@ -7,21 +7,23 @@ body{
     height: 100%;
     background-color: black;
 }
-/* #header{
+#header{
     background-color: red;
     width: 100%;
-    height: 20%;
-} */
+    height: 140px;
+}
 #mapFrame{
     position: absolute;
     right: 0%;
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: calc(100% - 140px);
     background-color: blueviolet;
+    align-content: center;
+    z-index: 0;
 }
 #smallMapFrame{
     position: relative;
-    top: 10%;
+    /* top: 10%; */
     margin: auto;
     width: 80%;
     height: 80%;
@@ -32,18 +34,10 @@ body{
     /* align-content: center; */
     overflow: hidden;
     clip: auto;
-}
-#info{
-    max-width: 50%;
-    position: relative;
-    width: 20%;
-    height: 80%;
-    flex-direction: column;
-    display: flex;
-    overflow: auto;
-}
+    z-index: 0;
+}   
 
-#map{
+#imgMap, #svgMap{
     position: absolute;
     display: block;
     width: auto;
@@ -54,28 +48,44 @@ body{
     max-width: 3000px;
     clip: auto;
     pointer-events: none;
-    
+}
+
+.road, .special, .city{
+    pointer-events: auto;
 }
 
 #centered{
     position: absolute;
     height: 2.5vh;
-    width: 12vh;
-    bottom: 1vh;
-    right: 2vh;
+    width: max-content;
+    bottom: 1em;
+    right: 1em;
     color: white;
     text-align: right;
     font-size: 2vh;
+    align-content: center;
 }
 
 #refocus{
-    position: absolute;
+    position: relative;
     height: 100%;
     width: auto;
     left: 0;
     color: white;
     text-align: right;
     font-size: 2vh;
+    right: 100%;
+    top: 20%;
+}
+
+#info{
+    max-width: 50%;
+    position: relative;
+    width: 30%;
+    height: 80%;
+    flex-direction: column;
+    display: flex;
+    overflow: hidden;
 }
 
 #currentgen{
@@ -102,6 +112,7 @@ select {
   background-repeat: no-repeat;
   background-position: right 1vw top 50%;
   background-size: 1vw auto;
+  padding-left: 10px;
 }
 .select-selected{
     
@@ -118,13 +129,14 @@ select {
     display: inline;
     padding-top:12px;
     margin-top: 5%;
+    font-size: 14px;
 }
 
 .radioLabel{
     position: relative;
     color: white;
     margin-left: 35px;
-    top: -9px;
+    top: -3px;
 }
 
 #mapLocation{
@@ -133,23 +145,90 @@ select {
     width: 80%;
     left: 10%;
     display: inline-block;
-    background-color: red;
+    /* background-color: red; */
     overflow: auto;
     clip: auto;
     vertical-align: middle;
     margin-top: 10%;
     padding-bottom: 2%;
+    overflow-y: scroll;
 }
 
 .location{
     border: double;
     margin-top: 1%;
-    background-color: grey;
-    height: 1.5vw;
+    background-color: red;
+    color: black;
+    border-color: white;
+    /* height: max-content; */
     font-size-adjust: inherit;
-    font-size: 1.5vw;
     border-radius: 1vw;
-    padding-left: 4%;
-    width: 80%;
-    margin-left: 7%;
+    padding-left: 5%;
+    font-size: 15px;
+    /* width: max-content; */
+    max-width: 90%;
+    margin-left: 5%;
+}
+
+#locationName{
+    /* display: none; */
+    transform: rotate(-45deg);
+    position: absolute;
+    width: 250px;
+    max-width: 250px;
+    bottom: 15px;
+    left: -115px;
+    height: min-content;
+    border-radius: 5px;
+    text-align: center;
+    background-color: grey;
+}
+#bubble{
+    background-color: grey;
+    position: absolute;
+    left: 60px;
+    top: 40px;
+    width: 25px;
+    transform: rotate(45deg);
+    height: 25px;
+    pointer-events: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+    #mapFrame{
+        position: absolute;
+        right: 0%;
+        width: 100%;
+        height: calc(70% - 140px);
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        background-color: blueviolet;
+    }
+    #info{
+        max-width: unset;
+        position: relative;
+        width: 100%;
+        height: calc(40% - 140px);
+        flex-direction: row;
+        display: flex;
+        overflow: auto;
+    }
+    #phoneContainer, #mapLocation{
+        width: unset;
+    }
+    #mapLocation{
+        left: 0;
+        width: 80%;
+        height: 100%;
+        bottom: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+}
+
+.mapLocation:hover{
+    filter: brightness(70%);
+    z-index: 0;
 }

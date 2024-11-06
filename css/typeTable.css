@@ -10,32 +10,90 @@ body{
 #header{
     background-color: red;
     width: 100%;
-    height: 20%;
+    height: 140px;
     /* z-index: -1; */
 }
 #typeTableFrame{
-    position: relative;
-    width: 80%;
-    height: 65%;
-    margin: 5% auto;
+    width: 100%;
+    height: calc(100% - 140px);
+    margin-top: 140px;
+    margin: auto;
+    overflow-x: scroll;
 }
 
-#grid{
-    position: relative;
+#midVertical{
+    display: flex;
+    align-content: center;
     width: 100%;
     height: 100%;
-    border: 0.5% inset white;
+}
+
+#gridAtckFlex{
+    margin-top: 55px;
+    top: 5%;
+    width: fit-content;
+    display: flex;
+    margin: 100px 0px auto;
+    /* height: calc(100% - 50px); */
+    align-items: center;
+}
+
+
+#defLabel{
+    position: fixed;
+    margin-left: 25%;
+    text-align: center;
+    /* position: relative; */
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    pointer-events: none;
+    
+}
+
+#atckLabel{
+    position: relative;
+    font-size: 35px;
+    /* height: 100%; */
+    color: white;
+    writing-mode: vertical-rl;
+    /* text-orientation:upright; */
+    text-align: center;
+}
+#grid{
+    position: relative;
+    /* width: 90%; */
+    /* height: 80%; */
+    left: 25px;
     display: grid;
-    box-sizing: border-box;
-    grid-gap: 0.5%;
-    grid-template-columns: repeat(19, 4.79%);
-    grid-template-rows: repeat(19, 4.79%);
+    gap: 0.3%;
+    grid-template-columns: 1fr repeat(18, 4em);
+    grid-template-rows: repeat(19, 2em);
+    align-content: center;
+
+    background-color: black;
+    grid-auto-flow: row dense;
+
 }
 
 #gridParameters{
-    position: relative;
+    /* position: fixed; */
     width: 100%;
-    height: 3%;
+    /* height: 3%; */
+    margin-top: 675px;
+    margin-left: 100px;
+}
+
+#fitScreenLabel{
+    position: absolute;
+    color: white;
+    left: 0;
+    bottom: 0;
+    font-size: 0.875em
+}
+#fitScreenBox{
+    position: relative;
+    right: 0;
 }
 
 #doubleTypeLabel{
@@ -46,10 +104,38 @@ body{
 }
 
 .gridElement{
-    border-radius: 10%;
+    border-radius: 5px;
     background-color: white;
     border: none;
     padding: 0;
+    text-align: center;
+    margin-top: 5%;
+    /* margin-left: 5%; */
+    align-content: center;
+}
+.gridElement > img {
+    height: 25px;
+    aspect-ratio: 1/1;
+    filter:brightness(0);
+    vertical-align: middle;
+}
+
+.gridElement > img:not(.gridElementButton > img){
+    margin-top: -12%;
+}
+
+.gridElementButton{
+    padding: 0;
+    margin-top: 2.5%;
+    /* max-width: 150%; */
+    min-width: 150px;
+    text-align: center;
+    float: left;
+}
+
+.gridElementButton > text{
+    align-self:center;
+    vertical-align: middle;
 }
 
 #highlight{
@@ -67,4 +153,16 @@ body{
     /* margin-top: -1.2%; */
     z-index: 1;
     /* background-color: blue; */
+}
+
+@media only screen and (max-width: 600px) {
+
+    #defLabel{
+        position: fixed;
+        margin-left: 5%;
+        text-align: center;
+        /* position: relative; */
+        font-size: 35px;
+        color: white;
+    }
 }
