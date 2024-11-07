@@ -241,7 +241,7 @@ var myFunction = function () {
         dataMove = JSON.parse(this.responseText);
         document.getElementById("Attaque").innerText = "";
         document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + dataMove.length + ",1fr)"
-        let noob = ["Nom", "Type", "c", "b", "v", "d", "e"]
+        let noob = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
         let noob2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
         for (let i = -1; i < dataMove.length; i++) {
           for (let j = 0; j < 7; ++j)
@@ -254,7 +254,12 @@ var myFunction = function () {
               else {
                 if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
                  divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
+                else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
+                  divElementName.innerHTML = "CT/CS";
                 else if (j == 2 || j == 3 || j == 4 || j == 5)
+                  if (dataMove[i][noob2[j]] == "NULL")
+                    divElementName.innerHTML = "--"
+                  else
                   divElementName.innerHTML = dataMove[i][noob2[j]];
                 else
                   divElementName.innerHTML = getText(dataMove[i][noob2[j]]);
