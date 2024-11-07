@@ -60,7 +60,7 @@ include_once('header.html');
             <div id="radioButtonsHolder">
 
                 <label class="radioBut">
-                    <input name="mapType" type="radio" class="checkboxInput" id="gameMap">
+                    <input checked="checked" name="mapType" type="radio" class="checkboxInput" id="gameMap">
                     <span class="radio"></span>
                 </label>
                 <label for="gameMap" id="gameMapLabel" class="radioLabel"> - In Game Map </label>
@@ -70,13 +70,16 @@ include_once('header.html');
                 </label>
                 <label for="realMap" id="realMapLabel" class="radioLabel"> - Realistic Map </label>
                 <label class="radioBut">
-                    <input name="mapType" type="radio" checked="checked" id="interactiveMap" class="checkboxInput">
+                    <input name="mapType" type="radio" id="interactiveMap" class="checkboxInput">
                     <span class="radio"></span>
                 </label>
                 <label for="interactiveMap" id="interactiveMapLabel" class="radioLabel"> - Interactive Map </label>
             </div>
         </div>
-
+        
+        <div id="searchBarContainer">
+            <input type="searchbar"></input>
+        <div>
         <div id="mapLocation">
             <?php
             for ($i = 0; $i < count($locationData); $i++) {

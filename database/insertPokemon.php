@@ -80,7 +80,7 @@ $typeEfficiencyData = getDataFromFile("pokemon.json", false);
 
 echo count(getDataFromFile("/pokemon")->results);
 //echo "<br>";
-set_time_limit(120);
+set_time_limit(200);
 saveToDb($sqlInsertAbilityPokemon, "ability_pokemon", "", true, true);
 saveToDb($sqlInsertMovePokemon, "move_pokemon", "", true, true);
 saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", "", true, true);
@@ -130,7 +130,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
         $locationData = getDataFromfile("/location-area/" . getIdFromUrl($pokemonEncounterData[$j]->location_area->url)); 
         for ($k = 0; $k < count($pokemonEncounterData[$j]->version_details); $k++)
         {
-            $versionData = getDataFromFile("/version-group/" . getIdFromUrl(getDataFromfile("/version/" . getIdFromUrl($pokemonEncounterData[$j]->location_area[$k]->version->url))->version_group->url));
+            $versionData = getDataFromFile("/version-group/" . getIdFromUrl(getDataFromfile("/version/" . getIdFromUrl($pokemonEncounterData[$j]->version_details[$k]->version->url))->version_group->url));
             $LPvalues = $LPvalues . "(" . getIdFromUrl($locationData->location->url) . ",". $pokemonData->id . "," . getIdFromUrl($versionData->generation->url) . "),,"; //location_pokemon (table)
         }
     }

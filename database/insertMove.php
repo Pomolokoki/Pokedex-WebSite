@@ -1,7 +1,7 @@
 <?php
 include_once("extractApi.php");
 
-$sqlInsertMove = "INSERT INTO move (id, name, description, smallDescription, accuracy, type, pp, pc, effectType, comboMin, comboMax, priority, criticity) VALUES ";
+$sqlInsertMove = "INSERT INTO move (id, name, description, smallDescription, accuracy, type, pc, pp, effectType, comboMin, comboMax, priority, criticity) VALUES ";
 $values = "";
 echo count(getDataFromFile("/move")->results);
 //echo "<br>";
