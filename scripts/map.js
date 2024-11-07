@@ -3,12 +3,7 @@ let currentRegion = "Hoenn";
 let currentMode = "InGame";
 let currentLocation = undefined
 
-let map = document.getElementById("svgMap")
-map.style.left = "0px"
-map.style.top = "0px"
-console.log(map.clientHeight)
-map.style.width = map.clientWidth + 'px'
-map.style.height = map.clientHeight + 'px'
+let map = document.getElementById("imgMap")
 let mapP = document.getElementById("smallMapFrame")
 
 let bubble = document.getElementById("bubble")
@@ -17,7 +12,6 @@ let bubbleText = document.getElementById("locationName")
 
 mapP.addEventListener("wheel", function (e) {
     if (e.deltaY < 0) {
-        console.log(map.style.height)
         if (parseFloat(map.style.height) * 1.1 > 3000) {
             return;
         }
@@ -61,15 +55,12 @@ document.onmousemove = function (e) {
 function center() {
     map.style.width = '350px'
     map.style.height = '350px'
-    console.log(map.style.width, mapP.offsetWidth)
     map.style.left = mapP.offsetWidth / 2 - parseFloat(map.style.width) / 2 + "px"
     map.style.top = mapP.offsetHeight / 2 - parseFloat(map.style.height) / 2 + "px"
     bubble.style.display = "none"
 }
 
 document.getElementById("centered").addEventListener("click", center)
-center();
-
 
 
 
@@ -78,6 +69,14 @@ center();
 
 let imgMap = document.getElementById("imgMap")
 let svgMap = document.getElementById("svgMap")
+imgMap.style.left = "0px"
+imgMap.style.top = "0px"
+imgMap.style.width = "350px"
+imgMap.style.height = "350px"
+svgMap.style.left = "0px"
+svgMap.style.top = "0px"
+svgMap.style.width = "350px"
+svgMap.style.height = "350px"
 
 function updateMap(e) {
     if (e == "regionChanged" || (e instanceof Event && e.target.checked)) {
@@ -106,6 +105,7 @@ function updateMap(e) {
             svgMap.innerHTML = Hoenn
             bindInteractiveMap()
         }
+        center();
     }
 }
 
@@ -145,7 +145,6 @@ function getListElement(name)
 
 function replaceBubble(target, force = false) {
     if (currentLocation != undefined && !force) return
-    console.log("eh", currentLocation)
     bubble.style.display = "unset"
     let locationClass = target.className.baseVal.split(' ')
     let currentClass = locationClass[locationClass .length - 1]
@@ -176,11 +175,9 @@ function setLocation(location)
 }
 function removeLocation(location)
 {
-    console.log(location)
     removeBubble(true);
     currentLocation = undefined
     location.style.backgroundColor = "#ff0000"
-    console.log(location)
 }
 
 function selectLocation(name) {
@@ -234,7 +231,6 @@ for (let location in locationList) {
         let mapLocationList = document.getElementsByClassName("mapLocation")
         for (let loc in mapLocationList) {
             if (typeof mapLocationList[loc] != "object") continue
-            //console.log(mapLocationList[loc])
             if (locationList[location].dataset.location == mapLocationList[loc].id) {
                 if (currentLocation == undefined) {
                     setLocation(locationList[location])
@@ -252,5 +248,6 @@ for (let location in locationList) {
     })
 
 }
+center();
 
 // bindInteractiveMap();
