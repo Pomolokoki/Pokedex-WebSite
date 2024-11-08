@@ -282,11 +282,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			</div>
 			<div id="atkTiltle">
 				<h2 class="name_section">Attaque :</h2>
-				<button class="moreLessButton">
+				<button class="moreLessButton" id="gen-">
 					<label><-</label>
 				</button>
-				<label id ="genAtk">gen</label>
-				<button class="moreLessButton">
+				<label id ="genAtk">gen 1</label>
+				<button class="moreLessButton" id="gen+">
 					<label>-></label>
 				</button>
 			</div>
