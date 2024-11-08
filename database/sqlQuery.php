@@ -126,7 +126,7 @@ generation TINYINT UNSIGNED,
 CONSTRAINT move_pokemon_moveId_FK FOREIGN KEY (moveId) REFERENCES move(id),
 CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
 CONSTRAINT move_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES region(id)-- ,
---CONSTRAINT move_pokemon_PKU UNIQUE (moveId, pokemonId)
+-- CONSTRAINT move_pokemon_PKU UNIQUE (moveId, pokemonId)
 );";
 
 $sqlCreateLocationPokemonLink = 
