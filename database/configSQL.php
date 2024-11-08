@@ -4,7 +4,7 @@
 
 function getPassword()
 {
-    $usePassword = true;
+    $usePassword = false;
     $MYSQL_PASSWORD = 'root';
     if ($usePassword)
     {

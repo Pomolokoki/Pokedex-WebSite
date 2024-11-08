@@ -14,16 +14,11 @@ h3 {
 }
 
 .name_section {
+    width: 60%;
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 5px;
 }
-
-/* #header {
-    background-color: rgb(0, 0, 0);
-    width: 100%;
-    height: 140px;
-} */
 
 #content {
     height: calc(100% - 140px);
@@ -679,14 +674,35 @@ select {
 }
 
 .Val_atk_case {
-    width: 100%;
+    max-width: 100%;
     margin-bottom: 1px;
-    height: 25px;
     background-color: rgb(255, 255, 255);
     display: grid;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-color: #ff009d;
+}
+
+#atkTiltle {
+    display: flex;
+}
+
+#genAtk{
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+.moreLessButton {
+    right: 15px;
+    width: 30px;
+    height: 25px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 0;
 }
 
 /*#endregion */

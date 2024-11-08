@@ -96,6 +96,45 @@ document.getElementById('rarete').addEventListener('change', filtre);
 // search bar
 document.getElementById('searchBar').addEventListener('input', filtre);
 
+function orderGrid() {
+  let array = document.getElementsByClassName("Val_atk_case")
+  for(let i = 0; i < array.length; i++){
+    console.log(i, array.length)
+    if(typeof array[i] != "object"){
+      continue
+    }
+    if ( array[i].innerHTML == "Œuf"){
+      let classTmp = array[i].classList[1];
+      let tmpTab = document.getElementsByClassName(classTmp);
+      setOrder(tmpTab,0);
+    }
+    else if ( array[i].innerHTML.includes("niveau ")){
+      let classTmp = array[i].classList[1];
+      let tmpTab = document.getElementsByClassName(classTmp);
+      setOrder(tmpTab,parseInt(array[i].innerHTML.match(/(\d+)/)));
+    }
+    if ( array[i].innerHTML == "Enseigné"){
+      let classTmp = array[i].classList[1];
+      let tmpTab = document.getElementsByClassName(classTmp);
+      setOrder(tmpTab,101);
+    }
+    if ( array[i].innerHTML == "CT/CS"){
+      let classTmp = array[i].classList[1];
+      let tmpTab = document.getElementsByClassName(classTmp);
+      setOrder(tmpTab,102);
+    }
+  }
+}
+
+function setOrder(eltliste, order) {
+  for (let g = 0; g < eltliste.length; g++){
+    if(typeof eltliste[g] != "object"){
+      continue
+    }
+    eltliste[g].style.order = order;
+  }
+}
+
 var myFunction = function () {
   if (last_id === this.id) {
     console.log("a");
@@ -240,101 +279,44 @@ var myFunction = function () {
       if (this.readyState == 4 && this.status == 200) {
         dataMove = JSON.parse(this.responseText);
         document.getElementById("Attaque").innerText = "";
-        document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + dataMove.length + ",1fr)"
-        let noob = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
-        let noob2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+        document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length+1) + ",1fr)"
+        let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
+        let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
         for (let i = -1; i < dataMove.length; i++) {
           for (let j = 0; j < 7; ++j)
             {
               let divElementName = document.createElement("div");
               divElementName.classList.add("Val_atk_case");
               if (i == -1) {
-                divElementName.innerHTML = "<h3>" + noob[j] + "</h3>"
+                divElementName.innerHTML = "<h3>" + tab1[j] + "</h3>"
+                divElementName.style.order = 0;
               }
               else {
+                divElementName.classList.add("Val_atk_case"+i);
+                divElementName.style.order = 1;
                 if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
                  divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
                 else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
                   divElementName.innerHTML = "CT/CS";
-                else if (j == 2 || j == 3 || j == 4 || j == 5)
-                  if (dataMove[i][noob2[j]] == "NULL")
+                else if (j == 2)
+                  if (dataMove[i][tab2[j]] == 1)
+                    divElementName.innerHTML = "Physique"
+                  else if (dataMove[i][tab2[j]] == 2)
+                    divElementName.innerHTML = "Spéciale"
+                  else
+                    divElementName.innerHTML = "Statut"
+                else if ( j == 3 || j == 4 || j == 5)
+                  if (dataMove[i][tab2[j]] == undefined)
                     divElementName.innerHTML = "--"
                   else
-                  divElementName.innerHTML = dataMove[i][noob2[j]];
+                  divElementName.innerHTML = dataMove[i][tab2[j]];
                 else
-                  divElementName.innerHTML = getText(dataMove[i][noob2[j]]);
+                  divElementName.innerHTML = getText(dataMove[i][tab2[j]]);
               }
               document.getElementById("Attaque").appendChild(divElementName);
           }
         }
-
-    //     document.getElementById("Type_atk").innerText = "";
-    //     for (let i = -1; i < dataMove.length; i++) {
-    //       let divElementName = document.createElement("div");
-    //       divElementName.classList.add("Val_atk_case");
-    //       if (i == -1)
-    //       else
-    //         divElementName.innerHTML = getText(dataMove[i]["type"]);
-    //       document.getElementById("Type_atk").appendChild(divElementName);
-    //     }
-
-    //     document.getElementById("Category_atk").innerText = "";
-    //     for (let i = -1; i < dataMove.length; i++) {
-    //       let divElementName = document.createElement("div");
-    //       divElementName.classList.add("Val_atk_case");
-    //       if (i == -1)
-    //         divElementName.innerHTML = "<h3>Catégorie</h3>"
-    //       else
-    //         divElementName.innerHTML = dataMove[i]["effectType"];
-    //       document.getElementById("Category_atk").appendChild(divElementName);
-    //     }
-
-    //     document.getElementById("Puissance_atk").innerText = "";
-    //     for (let i = -1; i < dataMove.length; i++) {
-    //       let divElementName = document.createElement("div");
-    //       divElementName.classList.add("Val_atk_case");
-    //       if (i == -1)
-    //         divElementName.innerHTML = "<h3>Puissance</h3>"
-    //       else
-    //         divElementName.innerHTML = dataMove[i]["pc"];
-    //       document.getElementById("Puissance_atk").appendChild(divElementName);
-    //     }
-
-    //     document.getElementById("Precision_atk").innerText = "";
-    //     for (let i = -1; i < dataMove.length; i++) {
-    //       let divElementName = document.createElement("div");
-    //       divElementName.classList.add("Val_atk_case");
-    //       if (i == -1)
-    //         divElementName.innerHTML = "<h3>Précision</h3>"
-    //       else
-    //         divElementName.innerHTML = dataMove[i]["accuracy"];
-    //       document.getElementById("Precision_atk").appendChild(divElementName);
-    //     }
-
-    //     document.getElementById("PP_atk").innerText = "";
-    //     for (let i = -1; i < dataMove.length; i++) {
-    //       let divElementName = document.createElement("div");
-    //       divElementName.classList.add("Val_atk_case");
-    //       if (i == -1)
-    //         divElementName.innerHTML = "<h3>PP</h3>"
-    //       else
-    //         divElementName.innerHTML = dataMove[i]["pp"];
-    //       document.getElementById("PP_atk").appendChild(divElementName);
-    //     }
-
-    //     document.getElementById("Learning_atk").innerText = "";
-    //     for (let i = -1; i < dataMove.length; i++) {
-    //       let divElementName = document.createElement("div");
-    //       divElementName.classList.add("Val_atk_case");
-    //       if (i == -1)
-    //         divElementName.innerHTML = "<h3>Apprentissage</h3>"
-    //       else
-    //         if (getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
-    //           divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
-    //         else
-    //         divElementName.innerHTML = getText(dataMove[i]["learnMethod"]);
-    //       document.getElementById("Learning_atk").appendChild(divElementName);
-    //     }
+        orderGrid();
       }
     }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=

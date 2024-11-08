@@ -69,7 +69,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<?php
 					for ($i = 0; $i < count($datapokemon); $i++) {
 						?>
-						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>" data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>" data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"]  ?>" data-category="<?php echo $datapokemon[$i]["category"] ?>" data-gen="<?php echo $datapokemon[$i]["generation"] ?>">
+						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>"
+							data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>"
+							data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"] ?>"
+							data-category="<?php echo $datapokemon[$i]["category"] ?>"
+							data-gen="<?php echo $datapokemon[$i]["generation"] ?>">
 							<div class="colors"></div>
 							<div class="info">
 								<div class="img_pokemon">
@@ -276,9 +280,23 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				}
 				?>
 			</div>
-			<h2 class="name_section">Attaque :</h2>
+			<div id="atkTiltle">
+				<h2 class="name_section">Attaque :</h2>
+				<button class="moreLessButton">
+					<label><-</label>
+				</button>
+				<label id ="genAtk">gen</label>
+				<button class="moreLessButton">
+					<label>-></label>
+				</button>
+			</div>
 			<div id="Attaque">
-				
+
+			</div>
+
+			<h2 class="name_section">Évolution :</h2>
+			<div id="Evo">
+
 			</div>
 		</div>
 	</div>
