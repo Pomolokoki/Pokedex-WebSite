@@ -14,9 +14,13 @@ include_once("database/connectSQL.php");
 <!-- #region Sécurisation et Gestion des exceptions-->
 <?php
 #region Sécurisation et Gestion des exceptions
-
-$_SESSION["uname"] = $_SESSION["email"] = $_SESSION["pword1"] = $_SESSION['confirm_password'] = "";
+$_SESSION["accountCreated"] = false;
+$_SESSION["uname"] = $_SESSION["email"] = $_SESSION["pword"] = $_SESSION['confirm_password'] = "";
 $unameErr = $emailErr = $pwordErr = $confirm_passwordErr = "";
+$passwordBool = true;
+$idBool = true;
+$passwordCheck = "";
+$confirm_passwordCheck = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -34,41 +38,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailErr = "Veuillez entrer un email correct";
     } else {
         $_SESSION["email"] = test_input($_POST["email"]);
-        /* A mettre dans l'inscription
-        Check si l'adresse est bien formulée*/
         if (!filter_var($_SESSION["email"], FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Email invalide";
         }
     }
 
     if (!empty($_POST["password"]) && !empty($_POST["confirm_password"])) {
-        $passwordCheck = htmlspecialchars($_POST["password"]);
-        $confirm_passwordCheck = htmlspecialchars($_POST["confirm_password"]);
-
-        if(empty($confirm_passwordCheck)){
+        $passwordCheck = test_input($_POST["password"]);
+        $confirm_passwordCheck = test_input($_POST["confirm_password"]);
+        $_SESSION["pword"] = $passwordCheck;
+        $_SESSION["confirm_password"] = $confirm_passwordCheck;
+        if (empty($confirm_passwordCheck)) {
             $confirm_passwordErr .= "Veuillez entrer la confirmation du mot de passe.";
+            $passwordBool = false;
         }
-
         if ($passwordCheck != $confirm_passwordCheck) {
             $confirm_passwordErr .= "Les mots de passe ne correspondent pas\n";
-            
+            $passwordBool = false;
         }
         if (strlen($passwordCheck) <= 8) {
             $pwordErr .= " - Votre mot de passe doit contenir au minimum 8 caractères.\n";
+            $passwordBool = false;
         }
         if (!preg_match("#[0-9]+#", $passwordCheck)) {
             $pwordErr .= "- Votre mot de passe doit contenir au minimum un nombre.\n";
+            $passwordBool = false;
         }
         if (!preg_match("#[A-Z]+#", $passwordCheck)) {
-            $pwordErr .= "- Votre mot de passe doit contenir au minimum une  majuscule.\n";
+            $pwordErr .= "- Votre mot de passe doit contenir au minimum une majuscule.\n";
+            $passwordBool = false;
         }
         if (!preg_match("#[a-z]+#", $passwordCheck)) {
             $pwordErr .= "- Votre mot de passe doit contenir au minimum une minuscule\n";
+            $passwordBool = false;
         }
     } else {
         $pwordErr .= "Entrer votre mot de passe et sa confirmation.\n";
     }
-
 }
 function test_input($data)
 {
@@ -80,31 +86,39 @@ function test_input($data)
 
 #endregion
 
-#region Validation du formulaire -->
-if (!empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
+if (!empty($_POST["username"]) && !empty($_POST["email"])) {
     $parcoursPlayerTable = $db->prepare("SELECT nickname,email,password FROM player");
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
     while ($row = $parcoursPlayerTable->fetch()) {
-        if ($row['nickname'] === $_POST['username']) {
+        if ($row['nickname'] === $_SESSION['uname']) {
             $unameErr = "Pseudo déjà pris";
+            $idBool = false;
         }
-        if ($row['email'] === $_POST['email']) {
+        if ($row['email'] === $_SESSION['email']) {
             $emailErr = "Email déjà pris";
+            $idBool = false;
         }
     }
+}
 
-    if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
+#region Validation du formulaire -->
+if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION["pword"]) && $passwordCheck === $confirm_passwordCheck && $passwordBool === true && $idBool === true) {
+
+    if (isset($_SESSION["uname"]) && isset($_SESSION["email"]) && isset($_SESSION["pword"])) {
         $inscription = $db->prepare('INSERT INTO player(nickname, email, password) VALUES (:nickname, :email, :password)');
         $inscription->bindParam(':nickname', $username);
         $inscription->bindParam(':email', $email);
         $inscription->bindParam(':password', $password);
 
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);        
+        $username = $_SESSION['uname'];
+        $email = $_SESSION['email'];
+        $password = password_hash($_SESSION['pword'], PASSWORD_DEFAULT);
 
         $inscription->execute();
+        $_SESSION["accountCreated"] = true;
+        $new_url = 'login.php';
+        echo "<script>window.location.replace('$new_url');</script>";
     }
 }
 ?>
@@ -115,11 +129,11 @@ if (!empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass
     <div class="container">
         <h2>Formulaire d'inscription:</h2>
         <br>
-        
+
         <span class="error"><strong>* champ obligatoire</strong></span>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <!-- Affiche l'erreur dans le cas où il y en a une -->
-            <?php if (isset($errorMessage)) : ?>
+            <?php if (isset($errorMessage)): ?>
                 <div class="alert alert-danger" role="alert">
                     <?php echo $errorMessage ?>
                     <br><br>
@@ -152,7 +166,7 @@ if (!empty($_POST["username"]) && !empty($_POST["email"]) && !empty($_POST["pass
                 </div>
                 <div class="col-75">
                     <input type="password" id="pword" name="password">
-                    <span class="error">* <br><?php echo nl2br( $pwordErr); ?></span>
+                    <span class="error">* <br><?php echo nl2br($pwordErr); ?></span>
                     <br><br>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 include_once("database/connectSQL.php");
 ?>
 <!-- Inclusion du header -->
@@ -53,21 +53,21 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
 
-    while($row = $parcoursPlayerTable->fetch()){
-        if($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']){
-            if(password_verify($_POST['password'],$row['password'])){
-                // $_SESSION["LOGGED_USER"] = $row['email'];
-                $emailDB = $row['email'];
-                $idForm = $_POST['id'];
-                $sql = "SELECT email FROM player WHERE (? = ?)";
-                $stmt = $db->prepare($sql);
-                $stmt->execute([$emailDB,$idForm]);
-                $_SESSION["LOGGED_USER"] = $row['email'];
+    while ($row = $parcoursPlayerTable->fetch()) {
+        if ($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']) {
+            if (password_verify($_POST['password'], $row['password'])) {
+
+                $findEmailPlayer = $db->prepare("SELECT email FROM player WHERE email=:identifier");
+                $findEmailPlayer->bindParam(':identifier', $_POST['id']);
+                $findEmailPlayer->execute();
+                $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
+                // echo '<pre>';print_r($test);echo '</pre>';
+                $_SESSION['LOGGED_USER'] = $test;
+
             }
-        }
-        else{
+        } else {
             $errorMessage = sprintf("L'identifiant ou le mot de passe est invalide.");
-            echo $row['email'];            
+
         }
     }
 }
@@ -78,6 +78,11 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
 
 <body>
     <div class="container">
+        <?php if ($_SESSION["accountCreated"] === true): ?>
+            <div class="alert alert-success" role="alert">
+                Compte crée avec succès ? Jsais pas frr
+            </div>
+        <?php endif; ?>
         <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
             <h1>Connexion a votre compte:</h1>
             <br>
@@ -113,21 +118,21 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                 <br>
                 <div class="row">
                     <p>Pas de compte ? <a href="register.php">Inscrivez-vous !</a></p>
-                    <input type="submit" id="submitButton" value="Connectez-vous !">                    
+                    <input type="submit" id="submitButton" value="Connectez-vous !">
                 </div>
             </form>
-        <?php else: ?>            
+        <?php else: ?>
             <div class="alert alert-success" role="alert">
                 Bonjour <?php echo $_SESSION['LOGGED_USER']; ?> et bienvenue notre PokeSite !
                 <?php
                 $new_url = 'pokedex.php';
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
-                
+
             </div>
         <?php endif; ?>
-        <?php 
-            session_destroy();
+        <?php
+        //session_destroy();
         ?>
     </div>
     <footer>
