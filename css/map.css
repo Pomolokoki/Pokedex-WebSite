@@ -7,11 +7,11 @@ body{
     height: 100%;
     background-color: black;
 }
-#header{
+/* #header{
     background-color: red;
     width: 100%;
     height: 140px;
-}
+} */
 #mapFrame{
     position: absolute;
     right: 0%;
@@ -82,7 +82,7 @@ body{
     max-width: 50%;
     position: relative;
     width: 30%;
-    height: 80%;
+    height: calc(100% - 140px);;
     flex-direction: column;
     display: flex;
     overflow: hidden;
@@ -139,6 +139,24 @@ select {
     top: -3px;
 }
 
+#phoneContainer2{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#searchBarContainer{
+    
+    position: relative;
+    width: 80%;
+    left: 10%;
+    margin-top: 10%;
+    padding-left: 5%;
+}
+#searchBar{
+    width: 100%;
+}
+
 #mapLocation{
     position: relative;
     height: auto;
@@ -149,9 +167,11 @@ select {
     overflow: auto;
     clip: auto;
     vertical-align: middle;
-    margin-top: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     padding-bottom: 2%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .location{
@@ -168,6 +188,7 @@ select {
     /* width: max-content; */
     max-width: 90%;
     margin-left: 5%;
+    /* margin: 1% auto 0%; */
 }
 
 #locationName{
@@ -200,7 +221,7 @@ select {
         position: absolute;
         right: 0%;
         width: 100%;
-        height: calc(70% - 140px);
+        height: calc(60% - 100px);
         bottom: 0;
         display: flex;
         flex-direction: row;
@@ -210,21 +231,25 @@ select {
         max-width: unset;
         position: relative;
         width: 100%;
-        height: calc(40% - 140px);
+        height: calc(40% - 10px);
         flex-direction: row;
         display: flex;
         overflow: auto;
     }
-    #phoneContainer, #mapLocation{
+    #phoneContainer1{
         width: unset;
     }
     #mapLocation{
         left: 0;
-        width: 80%;
+        width: 90%;
         height: 100%;
         bottom: 0;
         margin-bottom: 0;
-        margin-top: 0;
+        margin-top: 2%;
+    }
+    #searchBarContainer{
+        left: 0%;
+        margin-top: 2%;
     }
 }
 

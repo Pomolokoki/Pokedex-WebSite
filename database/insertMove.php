@@ -24,7 +24,7 @@ foreach (getDataFromFile("/move")->results as $move)
     $value = $value . getIdFromUrl($moveData->type->url) . ","; //type
     $value = $value . IntValue($moveData->power) . ","; //pc
     $value = $value . IntValue($moveData->pp) . ","; //pp
-    if ($moveData->damage_class->name == "physicial") //effetctType
+    if ($moveData->damage_class->name == "physical") //effetctType
     {
         $value = $value . "1,";
     }

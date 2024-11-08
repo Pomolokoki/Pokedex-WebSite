@@ -122,9 +122,11 @@ moveId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 learnMethod VARCHAR(100),
 learnAtLevel TINYINT UNSIGNED,
+generation TINYINT UNSIGNED,
 CONSTRAINT move_pokemon_moveId_FK FOREIGN KEY (moveId) REFERENCES move(id),
 CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
-CONSTRAINT move_pokemon_PKU UNIQUE (moveId, pokemonId)
+CONSTRAINT move_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES region(id)-- ,
+--CONSTRAINT move_pokemon_PKU UNIQUE (moveId, pokemonId)
 );";
 
 $sqlCreateLocationPokemonLink = 
@@ -245,7 +247,7 @@ CONSTRAINT move_form_pokemon6Id_FK FOREIGN KEY (pokemon6Id) REFERENCES pokemon(i
 
 $sqlCreatePlayer =
 "CREATE TABLE player(
-id INT UNSIGNED PRIMARY KEY,
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 nickname VARCHAR(50),
 email VARCHAR(100),
 password VARCHAR(100),

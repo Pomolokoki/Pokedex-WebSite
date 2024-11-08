@@ -43,7 +43,7 @@ include_once('header.html');
         </div>
     </div>
     <div id="info">
-        <div id="phoneContainer">
+        <div id="phoneContainer1">
 
             <div id="currentgen">Current map generation : </div>
             <select id="mapList">
@@ -76,18 +76,20 @@ include_once('header.html');
                 <label for="interactiveMap" id="interactiveMapLabel" class="radioLabel"> - Interactive Map </label>
             </div>
         </div>
-        
-        <div id="searchBarContainer">
-            <input type="searchbar"></input>
-        <div>
-        <div id="mapLocation">
-            <?php
-            for ($i = 0; $i < count($locationData); $i++) {
-                echo "<div class=location data-location='" .  GetTextLang($locationData[$i]["name"], "en") . "'>" . GetTextLang($locationData[$i]["name"]) . "</div>";
-            }
-            ?>
+        <div id="phoneContainer2">
+            <div id="searchBarContainer">
+                <input type="searchbar" id="searchBar" placeholder="Search..."></input>
+            </div>
+            <div id="mapLocation">
+                <?php
+                for ($i = 0; $i < count($locationData); $i++) {
+                    echo "<div class=location data-location='" . GetTextLang($locationData[$i]["name"], "en") . "'>" . GetTextLang($locationData[$i]["name"]) . "</div>";
+                }
+                ?>
+            </div>
         </div>
     </div>
+
     <script src="scripts/svg.js"></script>
     <script src="scripts/map.js"></script>
 </body>

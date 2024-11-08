@@ -65,7 +65,7 @@ function setEvolution($pokemonEvolutionData, $pokemonData, &$EPvalues)
 }
 
 $sqlInsertAbilityPokemon = "INSERT INTO ability_pokemon (abilityId, pokemonId, isHidden) VALUES ";
-$sqlInsertMovePokemon = "INSERT INTO move_pokemon (moveId, pokemonId, learnMethod, learnAtLevel) VALUES ";
+$sqlInsertMovePokemon = "INSERT INTO move_pokemon (moveId, pokemonId, learnMethod, learnAtLevel, generation) VALUES ";
 $sqlInsertLocationPokemon = "INSERT INTO location_pokemon (locationId, pokemonId, generation) VALUES ";
 $sqlInsertEvolutionPokemon = "INSERT INTO evolution_pokemon (id, basePokemonId, evoluedPokemonId, gender, heldItemId, itemId, knownMoveId, knownMoveTypeId, locationId, minAffection, minBeauty, minHappiness, minLevel, needsOverworldRain, partySpeciesId, partyTypeId, relativePhysicalStats, timeOfDay, tradeSpeciesId, evolutionTrigger, turnUpsideDown) VALUES ";
 $sqlInsertFormPokemon = "INSERT INTO form_pokemon (pokemonId, formId) VALUES ";
@@ -110,19 +110,30 @@ foreach (getDataFromFile("/pokemon")->results as $move)
     for ($j = 0; $j < count($pokemonData->moves); $j++)
     {
         $groups = $pokemonData->moves[$j]->version_group_details;
-        $group = $groups[count($groups) - 1];
-        
-        $learnMethodId = getIdFromUrl($group->move_learn_method->url);
-        if ($learnMethodId == 9 || $learnMethodId == 8 || $learnMethodId == 7)
+        for ($k = 0; $k < count($groups); ++$k)
         {
-            continue;
+
+            //$group = $groups[count($groups) - 1];
+            
+            
+            $learnMethodId = getIdFromUrl($groups[$k]->move_learn_method->url);
+            if ($learnMethodId == 9 || $learnMethodId == 8 || $learnMethodId == 7)
+            {
+                continue;
+            }
+            $versionGroupId = $groups[$k]->version_group->url;
+            if ($versionGroupId != 1 && $versionGroupId != 3 && $learnMethodId != 5 && $learnMethodId != 8 && $learnMethodId != 11 && $learnMethodId != 15 && $learnMethodId != 17 && $learnMethodId != 20 && $learnMethodId != 25)
+            {
+                continue;
+            }
+            $MPvalue = "(";
+            $MPvalue = $MPvalue . getIdFromUrl($pokemonData->moves[$j]->move->url) . ",";
+            $MPvalue = $MPvalue . $pokemonData->id . ",";
+            $MPvalue = $MPvalue . getTextFromData(getDataFromFile("/move-learn-method/" . $learnMethodId)->names, "name") . ",";
+            $MPvalue = $MPvalue . IntValue($groups[$k]->level_learned_at) . ",";
+            $MPvalue = $MPvalue . getIdFromUrl(getDataFromFile("/version-group/" . $groups[$k]->version_group->url)->generation->url) . ")";
+            $MPvalues = $MPvalues . $MPvalue . ",,";
         }
-        $MPvalue = "(";
-        $MPvalue = $MPvalue . getIdFromUrl($pokemonData->moves[$j]->move->url) . ",";
-        $MPvalue = $MPvalue . $pokemonData->id . ",";
-        $MPvalue = $MPvalue . getTextFromData(getDataFromFile("/move-learn-method/" . $learnMethodId)->names, "name") . ",";
-        $MPvalue = $MPvalue . IntValue($group->level_learned_at) . ")";
-        $MPvalues = $MPvalues . $MPvalue . ",,";
     }
 
     for ($j = 0; $j < count($pokemonEncounterData); $j++)
