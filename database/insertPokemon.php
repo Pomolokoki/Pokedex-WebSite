@@ -112,7 +112,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
         $groups = $pokemonData->moves[$j]->version_group_details;
         for ($k = 0; $k < count($groups); ++$k)
         {
-
+            
             //$group = $groups[count($groups) - 1];
             
             
@@ -121,7 +121,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
             {
                 continue;
             }
-            $versionGroupId = $groups[$k]->version_group->url;
+            $versionGroupId = getIdFromUrl($groups[$k]->version_group->url);
             if ($versionGroupId != 1 && $versionGroupId != 3 && $learnMethodId != 5 && $learnMethodId != 8 && $learnMethodId != 11 && $learnMethodId != 15 && $learnMethodId != 17 && $learnMethodId != 20 && $learnMethodId != 25)
             {
                 continue;
@@ -131,7 +131,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
             $MPvalue = $MPvalue . $pokemonData->id . ",";
             $MPvalue = $MPvalue . getTextFromData(getDataFromFile("/move-learn-method/" . $learnMethodId)->names, "name") . ",";
             $MPvalue = $MPvalue . IntValue($groups[$k]->level_learned_at) . ",";
-            $MPvalue = $MPvalue . getIdFromUrl(getDataFromFile("/version-group/" . $groups[$k]->version_group->url)->generation->url) . ")";
+            $MPvalue = $MPvalue . getIdFromUrl(getDataFromFile("/version-group/" . $versionGroupId)->generation->url) . ")";
             $MPvalues = $MPvalues . $MPvalue . ",,";
         }
     }
