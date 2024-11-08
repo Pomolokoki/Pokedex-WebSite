@@ -80,7 +80,7 @@ $typeEfficiencyData = getDataFromFile("pokemon.json", false);
 
 echo count(getDataFromFile("/pokemon")->results);
 //echo "<br>";
-set_time_limit(200);
+set_time_limit(1000);
 saveToDb($sqlInsertAbilityPokemon, "ability_pokemon", "", true, true);
 saveToDb($sqlInsertMovePokemon, "move_pokemon", "", true, true);
 saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", "", true, true);
@@ -122,7 +122,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
                 continue;
             }
             $versionGroupId = getIdFromUrl($groups[$k]->version_group->url);
-            if ($versionGroupId != 1 && $versionGroupId != 3 && $learnMethodId != 5 && $learnMethodId != 8 && $learnMethodId != 11 && $learnMethodId != 15 && $learnMethodId != 17 && $learnMethodId != 20 && $learnMethodId != 25)
+            if ($versionGroupId != 1 && $versionGroupId != 3 && $versionGroupId != 5 && $versionGroupId != 8 && $versionGroupId != 11 && $versionGroupId != 15 && $versionGroupId != 17 && $versionGroupId != 20 && $versionGroupId != 25)
             {
                 continue;
             }
