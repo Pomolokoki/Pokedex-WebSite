@@ -1,15 +1,14 @@
 <?php
-include_once("configSQL.php");
 const MYSQL_HOST = 'localhost';
 const MYSQL_PORT = 3306;
 const MYSQL_USER = 'root';
-
+// const MYSQL_PASSWORD = 'root';
 try {
 $db = new PDO(
 sprintf('mysql:host=%s;port=%s;charset=utf8',
 MYSQL_HOST, MYSQL_PORT),
 MYSQL_USER,
-getPassword()
+//MYSQL_PASSWORD
 );
 $sqlCreateBD = 
 "DROP DATABASE IF EXISTS pokedex;

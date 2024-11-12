@@ -18,11 +18,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 	<link rel="stylesheet" type="text/css" href="css/pokedex.css">
 	<link rel="stylesheet" type="text/css" href="css/typeColor.php">
 	<link rel="stylesheet" type="text/html" href="css/statName.php">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 </head>
-<?php include_once("header.html"); ?>
+<?php include_once("header.php"); ?>
 
 <body>
 	<div id="content">
@@ -69,11 +69,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<?php
 					for ($i = 0; $i < count($datapokemon); $i++) {
 						?>
-						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>"
-							data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>"
-							data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"] ?>"
-							data-category="<?php echo $datapokemon[$i]["category"] ?>"
-							data-gen="<?php echo $datapokemon[$i]["generation"] ?>">
+						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>" data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>" data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"]  ?>" data-category="<?php echo $datapokemon[$i]["category"] ?>" data-gen="<?php echo $datapokemon[$i]["generation"] ?>">
 							<div class="colors"></div>
 							<div class="info">
 								<div class="img_pokemon">
@@ -302,12 +298,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				</button>
 			</div>
 			<div id="Attaque">
-
-			</div>
-
-			<h2 class="name_section">Évolution :</h2>
-			<div id="Evo">
-
+				
 			</div>
 		</div>
 	</div>
