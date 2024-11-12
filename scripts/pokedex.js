@@ -379,35 +379,54 @@ var LoadEvoPokemon = function (id) {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      
+      dataEvol = JSON.parse(this.responseText);
+      console.log(dataEvol)
+      for(let i=0; i<dataEvol; i++){}
+
+
+
+
+
+
+
       }
       orderGrid();
     }
   xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
-      evolution_pokemon.id,
-      evolution_pokemon.basePokemonId,
-      evolution_pokemon.evoluedPokemonId,
-      evolution_pokemon.gender,
-      evolution_pokemon.heldItemId,
-      evolution_pokemon.itemId,
-      evolution_pokemon.knowMoveId,
-      evolution_pokemon.knowMoveTypeId,
-      evolution_pokemon.locationId,
-      evolution_pokemon.minAffection,
-      evolution_pokemon.minBeauty,
-      evolution_pokemon.minHappiness,
-      evolution_pokemon.minLevel,
-      evolution_pokemon.needsOverworldRain,
-      evolution_pokemon.partySpeciesId,
-      evolution_pokemon.partyTypeId,
-      evolution_pokemon.relativePhysicalStats,
-      evolution_pokemon.timeOfDay,
-      evolution_pokemon.tradeSpeciesId,
-      evolution_pokemon.evolutionTrigger,
-      evolution_pokemon.turnUpSideDown,
-      FROM evolution_pokemon.   
-      WHERE evolution_pokemon.id = ` + id , true);
+      ev.id,
+      ev.basePokemonId,
+      ev.evoluedPokemonId,
+      ev.gender,
+      ev.heldItemId,
+      ev.itemId,
+      ev.knownMoveId,
+      ev.knownMoveTypeId,
+      ev.locationId,
+      ev.minAffection,
+      ev.minBeauty,
+      ev.minHappiness,
+      ev.minLevel,
+      ev.needsOverworldRain,
+      ev.partySpeciesId,
+      ev.partyTypeId,
+      ev.relativePhysicalStats,
+      ev.timeOfDay,
+      ev.tradeSpeciesId,
+      ev.evolutionTrigger,
+      ev.turnUpSideDown 
+      FROM evolution_pokemon AS ev 
+      JOIN pokemon AS po1 ON basePokemonId = po1.id 
+      JOIN pokemon AS po2 ON evoluedPokemonId = po2.id 
+      JOIN item AS it1 ON heldItemId = it1.id 
+      JOIN item AS it2 ON itemId = it2.id 
+      JOIN move ON knownMoveId = move.id 
+      JOIN type AS ty1 ON knownMoveTypeId = ty1.id 
+      JOIN location ON locationId = location.id 
+      JOIN pokemon AS po3 ON partySpeciesId = po3.id 
+      JOIN type AS ty2 ON partyTypeId = ty2.id 
+      JOIN pokemon AS po4 ON tradeSpeciesId = po4.id 
+      WHERE ev.id = ` + id, true);
   xmlhttp.send();
 };
 
@@ -424,6 +443,7 @@ for (let i = 0; i < pokemons.length; i++) {
     else {
       LoadDataPokemon(pokemons[i].id)
       LoadAbilityPokemon(pokemons[i].id)
+      LoadEvoPokemon(pokemons[i].id)
       last_id = pokemons[i].id;
       core.style.margin = "0px";
       // core.style.marginLeft = "275px";
