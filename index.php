@@ -17,7 +17,7 @@ if(isset($_SESSION['LOGGED_USER']) && $_SESSION['LOGGED_USER'] === true){
 	<title>Document</title>
 </head>
 
-<?php include_once("header.html"); ?>
+<?php include_once("header.php"); ?>
 
 <?php if (isset($errorMessage)): ?>
 	<div class="alert alert-danger" role="alert">

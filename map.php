@@ -15,7 +15,7 @@ $locationData = getDataFromDB("location", "*", "WHERE regionId = 3");
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <?php
-include_once('header.html');
+include_once('header.php');
 ?>
 
 <body>
@@ -43,7 +43,7 @@ include_once('header.html');
         </div>
     </div>
     <div id="info">
-        <div id="phoneContainer1">
+        <div id="phoneContainer">
 
             <div id="currentgen">Current map generation : </div>
             <select id="mapList">
@@ -60,7 +60,7 @@ include_once('header.html');
             <div id="radioButtonsHolder">
 
                 <label class="radioBut">
-                    <input checked="checked" name="mapType" type="radio" class="checkboxInput" id="gameMap">
+                    <input name="mapType" type="radio" class="checkboxInput" id="gameMap">
                     <span class="radio"></span>
                 </label>
                 <label for="gameMap" id="gameMapLabel" class="radioLabel"> - In Game Map </label>
@@ -70,26 +70,21 @@ include_once('header.html');
                 </label>
                 <label for="realMap" id="realMapLabel" class="radioLabel"> - Realistic Map </label>
                 <label class="radioBut">
-                    <input name="mapType" type="radio" id="interactiveMap" class="checkboxInput">
+                    <input name="mapType" type="radio" checked="checked" id="interactiveMap" class="checkboxInput">
                     <span class="radio"></span>
                 </label>
                 <label for="interactiveMap" id="interactiveMapLabel" class="radioLabel"> - Interactive Map </label>
             </div>
         </div>
-        <div id="phoneContainer2">
-            <div id="searchBarContainer">
-                <input type="searchbar" id="searchBar" placeholder="Search..."></input>
-            </div>
-            <div id="mapLocation">
-                <?php
-                for ($i = 0; $i < count($locationData); $i++) {
-                    echo "<div class=location data-location='" . GetTextLang($locationData[$i]["name"], "en") . "'>" . GetTextLang($locationData[$i]["name"]) . "</div>";
-                }
-                ?>
-            </div>
+
+        <div id="mapLocation">
+            <?php
+            for ($i = 0; $i < count($locationData); $i++) {
+                echo "<div class=location data-location='" .  GetTextLang($locationData[$i]["name"], "en") . "'>" . GetTextLang($locationData[$i]["name"]) . "</div>";
+            }
+            ?>
         </div>
     </div>
-
     <script src="scripts/svg.js"></script>
     <script src="scripts/map.js"></script>
 </body>

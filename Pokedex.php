@@ -18,11 +18,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 	<link rel="stylesheet" type="text/css" href="css/pokedex.css">
 	<link rel="stylesheet" type="text/css" href="css/typeColor.php">
 	<link rel="stylesheet" type="text/html" href="css/statName.php">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 </head>
-<?php include_once("header.html"); ?>
+<?php include_once("header.php"); ?>
 
 <body>
 	<div id="content">
@@ -303,12 +303,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				</button>
 			</div>
 			<div id="Attaque">
-
-			</div>
-
-			<h2 class="name_section">Évolution :</h2>
-			<div id="Evo">
-
+				
 			</div>
 		</div>
 	</div>

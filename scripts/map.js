@@ -3,26 +3,21 @@ let currentRegion = "Hoenn";
 let currentMode = "InGame";
 let currentLocation = undefined
 
-let map = document.getElementById("imgMap")
+let map = document.getElementById("svgMap")
+map.style.left = "0px"
+map.style.top = "0px"
+console.log(map.clientHeight)
+map.style.width = map.clientWidth + 'px'
+map.style.height = map.clientHeight + 'px'
 let mapP = document.getElementById("smallMapFrame")
 
 let bubble = document.getElementById("bubble")
 let bubbleText = document.getElementById("locationName")
 
-let locationContainer = document.getElementById("mapLocation")
-
-let language = "fr";
-function getText(str, language) {
-    if (language === "fr") {
-        if (str.split('/')[1] == "NULL")
-            return str.split('/')[0];
-        return str.split('/')[1];
-    }
-    return str.split('/')[0];
-}
 
 mapP.addEventListener("wheel", function (e) {
     if (e.deltaY < 0) {
+        console.log(map.style.height)
         if (parseFloat(map.style.height) * 1.1 > 3000) {
             return;
         }
@@ -43,30 +38,16 @@ mapP.addEventListener("wheel", function (e) {
         map.style.left = (e.offsetX - (e.offsetX - a) * 0.9) + "px";
         map.style.top = (e.offsetY - (e.offsetY - b) * 0.9) + "px";
     }
-    bubble.style.display = "none"
+        bubble.style.display = "none"
 })
 
 let drag = false;
 mapP.addEventListener("mousedown", function (e) {
     drag = true
 })
-/*document.addEventListener('touchstart', function (e) {
-    drag = true
-})*/
 document.addEventListener("mouseup", function (e) {
     drag = false
 })
-/*document.addEventListener('touchend', function (e) {
-    drag = false
-})
-document.addEventListener('touchmove', function (e) {
-    console.log(e)
-    if (drag) {
-        map.style.left = parseFloat(map.style.left) + e.movementX + 'px';
-        map.style.top = parseFloat(map.style.top) + e.movementY + 'px'
-        bubble.style.display = "none"
-    }
-});*/
 document.onmousemove = function (e) {
     if (drag) {
         map.style.left = parseFloat(map.style.left) + e.movementX + 'px';
@@ -80,12 +61,15 @@ document.onmousemove = function (e) {
 function center() {
     map.style.width = '350px'
     map.style.height = '350px'
+    console.log(map.style.width, mapP.offsetWidth)
     map.style.left = mapP.offsetWidth / 2 - parseFloat(map.style.width) / 2 + "px"
     map.style.top = mapP.offsetHeight / 2 - parseFloat(map.style.height) / 2 + "px"
     bubble.style.display = "none"
 }
 
 document.getElementById("centered").addEventListener("click", center)
+center();
+
 
 
 
@@ -94,14 +78,6 @@ document.getElementById("centered").addEventListener("click", center)
 
 let imgMap = document.getElementById("imgMap")
 let svgMap = document.getElementById("svgMap")
-imgMap.style.left = "0px"
-imgMap.style.top = "0px"
-imgMap.style.width = "350px"
-imgMap.style.height = "350px"
-svgMap.style.left = "0px"
-svgMap.style.top = "0px"
-svgMap.style.width = "350px"
-svgMap.style.height = "350px"
 
 function updateMap(e) {
     if (e == "regionChanged" || (e instanceof Event && e.target.checked)) {
@@ -130,7 +106,6 @@ function updateMap(e) {
             svgMap.innerHTML = Hoenn
             bindInteractiveMap()
         }
-        center();
     }
 }
 
@@ -151,36 +126,14 @@ document.getElementById("interactiveMap").addEventListener("click", (e) => {
 });
 
 
-
 document.getElementById("mapList").addEventListener("change", (e) => {
     currentRegion = e.target.options[e.target.selectedIndex].value;
     updateMap("regionChanged");
-    console.log(currentRegion);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let dataLocation = JSON.parse(this.responseText);
-            // Info Location
-            locationContainer.innerHTML = "";
-            for (let i = 0; i < dataLocation.length; ++i) {
-                let location = document.createElement("div");
-                location.className = "location"
-                location.dataset.location = getText(dataLocation[i]["name"], "en")
-                location.innerHTML = getText(dataLocation[i]["name"], language);
-                locationContainer.appendChild(location)
-            }
-        }
-    }
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT location.name
-      FROM location 
-      JOIN region ON location.regionId = region.id 
-      WHERE region.name LIKE '` + currentRegion + "%'", true);
-    xmlhttp.send();
+    console.log(currentRegion)
 });
 
-function getListElement(name) {
-    console.log(name)
+function getListElement(name)
+{
     for (let location in locationList) {
         if (typeof locationList[location] != "object") continue
         if (locationList[location].dataset.location == name) {
@@ -192,9 +145,10 @@ function getListElement(name) {
 
 function replaceBubble(target, force = false) {
     if (currentLocation != undefined && !force) return
+    console.log("eh", currentLocation)
     bubble.style.display = "unset"
     let locationClass = target.className.baseVal.split(' ')
-    let currentClass = locationClass[locationClass.length - 1]
+    let currentClass = locationClass[locationClass .length - 1]
     let displayedClass = currentClass == "sea" ? "mer" : currentClass == "road" ? "route" : currentClass == "city" ? "ville" : "special";
     bubbleText.innerHTML = getListElement(target.id).innerHTML + " \n\n(" + displayedClass + ")"
     bubble.style.left = (parseFloat(target.getBoundingClientRect().x - 12 + target.getBoundingClientRect().width / 2)) + 'px'
@@ -207,26 +161,30 @@ function onOver(e) {
 function removeBubble(force = false) {
     if (currentLocation != undefined && !force) return
     bubble.style.display = "none"
-    if (currentLocation != undefined) {
+    if (currentLocation != undefined)
+    {
         currentLocation.style.filter = "";
     }
 }
 
-function setLocation(location) {
+function setLocation(location)
+{
     currentLocation = document.getElementById(location.dataset.location)
     replaceBubble(currentLocation, true)
     currentLocation.style.filter = "brightness(70%)"
     location.style.backgroundColor = "#ffffff"
 }
-function removeLocation(location) {
+function removeLocation(location)
+{
+    console.log(location)
     removeBubble(true);
     currentLocation = undefined
     location.style.backgroundColor = "#ff0000"
+    console.log(location)
 }
 
 function selectLocation(name) {
     let locationListItem = getListElement(name)
-    locationListItem.scrollIntoView({ behavior: "smooth" });
     if (locationListItem == null) return;
     if (currentLocation == undefined) {
         setLocation(locationListItem)
@@ -240,7 +198,8 @@ function selectLocation(name) {
     }
 }
 
-function onLeave() {
+function onLeave()
+{
     removeBubble();
 }
 
@@ -275,11 +234,12 @@ for (let location in locationList) {
         let mapLocationList = document.getElementsByClassName("mapLocation")
         for (let loc in mapLocationList) {
             if (typeof mapLocationList[loc] != "object") continue
+            //console.log(mapLocationList[loc])
             if (locationList[location].dataset.location == mapLocationList[loc].id) {
                 if (currentLocation == undefined) {
                     setLocation(locationList[location])
                 }
-                else if (currentLocation.id == mapLocationList[loc].id) {
+                else if (currentLocation.id == mapLocationList[loc].id){
                     removeLocation(locationList[location])
                 }
                 else {
@@ -292,30 +252,5 @@ for (let location in locationList) {
     })
 
 }
-
-function filter()
-{
-    [...document.querySelectorAll(".location")].forEach(location => {
-        location.style.display = "none";
-    });
-    let searchBar = document.getElementById('searchBar')
-    searchBar = searchBar.value.toLowerCase();
-    console.log(searchBar)
-    let locationList = document.getElementsByClassName("location")
-    for (let i = 0; i < locationList.length; ++i)
-    {
-        if (typeof locationList[i] != "object") continue;
-        if (locationList[i].innerHTML.toLowerCase().includes(searchBar))
-        locationList[i].style.display = "block";
-    }
-}
-
-document.getElementById('searchBar').addEventListener('input', filter);
-
-
-
-center();
-
-
 
 // bindInteractiveMap();

@@ -3,6 +3,10 @@
   font-family: 'pokefont2';
 }
 
+body, html{
+  height: 100%;
+}
+
 /* header{
     height: 140px;
 } */
@@ -60,7 +64,7 @@ input[type=submit]:hover {
   margin-top: 6px;
 }
 
-/* Clear floats after the columns */
+/* Enlève les espaces après les colonnes */
 .row::after {
   content: "";
   display: table;
@@ -72,11 +76,15 @@ input[type=submit]:hover {
 }
 
 .navButton{
-  align-items: center;
-  padding-top: 15px;
+  align-items: center;  
+  padding: 0;
 }
 
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+.textButton{
+  padding-top: 14px;
+}
+
+
 @media screen and (max-width: 600px) {
   .col-25, .col-75, input[type=submit] {
     width: 100%;

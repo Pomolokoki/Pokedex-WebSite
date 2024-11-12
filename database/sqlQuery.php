@@ -110,7 +110,6 @@ $sqlCreateAbilityPokemonLink =
 "CREATE TABLE ability_pokemon(
 abilityId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
-isHidden BOOLEAN,
 CONSTRAINT ability_pokemon_abilityId_FK FOREIGN KEY (abilityId) REFERENCES ability(id),
 CONSTRAINT ability_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
 CONSTRAINT ability_pokemon_PKU UNIQUE (abilityId, pokemonId)
@@ -122,7 +121,6 @@ moveId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 learnMethod VARCHAR(100),
 learnAtLevel TINYINT UNSIGNED,
-generation TINYINT UNSIGNED,
 CONSTRAINT move_pokemon_moveId_FK FOREIGN KEY (moveId) REFERENCES move(id),
 CONSTRAINT move_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
 CONSTRAINT move_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES region(id)-- ,
@@ -136,8 +134,8 @@ pokemonId SMALLINT UNSIGNED,
 generation TINYINT UNSIGNED,
 CONSTRAINT location_pokemon_locationId_FK FOREIGN KEY (locationId) REFERENCES location(id),
 CONSTRAINT location_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
-CONSTRAINT location_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES region(id)-- ,
--- CONSTRAINT location_pokemon_PKU UNIQUE (locationId, pokemonId, generation)
+CONSTRAINT location_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES region(id),
+CONSTRAINT location_pokemon_PKU UNIQUE (locationId, pokemonId, generation)
 );";
 
 
