@@ -123,6 +123,8 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
 
     //$statement = $db->prepare($insert . $values);
     //$statement->execute();
+    if (!$delete && $deleteOnly)
+        return;
     $statement = $db->prepare("SELECT * FROM " . $table);
     $statement->execute();
     $returnValue = $statement->fetchAll();

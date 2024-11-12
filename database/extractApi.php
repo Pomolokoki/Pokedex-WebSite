@@ -26,7 +26,7 @@ function getDataFromFile($path, $usebasePath = true)
     if ($usebasePath)
     {
 
-        static $basePath = "./v2";
+        static $basePath = "../v2";
         if (file_exists($basePath . $path . "/index.json"))
         {
             return json_decode(file_get_contents($basePath . $path . "/index.json"));

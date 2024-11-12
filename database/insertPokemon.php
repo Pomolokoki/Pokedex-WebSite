@@ -240,10 +240,11 @@ saveToDb($sqlInsertLocationPokemon, "location_pokemon", $LPvalues);
 saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", $EPvalues);
 saveToDb($sqlInsertFormPokemon, "form_pokemon", $FPvalues);
 $sqlAddBonusData = "UPDATE pokemon SET category=3 WHERE id IN (793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806);";
-$sqlAddBonusData = $sqlAddBonusData ."INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (840, 1011, 2109, \"Use item/Utilisation d'un objet\");";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (884, 1018, 100000, \"Use item/Utilisation d'un objet\");";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (1012, 1013, 2110, \"Use item/Utilisation d'un objet\");";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO pokemon_evolution (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (1012, 1013, 2111, \"Use item/Utilisation d'un objet\");";
-$statement = $db->prepare($sqlAddBonusData);
-$statement->execute();
+$sqlAddBonusData = $sqlAddBonusData ."INSERT INTO evolution_pokemon (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (840, 1011, 2109, \"Use item/Utilisation d'un objet\");";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (884, 1018, 60000, \"Use item/Utilisation d'un objet\");";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (1012, 1013, 2110, \"Use item/Utilisation d'un objet\");";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (basePokemonId, evoluedPokemonId, itemId, evolutionTrigger) VALUE (1012, 1013, 2111, \"Use item/Utilisation d'un objet\");";
+saveToDb($sqlAddBonusData, "", "", false, true);
+//$statement = $db->prepare($sqlAddBonusData);
+//$statement->execute();
 ?>

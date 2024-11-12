@@ -17,9 +17,9 @@ CREATE DATABASE pokedex CHARACTER SET utf8;
 USE pokedex;";
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $statement = $db->prepare($sqlCreateBD);
+    $statement->execute();
 } catch(Exception $exception) {
-die('Erreur : '.$exception->getMessage());
+    die('Erreur : '.$exception->getMessage());
 }
-$statement = $db->prepare($sqlCreateBD);
-$statement->execute();
 ?>

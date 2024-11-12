@@ -248,8 +248,8 @@ CONSTRAINT move_form_pokemon6Id_FK FOREIGN KEY (pokemon6Id) REFERENCES pokemon(i
 $sqlCreatePlayer =
 "CREATE TABLE player(
 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-nickname VARCHAR(50),
-email VARCHAR(100),
+nickname VARCHAR(50) UNIQUE,
+email VARCHAR(100) UNIQUE,
 password VARCHAR(100),
 level SMALLINT UNSIGNED,
 xp SMALLINT UNSIGNED,
@@ -260,6 +260,7 @@ combatTeam2Id INT UNSIGNED,
 combatTeam3Id INT UNSIGNED,
 selectedCombatTeamId INT UNSIGNED,
 friends TEXT,
+forumRank TINYINT UNSIGNED,
 CONSTRAINT player_team_FK FOREIGN KEY (team) REFERENCES team(id),
 CONSTRAINT player_combatTeam1Id_FK FOREIGN KEY (combatTeam1Id) REFERENCES combatTeam(id),
 CONSTRAINT player_combatTeam2Id_FK FOREIGN KEY (combatTeam2Id) REFERENCES combatTeam(id),
@@ -285,6 +286,38 @@ CONSTRAINT player_favorites_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES poke
 CONSTRAINT player_favorites_PKU UNIQUE (playerId, pokemonId)
 );";
 
+$sqlCreateForumChannel = 
+"CREATE TABLE channel(
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+owner INT UNSIGNED,
+title VARCHAR(100),
+keyWords TINYTEXT,
+creationDate DATE,
+CONSTRAINT channel_owner_FK FOREIGN KEY (owner) REFERENCES player(id)
+);";
+
+$sqlCreateForumMessage = 
+"CREATE TABLE message(
+id VARCHAR(160) PRIMARY KEY,
+owner INT UNSIGNED,
+text TEXT,
+reply VARCHAR(160),
+imgURL TEXT,
+CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
+CONSTRAINT message_reply_FK FOREIGN KEY (reply) REFERENCES message(id)
+);";
+
+$sqlCreateForumMessageChanel = 
+"CREATE TABLE message_channel(
+channelId INT UNSIGNED,
+messageId VARCHAR(160),
+CONSTRAINT message_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id),
+CONSTRAINT message_channel_messageId_FK FOREIGN KEY (messageId) REFERENCES message(id)
+);";
+
+
+
+
 $sqlCreateAll =
 $sqlCreateBD . "\n" .
 $sqlCreateAbility . "\n" .
@@ -303,5 +336,8 @@ $sqlCreateTeam . "\n" .
 $sqlCreateCombatTeam . "\n" .
 $sqlCreatePlayer . "\n" .
 $sqlCreatePlayerPokedexLink . "\n" .
-$sqlCreatePlayerFavoriteLink . "\n";
+$sqlCreatePlayerFavoriteLink . "\n".
+$sqlCreateForumChannel . "\n".
+$sqlCreateForumMessage . "\n".
+$sqlCreateForumMessageChanel . "\n";
 ?>
