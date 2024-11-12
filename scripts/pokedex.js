@@ -66,8 +66,14 @@ function getText(str, lang = "fr") {
       return str.split('/')[0];
     return str.split('/')[1];
   }
-  else 
-  return str.split('/')[0];
+  else
+    return str.split('/')[0];
+}
+
+function isNumber(value) {
+
+  let reg = new RegExp('^[0-9]+$')
+  return reg.test(value)
 }
 
 function filtre() {
@@ -76,7 +82,6 @@ function filtre() {
   type = document.getElementById('type').value;
   rarete = document.getElementById('rarete').value;
   searchBar = document.querySelector('#searchBar input').value.toLowerCase();
-  console.log(gen, type, rarete, searchBar);
   [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
     pokemon.style.display = "none";
   });
@@ -93,7 +98,10 @@ function filtre() {
   else
     rarete = "";
   if (searchBar != '')
-    searchBar = "[data-name*='" + searchBar + "']";
+    if (isNumber(searchBar))
+      searchBar = "[data-id*='" + searchBar + "']";
+    else
+      searchBar = "[data-name*='" + searchBar + "']";
   else
     searchBar = "";
   [...document.querySelectorAll(".pokemon" + gen + type + rarete + searchBar)].forEach(pokemon => {
@@ -188,7 +196,7 @@ var LoadDataPokemon = function (id) {
         document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType1][0] + ', #' + TableColor[colorType2][0] + ')';
       }
       document.getElementById("gen_Pokemon").innerHTML = "Gen : " + dataPokemon["generation"];
-      console.log("in pokemon : "  + document.getElementById("gen_Pokemon").innerHTML)
+      console.log("in pokemon : " + document.getElementById("gen_Pokemon").innerHTML)
       document.getElementById("taille_Pokemon").innerHTML = "Taille : " + dataPokemon["height"] / 10.0 + " m";
       document.getElementById("poids_Pokemon").innerHTML = "Poids : " + dataPokemon["weight"] / 10.0 + " Kg";
       document.getElementById("catch_rate_Pokemon").innerHTML = "Taux de capture : " + dataPokemon["catch_rate"];
@@ -255,34 +263,34 @@ var LoadDataPokemon = function (id) {
     JOIN type AS t1 ON pokemon.type1 = t1.id 
     LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
     WHERE pokemon.id = ` + id, true);
-    xmlhttp.send();
-  }
-  
-  
-  var LoadAbilityPokemon = function (id) {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        dataAbility = JSON.parse(this.responseText);
-        document.getElementById("Talent").innerText = "";
-        document.getElementById("Talent").classList.remove("NB_talent0", "NB_talent1", "NB_talent2", "NB_talent3")
-        document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
-        for (let i = 0; i < dataAbility.length; i++) {
-          let divElementName = document.createElement("div");
-          divElementName.classList.add("nom_talent");
-          divElementName.innerHTML = getText(dataAbility[i]["name"]);
-          document.querySelector("body #content #Pokemon #Talent").appendChild(divElementName);
-        }
-        for (let i = 0; i < dataAbility.length; i++) {
-          let divElementDesc = document.createElement("div");
-          divElementDesc.classList.add("desc_talent");
-          divElementDesc.innerHTML = getText(dataAbility[i]["smallDescription"]);
-          document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
-        }
-        console.log("ability Loaded !");
+  xmlhttp.send();
+}
+
+
+var LoadAbilityPokemon = function (id) {
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      dataAbility = JSON.parse(this.responseText);
+      document.getElementById("Talent").innerText = "";
+      document.getElementById("Talent").classList.remove("NB_talent0", "NB_talent1", "NB_talent2", "NB_talent3")
+      document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
+      for (let i = 0; i < dataAbility.length; i++) {
+        let divElementName = document.createElement("div");
+        divElementName.classList.add("nom_talent");
+        divElementName.innerHTML = getText(dataAbility[i]["name"]);
+        document.querySelector("body #content #Pokemon #Talent").appendChild(divElementName);
       }
+      for (let i = 0; i < dataAbility.length; i++) {
+        let divElementDesc = document.createElement("div");
+        divElementDesc.classList.add("desc_talent");
+        divElementDesc.innerHTML = getText(dataAbility[i]["smallDescription"]);
+        document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
+      }
+      console.log("ability Loaded !");
     }
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  }
+  xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
       ability.name,
       ability.smallDescription,
@@ -290,67 +298,67 @@ var LoadDataPokemon = function (id) {
       FROM ability_pokemon AS ap 
       INNER JOIN ability ON ap.abilityId = ability.id 
       WHERE ap.pokemonId = ` + id, true);
-      xmlhttp.send();
-    }
-    
-    
-    var LoadAtkPokemon = function (id, isGen=-1) {
-      let xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          dataMove = JSON.parse(this.responseText);
-          document.getElementById("Attaque").innerText = "";
-          document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
-          let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
-          let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
-          if (dataMove.length == 0) {
-            LoadAtkPokemon(id,isGen = document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1)
-          }
-          for (let i = -1; i < dataMove.length; i++) {
-            for (let j = 0; j < 7; ++j) {
-              let divElementName = document.createElement("div");
-              divElementName.classList.add("Val_atk_case");
-              if (i == -1) {
-                divElementName.innerHTML = "<h3>" + tab1[j] + "</h3>"
-                divElementName.style.order = 0;
-              }
-              else {
-                divElementName.classList.add("Val_atk_case" + i);
-                divElementName.style.order = 1;
-                if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
-                  divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
-                else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
-                  divElementName.innerHTML = "CT/CS";
-                else if (j == 2)
-                  if (dataMove[i][tab2[j]] == 1)
-                    divElementName.innerHTML = "Physique"
-                  else if (dataMove[i][tab2[j]] == 2)
-                    divElementName.innerHTML = "Spéciale"
-                  else
-                  divElementName.innerHTML = "Statut"
-                else if (j == 3 || j == 4 || j == 5)
-                  if (dataMove[i][tab2[j]] == undefined)
-                    divElementName.innerHTML = "--"
-                  else
-                  divElementName.innerHTML = dataMove[i][tab2[j]];
-                else if (j == 1){
-                  let divElementTypeAtk = document.createElement("div");
-                  divElementTypeAtk.classList.add("divElementTypeAtk");
-                  divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
-                  divElementName.appendChild(divElementTypeAtk);
-                  divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]],"en"))
-                }
-                else
-                divElementName.innerHTML = getText(dataMove[i][tab2[j]]);
-            }
-            document.getElementById("Attaque").appendChild(divElementName);
-          }
-        }
-        orderGrid();
+  xmlhttp.send();
+}
+
+
+var LoadAtkPokemon = function (id, isGen = -1) {
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      dataMove = JSON.parse(this.responseText);
+      document.getElementById("Attaque").innerText = "";
+      document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
+      let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
+      let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+      if (dataMove.length == 0) {
+        LoadAtkPokemon(id, isGen = document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1)
       }
+      for (let i = -1; i < dataMove.length; i++) {
+        for (let j = 0; j < 7; ++j) {
+          let divElementName = document.createElement("div");
+          divElementName.classList.add("Val_atk_case");
+          if (i == -1) {
+            divElementName.innerHTML = "<h3>" + tab1[j] + "</h3>"
+            divElementName.style.order = 0;
+          }
+          else {
+            divElementName.classList.add("Val_atk_case" + i);
+            divElementName.style.order = 1;
+            if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
+              divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
+            else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
+              divElementName.innerHTML = "CT/CS";
+            else if (j == 2)
+              if (dataMove[i][tab2[j]] == 1)
+                divElementName.innerHTML = "Physique"
+              else if (dataMove[i][tab2[j]] == 2)
+                divElementName.innerHTML = "Spéciale"
+              else
+                divElementName.innerHTML = "Statut"
+            else if (j == 3 || j == 4 || j == 5)
+              if (dataMove[i][tab2[j]] == undefined)
+                divElementName.innerHTML = "--"
+              else
+                divElementName.innerHTML = dataMove[i][tab2[j]];
+            else if (j == 1) {
+              let divElementTypeAtk = document.createElement("div");
+              divElementTypeAtk.classList.add("divElementTypeAtk");
+              divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
+              divElementName.appendChild(divElementTypeAtk);
+              divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]], "en"))
+            }
+            else
+              divElementName.innerHTML = getText(dataMove[i][tab2[j]]);
+          }
+          document.getElementById("Attaque").appendChild(divElementName);
+        }
+      }
+      orderGrid();
     }
-    let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  }
+  let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
+  xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
       move.name,
       type.name AS type,
@@ -364,29 +372,64 @@ var LoadDataPokemon = function (id) {
       INNER JOIN move ON mp.moveId = move.id 
       JOIN type ON move.type = type.id 
       WHERE mp.pokemonId = ` + id + ' AND mp.generation = ' + genValue, true);
-      xmlhttp.send();
-    };
-    
-    for (let i = 0; i < pokemons.length; i++) {
+  xmlhttp.send();
+};
+
+var LoadEvoPokemon = function (id) {
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
       
-      pokemons[i].addEventListener('click', () => {
-        if (last_id === pokemons[i].id) {
-          console.log("a");
-          last_id = "x";
-          core.style.margin = "";
-          core.style.maxWidth = "";
-          dataPokemon = undefined;
-        }
-        else {
-          LoadDataPokemon(pokemons[i].id)
-          LoadAbilityPokemon(pokemons[i].id)
-          last_id = pokemons[i].id;
-          core.style.margin = "0px";
-          // core.style.marginLeft = "275px";
-          core.style.maxWidth = "450px";
-        }
-      }, false);
-      
+      }
+      orderGrid();
     }
-    
-    
+  xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      SELECT 
+      evolution_pokemon.id,
+      evolution_pokemon.basePokemonId,
+      evolution_pokemon.evoluedPokemonId,
+      evolution_pokemon.gender,
+      evolution_pokemon.heldItemId,
+      evolution_pokemon.itemId,
+      evolution_pokemon.knowMoveId,
+      evolution_pokemon.knowMoveTypeId,
+      evolution_pokemon.locationId,
+      evolution_pokemon.minAffection,
+      evolution_pokemon.minBeauty,
+      evolution_pokemon.minHappiness,
+      evolution_pokemon.minLevel,
+      evolution_pokemon.needsOverworldRain,
+      evolution_pokemon.partySpeciesId,
+      evolution_pokemon.partyTypeId,
+      evolution_pokemon.relativePhysicalStats,
+      evolution_pokemon.timeOfDay,
+      evolution_pokemon.tradeSpeciesId,
+      evolution_pokemon.evolutionTrigger,
+      evolution_pokemon.turnUpSideDown,
+      FROM evolution_pokemon.   
+      WHERE evolution_pokemon.id = ` + id , true);
+  xmlhttp.send();
+};
+
+for (let i = 0; i < pokemons.length; i++) {
+
+  pokemons[i].addEventListener('click', () => {
+    if (last_id === pokemons[i].id) {
+      console.log("a");
+      last_id = "x";
+      core.style.margin = "";
+      core.style.maxWidth = "";
+      dataPokemon = undefined;
+    }
+    else {
+      LoadDataPokemon(pokemons[i].id)
+      LoadAbilityPokemon(pokemons[i].id)
+      last_id = pokemons[i].id;
+      core.style.margin = "0px";
+      // core.style.marginLeft = "275px";
+      core.style.maxWidth = "450px";
+    }
+  }, false);
+
+}
+
