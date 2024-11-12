@@ -14,7 +14,7 @@ h3 {
 }
 
 .name_section {
-    width: 60%;
+    width: 80%;
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 5px;
@@ -170,7 +170,7 @@ select {
 .info_l {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 70%;
     height: 100%;
     padding-top: 10px;
     gap: 10%;
@@ -220,17 +220,18 @@ select {
 }
 
 .info_r {
-    width: 20%;
+    width: 30%;
     height: 100%;
     padding-top: 10px;
 }
 
 .niveau {
     float: right;
-    margin-right: 15px;
-    width: 25%;
-    height: 20%;
+    margin-right: 5px;
+    width: fit-content;
+    height: fit-content;
     background-color: grey;
+    font-size: 13px;
 }
 
 /*#endregion */
@@ -668,7 +669,7 @@ select {
     width: 950px;
     gap: 2px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr 1fr;
     height: max-content;
     background-color: rgb(112, 255, 76);
 }
@@ -682,6 +683,13 @@ select {
     align-items: center;
     text-align: center;
     background-color: #ff009d;
+}
+
+.divElementTypeAtk {
+    border-radius: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #0000ff;
 }
 
 #atkTiltle {

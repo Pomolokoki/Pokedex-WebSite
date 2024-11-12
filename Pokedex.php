@@ -119,7 +119,18 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 									<div class="info_r">
 										<div class="niveau">
 											<?php
-											echo $datapokemon[$i]["category"];
+											if($datapokemon[$i]["category"] == 0) {
+												echo "commun";
+											}
+											elseif($datapokemon[$i]["category"] == 1) {
+												echo "légendaire";
+											}
+											elseif($datapokemon[$i]["category"] == 2) {
+												echo "fabuleux";
+											}
+											else{
+												echo "ultra-chimère";
+											} 
 											?>
 										</div>
 									</div>
