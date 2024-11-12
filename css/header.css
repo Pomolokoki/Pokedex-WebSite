@@ -2,10 +2,11 @@
     font-family: 'pokefont';
     src: url(../fonts/Pokemon\ Classic.ttf);
 }
+
 @font-face {
     font-family: 'pokefont2';
     src: url(../fonts/PKMN\ RBYGSC.ttf);
-  }
+}
 
 /*#region Main Header */
 
@@ -47,7 +48,7 @@ div.mycontainer div#Logo {
     background-color: purple;
     display: flex;
     position: relative;
-    
+
 }
 
 div.mycontainer div#Title {
@@ -76,7 +77,62 @@ html {
     overflow-x: hidden;
 }
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,caption {    margin: 0;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption {
+    margin: 0;
     padding: 0;
     border: 0;
     outline: 0;
@@ -110,7 +166,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 #Login {
     background-color: dodgerblue;
-    border: 0.25em solid black;    
+    border: 0.25em solid black;
     min-height: 20px;
     max-height: 100%;
     max-width: 100%;
@@ -127,14 +183,42 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 .Connexion {
     background-color: black;
-    float: right;    
+    float: right;
     position: relative;
     overflow: visible;
-    padding: 0%;    
+    padding: 0%;
     border-radius: 10%;
     font-family: 'pokefont';
 }
 
+#myPage {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    float: right;
+}
+
+#myProfile {
+    width: 50px;
+    height: 50px;
+    cursor:pointer;
+}
+
+#disconnect {
+    border: 0.25em solid black;
+    border-radius: 10%;
+    font-family: 'pokefont';
+    background-color: rgb(200, 20, 20);
+}
+
+#disconnect:hover {
+    filter: brightness(150%);
+    cursor: pointer;
+}
+
+#disconnect:active {
+    box-shadow: 0 20% #000;
+}
 /*#endregion */
 
 
@@ -144,7 +228,8 @@ nav {
     height: 70px;
     color: rgb(220, 220, 220);
     display: flex;
-    position: sticky;
+    position: relative;
+    z-index: 6;
     top: 0px;
     max-width: 70px;
 }
@@ -213,7 +298,7 @@ nav a:hover::after {
     -webkit-user-select: none;
     user-select: none;
     position: static;
-    padding: 0;
+    
     /* transition-duration: 0.5s; */
 }
 
@@ -253,10 +338,11 @@ nav a:hover::after {
         font-size: 1.25rem;
     }
 
-    .Connexion{
+    .Connexion {
         font-size: 0.75rem;
         margin-right: 50px;
     }
+
     .textButton {
         font-size: 0.5rem;
     }
@@ -320,7 +406,7 @@ nav a:hover::after {
     nav svg {
         display: inline-block;
         cursor: pointer;
-        vertical-align: top;        
+        vertical-align: top;
     }
 
     nav li {
@@ -340,7 +426,7 @@ nav a:hover::after {
         position: relative;
         left: 0rem;
         z-index: 99;
-        display: block;        
+        display: block;
     }
 
     #check:checked~.nav-items {
