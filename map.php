@@ -2,7 +2,7 @@
 include_once("./database/extractDataFromDB.php");
 $regionData = getDataFromDB("region", "*", null);
 $locationData = getDataFromDB("location", "*", "WHERE regionId = 3");
-
+$language = "fr"
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -50,10 +50,10 @@ include_once('header.html');
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
                     if ($i == 3) {
-                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"]) . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
-
+                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
+                        continue;
                     }
-                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"]) . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
+                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
                 }
                 ?>
             </select>
