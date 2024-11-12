@@ -15,7 +15,7 @@ $language = "fr"
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <?php
-include_once('header.php');
+include_once('header.html');
 ?>
 
 <body>

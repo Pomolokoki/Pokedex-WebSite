@@ -1,8 +1,8 @@
-<?php 
+<?php session_start();
 include_once("database/connectSQL.php");
 ?>
 <!-- Inclusion du header -->
-<?php include_once("header.php") ?>
+<?php include_once("header.html") ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="register.js"></script>

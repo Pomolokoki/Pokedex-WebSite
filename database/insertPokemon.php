@@ -65,7 +65,7 @@ function setEvolution($pokemonEvolutionData, $pokemonData, &$EPvalues)
 }
 
 $sqlInsertAbilityPokemon = "INSERT INTO ability_pokemon (abilityId, pokemonId, isHidden) VALUES ";
-$sqlInsertMovePokemon = "INSERT INTO move_pokemon (moveId, pokemonId, learnMethod, learnAtLevel) VALUES ";
+$sqlInsertMovePokemon = "INSERT INTO move_pokemon (moveId, pokemonId, learnMethod, learnAtLevel, generation) VALUES ";
 $sqlInsertLocationPokemon = "INSERT INTO location_pokemon (locationId, pokemonId, generation) VALUES ";
 $sqlInsertEvolutionPokemon = "INSERT INTO evolution_pokemon (id, basePokemonId, evoluedPokemonId, gender, heldItemId, itemId, knownMoveId, knownMoveTypeId, locationId, minAffection, minBeauty, minHappiness, minLevel, needsOverworldRain, partySpeciesId, partyTypeId, relativePhysicalStats, timeOfDay, tradeSpeciesId, evolutionTrigger, turnUpsideDown) VALUES ";
 $sqlInsertFormPokemon = "INSERT INTO form_pokemon (pokemonId, formId) VALUES ";
@@ -141,7 +141,7 @@ foreach (getDataFromFile("/pokemon")->results as $move)
         $locationData = getDataFromfile("/location-area/" . getIdFromUrl($pokemonEncounterData[$j]->location_area->url)); 
         for ($k = 0; $k < count($pokemonEncounterData[$j]->version_details); $k++)
         {
-            $versionData = getDataFromFile("/version-group/" . getIdFromUrl(getDataFromfile("/version/" . getIdFromUrl($pokemonEncounterData[$j]->location_area[$k]->version->url))->version_group->url));
+            $versionData = getDataFromFile("/version-group/" . getIdFromUrl(getDataFromfile("/version/" . getIdFromUrl($pokemonEncounterData[$j]->version_details[$k]->version->url))->version_group->url));
             $LPvalues = $LPvalues . "(" . getIdFromUrl($locationData->location->url) . ",". $pokemonData->id . "," . getIdFromUrl($versionData->generation->url) . "),,"; //location_pokemon (table)
         }
     }

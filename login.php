@@ -1,6 +1,8 @@
+<?php session_start();
+include_once("database/connectSQL.php");
+?>
 <!-- Inclusion du header -->
-<?php include_once("database/connectSQL.php"); ?>
-<?php include_once("header.php") ?>
+<?php include_once("header.html") ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="login.js"></script>
@@ -55,17 +57,18 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
         if ($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
 
-                $findEmailPlayer = $db->prepare("SELECT email,nickname FROM player WHERE email=:identifier OR nickname=:identifier");
+                $findEmailPlayer = $db->prepare("SELECT email FROM player WHERE email=:identifier");
                 $findEmailPlayer->bindParam(':identifier', $_POST['id']);
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
                 // echo '<pre>';print_r($test);echo '</pre>';
                 $_SESSION['LOGGED_USER'] = $test;
+
             }
         } else {
             $errorMessage = sprintf("L'identifiant ou le mot de passe est invalide.");
-        }
 
+        }
     }
 }
 #endregion
@@ -75,15 +78,10 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
 
 <body>
     <div class="container">
-
-        <?php if (!isset($_SESSION["accountCreated"])): ?>
-        <?php else: ?>
-            <?php if ((isset($_SESSION["accountCreated"])) && $_SESSION["accountCreated"] === true): ?>
-                <div class="alert alert-success" role="alert">
-                    Compte crée avec succès ?
-                    <?php session_unset() ?>
-                </div>
-            <?php endif; ?>
+        <?php if ($_SESSION["accountCreated"] === true): ?>
+            <div class="alert alert-success" role="alert">
+                Compte crée avec succès ? Jsais pas frr
+            </div>
         <?php endif; ?>
         <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
             <h1>Connexion a votre compte:</h1>
@@ -123,17 +121,14 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                     <input type="submit" id="submitButton" value="Connectez-vous !">
                 </div>
             </form>
-
         <?php else: ?>
             <div class="alert alert-success" role="alert">
-                <?php foreach ($_SESSION["LOGGED_USER"] as $id): ?>
-                    Bonjour <?php echo $id["nickname"] ?> et bienvenue notre PokeSite !
-
-                <?php endforeach; ?>
+                Bonjour <?php echo $_SESSION['LOGGED_USER']; ?> et bienvenue notre PokeSite !
                 <?php
                 $new_url = 'pokedex.php';
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
+
             </div>
         <?php endif; ?>
         <?php

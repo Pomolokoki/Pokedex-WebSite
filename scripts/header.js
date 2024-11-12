@@ -14,7 +14,3 @@ document.getElementById('Login').addEventListener('click',function(){
   document.location.href = 'login.php';
 });
 
-
-document.getElementsByClassName("bi bi-person-fill").addEventListener('click',function(){
-  document.location.href = 'profile.php';
-})

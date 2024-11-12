@@ -1,7 +1,7 @@
 <?php
 include_once("extractApi.php");
 
-$sqlInsertMove = "INSERT INTO move (id, name, description, smallDescription, accuracy, type, pp, pc, effectType, comboMin, comboMax, priority, criticity) VALUES ";
+$sqlInsertMove = "INSERT INTO move (id, name, description, smallDescription, accuracy, type, pc, pp, effectType, comboMin, comboMax, priority, criticity) VALUES ";
 $values = "";
 echo count(getDataFromFile("/move")->results);
 //echo "<br>";
@@ -24,7 +24,7 @@ foreach (getDataFromFile("/move")->results as $move)
     $value = $value . getIdFromUrl($moveData->type->url) . ","; //type
     $value = $value . IntValue($moveData->power) . ","; //pc
     $value = $value . IntValue($moveData->pp) . ","; //pp
-    if ($moveData->damage_class->name == "physicial") //effetctType
+    if ($moveData->damage_class->name == "physical") //effetctType
     {
         $value = $value . "1,";
     }
