@@ -73,12 +73,8 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 							data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>"
 							data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"] ?>"
 							data-category="<?php echo $datapokemon[$i]["category"] ?>"
-<<<<<<< HEAD
 							data-gen="<?php echo $datapokemon[$i]["generation"] ?>"
 							data-id="<?php echo $datapokemon[$i]["id"] ?>">
-=======
-							data-gen="<?php echo $datapokemon[$i]["generation"] ?>">
->>>>>>> parent of 04d1798 (Ajout de la fonction de déconnexion)
 							<div class="colors"></div>
 							<div class="info">
 								<div class="img_pokemon">
