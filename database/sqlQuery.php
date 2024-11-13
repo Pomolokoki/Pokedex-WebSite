@@ -268,6 +268,14 @@ CONSTRAINT player_combatTeam3Id_FK FOREIGN KEY (combatTeam3Id) REFERENCES combat
 CONSTRAINT player_selectedCombatTeamId_FK FOREIGN KEY (selectedCombatTeamId) REFERENCES combatTeam(id)
 );";
 
+$sqlCreateFollowedPlayer =
+"CREATE TABLE followed_player(
+playerId INT UNSIGNED,
+followedPlayerId INT UNSIGNED,
+CONSTRAINT followed_player_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
+CONSTRAINT followed_player_followedPlayerId_FK FOREIGN KEY (followedPlayerId) REFERENCES player(id)
+);";
+
 $sqlCreatePlayerPokedexLink =
 "CREATE TABLE player_pokemon(
 playerId INT UNSIGNED,
@@ -303,6 +311,7 @@ owner INT UNSIGNED,
 text TEXT,
 reply VARCHAR(160),
 imgURL TEXT,
+postDate DATETIME,
 CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
 CONSTRAINT message_reply_FK FOREIGN KEY (reply) REFERENCES message(id)
 );";
@@ -313,6 +322,14 @@ channelId INT UNSIGNED,
 messageId VARCHAR(160),
 CONSTRAINT message_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id),
 CONSTRAINT message_channel_messageId_FK FOREIGN KEY (messageId) REFERENCES message(id)
+);";
+
+$sqlCreateForumFavoritePlayerChanel = 
+"CREATE TABLE player_fav_channel(
+playerId INT UNSIGNED,
+channelId INT UNSIGNED,
+CONSTRAINT player_fav_channel_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
+CONSTRAINT player_fav_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id)
 );";
 
 
@@ -335,9 +352,11 @@ $sqlCreateFormPokemon . "\n" .
 $sqlCreateTeam . "\n" .
 $sqlCreateCombatTeam . "\n" .
 $sqlCreatePlayer . "\n" .
+$sqlCreateFollowedPlayer . "\n" .
 $sqlCreatePlayerPokedexLink . "\n" .
-$sqlCreatePlayerFavoriteLink . "\n".
-$sqlCreateForumChannel . "\n".
-$sqlCreateForumMessage . "\n".
-$sqlCreateForumMessageChanel . "\n";
+$sqlCreatePlayerFavoriteLink . "\n" .
+$sqlCreateForumChannel . "\n" .
+$sqlCreateForumMessage . "\n" .
+$sqlCreateForumMessageChanel . "\n" .
+$sqlCreateForumFavoritePlayerChanel . "\n";
 ?>
