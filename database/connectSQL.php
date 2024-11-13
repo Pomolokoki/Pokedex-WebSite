@@ -12,23 +12,12 @@ try {
         $MYSQL_USER,
         getPassword()
     );
-
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(Exception $exception) {
-    include_once("loadDataIntoWebsite");
-}
-
-try {
-    $db = new PDO(
-        sprintf('mysql:host=%s;dbname=%s;port=%s;charset=utf8',
-        $MYSQL_HOST, $MYSQL_NAME, $MYSQL_PORT),
-        $MYSQL_USER,
-        getPassword()
-    );
-
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(Exception $exception) {
     
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //include_once("loadDataIntoWebsite.php");
+
+} catch(Exception $exception) {
+
     die('Erreur : '. $exception->getMessage());
 }
 

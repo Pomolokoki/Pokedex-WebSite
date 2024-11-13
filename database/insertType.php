@@ -1,6 +1,6 @@
 <?php
 include_once("extractApi.php");
-include_once("extractData.php");
+include_once("extractDataFromDB.php");
 
 $sqlInsertType = "INSERT INTO type (id, name, efficiency, sprite) VALUES ";
 $values = "";

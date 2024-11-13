@@ -1,7 +1,8 @@
 
 <?php
 
-include_once("extractdata.php");
+// include_once("extractdata.php");
+include_once("connectSQL.php");
 include_once("sqlQuery.php");
 
 /*
