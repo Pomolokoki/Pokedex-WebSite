@@ -17,7 +17,7 @@ $typeData = getDataFromDB("type", "*", null);
 
 <body>
 	<?php
-	include_once('header.html');
+	include_once('header.php');
 	?>
 
 	<script src="scripts/typeTable.js"></script>

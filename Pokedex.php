@@ -22,7 +22,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 </head>
-<?php include_once("header.html"); ?>
+<?php include_once("header.php"); ?>
 
 <body>
 	<div id="content">
@@ -176,12 +176,12 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 							<input type="checkbox" id="check_fav">
 							<label for="check_fav" id="fav">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-									class="star-dotted" viewBox="0 0 16 16">
+									class="star star-dotted" viewBox="0 0 16 16">
 									<path
 										d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
 								</svg>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-									class="star-fill" viewBox="0 0 16 16">
+									class="star star-fill" viewBox="0 0 16 16">
 									<path
 										d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
 								</svg>
@@ -189,12 +189,12 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 							<input type="checkbox" id="check_capture">
 							<label for="check_capture" id="capture">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="-16 -0.5 16 16"
-									fill="currentColor" class="pokeball-empty">
+									fill="currentColor" class="pokeball pokeball-empty">
 									<path
 										d="M -15 8 A 1 0.95 0 0 0 -1 8 M -1 7 A 1 0.95 0 0 0 -15 7 Z m -15 0.5 A 8 8 90 1 1 0 7.5 A 8 8 90 0 1 -16 7.5 M -7 7.5 A 1 1 0 0 1 -9 7.5 A 1 1 0 0 1 -7 7.5 M -10 7.5 A 1 1 0 0 1 -6 7.5 A 1 1 0 0 1 -10 7.5 M -5 7.5 A 1 1 0 0 0 -11 7.5 A 1 1 0 0 0 -5 7.5 M -10.956 7 A 0.32 1 0 0 0 -10.958 8.001 L -5.042 8 A 0.32 1 0 0 0 -5.042 7" />
 								</svg>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="-16 0 16 16"
-									fill="currentColor" class="pokeball-fill">
+									fill="currentColor" class="pokeball pokeball-fill">
 									<path
 										d="M -15 8 A 7 7 90 0 0 -1 8 H -5 a 1 1 90 0 1 -6 0 h 5 a 1 1 90 0 0 -4 0 a 1 1 90 0 0 4 0 h -9 m 0 0 h 6 A 1 1 0 0 0 -8 9 A 1 1 0 0 0 -7 8 A 1 1 0 0 0 -9 8 Z m -1 0 A 8 8 90 1 1 0 8 A 8 8 90 0 1 -16 8" />
 								</svg>
@@ -202,16 +202,26 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 							<input type="checkbox" id="check_equipe">
 							<label for="check_equipe" id="equipe">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-									class="circle-dotted" viewBox="0 0 16 16">
+									class="circle circle-dotted" viewBox="0 0 16 16">
 									<path
 										d="M8 0q-.264 0-.523.017l.064.998a7 7 0 0 1 .918 0l.064-.998A8 8 0 0 0 8 0M6.44.152q-.52.104-1.012.27l.321.948q.43-.147.884-.237L6.44.153zm4.132.271a8 8 0 0 0-1.011-.27l-.194.98q.453.09.884.237zm1.873.925a8 8 0 0 0-.906-.524l-.443.896q.413.205.793.459zM4.46.824q-.471.233-.905.524l.556.83a7 7 0 0 1 .793-.458zM2.725 1.985q-.394.346-.74.74l.752.66q.303-.345.648-.648zm11.29.74a8 8 0 0 0-.74-.74l-.66.752q.346.303.648.648zm1.161 1.735a8 8 0 0 0-.524-.905l-.83.556q.254.38.458.793l.896-.443zM1.348 3.555q-.292.433-.524.906l.896.443q.205-.413.459-.793zM.423 5.428a8 8 0 0 0-.27 1.011l.98.194q.09-.453.237-.884zM15.848 6.44a8 8 0 0 0-.27-1.012l-.948.321q.147.43.237.884zM.017 7.477a8 8 0 0 0 0 1.046l.998-.064a7 7 0 0 1 0-.918zM16 8a8 8 0 0 0-.017-.523l-.998.064a7 7 0 0 1 0 .918l.998.064A8 8 0 0 0 16 8M.152 9.56q.104.52.27 1.012l.948-.321a7 7 0 0 1-.237-.884l-.98.194zm15.425 1.012q.168-.493.27-1.011l-.98-.194q-.09.453-.237.884zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a7 7 0 0 1-.458-.793zm13.828.905q.292-.434.524-.906l-.896-.443q-.205.413-.459.793zm-12.667.83q.346.394.74.74l.66-.752a7 7 0 0 1-.648-.648zm11.29.74q.394-.346.74-.74l-.752-.66q-.302.346-.648.648zm-1.735 1.161q.471-.233.905-.524l-.556-.83a7 7 0 0 1-.793.458zm-7.985-.524q.434.292.906.524l.443-.896a7 7 0 0 1-.793-.459zm1.873.925q.493.168 1.011.27l.194-.98a7 7 0 0 1-.884-.237zm4.132.271a8 8 0 0 0 1.012-.27l-.321-.948a7 7 0 0 1-.884.237l.194.98zm-2.083.135a8 8 0 0 0 1.046 0l-.064-.998a7 7 0 0 1-.918 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
 								</svg>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-									class="circle-fill" viewBox="0 0 16 16">
+									class="circle circle-fill" viewBox="0 0 16 16">
 									<path
 										d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
 								</svg>
 							</label>
+							<?php if(!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])):?>
+								<style>
+									#button_user{
+										display: none;
+									}
+									#data_pokemon{
+										width: 100%;
+									}
+								</style>
+								<?php endif;?>
 						</div>
 					</div>
 				</div>

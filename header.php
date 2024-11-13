@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start()
-?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -48,28 +48,23 @@ session_start()
             </div>
 
             <div id="Title">
-                <p>PokeDex</p>
-            </div>
-            <?php 
-            // // print_r($_SESSION["LOGGED_USER"]);
-            // foreach ($_SESSION["LOGGED_USER"] as $id)
-            //     echo $id["nickname"]                     
-            // ?>
+                <p>PokeDex</p>                
+            </div>            
             <div id="Profile">
-                <?php if (!isset($_SESSION["LOGGED_USER"]) || empty($_SESSION["LOGGED_USER"])): ?>
+
+            <?php if (!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])): ?>
                     <button type="button" class="Connexion" id="Login">Connexion</button>
                 <?php else: ?>
                     <div id="myPage">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="myProfile"
-                            class="bi bi-person-fill" viewBox="0 0 16 16" >
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />                           
+                            class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                         </svg>
                         <form action="<?php echo htmlspecialchars("logout.php"); ?>" method="post">
-                            <input type="submit" id="disconnect" value="Déconnexion">                            
-                        </button>
+                            <input type="submit" id="disconnect" value="Déconnexion">
+                            </button>
                         </form>
                     </div>
-
                 <?php endif; ?>
             </div>
         </div>
