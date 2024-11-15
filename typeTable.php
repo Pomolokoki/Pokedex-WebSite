@@ -10,6 +10,8 @@ $typeData = getDataFromDB("type", "*", null);
 	<title>Pokedex</title>
 	<link rel="stylesheet" type="text/css" href="css/typeTable.css">
 	<link rel="stylesheet" type="text/css" href="css/customCheckbox.css">
+	<link rel="stylesheet" type="text/css" href="css/typeColor.php">
+	<link rel="stylesheet" type="text/css" href="css/SWColor.php">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
@@ -25,7 +27,7 @@ $typeData = getDataFromDB("type", "*", null);
 
 		<!-- <div id="midVertival"> -->
 
-		
+
 		<div id="midVertical">
 			<div id="defLabel">Défenseur</div>
 			<div id="gridAtckFlex">
@@ -41,31 +43,32 @@ $typeData = getDataFromDB("type", "*", null);
 							if ($i == 0 && $j == 0) {
 								echo "<button id = $id class = 'gridElement gridElementButton' onclick = 'selectType(null , null)'>RESET</button>";
 							} else if ($i == 0) {
-								echo "<button id = $id class = gridElement onclick = 'selectType(" . $j . ", false)'><img src=\"" . $typeData[$j - 1]["sprite"] . "\"/></button> ";
+								echo "<button id = $id class = 'gridElement " . getTextLang($typeData[$j - 1]["name"], "en") . "' onclick = 'selectType(" . $j . ", false)'><img src=\"" . $typeData[$j - 1]["sprite"] . "\"/></button> ";
 							} else if ($j == 0) {
-								echo "<button id = $id class = 'gridElement gridElementButton' onclick = 'selectType(" . $i . ", true)'><img src = " . $typeData[$i - 1]["sprite"] . " /> " . getTextLang($typeData[$i - 1]["name"]) . "</button> ";
+								echo "<button id = $id class = 'gridElement gridElementButton " . getTextLang($typeData[$i - 1]["name"], "en") . "'' onclick = 'selectType(" . $i . ", true)'><img src = " . $typeData[$i - 1]["sprite"] . " /> " . getTextLang($typeData[$i - 1]["name"]) . "</button> ";
 							} else {
-								echo "<div id = $id class = gridElement > x" . $typeEfficiency[$j] . "</div> ";
+								echo "<div id = $id class = 'gridElement x" . $typeEfficiency[$j] . "' > x" . $typeEfficiency[$j] . "</div> ";
 							}
 						}
 					}
 					?>
 				</div>
 			</div>
-			<!-- <div id="gridParameters">
-			<input type="checkbox" id="doubleType" value="Double Type">
-			<label class="checkbox">
-				<input type="checkbox" checked="checked" id="doubleType" onchange="doubleTypeChanged()">
-				<span class="checkmark"></span>
-			</label>
-			<label for="doubleType" id="doubleTypeLabel"> Double type </label><br>
-			<label class="checkbox" id="fitScreenBox">
-				<input type="checkbox" checked="checked" id="fitScreen" onchange="FitScreen()">
-				<span class="checkmark"></span>
-			</label>
-			<label for="fitScreen" id="fitScreenLabel"> Fit Screen </label><br>
-		</div> -->
+			<div id="warning">Les données peuvent varier selon les pokémons, merci de vous référer à <a href="./pokedex.php">pokedex</a> pour une meilleure précision</div>
 		</div>
+		<!-- <div id="gridParameters">
+				<input type="checkbox" id="doubleType" value="Double Type">
+				<label class="checkbox">
+					<input type="checkbox" checked="checked" id="doubleType" onchange="doubleTypeChanged()">
+					<span class="checkmark"></span>
+				</label>
+				<label for="doubleType" id="doubleTypeLabel"> Double type </label><br>
+				<label class="checkbox" id="fitScreenBox">
+					<input type="checkbox" checked="checked" id="fitScreen" onchange="FitScreen()">
+					<span class="checkmark"></span>
+				</label>
+				<label for="fitScreen" id="fitScreenLabel"> Fit Screen </label><br>
+			</div> -->
 		<!-- </div> -->
 	</div>
 </body>
