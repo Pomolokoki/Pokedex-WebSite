@@ -257,6 +257,13 @@ $sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (id, basePo
 $sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (1013, 1012, 1013, 2110, \"Use item/Utilisation d'un objet\", 0);\n";
 $sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (1012, 1012, 1013, 2111, \"Use item/Utilisation d'un objet\", 0);\n";
 $sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution_pokemon (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (1013, 1012, 1013, 2111, \"Use item/Utilisation d'un objet\", 0);\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10174 WHERE basePokemonId = 264;\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10161 WHERE basePokemonId = 53;\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10173 WHERE basePokemonId = 222;\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10166 WHERE basePokemonId = 83;\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10168 WHERE basePokemonId = 122;\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10179 WHERE basePokemonId = 562 AND evoluedPokemonId = 867;\n";
+$sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution_pokemon SET basePokemonId = 10253 WHERE basePokemonId = 194 AND evoluedPokemonId = 980;\n";
 saveToDb($sqlAddBonusData, "", "", false, true);
 //$statement = $db->prepare($sqlAddBonusData);
 //$statement->execute();

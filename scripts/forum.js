@@ -1,3 +1,5 @@
+let currentChannel = 1;
+
 document.querySelectorAll('textarea, #searchBar').forEach(element => {
     element.style.height = `${element.scrollHeight}px`;
     element.addEventListener('input', event => {
@@ -13,8 +15,16 @@ document.querySelectorAll('textarea, #searchBar').forEach(element => {
 
 let messageContainer = document.getElementById("channelMessages")
 
+function toMessage(id)
+{
+    let msg = document.getElementById(id);
+    msg.scrollIntoView({ behavior: "smooth" });
+    msg.classList.add("selectAnimation")
+}
+
 function AddMessage(channelName, postDate, text, replyId, playerId, playerName, channelId, replyText)
 {
+    let number = 1
     var xmlhttp = new XMLHttpRequest();
     if (this.readyState == 4 && this.status == 200) {
         if (replyId != null)
@@ -111,6 +121,7 @@ function getMessages(channelId) {
 function changeTheme(theme) {
     messageContainer.innerHTML = "";
     getMessages(theme.dataset.channelid)
+    currentChannel = theme.dataset.channelid
 }
 
 
@@ -151,9 +162,16 @@ document.getElementById('themeSearchbar').addEventListener('input', filter);
 document.getElementById('submitMessage').addEventListener('click', () => {
     let channelName = document.getElementById("title").innerHTML;
     const currentDate = new Date();
-    const dateString = currentDate.toLocaleString();
-    console.log(dateString)
-
-    // AddMessage();
+    let date = currentDate.toLocaleDateString().split("").reverse().join("") + currentDate.toLocaleTimeString()
+    let text = document.getElementById("messageTextBox").value;
+    let replyId = null;
+    let playerId = null;
+    let playerName = null;
+    let channelId = currentChannel;
+    let replyText = null;
+    AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
 });
 
+[...document.getElementsByClassName("reply")].forEach( message => {
+    message.addEventListener("click", toMessage(message.id))
+})

@@ -60,6 +60,7 @@ textarea{
     padding-left: 10px;
     color: white;
     border: solid 2px white;
+    cursor: pointer;
 }
 
 #selector{
@@ -111,4 +112,5 @@ textarea{
 
 .reply{
     font-size: 75%;
+    cursor: pointer;
 }

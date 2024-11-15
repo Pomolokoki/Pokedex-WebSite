@@ -203,8 +203,8 @@ CONSTRAINT move_evolution_knownMoveId_FK FOREIGN KEY (knownMoveTypeId) REFERENCE
 CONSTRAINT move_evolution_knownMoveTypeId_FK FOREIGN KEY (knownMoveId) REFERENCES move(id),
 CONSTRAINT move_evolution_locationId_FK FOREIGN KEY (locationId) REFERENCES location(id),
 CONSTRAINT move_evolution_partyTypeId_FK FOREIGN KEY (partyTypeId) REFERENCES type(id),
-CONSTRAINT move_evolution_tradeSpeciesId_FK FOREIGN KEY (tradeSpeciesId) REFERENCES pokemon(id),
-CONSTRAINT move_evolution_PKU UNIQUE (id, basePokemonId, evoluedPokemonId)
+CONSTRAINT move_evolution_tradeSpeciesId_FK FOREIGN KEY (tradeSpeciesId) REFERENCES pokemon(id)-- ,
+-- CONSTRAINT move_evolution_PKU UNIQUE (id, basePokemonId, evoluedPokemonId)
 );";
 
 
