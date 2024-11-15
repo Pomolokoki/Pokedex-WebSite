@@ -10,7 +10,7 @@ session_start()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header.css">
     <script src="scripts/header.js" defer></script>
-    <script src="scripts/profile.js" defer></script>
+    <!-- <script src="scripts/profile.js" defer></script> -->
     <title>PokeKrazy</title>
 </head>
 

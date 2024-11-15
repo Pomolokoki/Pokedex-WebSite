@@ -124,7 +124,6 @@ document.getElementById('searchBar').addEventListener('input', filtre);
 function orderGrid() {
   let array = document.getElementsByClassName("Val_atk_case")
   for (let i = 0; i < array.length; i++) {
-    console.log(i, array.length)
     if (typeof array[i] != "object") {
       continue
     }
@@ -311,8 +310,12 @@ var LoadAtkPokemon = function (id, isGen = -1) {
       document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
       let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
       let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+      if (isGen != -1 && isGen < 1) {
+        return
+      }
       if (dataMove.length == 0) {
-        LoadAtkPokemon(id, isGen = document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1)
+        LoadAtkPokemon(id, isGen = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1 : isGen - 1)
+        return
       }
       for (let i = -1; i < dataMove.length; i++) {
         for (let j = 0; j < 7; ++j) {
@@ -380,18 +383,23 @@ var LoadEvoPokemon = function (id) {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       dataEvol = JSON.parse(this.responseText);
-      console.log(dataEvol)
-      for(let i=0; i<dataEvol; i++){}
-
-
-
-
-
-
-
+      document.getElementById("Evo").innerHTML = "";
+      for (let i = 0; i < dataEvol.length; i++) {
+        let divElementPokemon = document.createElement("div");
+        divElementPokemon.classList.add("Evo_Pokemon_case");
+        let divElementEvo = document.createElement("div");
+        divElementEvo.classList.add("Evo_case");
+        document.getElementById("Evo").appendChild(divElementPokemon);
+        document.getElementById("Evo").appendChild(divElementEvo);
+        if(i==dataEvol.length-1) {
+          let divElementPokemon = document.createElement("div");
+          divElementPokemon.classList.add("Evo_Pokemon_case");
+          document.getElementById("Evo").appendChild(divElementPokemon);
+        }
       }
-      orderGrid();
+      
     }
+  }
   xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
       ev.id,
@@ -416,16 +424,16 @@ var LoadEvoPokemon = function (id) {
       ev.evolutionTrigger,
       ev.turnUpSideDown 
       FROM evolution_pokemon AS ev 
-      JOIN pokemon AS po1 ON basePokemonId = po1.id 
-      JOIN pokemon AS po2 ON evoluedPokemonId = po2.id 
-      JOIN item AS it1 ON heldItemId = it1.id 
-      JOIN item AS it2 ON itemId = it2.id 
-      JOIN move ON knownMoveId = move.id 
-      JOIN type AS ty1 ON knownMoveTypeId = ty1.id 
-      JOIN location ON locationId = location.id 
-      JOIN pokemon AS po3 ON partySpeciesId = po3.id 
-      JOIN type AS ty2 ON partyTypeId = ty2.id 
-      JOIN pokemon AS po4 ON tradeSpeciesId = po4.id 
+      LEFT JOIN pokemon AS po1 ON basePokemonId = po1.id 
+      LEFT JOIN pokemon AS po2 ON evoluedPokemonId = po2.id 
+      LEFT JOIN item AS it1 ON heldItemId = it1.id 
+      LEFT JOIN item AS it2 ON itemId = it2.id 
+      LEFT JOIN move ON knownMoveId = move.id 
+      LEFT JOIN type AS ty1 ON knownMoveTypeId = ty1.id 
+      LEFT JOIN location ON locationId = location.id 
+      LEFT JOIN pokemon AS po3 ON partySpeciesId = po3.id 
+      LEFT JOIN type AS ty2 ON partyTypeId = ty2.id 
+      LEFT JOIN pokemon AS po4 ON tradeSpeciesId = po4.id 
       WHERE ev.id = ` + id, true);
   xmlhttp.send();
 };
