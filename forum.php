@@ -1,7 +1,7 @@
 <?php
 include_once("./database/extractDataFromDB.php");
 $channelData = getDataFromDB("channel", "*", "ORDER BY creationDate LIMIT 20");
-$messageData = getDataFromDB("SELECT message.id, message.text, message.reply, player.nickname as replyNickname, reply.text as replyText, reply.id AS replyId FROM message JOIN message_channel AS m_c ON message.id = m_c.messageId LEFT JOIN message AS reply ON message.reply = reply.id LEFT JOIN player ON reply.owner = player.id WHERE m_c.channelId=1 ORDER BY message.postDate", "", "", true);
+$messageData = getDataFromDB("SELECT message.id, message.text, message.reply, player.nickname as replyNickname, reply.text as replyText, reply.id AS replyId FROM message LEFT JOIN message AS reply ON message.reply = reply.id LEFT JOIN player ON reply.owner = player.id WHERE message.channelId=1 ORDER BY message.postDate", "", "", true);
 $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
 
 ?>
@@ -44,7 +44,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
         </div>
         <div id="channel">
             <div id="channelMessages">
-                <h2 class="message"><?php echo $channelData[1]["title"]; ?></h2><br>
+                <h2 id = 'title' class="message"><?php echo $channelData[1]["title"]; ?></h2><br>
             <?php
                 for ($i = 0; $i < count($messageData); ++$i)
                 {

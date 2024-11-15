@@ -312,16 +312,10 @@ text TEXT,
 reply VARCHAR(160),
 imgURL TEXT,
 postDate DATETIME,
-CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
-CONSTRAINT message_reply_FK FOREIGN KEY (reply) REFERENCES message(id)
-);";
-
-$sqlCreateForumMessageChanel = 
-"CREATE TABLE message_channel(
 channelId INT UNSIGNED,
-messageId VARCHAR(160),
-CONSTRAINT message_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id),
-CONSTRAINT message_channel_messageId_FK FOREIGN KEY (messageId) REFERENCES message(id)
+CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
+CONSTRAINT message_reply_FK FOREIGN KEY (reply) REFERENCES message(id),
+CONSTRAINT message_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id)
 );";
 
 $sqlCreateForumFavoritePlayerChanel = 
@@ -357,6 +351,5 @@ $sqlCreatePlayerPokedexLink . "\n" .
 $sqlCreatePlayerFavoriteLink . "\n" .
 $sqlCreateForumChannel . "\n" .
 $sqlCreateForumMessage . "\n" .
-$sqlCreateForumMessageChanel . "\n" .
 $sqlCreateForumFavoritePlayerChanel . "\n";
 ?>

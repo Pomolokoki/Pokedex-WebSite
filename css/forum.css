@@ -32,6 +32,11 @@ body{
     /* overflow-x: scroll; */
 }
 
+#themeSearchbar{
+    position: relative;
+    width: 100%;
+}
+
 #themeSearchbarResultsTitle{
     color: white;
 }
@@ -41,6 +46,9 @@ textarea{
     margin: none;
     resize: none;
     padding: 10px 5px 10px;
+    font-size: 65%;
+    background-color: lightgray;
+    border-radius: 10px;
 }
 
 #themeResults{
@@ -56,6 +64,7 @@ textarea{
 
 #selector{
     margin-bottom: 20px;
+    display: flex;
 }
 
 #favorites{
@@ -92,8 +101,8 @@ textarea{
     width: calc(100% - 100px);
 }
 #submitMessage{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     background-color: cyan;
     border-radius: 10px;
     bottom: 0;
