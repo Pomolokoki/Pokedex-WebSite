@@ -736,10 +736,16 @@ select {
     margin: 15px;
 }
 
-.Evo_Pokemon_case{
+.EvoStage_Pokemon_case{
     width: 50px;
-    height: 50px;
+    height: 150px;
     background-color: aqua;
+}
+
+.Evo_Pokemon_case{
+    width: 25px;
+    height: 25px;
+    background-color: rgb(98, 0, 255);
 }
 
 .Evo_case {

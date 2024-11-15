@@ -22,7 +22,7 @@ function loadSQL($file)
 
 function loadDB()
 {
-    loadSQL("./pokedexFromPhp.sql");
+    // loadSQL("./pokedexFromPhp.sql");
     loadSQL("./database/pokedexFromPhp.sql");
 }
 // loadDB();
