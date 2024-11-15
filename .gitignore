@@ -402,3 +402,4 @@ Thumbs.db
 database/v2/*.*
 ./database/v2/*.*
 **/database/v2/
+img/Thumbs.db
