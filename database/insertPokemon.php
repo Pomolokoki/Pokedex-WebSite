@@ -160,7 +160,14 @@ foreach (getDataFromFile("/pokemon")->results as $move)
     }
         
     $value = "(" . $pokemonData->id . ','; //id
-    $value = $value . getTextFromData($pokemonSpeciesData->names, "name") . ","; //name
+    if ($pokemonFormData->names != null)
+    {
+        $value = $value . getTextFromData($pokemonFormData->names, "name") . ","; //name
+    }
+    else
+    {
+        $value = $value . getTextFromData($pokemonSpeciesData->names, "name") . ","; //name
+    }
     $value = $value . getTextFromData($pokemonSpeciesData->flavor_text_entries, "flavor_text") . ","; //description
     $value = $value . getTextFromData($pokemonSpeciesData->genera, "genus") . ","; //species
     if ($pokemonSpeciesData->is_legendary) //category
