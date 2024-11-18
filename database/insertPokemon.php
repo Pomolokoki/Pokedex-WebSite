@@ -60,7 +60,7 @@ function setEvolution($pokemonEvolutionData, $pokemonData, &$EPvalues, $stade)
         
         if ($pokemonEvolutionData->evolves_to[$j]->evolves_to != null && $pokemonData->id != 489 && $pokemonData->id != 490)
         {
-            setEvolution($pokemonEvolutionData->evolves_to[$j], $pokemonData, $EPvalues, $stade);
+            setEvolution($pokemonEvolutionData->evolves_to[$j], $pokemonData, $EPvalues, $stade + 1);
         }
     }
 }

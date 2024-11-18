@@ -1,4 +1,5 @@
 <?php
+include_once("connectSQL.php");
 function loadSQL($file)
 {
     if (file_exists($file))
@@ -22,8 +23,8 @@ function loadSQL($file)
 
 function loadDB()
 {
-    // loadSQL("./pokedexFromPhp.sql");
+    loadSQL("./pokedexFromPhp.sql");
     loadSQL("./database/pokedexFromPhp.sql");
 }
-//  loadDB();
+loadDB();
 ?>

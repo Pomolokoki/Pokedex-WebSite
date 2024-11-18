@@ -1,7 +1,6 @@
 
 <?php
 include_once("connectSQL.php");
-include_once("loadDataIntoWebsite.php");
 function getDataFromDB($table, $columns, $condition, $fullRequest = false)
 {
     if ($fullRequest)
