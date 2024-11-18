@@ -182,6 +182,9 @@ var LoadDataPokemon = function (id) {
       if (category === 3) {
         document.getElementById("categorie_Pokemon").innerHTML = "Ultra-Chimère";
       }
+      if (category === 4) {
+        document.getElementById("categorie_Pokemon").innerHTML = "Paradox";
+      }
       if (dataPokemon["type2"] === null) {
         document.getElementById("type_Pokemon").innerHTML = getText(dataPokemon["type1"])
         const colorType = getText(dataPokemon["type1"]);

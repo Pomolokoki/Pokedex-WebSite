@@ -58,6 +58,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 						<option value="2">Fabuleux</option>
 						<option value="1">Légendaire</option>
 						<option value="3">Ultra-Chimère</option>
+						<option value="4">Paradox</option>
 					</select>
 				</div>
 				<div id="searchBar">
