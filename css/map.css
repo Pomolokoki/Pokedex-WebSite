@@ -7,11 +7,10 @@ body{
     height: 100%;
     background-color: black;
 }
-/* #header{
-    background-color: red;
-    width: 100%;
-    height: 140px;
-} */
+
+.textButton{
+    padding-bottom: 14px;
+}
 
 #phoneContainer1{
     margin-left: 10px;

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 if(isset($_SESSION['LOGGED_USER']) && $_SESSION['LOGGED_USER'] === true){
 	header("location: Pokedex.php");

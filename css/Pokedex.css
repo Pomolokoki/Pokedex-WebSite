@@ -21,6 +21,10 @@ h3 {
     user-select: none;
 }
 
+.textButton{
+    padding-bottom: 14px;
+}
+
 #content {
     height: calc(100% - 140px);
     width: 100%;

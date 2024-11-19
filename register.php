@@ -1,5 +1,6 @@
 <?php
 include_once("database/connectSQL.php");
+//include_once("database/getDataFunction.php");
 ?>
 <!-- Inclusion du header -->
 <?php include_once("header.php") ?>
@@ -108,12 +109,14 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION
         $inscription->bindParam(':nickname', $username);
         $inscription->bindParam(':email', $email);
         $inscription->bindParam(':password', $password);
-
+        //$query = 'INSERT INTO player(nickname, email, password) VALUES ('.$username . "," .$email . ",". $password .')';
+        
         $username = $_SESSION['uname'];
         $email = $_SESSION['email'];
         $password = password_hash($_SESSION['pword'], PASSWORD_DEFAULT);
 
         $inscription->execute();
+        //saveToDb($query,null,null,false,true);
         $_SESSION["accountCreated"] = true;
         $new_url = 'login.php';
         echo "<script>window.location.replace('$new_url');</script>";
@@ -190,5 +193,4 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION
     <footer>
     </footer>
 </body>
-
 </html>

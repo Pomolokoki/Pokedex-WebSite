@@ -570,9 +570,8 @@ for (let i = 0; i < pokemons.length; i++) {
       last_id = pokemons[i].id;
       core.style.margin = "0px";
       // core.style.marginLeft = "275px";
-      core.style.maxWidth = "450px";
+      core.style.maxWidth = "450px";      
     }
   }, false);
-
 }
 

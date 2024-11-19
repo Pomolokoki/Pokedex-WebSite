@@ -49,22 +49,27 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
     $parcoursPlayerTable = $db->prepare("SELECT id,nickname,email,password FROM player");
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
-    
+    $checkDB = 0;
     while ($row = $parcoursPlayerTable->fetch()) {
+        echo "fghjk";
+        echo "<br>";
         if ($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
-                
-                $findEmailPlayer = $db->prepare("SELECT email,nickname FROM player WHERE email=:identifier OR nickname=:identifier");
+                $findEmailPlayer = $db->prepare("SELECT id,email,nickname FROM player WHERE email=:identifier OR nickname=:identifier");
                 $findEmailPlayer->bindParam(':identifier', $_POST['id']);
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
-                // echo '<pre>';print_r($test);echo '</pre>';
-                $_SESSION['LOGGED_USER'] = $test;
+                $_SESSION['LOGGED_USER'] = $test;                
+                break;
             }
         } else {
             $errorMessage = sprintf("L'identifiant ou le mot de passe est invalide.");
         }
-        
+        $checkDB += 1;
+              
+    }   
+    if($checkDB === 0) {
+        $errorMessage = sprintf("L'identifiant ou le mot de passe est invalide.");        
     }
 }
 #endregion
@@ -76,61 +81,60 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
     <div class="container">
         
         <?php if (!isset($_SESSION["accountCreated"])): ?>
-            <?php else: ?>
-                <?php if ((isset($_SESSION["accountCreated"])) && $_SESSION["accountCreated"] === true): ?>
-                    <div class="alert alert-success" role="alert">
-                        Compte crée avec succès ?
-                        <?php session_unset() ?>
+        <?php else: ?>
+            <?php if ((isset($_SESSION["accountCreated"])) && $_SESSION["accountCreated"] === true): ?>
+                <div class="alert alert-success" role="alert">
+                    Compte crée avec succès !
+                    <?php session_unset() ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
+            <h1>Connexion a votre compte:</h1>
+            <br>
+            <span class="error"><strong>* champ obligatoire</strong></span>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" autocomplete="off">
+                <!-- Affiche l'erreur dans le cas où il y en a une -->
+                <?php if (isset($errorMessage)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $errorMessage ?>
+                        <br><br>
                     </div>
-                    <?php endif; ?>
-                    <?php endif; ?>
-                    <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
-                        <h1>Connexion a votre compte:</h1>
-                        <br>
-                        <span class="error"><strong>* champ obligatoire</strong></span>
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" autocomplete="off">
-                            <!-- Affiche l'erreur dans le cas où il y en a une -->
-                            <?php if (isset($errorMessage)): ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo $errorMessage ?>
-                                    <br><br>
-                                </div>
-                                <?php endif; ?>
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label for="identifier">Votre Email ou nom d'utilisateur</label>
-                                    </div>
-                                    <div class="col-75">
-                                        <input type="text" id="identifier" name="id" placeholder="sacha.dubourgpalette@pokemon.com">
-                                        <span class="error">* <?php echo $identifierErr; ?></span>
-                                        <br><br>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label for="pword">Votre mot de passe</label>
-                                    </div>
-                                    <div class="col-75">
-                                        <input type="password" id="pword" name="password">
-                                        <span class="error">* <?php echo $pwordErr ?></span>
-                                        <br><br>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <p>Pas de compte ? <a href="register.php">Inscrivez-vous !</a></p>
-                                    <input type="submit" id="submitButton" value="Connectez-vous !">
-                                </div>
-                            </form>
-                            
-                            <?php else: ?>
-                                <div class="alert alert-success" role="alert">
-                                    <?php foreach ($_SESSION["LOGGED_USER"] as $id): ?>
-                                        Bonjour <?php echo $id["nickname"] ?> et bienvenue notre PokeSite !
-                                        
-                                        <?php endforeach; ?>
-                                        <?php
-                $new_url = 'pokedex.php';
+                <?php endif; ?>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="identifier">Votre Email ou nom d'utilisateur</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="identifier" name="id" placeholder="sacha.dubourgpalette@pokemon.com">
+                        <span class="error">* <?php echo $identifierErr; ?></span>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="pword">Votre mot de passe</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" id="pword" name="password">
+                        <span class="error">* <?php echo $pwordErr ?></span>
+                        <br><br>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <p>Pas de compte ? <a href="register.php">Inscrivez-vous !</a></p>
+                    <input type="submit" id="submitButton" value="Connectez-vous !">
+                </div>
+            </form>
+        <?php else: ?>
+            <div class="alert alert-success" role="alert">
+                <?php foreach ($_SESSION["LOGGED_USER"] as $id): ?>
+                    Bonjour <?php echo $id["nickname"] ?> et bienvenue notre PokeSite !
+
+                <?php endforeach; ?>
+                <?php
+                $new_url = 'items.php';
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
             </div>
@@ -138,7 +142,7 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
             <?php
         //session_destroy();
         ?>
-        <script type="text/javascript" src="./scripts/login.js"></script>
+        <script type="text/javascript" src="./scripts/login.js"></script>        
     </div>
     <footer>
         </footer>

@@ -39,19 +39,25 @@ session_start()
                     <hr>
                     <ul class="account">
                         <h3>Compte :</h3>
-                        <li><a href="#">- Profil</a></li>
+                        <li id="myProfile"><a href="#"><pre>- Profil</pre></a></li>
                     </ul>
                 </div>
             </nav>
+            <?php if(!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])):?>
+                <style>
+                    .account{
+                        display: none;
+                    }
+                </style>
+                <?php endif;?>
             <div id="Logo">
                 <img src="img/PokeLogo.png" alt="PokeLogo bien carré" id="PokeLogo" />
             </div>
 
             <div id="Title">
-                <p>PokeDex</p>                
+                <p id="pokeTitle">PokeDex</p>                
             </div>            
             <div id="Profile">
-
             <?php if (!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])): ?>
                     <button type="button" class="Connexion" id="Login">Connexion</button>
                 <?php else: ?>
@@ -89,15 +95,15 @@ session_start()
                 </div>
             </div>
 
-            <div id="box4" class="navButton">
+            <div id="attackPage" class="navButton">
                 <div class="textButton">
                     <p>Attaques</p>
                 </div>
             </div>
 
-            <div id="box5" class="navButton">
+            <div id="itemPage" class="navButton">
                 <div class="textButton">
-                    <p>Objet</p>
+                    <p>Objets</p>
                 </div>
             </div>
 

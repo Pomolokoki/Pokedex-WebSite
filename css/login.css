@@ -7,10 +7,6 @@ body, html{
   height: 100%;
 }
 
-/* header{
-    height: 140px;
-} */
-
 input[type=text], select, textarea,input[type=email],input[type=password] {
   width: 95%;
   padding: 12px;
@@ -19,8 +15,6 @@ input[type=text], select, textarea,input[type=email],input[type=password] {
   resize: vertical;
   font-family: 'pokefont2';
 }
-
-
 
 .error {
   color: #FF0000;
@@ -78,10 +72,6 @@ input[type=submit]:hover {
 .navButton{
   align-items: center;  
   padding: 0;
-}
-
-.textButton{
-  padding-top: 14px;
 }
 
 
