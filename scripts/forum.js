@@ -175,3 +175,6 @@ document.getElementById('submitMessage').addEventListener('click', () => {
 [...document.getElementsByClassName("reply")].forEach( message => {
     message.addEventListener("click", toMessage(message.id))
 })
+
+
+// console.log(document.cookie)

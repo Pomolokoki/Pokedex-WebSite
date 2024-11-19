@@ -7,22 +7,24 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="utf-8">
-    <title>Pokedex</title>
-    <link rel="stylesheet" type="text/css" href="css/forum.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-
-
-<body>
-    <?php
-    include_once('header.html');
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Pokedex</title>
+        <link rel="stylesheet" type="text/css" href="css/forum.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    
+    
+    <body>
+        <?php
+    include_once('header.php');
     ?>
     <div id="forumFrame">
-
+        <?= var_dump($_SESSION)?>
+        <!-- <span id="data" data-nickname=<?= $_SESSION["LOGGED_USER"]["nickname"];?> data-id=<?=$_SESSION["id"]?>></span> -->
+        
         <div id="themes">
             <div id="searchBarContainer">
                 <textarea id="themeSearchbar" placeholder="Search theme..." rows="1"></textarea>

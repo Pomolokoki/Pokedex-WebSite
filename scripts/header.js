@@ -1,3 +1,6 @@
+document.getElementById('PokeLogo').addEventListener('click',function(){
+  document.location.href = 'forum.php';
+});
 document.getElementById('pokedexPage').addEventListener('click',function(){
   document.location.href = 'Pokedex.php';
 });
@@ -13,4 +16,3 @@ document.getElementById('mapPage').addEventListener('click',function(){
 document.getElementById('Login').addEventListener('click',function(){
   document.location.href = 'login.php';
 });
-
