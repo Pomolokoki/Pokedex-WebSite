@@ -430,7 +430,7 @@ var LoadEvoPokemon = function (id) {
             divElementPokemon.id = "stage3";
             tabStageEvo.push(dataEvol[i].evolutionStade+1);
           }
-          tabEvo.push(dataEvol[i].n2)
+          // tabEvo.push(dataEvol[i].n2)
           document.getElementById("Evo").appendChild(divElementPokemon);
         }
 
