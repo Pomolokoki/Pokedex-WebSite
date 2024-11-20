@@ -59,7 +59,7 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                 $findEmailPlayer->bindParam(':identifier', $_POST['id']);
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
-                $_SESSION['LOGGED_USER'] = $test;                
+                $_SESSION['LOGGED_USER'] = $test; 
                 break;
             }
         } else {

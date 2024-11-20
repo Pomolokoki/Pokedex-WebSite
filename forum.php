@@ -22,8 +22,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
     include_once('header.php');
     ?>
     <div id="forumFrame">
-        <?= var_dump($_SESSION)?>
-        <!-- <span id="data" data-nickname=<?= $_SESSION["LOGGED_USER"]["nickname"];?> data-id=<?=$_SESSION["id"]?>></span> -->
+        <span id="data" data-nickname="<?= $_SESSION["LOGGED_USER"][0]["nickname"];?>" data-id="<?=$_SESSION["LOGGED_USER"][0]["id"]?>"></span>
         
         <div id="themes">
             <div id="searchBarContainer">

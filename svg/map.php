@@ -1,7 +1,7 @@
 <?php
 include_once("./database/extractDataFromDB.php");
 $regionData = getDataFromDB("region", "*", null);
-$locationData = getDataFromDB("location", "*", "WHERE regionId = 1");
+$locationData = getDataFromDB("location", "*", "WHERE regionId = 3");
 $language = "fr"
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ $language = "fr"
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <?php
-include_once('header.php');
+include_once('header.html');
 ?>
 
 <body>
@@ -49,7 +49,7 @@ include_once('header.php');
             <select id="mapList">
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
-                    if ($i == 1) {
+                    if ($i == 3) {
                         echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
                         continue;
                     }
@@ -83,7 +83,7 @@ include_once('header.php');
             <div id="mapLocation">
                 <?php
                 for ($i = 0; $i < count($locationData); $i++) {
-                    echo '<div class=location data-location="' . GetTextLang($locationData[$i]["name"], "en") . '">' . GetTextLang($locationData[$i]["name"]) . '</div>';
+                    echo "<div class=location data-location='" . GetTextLang($locationData[$i]["name"], "en") . "'>" . GetTextLang($locationData[$i]["name"]) . "</div>";
                 }
                 ?>
             </div>

@@ -3,8 +3,7 @@ let currentChannel = 1;
 document.querySelectorAll('textarea, #searchBar').forEach(element => {
     element.style.height = `${element.scrollHeight}px`;
     element.addEventListener('input', event => {
-        if (parseFloat(event.target.style.height) > 100)
-        {
+        if (parseFloat(event.target.style.height) > 100) {
             event.target.style.overflowY = 'scroll'
             return;
         }
@@ -15,41 +14,37 @@ document.querySelectorAll('textarea, #searchBar').forEach(element => {
 
 let messageContainer = document.getElementById("channelMessages")
 
-function toMessage(id)
-{
+function toMessage(id) {
     let msg = document.getElementById(id);
     msg.scrollIntoView({ behavior: "smooth" });
     msg.classList.add("selectAnimation")
 }
 
-function AddMessage(channelName, postDate, text, replyId, playerId, playerName, channelId, replyText)
-{
+function AddMessage(channelName, postDate, text, replyId, playerId, playerName, channelId, replyText) {
     let number = 1
-    var xmlhttp = new XMLHttpRequest();
-    if (this.readyState == 4 && this.status == 200) {
-        if (replyId != null)
-        {
-            let reply = document.createElement("div");
-            reply.className = "reply";
-            reply.innerHTML = "::: replying to " + playerName.substr(0, 10) + "... : " + replyText.substr(0, 20) + "...";
-            reply.id = replyId
-            messageContainer.appendChild(reply)
-        }
-        let message = document.createElement("div");
-        message.className = "message";
-        message.id = channelName + postDate + "/" + number
-        message.innerHTML = text;
-        message.dataset.reply = replyId
-        let br1 = document.createElement("br");
-        let br2 = document.createElement("br");
-        message.appendChild(br1)
-        message.appendChild(br2)
-        messageContainer.appendChild(message)
+    console.log(postDate)
+    if (replyId != null) {
+        let reply = document.createElement("div");
+        reply.className = "reply";
+        reply.innerHTML = "::: replying to " + playerName.substr(0, 10) + "... : " + replyText.substr(0, 20) + "...";
+        reply.id = replyId
+        messageContainer.appendChild(reply)
     }
+    let message = document.createElement("div");
+    message.className = "message";
+    message.id = channelName + postDate + "/" + number
+    message.innerHTML = text;
+    message.dataset.reply = replyId
+    let br1 = document.createElement("br");
+    let br2 = document.createElement("br");
+    message.appendChild(br1)
+    message.appendChild(br2)
+    messageContainer.appendChild(message)
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO message (id, text, reply, owner, postDate, channelId)
+      INSERT INTO message (text, reply, owner, postDate, channelId)
       VALUES (
-        '`+ channelName + postDate + "/" + number + "', '"
+        '`
         + text + "', "
         + replyId + ", "
         + playerId + ", '"
@@ -75,11 +70,9 @@ function getMessages(channelId) {
             messageContainer.appendChild(title)
             messageContainer.appendChild(document.createElement("br"))
             messageContainer.appendChild(document.createElement("br"))
-            
-            for (let i = 0; i < messageData.length; ++i)
-            {
-                if (messageData[i]["reply"] != null)
-                {
+
+            for (let i = 0; i < messageData.length; ++i) {
+                if (messageData[i]["reply"] != null) {
                     let reply = document.createElement("div");
                     reply.className = "reply";
                     reply.innerHTML = "::: replying to " + messageData[i]["replyNickname"].substr(0, 10) + "... : " + messageData[i]["replyText"].substr(0, 20) + "...";
@@ -93,12 +86,12 @@ function getMessages(channelId) {
                 message.dataset.reply = messageData[i]["reply"]
                 let br1 = document.createElement("br");
                 let br2 = document.createElement("br");
-                message.appendChild(br1)
-                message.appendChild(br2)
+                messageContainer.appendChild(br1)
+                messageContainer.appendChild(br2)
 
                 messageContainer.appendChild(message)
             }
-            
+
         }
     }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
@@ -162,17 +155,18 @@ document.getElementById('themeSearchbar').addEventListener('input', filter);
 document.getElementById('submitMessage').addEventListener('click', () => {
     let channelName = document.getElementById("title").innerHTML;
     const currentDate = new Date();
-    let date = currentDate.toLocaleDateString().split("").reverse().join("") + currentDate.toLocaleTimeString()
+    let date = currentDate.toLocaleDateString().split("/").reverse().join("/") + " " + currentDate.toLocaleTimeString()
     let text = document.getElementById("messageTextBox").value;
     let replyId = null;
-    let playerId = null;
-    let playerName = null;
+    const playerValues = document.getElementById("data");
+    let playerId = playerValues.dataset.id;
+    let playerName = playerValues.dataset.nickname;
     let channelId = currentChannel;
     let replyText = null;
     AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
 });
 
-[...document.getElementsByClassName("reply")].forEach( message => {
+[...document.getElementsByClassName("reply")].forEach(message => {
     message.addEventListener("click", toMessage(message.id))
 })
 

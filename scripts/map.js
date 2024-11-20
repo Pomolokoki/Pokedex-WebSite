@@ -1,5 +1,5 @@
 
-let currentRegion = "Hoenn";
+let currentRegion = "Kanto";
 let currentMode = "InGame";
 let currentLocation = undefined
 
@@ -117,7 +117,7 @@ function updateMap(e) {
                 imgMap.src = "./img/" + currentRegion + ".png";
         }
         else if (currentMode == "Interactive") {
-            if (currentRegion != "Hoenn") {
+            if (currentRegion != "Hoenn" && currentRegion != "Kanto") {
                 alert("Interactive map haven't been set yet for this region");
                 return
             }
@@ -127,7 +127,11 @@ function updateMap(e) {
                 imgMap.style.display = "none"
                 svgMap.style.display = "unset"
             }
-            svgMap.innerHTML = Hoenn
+            if (currentRegion == "Hoenn")
+                svgMap.innerHTML = Hoenn
+            else if (currentRegion == "Kanto")
+                svgMap.innerHTML = Kanto
+
             bindInteractiveMap()
         }
         center();
@@ -181,6 +185,7 @@ document.getElementById("mapList").addEventListener("change", (e) => {
 
 function getListElement(name) {
     console.log(name)
+    let locationList = document.getElementsByClassName("location")
     for (let location in locationList) {
         if (typeof locationList[location] != "object") continue
         if (locationList[location].dataset.location == name) {
@@ -200,9 +205,26 @@ function replaceBubble(target, force = false) {
     bubble.style.left = (parseFloat(target.getBoundingClientRect().x - 12 + target.getBoundingClientRect().width / 2)) + 'px'
     bubble.style.top = (parseFloat(target.getBoundingClientRect().y - 35)) + 'px'
 }
-
+let cloned
 function onOver(e) {
     replaceBubble(e.target)
+    if (e.target.id == cloned)
+        return;
+    let clone = document.getElementById("cloned")
+    if (clone != null)
+    {
+        cloned = undefined;   
+        clone.remove()
+    }
+    if (currentRegion == "Kanto" && (e.target.id == "Route 17" || e.target.id == "Route 18" || e.target.id == "Route 12" ||  e.target.id == "Sea Route 19"))
+    {
+        cloned = e.target.id;
+        let clone =  e.target.cloneNode()
+        clone.id = "cloned";
+        clone.addEventListener("mouseleave", onLeave)
+        svgMap.appendChild(clone);
+        clone.style.filter = "brightness(70%)"
+    }
 }
 function removeBubble(force = false) {
     if (currentLocation != undefined && !force) return
@@ -217,6 +239,15 @@ function setLocation(location) {
     replaceBubble(currentLocation, true)
     currentLocation.style.filter = "brightness(70%)"
     location.style.backgroundColor = "#ffffff"
+
+    if (currentRegion == "Kanto" && (currentLocation.id == "Route 17" || currentLocation.id == "Route 18" || currentLocation.id == "Route 12" || currentLocation.id == "Sea Route 19"))
+    {
+        let clone =  document.cloneNode(currentLocation)
+        clone.id = "cloned";
+        clone.addEventListener("mouseleave", onLeave)
+        svgMap.appendChild(clone);
+    }
+    
 }
 function removeLocation(location) {
     removeBubble(true);
@@ -240,8 +271,16 @@ function selectLocation(name) {
     }
 }
 
-function onLeave() {
-    removeBubble();
+function onLeave(e) {
+    if (e.target.id != cloned)
+        removeBubble();
+    
+    let clone = document.getElementById("cloned")
+    if (clone && e.target.id != cloned)
+    {
+        clone.remove();
+        cloned = undefined;
+    }   
 }
 
 function onClick(e) {
@@ -249,14 +288,40 @@ function onClick(e) {
     selectLocation(name)
 }
 
+function onLocationClick(location) {
+    console.log(location)
+    let mapLocationList = document.getElementsByClassName("mapLocation")
+    for (let loc in mapLocationList) {
+        if (typeof mapLocationList[loc] != "object") continue
+        if (location.dataset.location == mapLocationList[loc].id) {
+            if (currentLocation == undefined) {
+                setLocation(location)
+            }
+            else if (currentLocation.id == mapLocationList[loc].id) {
+                removeLocation(location)
+            }
+            else {
+                removeLocation(getListElement(currentLocation.id))
+                setLocation(location)
+            }
+            break;
+        }
+    }
+}
+
 let objectWithEvent = []
+let objectWithEvent2 = []
 function bindInteractiveMap() {
     for (let obj in objectWithEvent) {
         objectWithEvent[obj].removeEventListener("mouseover", onOver)
         objectWithEvent[obj].removeEventListener("mouseleave", onLeave)
         objectWithEvent[obj].removeEventListener("click", onClick)
     }
+    for (let obj in objectWithEvent2) {
+        objectWithEvent[obj].removeEventListener("click", onLocationClick)
+    }
     objectWithEvent = []
+    objectWithEvent2 = []
     let listLocation = document.getElementsByClassName("mapLocation")
     for (let location in listLocation) {
         if (typeof listLocation[location] != "object") continue;
@@ -265,36 +330,16 @@ function bindInteractiveMap() {
         listLocation[location].addEventListener("click", onClick)
         objectWithEvent.push(listLocation[location])
     }
+    
+    
+    let locationList = document.getElementsByClassName("location")
+    for (let location in locationList) {
+        if (typeof locationList[location] != "object") continue;
+        locationList[location].addEventListener("click", () => {onLocationClick(locationList[location])})
+    }
 }
 
-let locationList = document.getElementsByClassName("location")
-for (let location in locationList) {
-    if (typeof locationList[location] != "object") continue
-    locationList[location].addEventListener("click", () => {
-
-        let mapLocationList = document.getElementsByClassName("mapLocation")
-        for (let loc in mapLocationList) {
-            if (typeof mapLocationList[loc] != "object") continue
-            if (locationList[location].dataset.location == mapLocationList[loc].id) {
-                if (currentLocation == undefined) {
-                    setLocation(locationList[location])
-                }
-                else if (currentLocation.id == mapLocationList[loc].id) {
-                    removeLocation(locationList[location])
-                }
-                else {
-                    removeLocation(getListElement(currentLocation.id))
-                    setLocation(locationList[location])
-                }
-                break;
-            }
-        }
-    })
-
-}
-
-function filter()
-{
+function filter() {
     [...document.querySelectorAll(".location")].forEach(location => {
         location.style.display = "none";
     });
@@ -302,11 +347,10 @@ function filter()
     searchBar = searchBar.value.toLowerCase();
     console.log(searchBar)
     let locationList = document.getElementsByClassName("location")
-    for (let i = 0; i < locationList.length; ++i)
-    {
+    for (let i = 0; i < locationList.length; ++i) {
         if (typeof locationList[i] != "object") continue;
         if (locationList[i].innerHTML.toLowerCase().includes(searchBar))
-        locationList[i].style.display = "block";
+            locationList[i].style.display = "block";
     }
 }
 
