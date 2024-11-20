@@ -381,6 +381,12 @@ var LoadAtkPokemon = function (id, isGen = -1) {
   xmlhttp.send();
 };
 
+function divEvoCase(data){
+  let divElementEvoCase = document.createElement("div");
+  divElementEvoCase.classList = "Evo_case";
+  document.getElementById("Evo").appendChild(divElementEvoCase);
+}
+
 var LoadEvoPokemon = function (id) {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
@@ -394,52 +400,72 @@ var LoadEvoPokemon = function (id) {
       for (let i = 0; i < dataEvol.length; i++) {
         console.log(dataEvol[i].evolutionStade)
         console.log(tabStageEvo)
+        // pokemon base div
         if (tabStageEvo.includes(dataEvol[i].evolutionStade) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("EvoStage_Pokemon_case");
           divElementPokemon.id = "stage1";
           document.getElementById("Evo").appendChild(divElementPokemon);
-          tabStageEvo.push(dataEvol[i].evolutionStade); 
+          tabStageEvo.push(dataEvol[i].evolutionStade);
         }
+        // pokemon base
         if (tabEvo.includes(dataEvol[i].n1) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
           document.getElementById("stage1").appendChild(divElementPokemon);
+          divEvoCase(dataEvol[i]);
           tabEvo.push(dataEvol[i].n1)
           let img = document.createElement("img")
           img.src = dataEvol[i].s1
           divElementPokemon.appendChild(img)
         }
+        // forme pokemon base
         if (dataEvol[i].n5 != null && tabEvo.includes(dataEvol[i].n5) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
           document.getElementById("stage1").appendChild(divElementPokemon);
+          divEvoCase(dataEvol[i]);
           tabEvo.push(dataEvol[i].n5)
           let img = document.createElement("img")
           img.src = dataEvol[i].s5
           divElementPokemon.appendChild(img)
         }
-        if (tabStageEvo.includes(dataEvol[i].evolutionStade+1) == false) {
+        // pokemon evol div
+        if (tabStageEvo.includes(dataEvol[i].evolutionStade + 1) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("EvoStage_Pokemon_case");
-          if(dataEvol[i].evolutionStade == 0){
+          if (dataEvol[i].evolutionStade == 0) {
             divElementPokemon.id = "stage2";
-            tabStageEvo.push(dataEvol[i].evolutionStade+1);
+            tabStageEvo.push(dataEvol[i].evolutionStade + 1);
           }
           else {
             divElementPokemon.id = "stage3";
-            tabStageEvo.push(dataEvol[i].evolutionStade+1);
+            tabStageEvo.push(dataEvol[i].evolutionStade + 1);
           }
           // tabEvo.push(dataEvol[i].n2)
           document.getElementById("Evo").appendChild(divElementPokemon);
+          if (dataEvol[i].n6 != null && (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga"))) {
+            console.log("ooo", tabStageEvo)
+            if (tabStageEvo.includes(-1) == true) {
+              return
+            }
+            else {
+              let divElementPokemon = document.createElement("div");
+              divElementPokemon.classList.add("EvoStage_Pokemon_case");
+              divElementPokemon.id = "stage4";
+              tabStageEvo.push(-1);
+              document.getElementById("Evo").appendChild(divElementPokemon);
+            }
+          }
         }
-
-
+        
+        // pokemon evol niveau1 niveau2 
         if (tabEvo.includes(dataEvol[i].n2) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
-          if(dataEvol[i].evolutionStade == 0){
+          if (dataEvol[i].evolutionStade == 0) {
             document.getElementById("stage2").appendChild(divElementPokemon);
+            divEvoCase(dataEvol[i]);
           }
           else {
             document.getElementById("stage3").appendChild(divElementPokemon);
@@ -449,13 +475,19 @@ var LoadEvoPokemon = function (id) {
           img.src = dataEvol[i].s2
           divElementPokemon.appendChild(img)
         }
+        // pokemon evol niveau1 niveau2 form
         if (dataEvol[i].n6 != null && tabEvo.includes(dataEvol[i].n6) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
-          if(dataEvol[i].evolutionStade == 0){
+          if (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga")) {
+            document.getElementById("stage4").appendChild(divElementPokemon);
+          }
+          else if (dataEvol[i].evolutionStade == 0) {
             document.getElementById("stage2").appendChild(divElementPokemon);
           }
-          document.getElementById("stage3").appendChild(divElementPokemon);
+          else {
+            document.getElementById("stage3").appendChild(divElementPokemon);
+          }
           tabEvo.push(dataEvol[i].n6)
           let img = document.createElement("img")
           img.src = dataEvol[i].s6
@@ -570,7 +602,7 @@ for (let i = 0; i < pokemons.length; i++) {
       last_id = pokemons[i].id;
       core.style.margin = "0px";
       // core.style.marginLeft = "275px";
-      core.style.maxWidth = "450px";      
+      core.style.maxWidth = "450px";
     }
   }, false);
 }

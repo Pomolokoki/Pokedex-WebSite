@@ -741,14 +741,14 @@ select {
 }
 
 .EvoStage_Pokemon_case{
-    width: 50px;
-    height: 150px;
+    width: 96px;
+    height: 96px;
     background-color: aqua;
 }
 
 .Evo_Pokemon_case{
-    width: 25px;
-    height: 25px;
+    width: 96px;
+    height: 96px;
     background-color: rgb(98, 0, 255);
 }
 
