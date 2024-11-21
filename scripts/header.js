@@ -2,7 +2,7 @@ document.getElementById('PokeLogo').addEventListener('click',function(){
   document.location.href = 'forum.php';
 });
 document.getElementById('pokedexPage').addEventListener('click',function(){
-  document.location.href = 'Pokedex.php';
+  document.location.href = 'pokedex.php';
 });
 
 document.getElementById('typeTablePage').addEventListener('click',function(){

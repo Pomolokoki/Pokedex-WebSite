@@ -27,8 +27,9 @@ function AddMessage(channelName, postDate, text, replyId, playerId, playerName, 
         let reply = document.createElement("div");
         reply.className = "reply";
         reply.innerHTML = "::: replying to " + playerName.substr(0, 10) + "... : " + replyText.substr(0, 20) + "...";
-        reply.id = replyId
+        reply.dataset.id = replyId
         messageContainer.appendChild(reply)
+        reply.addEventListener("click", () => {toMessage(reply.dataset.id)})
     }
     let message = document.createElement("div");
     message.className = "message";
@@ -76,8 +77,9 @@ function getMessages(channelId) {
                     let reply = document.createElement("div");
                     reply.className = "reply";
                     reply.innerHTML = "::: replying to " + messageData[i]["replyNickname"].substr(0, 10) + "... : " + messageData[i]["replyText"].substr(0, 20) + "...";
-                    reply.id = messageData[i]["replyId"]
+                    reply.dataset.id = messageData[i]["replyId"]
                     messageContainer.appendChild(reply)
+                    reply.addEventListener("click", () => {toMessage(message.dataset.id)})
                 }
                 let message = document.createElement("div");
                 message.className = "message";
@@ -151,24 +153,39 @@ function filter() {
 
 document.getElementById('themeSearchbar').addEventListener('input', filter);
 
-
-document.getElementById('submitMessage').addEventListener('click', () => {
-    let channelName = document.getElementById("title").innerHTML;
-    const currentDate = new Date();
-    let date = currentDate.toLocaleDateString().split("/").reverse().join("/") + " " + currentDate.toLocaleTimeString()
-    let text = document.getElementById("messageTextBox").value;
-    let replyId = null;
-    const playerValues = document.getElementById("data");
-    let playerId = playerValues.dataset.id;
-    let playerName = playerValues.dataset.nickname;
-    let channelId = currentChannel;
-    let replyText = null;
-    AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
-});
+let sendMessageButton = document.getElementById('submitMessage');
+if (sendMessageButton)
+{
+    sendMessageButton.addEventListener('click', () => {
+        let channelName = document.getElementById("title").innerHTML;
+        const currentDate = new Date();
+        let date = currentDate.toLocaleDateString().split("/").reverse().join("/") + " " + currentDate.toLocaleTimeString()
+        let text = document.getElementById("messageTextBox").value;
+        let replyId = null;
+        const playerValues = document.getElementById("data");
+        let playerId = playerValues == null ? playerValues : playerValues.dataset.id;
+        let playerName = playerValues == null ? playerValues : playerValues.dataset.nickname;
+        let channelId = currentChannel;
+        let replyText = null;
+        AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
+    });
+}
 
 [...document.getElementsByClassName("reply")].forEach(message => {
-    message.addEventListener("click", toMessage(message.id))
+    message.addEventListener("click", () => {toMessage(message.dataset.id)})
 })
+
+document.addEventListener("keydown", (e) => {
+    let messageBox = document.getElementById("messageTextBox");
+    if (messageBox != null && e.key.length === 1 && e.target != "themeSearchbar" && e.target != "messageTextBox") {
+        messageBox.focus();
+        messageBox.innerHTML = e.key;
+    }
+})
+
+
+
+
 
 
 // console.log(document.cookie)
