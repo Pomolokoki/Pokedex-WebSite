@@ -96,6 +96,9 @@ textarea{
     border: solid 2px white;
     cursor: pointer;
 }
+#noTheme{
+    cursor: auto;
+}
 
 #channel{
     position: relative;
@@ -124,8 +127,56 @@ textarea{
     bottom: 0;
 }
 
+.message{
+    font-size: 75%;
+}
 
+#title{
+    font-size: 150%;
+    text-align: center;
+}
 .reply{
     font-size: 75%;
     cursor: pointer;
+}
+
+.profile{
+    border: solid 2px white;
+    width: max-content;
+    max-width: 25%;
+    font-size: 110%;
+    display: table-cell;
+    
+}
+.profilePicture{
+    /* display: ; */
+    position: relative;
+    height: 40px;
+    width: 40px;
+    bottom: -5px;
+}
+.replyProfilePicture{
+    position: relative;
+    height: 30px;
+    width: 30px;
+    bottom: -5px;
+}
+
+.selectAnimation {
+    animation: colorchange 4s 1;
+}
+
+@keyframes colorchange {
+    
+    0% {
+        background-color: rgb(65, 65, 65);
+    }
+    10% {
+        background-color: rgb(65, 65, 65);
+    }
+    100% {
+        background-color: black;
+    }
+
+
 }

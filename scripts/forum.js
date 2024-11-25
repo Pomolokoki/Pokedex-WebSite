@@ -17,31 +17,67 @@ let messageContainer = document.getElementById("channelMessages")
 function toMessage(id) {
     let msg = document.getElementById(id);
     msg.scrollIntoView({ behavior: "smooth" });
+    // msg.style.transition = 'background-color 0s'
+    // msg.style.backgroundColor = 'rgb(65, 65, 65)';
+    // msg.style.transition = 'background-color 5s'
+    // msg.style.backgroundColor = 'black';
+    // msg.style.animation = 'animation: colorchange 4s 1';
+    msg.classList.remove("selectAnimation")
+    void msg.offsetWidth
     msg.classList.add("selectAnimation")
 }
 
-function AddMessage(channelName, postDate, text, replyId, playerId, playerName, channelId, replyText) {
-    let number = 1
-    console.log(postDate)
+function AddMessage(messageId, picture, nickname, text, replyId, replyOwner, replyPicture, replyNickname, replyText)
+{
+    let profile = document.createElement("div");
+    profile.className = "profile";
+    messageContainer.appendChild(profile)
+    let profilePicture = document.createElement("img");
+    profilePicture.className = "profilePicture";
+    profilePicture.src = picture;
+    profilePicture.alt = "profilePicture";
+    profile.appendChild(profilePicture)
+    let name = document.createElement("label")
+    name.innerHTML = nickname;
+    profile.appendChild(name)
+
     if (replyId != null) {
         let reply = document.createElement("div");
         reply.className = "reply";
-        reply.innerHTML = "::: replying to " + playerName.substr(0, 10) + "... : " + replyText.substr(0, 20) + "...";
+        reply.innerHTML = "::: replying to <img class=profilePicture src = " + replyPicture + " alt=profilePicture>" + replyNickname.substr(0, 10) + "... : " + replyText.substr(0, 20) + "...";
         reply.dataset.id = replyId
+        reply.dataset.owner = replyOwner
         messageContainer.appendChild(reply)
         reply.addEventListener("click", () => {toMessage(reply.dataset.id)})
     }
     let message = document.createElement("div");
     message.className = "message";
-    message.id = channelName + postDate + "/" + number
+    message.id = messageId
     message.innerHTML = text;
     message.dataset.reply = replyId
+    messageContainer.appendChild(message)
+
+
     let br1 = document.createElement("br");
     let br2 = document.createElement("br");
     message.appendChild(br1)
     message.appendChild(br2)
-    messageContainer.appendChild(message)
+}
+
+function AddMessageToDB(postDate, text, replyId, playerId, channelId) {
+    let id
     var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    id = JSON.parse(this.responseText)[0]["id"];
+                }
+            }
+            xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT id, MAX(postDate) FROM message", false);
+            xmlhttp.send();
+        
+    }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       INSERT INTO message (text, reply, owner, postDate, channelId)
       VALUES (
@@ -51,9 +87,25 @@ function AddMessage(channelName, postDate, text, replyId, playerId, playerName, 
         + playerId + ", '"
         + postDate + "', "
         + channelId
-        + ")", true);
-    xmlhttp.send();
+        + ");", false);
+    return id;
 }
+
+function getPlayerInfo(id)
+{
+    var datas
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let data = JSON.parse(this.responseText)[0]
+            datas = [data[0], data[1]]
+        }
+    }
+    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT picture, nickname FROM player WHERE id = " + id, false);
+    xmlhttp.send();
+    return datas
+}
+
 
 
 function getMessages(channelId) {
@@ -71,27 +123,51 @@ function getMessages(channelId) {
             messageContainer.appendChild(title)
             messageContainer.appendChild(document.createElement("br"))
             messageContainer.appendChild(document.createElement("br"))
-
+            
+            
             for (let i = 0; i < messageData.length; ++i) {
-                if (messageData[i]["reply"] != null) {
-                    let reply = document.createElement("div");
-                    reply.className = "reply";
-                    reply.innerHTML = "::: replying to " + messageData[i]["replyNickname"].substr(0, 10) + "... : " + messageData[i]["replyText"].substr(0, 20) + "...";
-                    reply.dataset.id = messageData[i]["replyId"]
-                    messageContainer.appendChild(reply)
-                    reply.addEventListener("click", () => {toMessage(message.dataset.id)})
-                }
-                let message = document.createElement("div");
-                message.className = "message";
-                message.id = messageData[i]["id"]
-                message.innerHTML = messageData[i]["text"];
-                message.dataset.reply = messageData[i]["reply"]
-                let br1 = document.createElement("br");
-                let br2 = document.createElement("br");
-                messageContainer.appendChild(br1)
-                messageContainer.appendChild(br2)
-
-                messageContainer.appendChild(message)
+                AddMessage(messageData[i]["id"],
+                    messageData[i]["picture"],
+                    messageData[i]["nickname"],
+                    messageData[i]["text"],
+                    messageData[i]["replyId"],
+                    messageData[i]["replyOwner"],
+                    messageData[i]["replyPicture"],
+                    messageData[i]["replyNickname"],
+                    messageData[i]["replyText"]
+                );
+                // let profile = document.createElement("div");
+                // profile.className = "profile";
+                // messageContainer.appendChild(profile)
+                // let profilePicture = document.createElement("img");
+                // profilePicture.className = "profilePicture";
+                // profilePicture.src = messageData[i]["picture"];
+                // profilePicture.alt = "profilePicture";
+                // profile.appendChild(profilePicture)
+                // let name = document.createElement("label")
+                // name.innerHTML = messageData[i]["nickname"];
+                // profile.appendChild(name)
+                
+                
+                // if (messageData[i]["reply"] != null) {
+                //     let reply = document.createElement("div");
+                //     reply.className = "reply";
+                //     reply.innerHTML = "::: replying to <img class=profilePicture src = " + messageData[i]["replyPicture"] + " alt=profilePicture>" + messageData[i]["replyNickname"].substr(0, 10) + "... : " + messageData[i]["replyText"].substr(0, 20) + "...";
+                //     reply.dataset.id = messageData[i]["replyId"]
+                //     messageContainer.appendChild(reply)
+                //     reply.addEventListener("click", () => {toMessage(reply.dataset.id)})
+                // }
+                // let message = document.createElement("div");
+                // message.className = "message";
+                // message.id = messageData[i]["id"]
+                // message.innerHTML = messageData[i]["text"];
+                // message.dataset.reply = messageData[i]["reply"]
+                // messageContainer.appendChild(message)
+                
+                // let br1 = document.createElement("br");
+                // let br2 = document.createElement("br");
+                // messageContainer.appendChild(br1)
+                // messageContainer.appendChild(br2)
             }
 
         }
@@ -102,12 +178,17 @@ function getMessages(channelId) {
       message.id,
       message.text,
       message.reply,
+      player.nickname,
+      player.picture,
       reply.id AS replyId,
+      reply.owner AS replyOwner,
       reply.text AS replyText,
-      player.nickname AS replyNickname 
+      replyPlayer.nickname AS replyNickname,
+      replyPlayer.picture AS replyPicture 
       FROM message 
       LEFT JOIN message AS reply ON message.reply = reply.id 
-      LEFT JOIN player ON reply.owner = player.id 
+      LEFT JOIN player ON message.owner = player.id 
+      LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
       LEFT JOIN channel ON message.channelId = channel.id 
       WHERE message.channelId = ` + channelId + " ORDER BY message.postDate", true);
     xmlhttp.send();
@@ -124,6 +205,8 @@ recentlist = [];
 themeList = [...document.getElementsByClassName("theme")];
 console.log(document.getElementsByClassName("theme"))
 themeList.forEach(theme => {
+    if (theme.id == "createTheme")
+        return;
     theme.addEventListener("click", (e) => { changeTheme(e.target) })
     if (recentlist.length > 20)
         return;
@@ -157,17 +240,31 @@ let sendMessageButton = document.getElementById('submitMessage');
 if (sendMessageButton)
 {
     sendMessageButton.addEventListener('click', () => {
-        let channelName = document.getElementById("title").innerHTML;
         const currentDate = new Date();
         let date = currentDate.toLocaleDateString().split("/").reverse().join("/") + " " + currentDate.toLocaleTimeString()
         let text = document.getElementById("messageTextBox").value;
         let replyId = null;
         const playerValues = document.getElementById("data");
         let playerId = playerValues == null ? playerValues : playerValues.dataset.id;
-        let playerName = playerValues == null ? playerValues : playerValues.dataset.nickname;
+        let playerPicture, playerName
+        [playerPicture, playerName] = playerId == null ? [null, null] : [...getPlayerInfo(playerId)]
         let channelId = currentChannel;
-        let replyText = null;
-        AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
+        let replyOwner = replyId == null ? null : document.getElementById("replyId").dataset.owner
+        let replyPicture, replyName
+        [replyPicture, replyName] = replyId == null ? [null, null] : getPlayerInfo(replyOwner)
+        let replyText = replyId == null ? null : document.getElementById("replyId").innerHTML;
+        AddMessage(
+            AddMessageToDB(date, text, replyId, playerId, channelId),
+            playerPicture,
+            playerName,
+            text,
+            replyId,
+            replyOwner,
+            replyPicture,
+            replyName,
+            replyText
+        );
+        // AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
     });
 }
 
@@ -179,10 +276,16 @@ document.addEventListener("keydown", (e) => {
     let messageBox = document.getElementById("messageTextBox");
     if (messageBox != null && e.key.length === 1 && e.target != "themeSearchbar" && e.target != "messageTextBox") {
         messageBox.focus();
-        messageBox.innerHTML = e.key;
     }
 })
 
+let noFavTheme = document.getElementById('toConnect');
+if (noFavTheme)
+{
+    noFavTheme.addEventListener('click', () => {
+        document.location.href = 'login.php';
+    });
+}
 
 
 

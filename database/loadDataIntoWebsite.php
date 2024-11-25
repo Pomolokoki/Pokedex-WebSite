@@ -8,11 +8,17 @@ function loadSQL($file)
         global $db;
         for ( $i = 0; $i < count($sql); $i++ )
         {
-            // echo "". $sql[$i] ."";
+            echo "". $sql[$i] ."";
             if ($i == 0)
             {
-                $statemnt = $db->prepare($sql[$i]);
-                $statemnt->execute();
+                try{
+                    $statemnt = $db->prepare($sql[$i]);
+                    $statemnt->execute();
+                }
+                catch(Exception $ex)
+                {
+                    echo "exeption" . $ex;
+                }
                 continue;
             }
             $statemnt = $db->prepare("INSERT INTO " . $sql[$i]);

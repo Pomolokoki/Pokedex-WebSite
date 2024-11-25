@@ -12,7 +12,10 @@ document.getElementById('typeTablePage').addEventListener('click',function(){
 document.getElementById('mapPage').addEventListener('click',function(){
   document.location.href = 'map.php';
 });
-
-document.getElementById('Login').addEventListener('click',function(){
-  document.location.href = 'login.php';
-});
+let login = document.getElementById('Login')
+if (login)
+{
+  login.addEventListener('click', function(){
+    document.location.href = 'login.php';
+  });
+}
