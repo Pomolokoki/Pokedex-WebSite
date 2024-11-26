@@ -360,6 +360,6 @@ document.getElementById('searchBar').addEventListener('input', filter);
 
 center();
 
-
+// document.getElementById("currentgen").addEventListener('click', () => {document.location.href = './map.php?pokemonId=4&generationId=1'; window.open("")})
 
 // bindInteractiveMap();

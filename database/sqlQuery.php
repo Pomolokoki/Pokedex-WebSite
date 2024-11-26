@@ -307,7 +307,7 @@ CONSTRAINT channel_owner_FK FOREIGN KEY (owner) REFERENCES player(id)
 
 $sqlCreateForumMessage = 
 "CREATE TABLE message(
-id BINARY(16) DEFAULT UUID() PRIMARY KEY,
+id BINARY(16) PRIMARY KEY,
 owner INT UNSIGNED,
 text TEXT,
 reply BINARY(16),
@@ -318,15 +318,17 @@ CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
 CONSTRAINT message_reply_FK FOREIGN KEY (reply) REFERENCES message(id),
 CONSTRAINT message_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id)
 );
--- DELIMITER ;;
--- CREATE TRIGGER `message_before_insert` 
--- BEFORE INSERT ON message FOR EACH ROW 
--- BEGIN
---   IF new.id IS NULL THEN
---     SET new.id = uuid();
---   END IF;
--- END;;
--- DELIMITER ;";
+
+CREATE TRIGGER message_before_insert
+BEFORE INSERT ON message
+FOR EACH ROW
+BEGIN
+IF NEW.id IS NULL THEN
+SET NEW.id = UNHEX(REPLACE(UUID(), '-', ''));
+END IF;
+END ;
+
+";
 
 $sqlCreateForumFavoritePlayerChanel = 
 "CREATE TABLE player_fav_channel(

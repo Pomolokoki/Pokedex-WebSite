@@ -51,12 +51,18 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
                 for ($i = 0; $i < count($channelData); $i++) {
                     echo "<div class=theme data-channelId=" . $channelData[$i]["id"] . " data-keyWords='" . $channelData[$i]["keyWords"] . "'>" . $channelData[$i]["title"] . "</div>";
                 }
-                if (isset($_SESSION["LOGGED_USER"]))
-                {
-                    echo "<div class=theme id=createTheme> + </div>";
-                }
+                // if (isset($_SESSION["LOGGED_USER"]))
+                // {
+                //     echo "<div class=theme id=createTheme>+</div>";
+                // }
                 ?>
             </div>
+            <?php 
+            if (isset($_SESSION["LOGGED_USER"]))
+            {
+                echo "<div class=theme id=createTheme>+</div>";
+            }
+            ?>
             <div id="selector">
                 <button><</button>
                 <button>1</button>
@@ -87,6 +93,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
             {
                 echo '
                 <div id="messageArea">
+                    <label id="typing">woep</label>
                     <textarea id="messageTextBox" type="text" rows="1" placeholder="Appuyer sur un touche pour commencer à écrire"></textarea>
                     <input id="submitMessage" type="image" src="./img/sendMessageIcon.png" alt ="Submit"></input>
                 </div>';
@@ -104,7 +111,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
                     }
                     if (count($playerFavChannelData) == 0)
                     {
-                        echo "<div id=noTheme class=favorite> Vous n'avez pas encre de thèmes favoris </div>" ;
+                        echo "<div id=noTheme class=favorite> Vous n'avez pas encore de thèmes favoris </div>" ;
                     }
                 }
                 else

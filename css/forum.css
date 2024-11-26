@@ -54,19 +54,22 @@ textarea{
 #themeResults{
     border: solid 2px white;
     flex: auto;
+    display: flex;
+    flex-direction: column;
 }
     
 .theme{
+    position: relative;
     padding-left: 10px;
     color: white;
     border: solid 2px white;
     cursor: pointer;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 #createTheme{
     text-align: center;
-    margin-bottom: 0;
-    position: absolute;
 }
 
 #selector{
@@ -117,6 +120,11 @@ textarea{
 #messageTextBox{
     position: relative;
     bottom: 0;
+    width: calc(100% - 100px);
+}
+#typing{
+    position: absolute;
+    bottom: 25px;
     width: calc(100% - 100px);
 }
 #submitMessage{

@@ -1,5 +1,5 @@
 let currentChannel = 1;
-
+let creatingTheme = false;
 document.querySelectorAll('textarea, #searchBar').forEach(element => {
     element.style.height = `${element.scrollHeight}px`;
     element.addEventListener('input', event => {
@@ -288,7 +288,23 @@ if (noFavTheme)
 }
 
 
+document.getElementById("createTheme").addEventListener("click", () => {
+    messageContainer.innerHTML = "";
+    creatingTheme = true;
+    let title = document.createElement("h2");
+    title.className = "message";
+    title.id = "title";
+    title.innerHTML = "Nouveau theme"
+    messageContainer.appendChild(title)
+    messageContainer.appendChild(document.createElement("br"))
+    messageContainer.appendChild(document.createElement("br"))
+})
 
+
+document.getElementById("messageArea").addEventListener("input", (e) => {
+    
+    document.getElementById("title").innerHTML = e.target.value
+})
 
 
 // console.log(document.cookie)
