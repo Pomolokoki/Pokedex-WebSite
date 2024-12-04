@@ -171,8 +171,8 @@ soilDryness TINYINT UNSIGNED,
 );";
 */
 
-$sqlCreateEvolutionPokemonLink = 
-"CREATE TABLE evolution_pokemon(
+$sqlCreateEvolution = 
+"CREATE TABLE evolution(
 id SMALLINT UNSIGNED,
 basePokemonId SMALLINT UNSIGNED,
 evoluedPokemonId SMALLINT UNSIGNED,
@@ -195,16 +195,26 @@ tradeSpeciesId SMALLINT UNSIGNED,
 evolutionTrigger VARCHAR(70),
 turnUpsideDown BOOLEAN,
 evolutionStade TINYINT UNSIGNED,
-CONSTRAINT move_evolution_basePokemonId_FK FOREIGN KEY (basePokemonId) REFERENCES pokemon(id),
-CONSTRAINT move_evolution_evoluedPokemonId_FK FOREIGN KEY (evoluedPokemonId) REFERENCES pokemon(id),
-CONSTRAINT move_evolution_heldItemId_FK FOREIGN KEY (heldItemId) REFERENCES item(id),
-CONSTRAINT move_evolution_itemId_FK FOREIGN KEY (itemId) REFERENCES item(id),
-CONSTRAINT move_evolution_knownMoveId_FK FOREIGN KEY (knownMoveTypeId) REFERENCES type(id),
-CONSTRAINT move_evolution_knownMoveTypeId_FK FOREIGN KEY (knownMoveId) REFERENCES move(id),
-CONSTRAINT move_evolution_locationId_FK FOREIGN KEY (locationId) REFERENCES location(id),
-CONSTRAINT move_evolution_partyTypeId_FK FOREIGN KEY (partyTypeId) REFERENCES type(id),
-CONSTRAINT move_evolution_tradeSpeciesId_FK FOREIGN KEY (tradeSpeciesId) REFERENCES pokemon(id)-- ,
+CONSTRAINT evolution_basePokemonId_FK FOREIGN KEY (basePokemonId) REFERENCES pokemon(id),
+CONSTRAINT evolution_evoluedPokemonId_FK FOREIGN KEY (evoluedPokemonId) REFERENCES pokemon(id),
+CONSTRAINT evolution_heldItemId_FK FOREIGN KEY (heldItemId) REFERENCES item(id),
+CONSTRAINT evolution_itemId_FK FOREIGN KEY (itemId) REFERENCES item(id),
+CONSTRAINT evolution_knownMoveId_FK FOREIGN KEY (knownMoveTypeId) REFERENCES type(id),
+CONSTRAINT evolution_knownMoveTypeId_FK FOREIGN KEY (knownMoveId) REFERENCES move(id),
+CONSTRAINT evolution_locationId_FK FOREIGN KEY (locationId) REFERENCES location(id),
+CONSTRAINT evolution_partyTypeId_FK FOREIGN KEY (partyTypeId) REFERENCES type(id),
+CONSTRAINT evolution_PK PRIMARY KEY (id, basePokemonId, evoluedPokemonId),
+CONSTRAINT evolution_tradeSpeciesId_FK FOREIGN KEY (tradeSpeciesId) REFERENCES pokemon(id)-- ,
 -- CONSTRAINT move_evolution_PKU UNIQUE (id, basePokemonId, evoluedPokemonId)
+);";
+
+$sqlCreateEvolutionPokemonLink =
+"CREATE TABLE evolution_pokemon(
+pokemonId SMALLINT UNSIGNED,
+evolutionFamilyId SMALLINT UNSIGNED,
+CONSTRAINT evolution_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
+-- CONSTRAINT evolution_pokemon_evolutionFamily_FK FOREIGN KEY (evolutionFamilyId) REFERENCES evolution(id),
+CONSTRAINT evolution_pokemon_PKU UNIQUE (pokemonId, evolutionFamilyId)
 );";
 
 
@@ -255,13 +265,13 @@ password VARCHAR(100),
 level SMALLINT UNSIGNED,
 xp SMALLINT UNSIGNED,
 team TINYINT UNSIGNED,
-picture TEXT,
+picture VARCHAR(255) DEFAULT './img/emptyPicture.png',
 combatTeam1Id INT UNSIGNED, 
 combatTeam2Id INT UNSIGNED,
 combatTeam3Id INT UNSIGNED,
 selectedCombatTeamId INT UNSIGNED,
 friends TEXT,
-forumRank TINYINT UNSIGNED,
+forumRank TINYINT UNSIGNED DEFAULT 0,
 CONSTRAINT player_team_FK FOREIGN KEY (team) REFERENCES team(id),
 CONSTRAINT player_combatTeam1Id_FK FOREIGN KEY (combatTeam1Id) REFERENCES combatTeam(id),
 CONSTRAINT player_combatTeam2Id_FK FOREIGN KEY (combatTeam2Id) REFERENCES combatTeam(id),
@@ -311,7 +321,7 @@ id BINARY(16) PRIMARY KEY,
 owner INT UNSIGNED,
 text TEXT,
 reply BINARY(16),
-imgURL TEXT DEFAULT './img/emptyPicture.png',
+imgURL VARCHAR(255),
 postDate DATETIME,
 channelId INT UNSIGNED,
 CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
@@ -353,6 +363,7 @@ $sqlCreateAbilityPokemonLink . "\n" .
 $sqlCreateMovePokemonLink . "\n" .
 $sqlCreateLocationPokemonLink . "\n" .
 $sqlCreateItem . "\n" .
+$sqlCreateEvolution . "\n" .
 $sqlCreateEvolutionPokemonLink . "\n" .
 $sqlCreateFormPokemon . "\n" .
 $sqlCreateTeam . "\n" .

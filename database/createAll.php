@@ -9,4 +9,5 @@ include_once("insertAbility.php");
 include_once("insertMove.php");
 include_once("insertItem.php");
 include_once("insertPokemon.php");
+include_once("insertEvolution.php");
 ?>

@@ -1,24 +1,6 @@
 <?php
 include_once("extractApi.php");
 
-// $sqlCreateItem =
-// "CREATE TABLE item(
-// id SMALLINT UNSIGNED PRIMARY KEY,
-// name VARCHAR(60),
-// description TEXT,
-// smallDescription TEXT,
-// sprite TEXT,
-// category VARCHAR(30),
-// pocket VARCHAR(30),
-// statut VARCHAR(25),
-// effect TEXT,
-// throwEffect VARCHAR(25),
-// throwEffect VARCHAR(25),
-// throwValue FLOAT,
-// machineName VARCHAR(50),
-// machineId SMALLINT UNSIGNED,
-// CONSTRAINT item_machineId_FK FOREIGN KEY (machineId) REFERENCES move(id)
-// );";
 $sqlInsertItem = "INSERT INTO item (id, name, description, smallDescription, sprite, category, pocket, effect, throwEffect, throwValue, machineName, machineId) VALUES ";
 $values = "";
 //echo getDataFromApi($curl_handle, $baseUrl . "/item")->count;
@@ -26,6 +8,7 @@ $values = "";
 
 foreach(getDataFromFile("/item")->results as $item)
 {
+    
     $itemData = getDataFromFile("/item/" . getIdFromUrl($item->url));
     $value = "(" . $itemData->id . ','; //id
     //echo $itemData->id;

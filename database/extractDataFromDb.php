@@ -23,14 +23,16 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
  
 function getTextLang($str, $language = "fr")
 {
-
+    $split = explode('/', $str);
     if ($language == "fr")
     {
-        return explode('/', $str)[1];
+        if ($split[0] == "NULL")
+          return $split[0];
+        return $split[1];
     }
     else
     {
-        return explode('/', $str)[0];
+        return $split[0];
     }
 }
 

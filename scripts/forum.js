@@ -27,8 +27,7 @@ function toMessage(id) {
     msg.classList.add("selectAnimation")
 }
 
-function AddMessage(messageId, picture, nickname, text, replyId, replyOwner, replyPicture, replyNickname, replyText)
-{
+function AddMessage(messageId, picture, nickname, text, replyId, replyOwner, replyPicture, replyNickname, replyText) {
     let profile = document.createElement("div");
     profile.className = "profile";
     messageContainer.appendChild(profile)
@@ -48,7 +47,7 @@ function AddMessage(messageId, picture, nickname, text, replyId, replyOwner, rep
         reply.dataset.id = replyId
         reply.dataset.owner = replyOwner
         messageContainer.appendChild(reply)
-        reply.addEventListener("click", () => {toMessage(reply.dataset.id)})
+        reply.addEventListener("click", () => { toMessage(reply.dataset.id) })
     }
     let message = document.createElement("div");
     message.className = "message";
@@ -68,15 +67,15 @@ function AddMessageToDB(postDate, text, replyId, playerId, channelId) {
     let id
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
-            var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    id = JSON.parse(this.responseText)[0]["id"];
-                }
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                id = JSON.parse(this.responseText)[0]["id"];
             }
-            xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT id, MAX(postDate) FROM message", false);
-            xmlhttp.send();
-        
+        }
+        xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT id, MAX(postDate) FROM message", false);
+        xmlhttp.send();
+
     }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       INSERT INTO message (text, reply, owner, postDate, channelId)
@@ -91,8 +90,7 @@ function AddMessageToDB(postDate, text, replyId, playerId, channelId) {
     return id;
 }
 
-function getPlayerInfo(id)
-{
+function getPlayerInfo(id) {
     var datas
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -123,8 +121,8 @@ function getMessages(channelId) {
             messageContainer.appendChild(title)
             messageContainer.appendChild(document.createElement("br"))
             messageContainer.appendChild(document.createElement("br"))
-            
-            
+
+
             for (let i = 0; i < messageData.length; ++i) {
                 AddMessage(messageData[i]["id"],
                     messageData[i]["picture"],
@@ -136,38 +134,6 @@ function getMessages(channelId) {
                     messageData[i]["replyNickname"],
                     messageData[i]["replyText"]
                 );
-                // let profile = document.createElement("div");
-                // profile.className = "profile";
-                // messageContainer.appendChild(profile)
-                // let profilePicture = document.createElement("img");
-                // profilePicture.className = "profilePicture";
-                // profilePicture.src = messageData[i]["picture"];
-                // profilePicture.alt = "profilePicture";
-                // profile.appendChild(profilePicture)
-                // let name = document.createElement("label")
-                // name.innerHTML = messageData[i]["nickname"];
-                // profile.appendChild(name)
-                
-                
-                // if (messageData[i]["reply"] != null) {
-                //     let reply = document.createElement("div");
-                //     reply.className = "reply";
-                //     reply.innerHTML = "::: replying to <img class=profilePicture src = " + messageData[i]["replyPicture"] + " alt=profilePicture>" + messageData[i]["replyNickname"].substr(0, 10) + "... : " + messageData[i]["replyText"].substr(0, 20) + "...";
-                //     reply.dataset.id = messageData[i]["replyId"]
-                //     messageContainer.appendChild(reply)
-                //     reply.addEventListener("click", () => {toMessage(reply.dataset.id)})
-                // }
-                // let message = document.createElement("div");
-                // message.className = "message";
-                // message.id = messageData[i]["id"]
-                // message.innerHTML = messageData[i]["text"];
-                // message.dataset.reply = messageData[i]["reply"]
-                // messageContainer.appendChild(message)
-                
-                // let br1 = document.createElement("br");
-                // let br2 = document.createElement("br");
-                // messageContainer.appendChild(br1)
-                // messageContainer.appendChild(br2)
             }
 
         }
@@ -237,8 +203,7 @@ function filter() {
 document.getElementById('themeSearchbar').addEventListener('input', filter);
 
 let sendMessageButton = document.getElementById('submitMessage');
-if (sendMessageButton)
-{
+if (sendMessageButton) {
     sendMessageButton.addEventListener('click', () => {
         const currentDate = new Date();
         let date = currentDate.toLocaleDateString().split("/").reverse().join("/") + " " + currentDate.toLocaleTimeString()
@@ -269,7 +234,7 @@ if (sendMessageButton)
 }
 
 [...document.getElementsByClassName("reply")].forEach(message => {
-    message.addEventListener("click", () => {toMessage(message.dataset.id)})
+    message.addEventListener("click", () => { toMessage(message.dataset.id) })
 })
 
 document.addEventListener("keydown", (e) => {
@@ -280,13 +245,16 @@ document.addEventListener("keydown", (e) => {
 })
 
 let noFavTheme = document.getElementById('toConnect');
-if (noFavTheme)
-{
+if (noFavTheme) {
     noFavTheme.addEventListener('click', () => {
         document.location.href = 'login.php';
     });
 }
 
+
+
+let messageArea = document.getElementById("messageArea");
+let typing = document.getElementById("typing");
 
 document.getElementById("createTheme").addEventListener("click", () => {
     messageContainer.innerHTML = "";
@@ -294,17 +262,76 @@ document.getElementById("createTheme").addEventListener("click", () => {
     let title = document.createElement("h2");
     title.className = "message";
     title.id = "title";
-    title.innerHTML = "Nouveau theme"
-    messageContainer.appendChild(title)
-    messageContainer.appendChild(document.createElement("br"))
-    messageContainer.appendChild(document.createElement("br"))
+    title.innerHTML = "Nouveau theme";
+    typing.innerHTML = "Titre du nouveau thème";
+    messageContainer.appendChild(title);
+    messageContainer.appendChild(document.createElement("br"));
+    messageContainer.appendChild(document.createElement("br"));
+});
+
+messageArea.addEventListener("input", (e) => {
+    if (typing.innerHTML == "Titre du nouveau thème")
+    {
+        document.getElementById("title").innerHTML = e.target.value;
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let optionsTrigger = document.getElementById("optionsTrigger")
+let optionsMenu = document.getElementById("optionsMenu")
+function showOption(e)
+{
+    e.target.appendChild(optionsTrigger);
+    optionsTrigger.style.display = "unset";
+}
+function hideOption()
+{
+    optionsTrigger.style.display = "none";
+    optionsMenu.style.display = "none";
+}
+
+[...document.getElementsByClassName("message")].forEach(message => {
+    message.addEventListener("mouseenter", showOption)
+    message.addEventListener("mouseleave", hideOption)
 })
 
-
-document.getElementById("messageArea").addEventListener("input", (e) => {
-    
-    document.getElementById("title").innerHTML = e.target.value
+optionsTrigger.addEventListener("click", () => {
+    optionsMenu.style.display = "unset";
 })
 
+let confirmAction = document.getElementById("confirmAction"); //ned to create
+document.getElementById("editOption").addEventListener("click", () => {
+    typing.innerHTML = "Modification du message";
+    optionsTrigger.parentNode = document.getElementById("channelMessages")
+    messageArea.value = optionsTrigger.parentNode.innerHTML;
+})
+document.getElementById("deleteOption").addEventListener("click", () => {
+    confirmAction.innerHTML("supprimer le message ?");
+    confirmAction.style.display = "unset";
+})
+document.getElementById("answerOption").addEventListener("click", () => {
+    typing.innerHTML = "Repondre à";
+
+})
+document.getElementById("reportOption").addEventListener("click", () => {
+
+})
 
 // console.log(document.cookie)

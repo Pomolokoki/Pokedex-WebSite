@@ -98,6 +98,16 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
                     <input id="submitMessage" type="image" src="./img/sendMessageIcon.png" alt ="Submit"></input>
                 </div>';
             }?>
+            <div id="optionsTrigger">...
+                <div id="optionsMenu">
+                    <div id="editOption" class="options">Modifier</div>
+                    <div id="answerOption" class="options">Répondre</div>
+                    <div id="deleteOption" class="options">Supprimer</div>
+                    <div id="reportOption" class="options">Signaler</div>
+                    <!-- <div id="reportOption" class="options">Silencer Temporairemnt</div>
+                    <div id="reportOption" class="options">Silencer</div>  userstuff --> 
+                </div>
+            </div>
         </div>
         <div id="favorites">
             <p> Vos thèmes favoris :</p>

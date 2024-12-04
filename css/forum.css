@@ -114,6 +114,7 @@ textarea{
 #messageArea{
     width: 100%;
     position: absolute;
+    height: auto;
     bottom: 0;
 }
 
@@ -121,10 +122,11 @@ textarea{
     position: relative;
     bottom: 0;
     width: calc(100% - 100px);
+    max-height: 100px;
 }
 #typing{
     position: absolute;
-    bottom: 25px;
+    margin-top: -25px;
     width: calc(100% - 100px);
 }
 #submitMessage{
@@ -173,6 +175,20 @@ textarea{
 .selectAnimation {
     animation: colorchange 4s 1;
 }
+
+#optionsTrigger {
+    border: solid 2px white;
+    text-align: center;
+    align-items: center;
+    position: relative;
+    display: none;
+}
+
+#optionsMenu {
+    border: solid 2px white;
+    display: none;
+}
+
 
 @keyframes colorchange {
     

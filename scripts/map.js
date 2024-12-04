@@ -131,7 +131,6 @@ function updateMap(e) {
                 svgMap.innerHTML = Hoenn
             else if (currentRegion == "Kanto")
                 svgMap.innerHTML = Kanto
-
             bindInteractiveMap()
         }
         center();
@@ -158,8 +157,6 @@ document.getElementById("interactiveMap").addEventListener("click", (e) => {
 
 document.getElementById("mapList").addEventListener("change", (e) => {
     currentRegion = e.target.options[e.target.selectedIndex].value;
-    updateMap("regionChanged");
-    console.log(currentRegion);
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -173,6 +170,8 @@ document.getElementById("mapList").addEventListener("change", (e) => {
                 location.innerHTML = getText(dataLocation[i]["name"], language);
                 locationContainer.appendChild(location)
             }
+            updateMap("regionChanged");
+            console.log(currentRegion);
         }
     }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
@@ -205,30 +204,30 @@ function replaceBubble(target, force = false) {
     bubble.style.left = (parseFloat(target.getBoundingClientRect().x - 12 + target.getBoundingClientRect().width / 2)) + 'px'
     bubble.style.top = (parseFloat(target.getBoundingClientRect().y - 35)) + 'px'
 }
-let cloned
+// let cloned
 function onOver(e) {
     replaceBubble(e.target)
-    if (e.target.id == cloned)
-        return;
-    let clone = document.getElementById("cloned")
-    if (clone != null)
-    {
-        cloned = undefined;   
-        clone.remove()
-    }
-    if (currentRegion == "Kanto" && (e.target.id == "Route 17" || e.target.id == "Route 18" || e.target.id == "Route 12" ||  e.target.id == "Sea Route 19"))
-    {
-        cloned = e.target.id;
-        let clone =  e.target.cloneNode()
-        clone.id = "cloned";
-        clone.addEventListener("mouseleave", onLeave)
-        svgMap.appendChild(clone);
-        clone.style.filter = "brightness(70%)"
-    }
+    // if (e.target.id == cloned)
+    //     return;
+    // let clone = document.getElementById("cloned")
+    // if (clone != null)
+    // {
+    //     cloned = undefined;   
+    //     clone.remove()
+    // }
+    // if (currentRegion == "Kanto" && (e.target.id == "Route 17" || e.target.id == "Route 18" || e.target.id == "Route 12" ||  e.target.id == "Sea Route 19"))
+    // {
+    //     cloned = e.target.id;
+    //     let clone =  e.target.cloneNode();
+    //     clone.id = "cloned";
+    //     clone.addEventListener("mouseleave", onLeave);
+    //     svgMap.appendChild(clone);
+    //     clone.style.filter = "brightness(70%)";
+    // }
 }
 function removeBubble(force = false) {
-    if (currentLocation != undefined && !force) return
-    bubble.style.display = "none"
+    if (currentLocation != undefined && !force) return;
+    bubble.style.display = "none";
     if (currentLocation != undefined) {
         currentLocation.style.filter = "";
     }
@@ -236,23 +235,25 @@ function removeBubble(force = false) {
 
 function setLocation(location) {
     currentLocation = document.getElementById(location.dataset.location)
-    replaceBubble(currentLocation, true)
-    currentLocation.style.filter = "brightness(70%)"
-    location.style.backgroundColor = "#ffffff"
+    replaceBubble(currentLocation, true);
+    currentLocation.style.filter = "brightness(70%)";
+    location.style.backgroundColor = "#ffffff";
 
-    if (currentRegion == "Kanto" && (currentLocation.id == "Route 17" || currentLocation.id == "Route 18" || currentLocation.id == "Route 12" || currentLocation.id == "Sea Route 19"))
-    {
-        let clone =  document.cloneNode(currentLocation)
-        clone.id = "cloned";
-        clone.addEventListener("mouseleave", onLeave)
-        svgMap.appendChild(clone);
-    }
+    // if (currentRegion == "Kanto" && (currentLocation.id == "Route 17" || currentLocation.id == "Route 18" || currentLocation.id == "Route 12" || currentLocation.id == "Sea Route 19"))
+    // {
+    //     console.log("currentLocation", currentLocation, location)
+    //     let clone =  currentLocation.cloneNode();
+    //     clone.id = "cloned";
+    //     clone.addEventListener("mouseleave", onLeave);
+    //     svgMap.appendChild(clone);
+    // }
     
 }
 function removeLocation(location) {
     removeBubble(true);
-    currentLocation = undefined
-    location.style.backgroundColor = "#ff0000"
+    currentLocation = undefined;
+    if (location != null)
+        location.style.backgroundColor = "#ff0000";
 }
 
 function selectLocation(name) {
@@ -272,15 +273,15 @@ function selectLocation(name) {
 }
 
 function onLeave(e) {
-    if (e.target.id != cloned)
-        removeBubble();
+    // if (e.target.id != cloned)
+    removeBubble();
     
-    let clone = document.getElementById("cloned")
-    if (clone && e.target.id != cloned)
-    {
-        clone.remove();
-        cloned = undefined;
-    }   
+    // let clone = document.getElementById("cloned")
+    // if (clone && e.target.id != cloned)
+    // {
+    //     clone.remove();
+    //     cloned = undefined;
+    // }
 }
 
 function onClick(e) {
