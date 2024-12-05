@@ -4,6 +4,7 @@ $channelData = getDataFromDB("channel", "*", "ORDER BY creationDate LIMIT 20");
 $messageData = getDataFromDB("SELECT message.id,
     message.text,
     message.reply,
+    player.id as playerId,
     player.nickname AS nickname,
     player.picture AS profilePicture,
     reply.text AS replyText,
@@ -38,7 +39,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
     <div id="forumFrame">
         <?php if (isset($_SESSION["LOGGED_USER"]))
         {
-            echo '<span id="data" data-nickname="' .  $_SESSION["LOGGED_USER"][0]["nickname"] . '" data-id="' . $_SESSION["LOGGED_USER"][0]["id"] . '"></span>';
+            echo '<span id="data" data-nickname="' .  $_SESSION["LOGGED_USER"][0]["nickname"] . '" data-id="' . $_SESSION["LOGGED_USER"][0]["id"] . '" data-rank="' . $_SESSION["LOGGED_USER"][0]["forumRank"] . '"></span>';
         }?>
         
         <div id="themes">
@@ -84,7 +85,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
                     {
                         echo "<div data-id='" . $messageData[$i]["replyId"] . "' data-owner='" . $messageData[$i]["replyOwner"] . "'class=reply > :::repying to <img class=replyProfilePicture src=" . $messageData[$i]["replyProfilePicture"] . " alt=profilePicture>" . substr($messageData[$i]["replyNickname"], 0, 10) . "... : " . substr($messageData[$i]["replyText"], 0, 20) . "...</div>";
                     }
-                    echo "<div id='" . $messageData[$i]["id"] . "' class=message data-reply=" . $messageData[$i]["replyId"] . ">" . $messageData[$i]["text"] . "</div><br><br>";
+                    echo "<div id='" . $messageData[$i]["id"] . "' class=message data-reply='" . $messageData[$i]["replyId"] . "' data-owner='" . $messageData[$i]["playerId"] . "'>" . $messageData[$i]["text"] . "</div><br><br>";
                 }
                 ?>
             </div>
@@ -93,7 +94,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
             {
                 echo '
                 <div id="messageArea">
-                    <label id="typing">woep</label>
+                    <label id="typing"></label>
                     <textarea id="messageTextBox" type="text" rows="1" placeholder="Appuyer sur un touche pour commencer à écrire"></textarea>
                     <input id="submitMessage" type="image" src="./img/sendMessageIcon.png" alt ="Submit"></input>
                 </div>';
@@ -132,6 +133,13 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
             </div>
         </div>
     </div>
+    <div id="confirmAction">
+        </div>
+        <div id="confirmBox">
+            <p id="confirmText"> Help, je suis en grand danger, sauvez moi</p>
+            <div id="confirmBut1" class="but"> Confirmer </div>
+            <div id="confirmBut2" class="but"> Annuler </div>
+        </div>
 
     <script src="./scripts/forum.js"></script>
     <body>

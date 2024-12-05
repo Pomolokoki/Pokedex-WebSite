@@ -55,7 +55,7 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
         echo "<br>";
         if ($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
-                $findEmailPlayer = $db->prepare("SELECT id,email,nickname FROM player WHERE email=:identifier OR nickname=:identifier");
+                $findEmailPlayer = $db->prepare("SELECT id,email,nickname,forumRank FROM player WHERE email=:identifier OR nickname=:identifier");
                 $findEmailPlayer->bindParam(':identifier', $_POST['id']);
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);

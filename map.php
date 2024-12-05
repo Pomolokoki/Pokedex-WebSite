@@ -6,7 +6,6 @@ $isSet = isset($_POST["pokemonId"]) && isset($_POST["generationId"]);
 $pokemonLocationData = $isSet ? getDataFromDB("SELECT location.name, pokemon.spriteM, pokemon.name AS pokemonName, generation FROM location_pokemon AS lp JOIN location ON location.id = lp.locationId JOIN pokemon ON pokemon.id = lp.pokemonId WHERE pokemonId = " . $_POST["pokemonId"], "", "", true) : null;
 $regionData = getDataFromDB("region", "*", null);
 $locationData = getDataFromDB("location", "*", "WHERE regionId = " . ($isSet ? $_POST["generationId"] : 1));
-// $pokemonList = getDataFromDB("SELECT pokemon.name, pokemon.spriteM AS image, pokemon.id FROM location_pokemon AS lp JOIN location ON location.id = lp.locationId JOIN pokemon ON pokemon.id = lp.pokemonId WHERE locationId = 1 ", "", "", true);
 $language = "fr";
 ?>
 <!DOCTYPE html>
@@ -38,20 +37,8 @@ include_once('header.php');
             <div id="centered">
                 <image id="refocus" draggable="fase" src="./img/refocusIcon.png"></image>
                 <label>Center map</label>
-                </div>
-            <?php if ($isSet) echo '
-            <div id="pokemon">
-                <image id="pokemonImage" draggable="fase" src="./img/refocusIcon.png"></image>
-                <p>
             </div>
-            '; 
-            else {
-                echo '
-            <div id="pokeListContainer">
-                <select id="pokeList"><select>
-            </div>
-            ';
-            } ?>
+
         </div>
     </div>
     <div id="bubble">
@@ -67,10 +54,10 @@ include_once('header.php');
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
                     if ($i == ($isSet ? $_POST["generationId"] : 1)) {
-                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</option>";
+                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
                         continue;
                     }
-                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</option>";
+                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
                 }
                 ?>
             </select>
@@ -106,7 +93,6 @@ include_once('header.php');
                 if ($isSet)
                 {
                     echo "<div id=pokemon> <img src=" . $pokemonLocationData["spriteM"] . " alt='" . $pokemonLocationData["pokemonName"] . "Image'> <label>" . $pokemonLocationData["pokemonName"] . "<div>";
-
                 }
                 ?>
             </div>
