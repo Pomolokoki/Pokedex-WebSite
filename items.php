@@ -3,8 +3,8 @@
 <?php include_once("./database/extractDataFromDb.php") ?>
 <?php include_once("header.php") ?>
 
-<?php 
-$dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.sprite,item.category,item.pocket,item.effect FROM item",null,null,true);
+<?php
+$dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.sprite,item.category,item.pocket,item.effect FROM item", null, null, true);
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +13,24 @@ $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.
 <style>
     <?php include("css/items.css"); ?>
 </style>
+<?php 
+function getTextFrEng($str, $language = "fr")
+{
 
+    if ($language == "fr" && explode('/',$str)[1] != "NULL")
+    {
+        return explode('/', $str)[1];
+    }
+    else
+    {
+        return explode('/', $str)[0];
+    }
+}
+
+
+
+
+?>
 <div id="itemTable">
     <div id="itemFilter">
         <label for="inputName">itemName:</label>
@@ -36,26 +53,30 @@ $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.
         <table class="itemListTable">
             <thead>
                 <tr>
-                    <th id="itemName"><div>Nom</div></th>
-                    <th><div id="itemCategory">Category</div></th>
-                    <th><div id="itemDescription">Description</div></th>
-                    <th><div id="itemEffect">Effet</div></th>
+                    <th id="itemName">
+                        <div>Nom</div>
+                    </th>
+                    <th>
+                        <div id="itemCategory">Category</div>
+                    </th>
+                    <th>
+                        <div id="itemDescription">Description</div>
+                    </th>
+                    <th>
+                        <div id="itemEffect">Effet</div>
+                    </th>
             </thead>
             <tbody class="itemListBody">
-                <tr>
-                    
-                    <?php 
-                    
-                    foreach($dataItems as $result) {
-                        echo $result, '<br>';
-                    }
-                    
+                <?php for ($i = 0; $i < count($dataItems); $i++):
                     ?>
-                    <td>aaaaa</td>
-                    <td>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</td>
-                    <td>ccccc</td>
-                    <td>ddddd</td>
+                    <tr>
+                        <td><?php echo getTextLang($dataItems[$i]["name"],"fr") ?></td>
+                        <td><?php echo $dataItems[$i]["category"] ?></td>
+                        <td><?php echo $dataItems[$i]["smallDescription"]?></td>
+                        <td><?php echo $dataItems[$i]["effect"]?></td>
+                    
                 </tr>
+                <?php endfor; ?>
             </tbody>
         </table>
     </div>
