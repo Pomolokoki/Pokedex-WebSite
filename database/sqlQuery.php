@@ -317,10 +317,10 @@ CONSTRAINT channel_owner_FK FOREIGN KEY (owner) REFERENCES player(id)
 
 $sqlCreateForumMessage = 
 "CREATE TABLE message(
-id BINARY(16) PRIMARY KEY,
+id CHAR(36) PRIMARY KEY,
 owner INT UNSIGNED,
 text TEXT,
-reply BINARY(16),
+reply CHAR(36),
 imgURL VARCHAR(255),
 postDate DATETIME,
 channelId INT UNSIGNED,

@@ -107,7 +107,7 @@ textarea{
     position: relative;
     width: 60%;
     height: 100%;
-    padding-left: 10px;
+    padding-left: 20px;
     overflow-y: auto;
     overflow-x: hidden;
 }

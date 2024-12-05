@@ -20,7 +20,7 @@ echo count(getDataFromFile("/pokemon")->results);
 set_time_limit(1000);
 saveToDb($sqlInsertAbilityPokemon, "ability_pokemon", "", true, true);
 saveToDb($sqlInsertMovePokemon, "move_pokemon", "", true, true);
-// saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", "", true, true);
+saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", "", true, true);
 saveToDb($sqlInsertFormPokemon, "form_pokemon", "", true, true);
 saveToDb($sqlInsertMovePokemon, "pokemon", "", true, true);
 
@@ -88,7 +88,7 @@ foreach (getDataFromFile("/pokemon")->results as $pokemon)
         
     if ($pokemonEvolutionData != null && $pokemonData->id != 489 && $pokemonData->id != 490)
     {
-        $EPvalues = $EPvalues . $id . getIdFromUrl($pokemonSpeciesData->evolution_chain->url);
+        $EPvalues = $EPvalues . "(" . $id . ", " .  getIdFromUrl($pokemonSpeciesData->evolution_chain->url) . "),,";
     }
     if ($pokemonData->id < 10000)
     {
@@ -186,7 +186,7 @@ saveToDb($sqlInsertPokemon, "pokemon", $values, false);
 saveToDb($sqlInsertAbilityPokemon, "ability_pokemon", $APvalues);
 saveToDb($sqlInsertMovePokemon, "move_pokemon", $MPvalues);
 saveToDb($sqlInsertLocationPokemon, "location_pokemon", $LPvalues);
-// saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", $EPvalues);
+saveToDb($sqlInsertEvolutionPokemon, "evolution_pokemon", $EPvalues);
 saveToDb($sqlInsertFormPokemon, "form_pokemon", $FPvalues);
 
 $sqlAddBonusData = "UPDATE pokemon SET category=3 WHERE id IN (793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806);\n";

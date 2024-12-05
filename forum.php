@@ -73,7 +73,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
         </div>
         <div id="channel">
             <div id="channelMessages">
-                <h2 id = 'title' class="message"><?php echo $channelData[1]["title"]; ?></h2><br>
+                <h2 id = 'title' class="message" data-owner=<?php echo '"' . $messageData[0]["playerId"] . '"'; ?> ><?php echo $channelData[1]["title"]; ?></h2><br>
             <?php
                 for ($i = 0; $i < count($messageData); ++$i)
                 {
@@ -94,7 +94,7 @@ $playerFavChannelData = getDataFromDB("player_fav_channel", "*", "");
             {
                 echo '
                 <div id="messageArea">
-                    <label id="typing"></label>
+                    <p id="typing"></p>
                     <textarea id="messageTextBox" type="text" rows="1" placeholder="Appuyer sur un touche pour commencer à écrire"></textarea>
                     <input id="submitMessage" type="image" src="./img/sendMessageIcon.png" alt ="Submit"></input>
                 </div>';

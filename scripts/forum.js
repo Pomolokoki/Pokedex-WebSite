@@ -8,7 +8,7 @@ document.querySelectorAll('textarea, #searchBar').forEach(element => {
         }
         event.target.style.height = 'auto';
         event.target.style.height = `${event.target.scrollHeight}px`;
-        if (event.target.id = "messageTextBox")
+        if (event.target.id == "messageTextBox")
         {
             document.getElementById("channel").style.paddingBottom = event.target.style.height;
         }
@@ -73,41 +73,65 @@ function AddMessage(messageId, owner, picture, nickname, text, replyId, replyOwn
     message.addEventListener("mouseleave", hideOption)
 }
 
-function AddMessageToDB(postDate, text, replyId, playerId, channelId) {
+// function addChannel()
+// {
+//     let title = document.createElement("h2");
+//     title.innerHTML = messageData[0]["title"];
+//     title.className = "message";
+//     title.id = "title";
+//     messageContainer.appendChild(title)
+//     messageContainer.appendChild(document.createElement("br"))
+//     messageContainer.appendChild(document.createElement("br"))
+//     return title;
+// }
+
+function getUUID()
+{
     let id
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
-
-        var xmlhttp2 = new XMLHttpRequest();
-        xmlhttp2.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                id = JSON.parse(this.responseText)[0]["id"];
-            }
+        if (this.readyState == 4 && this.status == 200) {
+            id = JSON.parse(this.responseText)[0]["uuid"];
         }
-        xmlhttp2.open("GET", "./ajax/getDBData.php?request=SELECT id, MAX(postDate) FROM message", false);
-        xmlhttp2.send();
     }
-    console.log(`INSERT INTO message (id, text, reply, owner, postDate, channelId)
+    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT UUID() AS uuid", false);
+    xmlhttp.send();
+    console.log("uuid : ", id, id.length);
+    return id;
+}
+
+function AddChannelToDB(id, owner, title, keyWords, creationDate)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+    }
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      INSERT INTO channel (owner, title, keyWords, creationDate)
     VALUES (
-      'UUID(),`
-      + text + "', "
-      + replyId + ", "
-      + playerId + ", '"
-      + postDate + "', "
-      + channelId
-      + ");")
+        ` + id + ", "
+        + owner + ", '"
+        + title + "', '"
+        + keyWords + "', '"
+        + creationDate
+        + "');");
+    xmlhttp.send();
+}
+
+function AddMessageToDB(id, postDate, text, replyId, playerId, channelId) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+    }
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       INSERT INTO message (id, text, reply, owner, postDate, channelId)
       VALUES (
-        UUID(),'`
+        ` + id + ", '"
         + text + "', "
         + replyId + ", "
         + playerId + ", '"
         + postDate + "', "
         + channelId
-        + ");", false);
+        + ");");
     xmlhttp.send();
-    return id;
 }
 
 function getPlayerInfo(id) {
@@ -137,6 +161,7 @@ function getMessages(channelId) {
             let title = document.createElement("h2");
             title.innerHTML = messageData[0]["title"];
             title.className = "message";
+            title.dataset.owner = messageData[0]["owner"];
             title.id = "title";
             messageContainer.appendChild(title)
             messageContainer.appendChild(document.createElement("br"))
@@ -144,7 +169,8 @@ function getMessages(channelId) {
 
 
             for (let i = 0; i < messageData.length; ++i) {
-                AddMessage(messageData[i]["id"],
+                AddMessage(
+                    messageData[i]["id"],
                     messageData[i]["owner"],
                     messageData[i]["picture"],
                     messageData[i]["nickname"],
@@ -199,7 +225,7 @@ function updateMessage(message)
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
         UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
     xmlhttp.send();
-    console.log("UPDATE message SET text = '" + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'")
+
 }
 
 function changeTheme(theme) {
@@ -211,7 +237,7 @@ function changeTheme(theme) {
 
 recentlist = [];
 themeList = [...document.getElementsByClassName("theme")];
-console.log(document.getElementsByClassName("theme"))
+
 themeList.forEach(theme => {
     if (theme.id == "createTheme")
         return;
@@ -220,22 +246,20 @@ themeList.forEach(theme => {
         return;
     recentlist.push(theme);
 })
-console.log(themeList)
+
 function filter() {
     themeList.forEach(theme => {
         theme.style.display = "none";
     });
-    let searchBar = document.getElementById('themeSearchbar')
-    console.log(searchBar)
-    searchBar = searchBar.value.toLowerCase();
-    console.log(searchBar)
+    let searchBar = document.getElementById('themeSearchbar').value.toLowerCase();
+    
     if (searchBar == '') {
         recentlist.forEach(theme => { theme.style.display = "block" })
     }
     else {
         themeList.forEach(theme => {
             if (typeof theme != "object") return;
-            console.log(theme, theme.dataset.keywords)
+            
             if (theme.innerHTML.toLowerCase().includes(searchBar) || (theme.dataset.keywords).toLowerCase().includes(searchBar))
                 theme.style.display = "block";
         })
@@ -243,28 +267,34 @@ function filter() {
 }
 
 document.getElementById('themeSearchbar').addEventListener('input', filter);
+let channel = [];
 
 let sendMessageButton = document.getElementById('submitMessage');
+let messageBox = document.getElementById("messageTextBox");
+let typing = document.getElementById("typing");
+
 const playerValues = document.getElementById("data");
 if (sendMessageButton) {
     sendMessageButton.addEventListener('click', () => {
         if (typing.innerHTML == "Modification du message")
         {   
             let message = document.getElementById(typing.dataset.message);
-            message.innerHTML = messageArea.value;
+            message.innerHTML = messageBox.value;
             if (message.innerHTML.substr(0, message.innerHTML.length) == "")
             {
                 typing.innerHTML = "";
+                messageBox.value = "";
                 removeMessage(message);
                 return;
             }
             typing.innerHTML = "";
+            messageBox.value = "";
             updateMessage(message);
             return;
         }
         const currentDate = new Date();
         let date = currentDate.toLocaleDateString().split("/").reverse().join("/") + " " + currentDate.toLocaleTimeString()
-        let text = document.getElementById("messageTextBox").value;
+        let text = messageBox.value;
         let playerId = playerValues == null ? playerValues : playerValues.dataset.id;
         let playerPicture, playerName
         [playerPicture, playerName] = playerId == null ? [null, null] : [...getPlayerInfo(playerId)]
@@ -274,8 +304,33 @@ if (sendMessageButton) {
         let replyPicture, replyName
         [replyPicture, replyName] = replyId == null ? [null, null] : getPlayerInfo(replyOwner)
         let replyText = replyId == null ? null : document.getElementById("replyId").innerHTML;
+        if (typing.innerHTML == "Titre du nouveau thème")
+        {
+            typing.innerHTML = "KeyWords (separate by /)";
+            messageBox.value = "";
+            return;
+        }
+        if (typing.innerHTML == "KeyWords (separate by /)")
+        {
+            channel = text.split("/");
+            typing.innerHTML = "Message d'introduction";
+            messageBox.value = "";
+            return;
+        }
+        if (typing.innerHTML == "Message d'introduction")
+        {
+            let title = document.getElementById("title")
+            title.dataset.owner = playerId;
+            let id = getUUID();
+            AddChannelToDB(id, playerId, title.innerHTML, channel, date);
+            typing.innerHTML = "";
+            messageBox.value = "";
+        }
+        
+        let id = getUUID();
+        AddMessageToDB(id, date, text, replyId, playerId, channelId),
         AddMessage(
-            AddMessageToDB(date, text, replyId, playerId, channelId),
+            id,
             playerId, 
             playerPicture,
             playerName,
@@ -296,8 +351,7 @@ if (sendMessageButton) {
 })
 
 document.addEventListener("keydown", (e) => {
-    let messageBox = document.getElementById("messageTextBox");
-    if (messageBox != null && e.key.length === 1 && e.target != "themeSearchbar" && e.target != "messageTextBox") {
+    if (messageBox != null && e.key.length === 1 && e.target.id != "themeSearchbar" && e.target.id != "messageTextBox") {
         messageBox.focus();
     }
 })
@@ -311,8 +365,6 @@ if (noFavTheme) {
 
 
 
-let messageArea = document.getElementById("messageTextBox");
-let typing = document.getElementById("typing");
 
 document.getElementById("createTheme").addEventListener("click", () => {
     messageContainer.innerHTML = "";
@@ -327,7 +379,7 @@ document.getElementById("createTheme").addEventListener("click", () => {
     messageContainer.appendChild(document.createElement("br"));
 });
 
-messageArea.addEventListener("input", (e) => {
+messageBox.addEventListener("input", (e) => {
     if (typing.innerHTML == "Titre du nouveau thème")
     {
         document.getElementById("title").innerHTML = e.target.value;
@@ -353,10 +405,36 @@ typing.addEventListener('click', () => { typing.innerHTML=""})
 
 
 
-let optionsTrigger = document.getElementById("optionsTrigger")
-let optionsMenu = document.getElementById("optionsMenu")
+let optionsTrigger = document.getElementById("optionsTrigger");
+let optionsMenu = document.getElementById("optionsMenu");
+let editOption = document.getElementById("editOption");
+let answerOption = document.getElementById("answerOption");
+let deleteOption = document.getElementById("deleteOption");
+let reportOption = document.getElementById("reportOption");
 function showOption(e)
 {
+    editOption.style.display = "block";
+    answerOption.style.display = "block";
+    deleteOption.style.display = "block";
+    reportOption.style.display = "block";
+    if (e.target.id == "title")
+    {
+        answerOption.style.display = "none";
+        if (e.target.previousElementSibling.children[1].innerHTML != playerValues.dataset.nickname && playerValues.dataset.rank < 2)
+        {
+            editOption.style.display = "none";    
+            deleteOption.style.display = "none";       
+        }
+    }
+    else
+    {
+        if (e.target.previousElementSibling.children[1].innerHTML != playerValues.dataset.nickname)
+        {
+            editOption.style.display = "none";
+            if (playerValues.dataset.rank < 2)
+                deleteOption.style.display = "none";
+        }
+    }
     e.target.appendChild(optionsTrigger);
     // optionsTrigger.style.left = e.target.getAttribute("left")
     // optionsTrigger.style.top = e.target.getAttribute("top")
@@ -391,12 +469,11 @@ document.getElementById("editOption").addEventListener("click", () => {;
     typing.dataset.message = message.id;
     // console.log(message)
     document.getElementById("channelMessages").appendChild(optionsTrigger);
-    console.log(message.innerHTML.length)
-    messageArea.value = message.innerHTML.substr(0, message.innerHTML.length);
-    messageArea.style.height = 'auto';
-    messageArea.style.height = `${messageArea.scrollHeight}px`;
-    if (parseFloat(messageArea.style.height) > 100) {
-        messageArea.style.overflowY = 'scroll'
+    messageBox.value = message.innerHTML.substr(0, message.innerHTML.length);
+    messageBox.style.height = 'auto';
+    messageBox.style.height = `${messageBox.scrollHeight}px`;
+    if (parseFloat(messageBox.style.height) > 100) {
+        messageBox.style.overflowY = 'scroll'
     }
     hideOption();
 })

@@ -26,7 +26,7 @@ function getTextLang($str, $language = "fr")
     $split = explode('/', $str);
     if ($language == "fr")
     {
-        if ($split[0] == "NULL")
+        if ($split[1] == "NULL")
           return $split[0];
         return $split[1];
     }
