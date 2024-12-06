@@ -381,10 +381,101 @@ var LoadAtkPokemon = function (id, isGen = -1) {
   xmlhttp.send();
 };
 
-function divEvoCase(data){
+var LoadLocationPokemonOnMap = function (id, isGen = -1) {
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      dataMove = JSON.parse(this.responseText);
+      document.getElementById("Attaque").innerText = "";
+      document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
+      let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
+      let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+      if (isGen != -1 && isGen < 1) {
+        return
+      }
+      if (dataMove.length == 0) {
+        LoadAtkPokemon(id, isGen = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1 : isGen - 1)
+        return
+      }
+      for (let i = -1; i < dataMove.length; i++) {
+        for (let j = 0; j < 7; ++j) {
+          let divElementName = document.createElement("div");
+          divElementName.classList.add("Val_atk_case");
+          if (i == -1) {
+            divElementName.innerHTML = "<h3>" + tab1[j] + "</h3>"
+            divElementName.style.order = 0;
+          }
+          else {
+            divElementName.classList.add("Val_atk_case" + i);
+            divElementName.style.order = 1;
+            if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
+              divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
+            else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
+              divElementName.innerHTML = "CT/CS";
+            else if (j == 2)
+              if (dataMove[i][tab2[j]] == 1)
+                divElementName.innerHTML = "Physique"
+              else if (dataMove[i][tab2[j]] == 2)
+                divElementName.innerHTML = "Spéciale"
+              else
+                divElementName.innerHTML = "Statut"
+            else if (j == 3 || j == 4 || j == 5)
+              if (dataMove[i][tab2[j]] == undefined)
+                divElementName.innerHTML = "--"
+              else
+                divElementName.innerHTML = dataMove[i][tab2[j]];
+            else if (j == 1) {
+              let divElementTypeAtk = document.createElement("div");
+              divElementTypeAtk.classList.add("divElementTypeAtk");
+              divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
+              divElementName.appendChild(divElementTypeAtk);
+              divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]], "en"))
+            }
+            else
+              divElementName.innerHTML = getText(dataMove[i][tab2[j]]);
+          }
+          document.getElementById("Attaque").appendChild(divElementName);
+        }
+      }
+      orderGrid();
+    }
+  }
+  let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
+  xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      SELECT 
+      move.name,
+      type.name AS type,
+      move.effectType,
+      move.pc,
+      move.accuracy,
+      mp.learnMethod,
+      mp.learnAtLevel,
+      move.pp 
+      FROM move_pokemon AS mp 
+      INNER JOIN move ON mp.moveId = move.id 
+      JOIN type ON move.type = type.id 
+      WHERE mp.pokemonId = ` + id + ' AND mp.generation = ' + genValue, true);
+  xmlhttp.send();
+};
+
+function divEvoCaseGroup(stage) {
+  let divElementEvoCase = document.createElement("div");
+  divElementEvoCase.classList = "Evo_case_group";
+  divElementEvoCase.id = "Evo_case_group" + stage;
+  document.getElementById("Evo").appendChild(divElementEvoCase);
+}
+function divEvoCase(stage) {
   let divElementEvoCase = document.createElement("div");
   divElementEvoCase.classList = "Evo_case";
-  document.getElementById("Evo").appendChild(divElementEvoCase);
+  document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
+}
+
+function divStagePokemon(name) {
+  let divElementPokemon = document.createElement("div");
+  divElementPokemon.classList.add("EvoStage_Pokemon_case");
+  divElementPokemon.id = name;
+  document.getElementById("Evo").appendChild(divElementPokemon);
+  return divElementPokemon;
 }
 
 var LoadEvoPokemon = function (id) {
@@ -394,43 +485,65 @@ var LoadEvoPokemon = function (id) {
       dataEvol = JSON.parse(this.responseText);
       document.getElementById("Evo").innerHTML = "";
       console.log(dataEvol)
+      dataEvol.sort((a, b) => { return a.evolutionStade - b.evolutionStade; })
+      console.log(dataEvol)
       let tabEvo = [];
-      let tabEvoCheck = [];
+      let tabEvoCaseGroup = [];
       let tabStageEvo = [];
+
+
       for (let i = 0; i < dataEvol.length; i++) {
         console.log(dataEvol[i].evolutionStade)
         console.log(tabStageEvo)
-        // pokemon base div
+
+
+
+        // insert a div to put base pokemon in
         if (tabStageEvo.includes(dataEvol[i].evolutionStade) == false) {
-          let divElementPokemon = document.createElement("div");
-          divElementPokemon.classList.add("EvoStage_Pokemon_case");
-          divElementPokemon.id = "stage1";
-          document.getElementById("Evo").appendChild(divElementPokemon);
+          divStagePokemon("stage1");
           tabStageEvo.push(dataEvol[i].evolutionStade);
         }
-        // pokemon base
+
+
+
+        // insert the pokemon in the previous div
         if (tabEvo.includes(dataEvol[i].n1) == false) {
+
+          //if new pokemon is a previous evolution then move everyone
+          if (tabEvo.includes(dataEvol[i].n2)) {
+            let s2 = document.getElementById("stage2")
+            let s1 = document.getElementById("stage1")
+            console.log("passe ici", s2)
+            if (s2 != null)
+            {
+              let s3 = divStagePokemon("stage3");
+              tabStageEvo.push(2);
+              s3.innerHTML = s2.innerHTML;
+              s2.innerHTML = s1.innerHTML;
+            }
+          }
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
+          divElementPokemon.id = dataEvol[i].n1;
           document.getElementById("stage1").appendChild(divElementPokemon);
-          divEvoCase(dataEvol[i]);
+          // divEvoCase(dataEvol[i]);
           tabEvo.push(dataEvol[i].n1)
           let img = document.createElement("img")
           img.src = dataEvol[i].s1
           divElementPokemon.appendChild(img)
         }
-        // forme pokemon base
-        if (dataEvol[i].n5 != null && tabEvo.includes(dataEvol[i].n5) == false) {
-          let divElementPokemon = document.createElement("div");
-          divElementPokemon.classList.add("Evo_Pokemon_case");
-          document.getElementById("stage1").appendChild(divElementPokemon);
-          divEvoCase(dataEvol[i]);
-          tabEvo.push(dataEvol[i].n5)
-          let img = document.createElement("img")
-          img.src = dataEvol[i].s5
-          divElementPokemon.appendChild(img)
+
+
+
+        if (tabEvoCaseGroup.includes(dataEvol[i].evolutionStade) == false)
+        {
+          divEvoCaseGroup(dataEvol[i].evolutionStade);
+          tabEvoCaseGroup.push(dataEvol[i].evolutionStade);
         }
-        // pokemon evol div
+        divEvoCase(dataEvol[i].evolutionStade);
+        
+
+        // insert a new div to contains pokemon (one for each evolution)
         if (tabStageEvo.includes(dataEvol[i].evolutionStade + 1) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("EvoStage_Pokemon_case");
@@ -442,30 +555,33 @@ var LoadEvoPokemon = function (id) {
             divElementPokemon.id = "stage3";
             tabStageEvo.push(dataEvol[i].evolutionStade + 1);
           }
-          // tabEvo.push(dataEvol[i].n2)
           document.getElementById("Evo").appendChild(divElementPokemon);
-          if (dataEvol[i].n6 != null && (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga"))) {
-            console.log("ooo", tabStageEvo)
-            if (tabStageEvo.includes(-1) == true) {
-              return
-            }
-            else {
-              let divElementPokemon = document.createElement("div");
-              divElementPokemon.classList.add("EvoStage_Pokemon_case");
-              divElementPokemon.id = "stage4";
-              tabStageEvo.push(-1);
-              document.getElementById("Evo").appendChild(divElementPokemon);
-            }
-          }
+          
+          
+        //   // tabEvo.push(dataEvol[i].n2)
+        //   if (dataEvol[i].n6 != null && (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga"))) {
+        //     console.log("ooo", tabStageEvo)
+        //     if (tabStageEvo.includes(-1) == true) {
+        //       return
+        //     }
+        //     else {
+        //       let divElementPokemon = document.createElement("div");
+        //       divElementPokemon.classList.add("EvoStage_Pokemon_case");
+        //       divElementPokemon.id = "stage4";
+        //       tabStageEvo.push(-1);
+        //       document.getElementById("Evo").appendChild(divElementPokemon);
+        //     }
+        //   }
         }
-        
-        // pokemon evol niveau1 niveau2 
+
+
+
+        // insert pokemon on their divssss
         if (tabEvo.includes(dataEvol[i].n2) == false) {
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
           if (dataEvol[i].evolutionStade == 0) {
             document.getElementById("stage2").appendChild(divElementPokemon);
-            divEvoCase(dataEvol[i]);
           }
           else {
             document.getElementById("stage3").appendChild(divElementPokemon);
@@ -475,29 +591,11 @@ var LoadEvoPokemon = function (id) {
           img.src = dataEvol[i].s2
           divElementPokemon.appendChild(img)
         }
-        // pokemon evol niveau1 niveau2 form
-        if (dataEvol[i].n6 != null && tabEvo.includes(dataEvol[i].n6) == false) {
-          let divElementPokemon = document.createElement("div");
-          divElementPokemon.classList.add("Evo_Pokemon_case");
-          if (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga")) {
-            document.getElementById("stage4").appendChild(divElementPokemon);
-          }
-          else if (dataEvol[i].evolutionStade == 0) {
-            document.getElementById("stage2").appendChild(divElementPokemon);
-          }
-          else {
-            document.getElementById("stage3").appendChild(divElementPokemon);
-          }
-          tabEvo.push(dataEvol[i].n6)
-          let img = document.createElement("img")
-          img.src = dataEvol[i].s6
-          divElementPokemon.appendChild(img)
-        }
       }
     }
   }
   xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT 
+      SELECT DISTINCT
       ev.id,
       ev.basePokemonId,
       ev.evoluedPokemonId,
@@ -529,29 +627,9 @@ var LoadEvoPokemon = function (id) {
       po2.spriteM AS s2,
       po2.name AS n2,
       po2.type1 AS type21,
-      po2.type2 AS type22, 
+      po2.type2 AS type22  
 
-      po3.spriteM AS s3,
-      po3.name AS n3,
-      po3.type1 AS type31,
-      po3.type2 AS type32,
-
-      po4.spriteM AS s4,
-      po4.name AS n4,
-      po4.type1 AS type41,
-      po4.type2 AS type42,
-
-      po5.spriteM AS s5,
-      po5.name AS n5,
-      po5.type1 AS type51,
-      po5.type2 AS type52,
-
-      po6.spriteM AS s6,
-      po6.name AS n6,
-      po6.type1 AS type61,
-      po6.type2 AS type62 
-
-      FROM evolution_pokemon AS ev 
+      FROM evolution AS ev 
       LEFT JOIN pokemon AS po1 ON basePokemonId = po1.id 
       LEFT JOIN pokemon AS po2 ON evoluedPokemonId = po2.id 
       LEFT JOIN item AS it1 ON heldItemId = it1.id 
@@ -563,25 +641,14 @@ var LoadEvoPokemon = function (id) {
       LEFT JOIN type AS ty2 ON partyTypeId = ty2.id 
       LEFT JOIN pokemon AS po4 ON tradeSpeciesId = po4.id 
 
-      LEFT JOIN form_pokemon AS fp1 ON fp1.pokemonId = po1.id 
-      LEFT JOIN pokemon AS po5 ON po5.id = fp1.formId 
-      LEFT JOIN form_pokemon AS fp2 ON fp2.pokemonId = po2.id 
-      LEFT JOIN pokemon AS po6 ON po6.id = fp2.formId 
-
       LEFT JOIN type AS t11 ON po1.type1 = t11.id 
       LEFT JOIN type AS t12 ON po1.type2 = t12.id 
       LEFT JOIN type AS t21 ON po2.type1 = t21.id  
       LEFT JOIN type AS t22 ON po2.type2 = t22.id 
-      LEFT JOIN type AS t31 ON po3.type1 = t31.id  
-      LEFT JOIN type AS t32 ON po3.type2 = t32.id 
-      LEFT JOIN type AS t41 ON po4.type1 = t41.id  
-      LEFT JOIN type AS t42 ON po4.type2 = t42.id 
-      LEFT JOIN type AS t51 ON po5.type1 = t51.id  
-      LEFT JOIN type AS t52 ON po5.type2 = t52.id 
-      LEFT JOIN type AS t61 ON po6.type1 = t61.id  
-      LEFT JOIN type AS t62 ON po6.type2 = t62.id 
 
-      WHERE ev.id = ` + id, true);
+      LEFT JOIN evolution_pokemon ON ev.id = evolutionFamilyId 
+
+      WHERE evolutionFamilyId = (SELECT evolutionFamilyId FROM evolution_pokemon WHERE pokemonId =` + id + ")", true);
   xmlhttp.send();
 };
 
