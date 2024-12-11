@@ -481,8 +481,23 @@ function divEvoCase(stage, data) {
     }
   }
   if(data.it1name != null){
-    divElementEvoCase.innerHTML += "<img src='" + data.it1sprite + "'>"
+    divElementEvoCase.innerHTML += "<img src='" + data.it1sprite + "'> <br>";
   }
+  if(data.it2name != null) {
+    divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "'> <br>";
+  }
+  if(data.knownMoveId  != null){
+    divElementEvoCase.innerHTML += "doit maitriser" ;
+  }
+  // if(data.  != null){
+    
+  // }
+  // if(data.  != null){
+    
+  // }
+  // if(data.  != null){
+    
+  // }
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
 }
 
