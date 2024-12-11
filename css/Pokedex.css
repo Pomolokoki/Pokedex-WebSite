@@ -754,11 +754,11 @@ select {
 #Evo {
     display: flex;
     margin: 15px;
+    align-items: center;
 }
 
 .EvoStage_Pokemon_case{
     width: 96px;
-    height: 96px;
     background-color: aqua;
 }
 
@@ -769,12 +769,14 @@ select {
 }
 
 .Evo_case {
-    width: 80px;
     height: 50px;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     background-color: rgb(30, 255, 0);
+    text-align: center;
 }
 .Evo_case_group {
-    width: 80px;
     height: fit-content;
     background-color: rgb(255, 0, 0);
 }

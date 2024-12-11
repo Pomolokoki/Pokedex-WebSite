@@ -167,7 +167,12 @@ var LoadDataPokemon = function (id) {
       console.log(dataPokemon)
       // Info pokemon
       document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
-      document.getElementById("nom_Pokemon").innerHTML = " Nom : " + getText(dataPokemon["name"]);
+      if(getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette" ){
+        document.getElementById("nom_Pokemon").innerHTML = " Nom : " + getText(dataPokemon["name"]);
+      }
+      else {
+        document.getElementById("nom_Pokemon").innerHTML = " Nom : " + getText(dataPokemon["name"]).split(" ")[0];
+      }
       document.getElementById("img").style.backgroundImage = "url('" + dataPokemon["spriteM"] + "')";
       const category = JSON.parse(this.responseText)[0]["category"];
       if (category === 0) {
@@ -464,9 +469,20 @@ function divEvoCaseGroup(stage) {
   divElementEvoCase.id = "Evo_case_group" + stage;
   document.getElementById("Evo").appendChild(divElementEvoCase);
 }
-function divEvoCase(stage) {
+function divEvoCase(stage, data) {
   let divElementEvoCase = document.createElement("div");
   divElementEvoCase.classList = "Evo_case";
+  if(data.gender != null){
+    if(data.gender == 1){
+      divElementEvoCase.innerHTML = "Si femelle(♀) <br> ";
+    }
+    else {
+      divElementEvoCase.innerHTML = "Si male(♂) <br> ";
+    }
+  }
+  if(data.it1name != null){
+    divElementEvoCase.innerHTML += "<img src='" + data.it1sprite + "'>"
+  }
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
 }
 
@@ -552,7 +568,7 @@ var LoadEvoPokemon = function (id) {
           divEvoCaseGroup(dataEvol[i].evolutionStade);
           tabEvoCaseGroup.push(dataEvol[i].evolutionStade);
         }
-        divEvoCase(dataEvol[i].evolutionStade);
+        divEvoCase(dataEvol[i].evolutionStade, dataEvol[i]);
         
 
         // insert a new div to contains pokemon (one for each evolution)
@@ -616,7 +632,10 @@ var LoadEvoPokemon = function (id) {
       ev.evoluedPokemonId,
       ev.evolutionStade,
       ev.gender,
-      ev.heldItemId,
+      it1.name AS it1name,
+      it1.sprite AS it1sprite,
+      it2.name AS it2name,
+      it2.sprite AS it2sprite,
       ev.itemId,
       ev.knownMoveId,
       ev.knownMoveTypeId,

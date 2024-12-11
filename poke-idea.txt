@@ -200,3 +200,7 @@ Poke-page attaques
 
 
 
+Mr je saia pas comment je m'appelle
+en fait y'en a 2 (id > 10000 pour fix)
+Foreign key pas set dans evolution
+refaactorisation evolution

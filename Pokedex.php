@@ -71,8 +71,14 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					for ($i = 0; $i < count($datapokemon); $i++) {
 						?>
 						<div class="pokemon" id="<?php echo $datapokemon[$i]["id"] ?>"
-							data-name="<?php echo getTextLang(mb_strtolower($datapokemon[$i]["name"])) ?>"
-							data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"] ?>"
+						data-name="<?php if(getTextLang(mb_strtolower($datapokemon[$i]["name"])) == "m. mime" || getTextLang(mb_strtolower($datapokemon[$i]["name"])) == "mime jr." || getTextLang(mb_strtolower($datapokemon[$i]["name"])) == "m. glaquette"){
+								echo getTextLang(mb_strtolower($datapokemon[$i]["name"]));
+							} 
+							else{
+								echo explode(" ",getTextLang(mb_strtolower($datapokemon[$i]["name"])))[0];
+							}
+							?>"
+							data-type="<?php echo $datapokemon[$i]["type1"] . " " . $datapokemon[$i]["type2"]?>"
 							data-category="<?php echo $datapokemon[$i]["category"] ?>"
 							data-gen="<?php echo $datapokemon[$i]["generation"] ?>"
 							data-id="<?php echo $datapokemon[$i]["id"] ?>">
@@ -92,7 +98,13 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 										</div>
 										<div class="nom_pokemon">
 											<?php
-											echo '<option value="' . getTextLang($datapokemon[$i]["name"], 'en') . '">' . getTextLang($datapokemon[$i]["name"]) . '</option>';
+											if (getTextLang($datapokemon[$i]["name"]) == "M. Mime" || getTextLang($datapokemon[$i]["name"]) == "Mime Jr." || getTextLang($datapokemon[$i]["name"]) == "M. Glaquette"){
+												echo '<option value="' . getTextLang($datapokemon[$i]["name"], 'en') . '">' . getTextLang($datapokemon[$i]["name"]) . '</option>';
+											}
+											else {
+												echo '<option value="' . explode(" ",getTextLang($datapokemon[$i]["name"], 'en'))[0] . '">' . explode(" ",getTextLang($datapokemon[$i]["name"]))[0] . '</option>';
+											}
+											
 											?>
 										</div>
 										<div class="type">
@@ -130,8 +142,11 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 											elseif($datapokemon[$i]["category"] == 2) {
 												echo "fabuleux";
 											}
-											else{
+											elseif($datapokemon[$i]["category"] == 3) {
 												echo "ultra-chimère";
+											}
+											else{
+												echo "paradox";
 											} 
 											?>
 										</div>
