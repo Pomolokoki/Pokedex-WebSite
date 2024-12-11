@@ -169,6 +169,22 @@ select {
     width: 100%;
 }
 
+.selectAnimation {
+    animation: colooooooooorchange 5s 1;
+}
+
+@keyframes colooooooooorchange {
+    5% {
+        filter: brightness(180%);
+    }
+    20% {
+        filter:brightness(350%);
+    }
+    100% {
+        filter: brightness(100%);
+    }
+}
+
 /*#endregion */
 
 /*#region info_l*/
@@ -762,6 +778,9 @@ select {
     height: fit-content;
     background-color: rgb(255, 0, 0);
 }
+
+
+
 /*#endregion */
 
 /*#region media*/

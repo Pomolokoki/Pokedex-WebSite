@@ -478,6 +478,12 @@ function divStagePokemon(name) {
   return divElementPokemon;
 }
 
+// document.getElementsByClassName('EvoStage_Pokemon_case').addEventListener('click', function () {
+//   let evoId = document.getElementById(divElementPokemon.id);
+//   console.log(evoId);
+// });
+
+
 var LoadEvoPokemon = function (id) {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
@@ -522,6 +528,8 @@ var LoadEvoPokemon = function (id) {
               s2.innerHTML = s1.innerHTML;
             }
           }
+
+
           let divElementPokemon = document.createElement("div");
           divElementPokemon.classList.add("Evo_Pokemon_case");
           divElementPokemon.id = dataEvol[i].n1;
@@ -531,6 +539,10 @@ var LoadEvoPokemon = function (id) {
           let img = document.createElement("img")
           img.src = dataEvol[i].s1
           divElementPokemon.appendChild(img)
+          divElementPokemon.addEventListener('click', function () {
+              LoadPokemon(dataEvol[i].id1);
+              document.getElementById('Pokemon').scroll({top:0,behavior:'smooth'});
+            });
         }
 
 
@@ -550,6 +562,7 @@ var LoadEvoPokemon = function (id) {
           if (dataEvol[i].evolutionStade == 0) {
             divElementPokemon.id = "stage2";
             tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+            
           }
           else {
             divElementPokemon.id = "stage3";
@@ -574,8 +587,6 @@ var LoadEvoPokemon = function (id) {
         //   }
         }
 
-
-
         // insert pokemon on their divssss
         if (tabEvo.includes(dataEvol[i].n2) == false) {
           let divElementPokemon = document.createElement("div");
@@ -586,10 +597,14 @@ var LoadEvoPokemon = function (id) {
           else {
             document.getElementById("stage3").appendChild(divElementPokemon);
           }
-          tabEvo.push(dataEvol[i].n2)
-          let img = document.createElement("img")
-          img.src = dataEvol[i].s2
-          divElementPokemon.appendChild(img)
+          tabEvo.push(dataEvol[i].n2);
+          let img = document.createElement("img");
+          img.src = dataEvol[i].s2;
+          divElementPokemon.appendChild(img);
+          divElementPokemon.addEventListener('click', function () {
+            LoadPokemon(dataEvol[i].id2);
+            document.getElementById('Pokemon').scroll({top:0,behavior:'smooth'});
+          });
         }
       }
     }
@@ -622,12 +637,14 @@ var LoadEvoPokemon = function (id) {
       po1.spriteM AS s1,
       po1.name AS n1,
       po1.type1 AS type11,
-      po1.type2 AS type12, 
+      po1.type2 AS type12,
+      po1.id AS id1, 
 
       po2.spriteM AS s2,
       po2.name AS n2,
       po2.type1 AS type21,
-      po2.type2 AS type22  
+      po2.type2 AS type22,
+      po2.id AS id2   
 
       FROM evolution AS ev 
       LEFT JOIN pokemon AS po1 ON basePokemonId = po1.id 
@@ -652,6 +669,18 @@ var LoadEvoPokemon = function (id) {
   xmlhttp.send();
 };
 
+function LoadPokemon(id){
+  LoadDataPokemon(id)
+  LoadAbilityPokemon(id)
+  LoadEvoPokemon(id)
+  last_id = id;
+  let pok = document.getElementById(id);
+  pok.scrollIntoView({ behavior: "smooth" });
+  pok.children[0].classList.remove("selectAnimation")
+  void pok.offsetWidth
+  pok.children[0].classList.add("selectAnimation")
+}
+
 for (let i = 0; i < pokemons.length; i++) {
 
   pokemons[i].addEventListener('click', () => {
@@ -663,10 +692,7 @@ for (let i = 0; i < pokemons.length; i++) {
       dataPokemon = undefined;
     }
     else {
-      LoadDataPokemon(pokemons[i].id)
-      LoadAbilityPokemon(pokemons[i].id)
-      LoadEvoPokemon(pokemons[i].id)
-      last_id = pokemons[i].id;
+      LoadPokemon(pokemons[i].id)
       core.style.margin = "0px";
       // core.style.marginLeft = "275px";
       core.style.maxWidth = "450px";
