@@ -472,6 +472,14 @@ function divEvoCaseGroup(stage) {
 function divEvoCase(stage, data) {
   let divElementEvoCase = document.createElement("div");
   divElementEvoCase.classList = "Evo_case";
+  if(data.evolutionTrigger != null){
+    if(data.evolutionTrigger == "Other"){
+      
+    }
+    else{
+      divElementEvoCase.innerHTML += getText(data.evolutionTrigger) + "<br>";
+    }
+  }
   if(data.gender != null){
     if(data.gender == 1){
       divElementEvoCase.innerHTML = "Si femelle(♀) <br> ";
@@ -510,9 +518,34 @@ function divEvoCase(stage, data) {
   if(data.needsOverworldRain == 1 ){
     divElementEvoCase.innerHTML += "Pling Pling Plong"
   }
-  // if(data.  != null){
-    
-  // }
+  if(data.n3 != null){
+    divElementEvoCase.innerHTML += "avec " + getText(data.n3) + " dans l'équipe";
+  }
+  if(data.ty2Name != null){
+    divElementEvoCase.innerHTML += "avec pokemon " + getText(data.ty2Name) + " dans l'équipe <br>";
+  }
+  if(data.relativePhysicalStats  != null){
+    if(data.relativePhysicalStats == 1){
+      divElementEvoCase.innerHTML += "atk > def";
+    }
+    else{
+      divElementEvoCase.innerHTML += "def > atk";
+    }
+  }
+  if(data.timeOfDay != null){
+    if(data.timeOfDay == "day"){
+      divElementEvoCase.innerHTML += " de jour";
+    }
+    if(data.timeOfDay == "night"){
+      divElementEvoCase.innerHTML += " de nuit";
+    }
+    else{
+      divElementEvoCase.innerHTML += " nuit de pleine lune";
+    }
+  }
+  if(data.n4 != null){
+    divElementEvoCase.innerHTML += "avec " + getText(data.n4) + "<br>";
+  }
 
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
 }
@@ -588,6 +621,7 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.appendChild(img)
           divElementPokemon.addEventListener('click', function () {
               LoadPokemon(dataEvol[i].id1);
+              document.getElementById(dataEvol[i].id1).scrollIntoView({ behavior: "smooth" });
               document.getElementById('Pokemon').scroll({top:0,behavior:'smooth'});
             });
         }
@@ -650,6 +684,7 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.appendChild(img);
           divElementPokemon.addEventListener('click', function () {
             LoadPokemon(dataEvol[i].id2);
+            document.getElementById(dataEvol[i].id2).scrollIntoView({ behavior: "smooth" });
             document.getElementById('Pokemon').scroll({top:0,behavior:'smooth'});
           });
         }
@@ -675,12 +710,13 @@ var LoadEvoPokemon = function (id) {
       ev.minHappiness,
       ev.minLevel,
       ev.needsOverworldRain,
-      ev.partySpeciesId,
-      ev.partyTypeId,
+      po3.name AS n3,
+      ty2.name AS ty2Name,
       ev.relativePhysicalStats,
       ev.timeOfDay,
       ev.tradeSpeciesId,
       ev.evolutionTrigger,
+      po4.name AS n4,
       ev.turnUpSideDown,
 
       po1.spriteM AS s1,
@@ -724,7 +760,6 @@ function LoadPokemon(id){
   LoadEvoPokemon(id)
   last_id = id;
   let pok = document.getElementById(id);
-  pok.scrollIntoView({ behavior: "smooth" });
   pok.children[0].classList.remove("selectAnimation")
   void pok.offsetWidth
   pok.children[0].classList.add("selectAnimation")

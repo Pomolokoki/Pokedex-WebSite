@@ -200,10 +200,14 @@ Poke-page attaques
 
 
 
-Mr je saia pas comment je m'appelle
-en fait y'en a 2 (id > 10000 pour fix)
+Mr je saia pas comment je m'appelle 773
+en fait y'en a 2 (id > 10000 pour fix) 855
 Foreign key pas set dans evolution
 refaactorisation evolution
 432 passer feu et glace à 1
 777 passer sol a 4
+236 -> 237 relativePhysicalstat 0  
 803 - 809 recupérer atk gen 18
+899 - 905 récupérér atk gen 23
+891 -> 892 + ajouter -> 100000+ ntm (ajouter traduction evolition trigger)
+
