@@ -486,15 +486,15 @@ function divEvoCase(stage, data) {
   if(data.it2name != null) {
     divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "'> <br>";
   }
-  if(data.knownMoveId  != null){
-    divElementEvoCase.innerHTML += "doit maitriser" ;
+  if(data.moveName  != null){
+    divElementEvoCase.innerHTML += "doit maitriser" + data.moveName;
   }
-  // if(data.  != null){
-    
-  // }
-  // if(data.  != null){
-    
-  // }
+  if(data.tyName  != null){
+    divElementEvoCase.innerHTML += "doit maitriser" + data.tyName;
+  }
+  if(data.locationId  != null){
+    divElementEvoCase.innerHTML +=  data.locationId;
+  }
   // if(data.  != null){
     
   // }
@@ -651,9 +651,8 @@ var LoadEvoPokemon = function (id) {
       it1.sprite AS it1sprite,
       it2.name AS it2name,
       it2.sprite AS it2sprite,
-      ev.itemId,
-      ev.knownMoveId,
-      ev.knownMoveTypeId,
+      move.name AS moveName,
+      ty1.name AS tyName,
       ev.locationId,
       ev.minAffection,
       ev.minBeauty,
