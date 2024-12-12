@@ -307,13 +307,23 @@ CONSTRAINT player_favorites_PKU UNIQUE (playerId, pokemonId)
 
 $sqlCreateForumChannel = 
 "CREATE TABLE channel(
-id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+id CHAR(36) PRIMARY KEY,
 owner INT UNSIGNED,
 title VARCHAR(100),
 keyWords TINYTEXT,
 creationDate DATE,
 CONSTRAINT channel_owner_FK FOREIGN KEY (owner) REFERENCES player(id)
-);";
+);
+CREATE TRIGGER channel_before_insert
+BEFORE INSERT ON channel
+FOR EACH ROW
+BEGIN
+IF NEW.id IS NULL THEN
+-- SET NEW.id = UNHEX(REPLACE(UUID(), '-', ''));
+SET NEW.id = UUID();
+END IF;
+END ;
+";
 
 $sqlCreateForumMessage = 
 "CREATE TABLE message(
@@ -323,7 +333,7 @@ text TEXT,
 reply CHAR(36),
 imgURL VARCHAR(255),
 postDate DATETIME,
-channelId INT UNSIGNED,
+channelId CHAR(36),
 CONSTRAINT message_owner_FK FOREIGN KEY (owner) REFERENCES player(id),
 CONSTRAINT message_reply_FK FOREIGN KEY (reply) REFERENCES message(id),
 CONSTRAINT message_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id)
@@ -344,7 +354,7 @@ END ;
 $sqlCreateForumFavoritePlayerChanel = 
 "CREATE TABLE player_fav_channel(
 playerId INT UNSIGNED,
-channelId INT UNSIGNED,
+channelId CHAR(36),
 CONSTRAINT player_fav_channel_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
 CONSTRAINT player_fav_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id)
 );";

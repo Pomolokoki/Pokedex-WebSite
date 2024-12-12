@@ -8,8 +8,7 @@ document.querySelectorAll('textarea, #searchBar').forEach(element => {
         }
         event.target.style.height = 'auto';
         event.target.style.height = `${event.target.scrollHeight}px`;
-        if (event.target.id == "messageTextBox")
-        {
+        if (event.target.id == "messageTextBox") {
             document.getElementById("channel").style.paddingBottom = event.target.style.height;
         }
         if (parseFloat(event.target.style.height) > 100) {
@@ -85,8 +84,7 @@ function AddMessage(messageId, owner, picture, nickname, text, replyId, replyOwn
 //     return title;
 // }
 
-function getUUID()
-{
+function getUUID() {
     let id
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -100,15 +98,15 @@ function getUUID()
     return id;
 }
 
-function AddChannelToDB(id, owner, title, keyWords, creationDate)
-{
+function AddChannelToDB(id, owner, title, keyWords, creationDate) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
     }
+
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO channel (owner, title, keyWords, creationDate)
+      INSERT INTO channel (id, owner, title, keyWords, creationDate)
     VALUES (
-        ` + id + ", "
+        '` + id + "', "
         + owner + ", '"
         + title + "', '"
         + keyWords + "', '"
@@ -121,17 +119,27 @@ function AddMessageToDB(id, postDate, text, replyId, playerId, channelId) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
     }
+    // console.log(`INSERT INTO message (id, text, reply, owner, postDate, channelId)
+    // VALUES (
+    //   '` + id + "', '"
+    //   + text + "', "
+    //   + (replyId == null ? "NULL" : ("'" + replyId + "'")) + ", "
+    //   + playerId + ", '"
+    //   + postDate + "', '"
+    //   + channelId
+    //   + "');")
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       INSERT INTO message (id, text, reply, owner, postDate, channelId)
-      VALUES (
-        ` + id + ", '"
+    VALUES (
+      '` + id + "', '"
         + text + "', "
-        + replyId + ", "
+        + (replyId == null ? "NULL" : ("'" + replyId + "'")) + ", "
         + playerId + ", '"
-        + postDate + "', "
+        + postDate + "', '"
         + channelId
-        + ");");
+        + "');");
     xmlhttp.send();
+
 }
 
 function getPlayerInfo(id) {
@@ -148,7 +156,40 @@ function getPlayerInfo(id) {
     return datas
 }
 
+function getFavortie(playerId, themeId) {
+    let bool;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // console.log(this.response, JSON.stringify("No results found."))
+            // console.log(typeof this.response)
 
+            if (this.response == JSON.stringify("No results found.") || this.response == "No results found." || this.response == 'No results found.')
+                bool = false;
+            else
+                bool = true;
+        }
+    }
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+        SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
+    xmlhttp.send();
+    console.log("bool", bool)
+    return bool;
+}
+
+function isFavorite(themeId) {
+    if (playerValues) {
+        let isFav = getFavortie(playerValues.dataset.id, themeId)
+        if (isFav) {
+            setFav.dataset.selected = true;
+            setFav.innerHTML = filledStar;
+        }
+        else {
+            setFav.dataset.selected = false;
+            setFav.innerHTML = emptyStar;
+        }
+    }
+}
 
 function getMessages(channelId) {
     console.log(channelId)
@@ -210,8 +251,7 @@ function getMessages(channelId) {
 
 
 
-function removeMessage(message)
-{
+function removeMessage(message) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
         DELETE FROM message WHERE id='` + message.id + "'");
@@ -219,24 +259,44 @@ function removeMessage(message)
     message.previousElementSibling.remove();
     message.remove();
 }
-function updateMessage(message)
-{
+function updateMessage(message) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
         UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
     xmlhttp.send();
-
 }
 
+
+let channelDiv = document.getElementById("channel");
+let themesDiv = document.getElementById("themes");
+let arrow = document.getElementById("mobileBackArrow");
 function changeTheme(theme) {
     messageContainer.innerHTML = "";
+    if (window.innerWidth < 600) {
+        channelDiv.style.display = "unset"
+        themesDiv.style.display = "none"
+        arrow.style.display = "unset"
+    }
+    isFavorite(theme.dataset.channelid);
     getMessages(theme.dataset.channelid)
     currentChannel = theme.dataset.channelid
 }
 
 
+// function favoritesThemes(themeList)
+// {
+//     favs = [];
+//     for(let i = 0; i < themeList.length; ++i)
+//     {
+//         if ()
+//         favs.push(themeList[i])
+//     }
+// }
+
 recentlist = [];
 themeList = [...document.getElementsByClassName("theme")];
+// favthemes = favoritesThemes(themeList);
+
 
 themeList.forEach(theme => {
     if (theme.id == "createTheme")
@@ -252,14 +312,22 @@ function filter() {
         theme.style.display = "none";
     });
     let searchBar = document.getElementById('themeSearchbar').value.toLowerCase();
-    
-    if (searchBar == '') {
+
+    if (selectFav && selectFav.dataset.selected == "true") {
+        themeList.forEach(theme => {
+            if (typeof theme != "object" || theme.id == "createTheme") return;
+            if (theme.dataset.favorite == "true")
+                theme.style.display = "block";
+        })
+    }
+    else if (searchBar == '') {
         recentlist.forEach(theme => { theme.style.display = "block" })
     }
+
     else {
         themeList.forEach(theme => {
-            if (typeof theme != "object") return;
-            
+            if (typeof theme != "object" || theme.id == "createTheme") return;
+            console.log((theme.dataset.keywords));
             if (theme.innerHTML.toLowerCase().includes(searchBar) || (theme.dataset.keywords).toLowerCase().includes(searchBar))
                 theme.style.display = "block";
         })
@@ -276,12 +344,10 @@ let typing = document.getElementById("typing");
 const playerValues = document.getElementById("data");
 if (sendMessageButton) {
     sendMessageButton.addEventListener('click', () => {
-        if (typing.innerHTML == "Modification du message")
-        {   
+        if (typing.innerHTML == "Modification du message") {
             let message = document.getElementById(typing.dataset.message);
             message.innerHTML = messageBox.value;
-            if (message.innerHTML.substr(0, message.innerHTML.length) == "")
-            {
+            if (message.innerHTML.substr(0, message.innerHTML.length) == "") {
                 typing.innerHTML = "";
                 messageBox.value = "";
                 removeMessage(message);
@@ -299,48 +365,48 @@ if (sendMessageButton) {
         let playerPicture, playerName
         [playerPicture, playerName] = playerId == null ? [null, null] : [...getPlayerInfo(playerId)]
         let channelId = currentChannel;
-        let replyId = typing.innerHTML.startsWith("Répondre à ") ? replyId = typing.dataset.message : null;
-        let replyOwner = replyId == null ? null : document.getElementById("replyId").dataset.owner
+        let replyId = typing.innerHTML.startsWith("Répondre à ") ? typing.dataset.message : null;
+        let replyOwner = replyId == null ? null : document.getElementById(replyId).dataset.owner
         let replyPicture, replyName
         [replyPicture, replyName] = replyId == null ? [null, null] : getPlayerInfo(replyOwner)
-        let replyText = replyId == null ? null : document.getElementById("replyId").innerHTML;
-        if (typing.innerHTML == "Titre du nouveau thème")
-        {
+        let replyText = replyId == null ? null : document.getElementById(replyId).innerHTML;
+        if (typing.innerHTML == "Titre du nouveau thème") {
             typing.innerHTML = "KeyWords (separate by /)";
             messageBox.value = "";
             return;
         }
-        if (typing.innerHTML == "KeyWords (separate by /)")
-        {
+        if (typing.innerHTML == "KeyWords (separate by /)") {
             channel = text.split("/");
             typing.innerHTML = "Message d'introduction";
             messageBox.value = "";
             return;
         }
-        if (typing.innerHTML == "Message d'introduction")
-        {
+        if (typing.innerHTML == "Message d'introduction") {
             let title = document.getElementById("title")
             title.dataset.owner = playerId;
             let id = getUUID();
             AddChannelToDB(id, playerId, title.innerHTML, channel, date);
             typing.innerHTML = "";
             messageBox.value = "";
+            currentChannel = id;
+            channelId = id;
         }
-        
+
         let id = getUUID();
         AddMessageToDB(id, date, text, replyId, playerId, channelId),
-        AddMessage(
-            id,
-            playerId, 
-            playerPicture,
-            playerName,
-            text,
-            replyId,
-            replyOwner,
-            replyPicture,
-            replyName,
-            replyText
-        );
+            AddMessage(
+                id,
+                playerId,
+                playerPicture,
+                playerName,
+                text,
+                replyId,
+                replyOwner,
+                replyPicture,
+                replyName,
+                replyText
+            );
+        messageBox.value = "";
         typing.innerHTML = "";
         // AddMessage(channelName, date, text, replyId, playerId, playerName, channelId, replyText);
     });
@@ -351,7 +417,16 @@ if (sendMessageButton) {
 })
 
 document.addEventListener("keydown", (e) => {
-    if (messageBox != null && e.key.length === 1 && e.target.id != "themeSearchbar" && e.target.id != "messageTextBox") {
+    if (e.key == 'Enter') {
+        console.log("egg")
+        if (!e.shiftKey) {
+            sendMessageButton.dispatchEvent(new SubmitEvent("click"));
+            messageBox.value = "";
+            return false;
+
+        }
+    }
+    else if (messageBox != null && e.key.length === 1 && e.target.id != "themeSearchbar" && e.target.id != "messageTextBox") {
         messageBox.focus();
     }
 })
@@ -365,29 +440,69 @@ if (noFavTheme) {
 
 
 
+let createTheme = document.getElementById("createTheme")
+if (createTheme) {
+    createTheme.addEventListener("click", () => {
+        messageContainer.innerHTML = "";
+        creatingTheme = true;
+        let title = document.createElement("h2");
+        title.className = "message";
+        title.id = "title";
+        title.innerHTML = "Nouveau theme";
+        typing.innerHTML = "Titre du nouveau thème";
+        messageContainer.appendChild(title);
+        messageContainer.appendChild(document.createElement("br"));
+        messageContainer.appendChild(document.createElement("br"));
+    });
+}
+if (messageBox) {
+    messageBox.addEventListener("input", (e) => {
+        if (typing.innerHTML == "Titre du nouveau thème") {
+            document.getElementById("title").innerHTML = e.target.value;
+        }
+    });
+}
+if (typing) {
+    typing.addEventListener('click', () => { typing.innerHTML = "" })
+}
 
-document.getElementById("createTheme").addEventListener("click", () => {
-    messageContainer.innerHTML = "";
-    creatingTheme = true;
-    let title = document.createElement("h2");
-    title.className = "message";
-    title.id = "title";
-    title.innerHTML = "Nouveau theme";
-    typing.innerHTML = "Titre du nouveau thème";
-    messageContainer.appendChild(title);
-    messageContainer.appendChild(document.createElement("br"));
-    messageContainer.appendChild(document.createElement("br"));
-});
 
-messageBox.addEventListener("input", (e) => {
-    if (typing.innerHTML == "Titre du nouveau thème")
-    {
-        document.getElementById("title").innerHTML = e.target.value;
-    }
-});
+function setFavoriteTheme(bool) {
+    var xmlhttp = new XMLHttpRequest();
+    let query = bool ? "INSERT INTO player_fav_channel VALUES (" + playerValues.dataset.id + ", '" + currentChannel + "');" : "DELETE FROM player_fav_channel WHERE playerId = " + playerValues.dataset.id + " AND channelId = '" + currentChannel + "'";
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=` + query);
+    xmlhttp.send();
+}
 
-typing.addEventListener('click', () => { typing.innerHTML=""})
 
+let setFav = document.getElementById("setFavorite");
+let selectFav = document.getElementById("selectFavorite");
+if (setFav) {
+    setFav.addEventListener('click', () => {
+        if (setFav.dataset.selected == "false") {
+            setFav.innerHTML = filledStar;
+            setFav.dataset.selected = "true"
+            setFavoriteTheme(true);
+        }
+        else {
+            setFav.innerHTML = emptyStar;
+            setFav.dataset.selected = "false"
+            setFavoriteTheme(false);
+        }
+    })
+}
+if (selectFav) {
+    selectFav.addEventListener('click', () => {
+        if (selectFav.dataset.selected == "false") {
+            selectFav.innerHTML = starfilled;
+            selectFav.dataset.selected = "true";
+        }
+        else {
+            selectFav.innerHTML = emptyStar;
+            selectFav.dataset.selected = "false";
+        }
+    })
+}
 
 
 
@@ -411,25 +526,20 @@ let editOption = document.getElementById("editOption");
 let answerOption = document.getElementById("answerOption");
 let deleteOption = document.getElementById("deleteOption");
 let reportOption = document.getElementById("reportOption");
-function showOption(e)
-{
+function showOption(e) {
     editOption.style.display = "block";
     answerOption.style.display = "block";
     deleteOption.style.display = "block";
     reportOption.style.display = "block";
-    if (e.target.id == "title")
-    {
+    if (e.target.id == "title") {
         answerOption.style.display = "none";
-        if (e.target.previousElementSibling.children[1].innerHTML != playerValues.dataset.nickname && playerValues.dataset.rank < 2)
-        {
-            editOption.style.display = "none";    
-            deleteOption.style.display = "none";       
+        if (e.target.dataset.owner != playerValues.dataset.id && playerValues.dataset.rank < 2) {
+            editOption.style.display = "none";
+            deleteOption.style.display = "none";
         }
     }
-    else
-    {
-        if (e.target.previousElementSibling.children[1].innerHTML != playerValues.dataset.nickname)
-        {
+    else {
+        if (e.target.dataset.owner != playerValues.dataset.id) {
             editOption.style.display = "none";
             if (playerValues.dataset.rank < 2)
                 deleteOption.style.display = "none";
@@ -440,8 +550,7 @@ function showOption(e)
     // optionsTrigger.style.top = e.target.getAttribute("top")
     optionsTrigger.style.display = "unset";
 }
-function hideOption()
-{
+function hideOption() {
     optionsTrigger.style.display = "none";
     optionsMenu.style.display = "none";
 }
@@ -455,14 +564,15 @@ optionsTrigger.addEventListener("click", () => {
     optionsMenu.style.display = "unset";
 })
 
-let confirmAction = document.getElementById("confirmAction"); //ned to create
-let confirmBox = document.getElementById("confirmBox"); //ned to create
-let confirmText = document.getElementById("confirmText"); //ned to create
-let confirmBut1 = document.getElementById("confirmBut1"); //ned to create
-let confirmBut2 = document.getElementById("confirmBut2"); //ned to create
+let confirmAction = document.getElementById("confirmAction");
+let confirmBox = document.getElementById("confirmBox");
+let confirmText = document.getElementById("confirmText");
+let confirmBut1 = document.getElementById("confirmBut1");
+let confirmBut2 = document.getElementById("confirmBut2");
 
-document.getElementById("editOption").addEventListener("click", () => {;
-    let message =  optionsTrigger.parentNode;
+document.getElementById("editOption").addEventListener("click", () => {
+    ;
+    let message = optionsTrigger.parentNode;
     if (message.dataset.owner != playerValues.dataset.id)
         return;
     typing.innerHTML = "Modification du message";
@@ -487,7 +597,7 @@ document.getElementById("deleteOption").addEventListener("click", () => {
     confirmBut1.addEventListener('click', () => {
         console.log(message)
         removeMessage(message);
-        
+
         confirmAction.style.display = "none";
         confirmBox.style.display = "none";
     })
@@ -498,7 +608,7 @@ document.getElementById("deleteOption").addEventListener("click", () => {
     hideOption();
 })
 document.getElementById("answerOption").addEventListener("click", () => {
-    let message =  optionsTrigger.parentNode;
+    let message = optionsTrigger.parentNode;
     let profile = message.previousElementSibling;
     let owner = profile.children[1];
     document.getElementById("channelMessages").appendChild(optionsTrigger);
@@ -512,3 +622,10 @@ document.getElementById("reportOption").addEventListener("click", () => {
 })
 
 // console.log(document.cookie)
+
+
+arrow.addEventListener('click', () => {
+    channelDiv.style.display = "none";
+    themesDiv.style.display = "unset";
+    arrow.style.display = "none";
+})

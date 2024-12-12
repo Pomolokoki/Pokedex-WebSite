@@ -204,3 +204,16 @@ Mr je saia pas comment je m'appelle
 en fait y'en a 2 (id > 10000 pour fix)
 Foreign key pas set dans evolution
 refaactorisation evolution
+Liste des pokemons avec un soucis :
+
+Polthégeist
+Charmilly
+Chapotus
+803 - 809
+Sucreine
+Mimantis
+Bombydou
+Sucroquin
+Chaffreux(faiblesse)
+ tous les pokemons noté sauf chaffreux et ceux dont j'ai juste donnée l'id on un pb avec leur atk. les pokmon de 803 à 809 n'ont pas d'atk. et chaffreux à des faiblesse fausse
+ 

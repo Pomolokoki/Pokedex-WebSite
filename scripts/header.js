@@ -12,6 +12,11 @@ document.getElementById('typeTablePage').addEventListener('click',function(){
 document.getElementById('mapPage').addEventListener('click',function(){
   document.location.href = 'map.php';
 });
+
+// document.getElementById('attackPage').addEventListener('click',function(){
+//   document.location.href = 'movePokemon.php';
+// });
+
 let login = document.getElementById('Login')
 if (login)
 {

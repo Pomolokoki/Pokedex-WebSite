@@ -1,13 +1,15 @@
-html{
+html {
     margin: 0;
     height: 100%;
 }
-body{
+
+body {
     margin: 0;
     height: 100%;
     background-color: black;
     color: white;
 }
+
 /* #header{
     background-color: red;
     width: 100%;
@@ -15,14 +17,14 @@ body{
     z-index: -1;
 } */
 
-#forumFrame{
+#forumFrame {
     width: 100%;
     height: calc(100% - 140px);
     /* overflow-x: scroll; */
     display: flex;
 }
 
-#themes{
+#themes {
     width: 20%;
     height: 100%;
     display: flex;
@@ -32,16 +34,27 @@ body{
     /* overflow-x: scroll; */
 }
 
-#themeSearchbar{
+#selectFavorite {
+    fill: white;
+    position: absolute;
+    right: 30px;
+    margin-top: 2px;
+    width: 25px;
+    height: 25px;
+    z-index: 2;
+    display: none;
+}
+
+#themeSearchbar {
     position: relative;
     width: 100%;
 }
 
-#themeSearchbarResultsTitle{
+#themeSearchbarResultsTitle {
     color: white;
 }
 
-textarea{
+textarea {
     overflow-y: hidden;
     margin: none;
     resize: none;
@@ -51,14 +64,21 @@ textarea{
     border-radius: 10px;
 }
 
-#themeResults{
+#themeResults {
     border: solid 2px white;
     flex: auto;
     display: flex;
     flex-direction: column;
 }
-    
-.theme{
+
+.favoriteTheme {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    margin-right: 2px;
+}
+
+.theme {
     position: relative;
     padding-left: 10px;
     color: white;
@@ -68,16 +88,16 @@ textarea{
     overflow-x: hidden;
 }
 
-#createTheme{
+#createTheme {
     text-align: center;
 }
 
-#selector{
+#selector {
     margin-bottom: 20px;
     display: flex;
 }
 
-#favorites{
+#favorites {
     width: 20%;
     height: 100%;
     padding-top: 10px;
@@ -86,24 +106,34 @@ textarea{
     /* overflow-x: scroll; */
 }
 
-#favList{
+#favList {
     border: solid 2px white;
     max-height: 90%;
     margin-top: 10px;
     min-height: 30%;
 }
 
-.favorite{
+.favorite {
     padding-left: 10px;
     color: white;
     border: solid 2px white;
     cursor: pointer;
 }
-#noTheme{
+
+.favoriteTheme{
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    z-index: 3;
+    fill: white;
+    margin-left: -5px;
+}
+
+#noTheme {
     cursor: auto;
 }
 
-#channel{
+#channel {
     position: relative;
     width: 60%;
     height: 100%;
@@ -112,7 +142,7 @@ textarea{
     overflow-x: hidden;
 }
 
-#messageArea{
+#messageArea {
     width: 100%;
     position: fixed;
     height: auto;
@@ -122,19 +152,21 @@ textarea{
     padding-bottom: 15px;
 }
 
-#messageTextBox{
+#messageTextBox {
     position: relative;
     bottom: 5px;
     width: calc(60% - 100px);
     max-height: 100px;
 }
-#typing{
+
+#typing {
     position: absolute;
     margin-top: -30px;
     width: calc(60% - 100px);
     background-color: black;
 }
-#submitMessage{
+
+#submitMessage {
     width: 30px;
     height: 30px;
     background-color: cyan;
@@ -142,35 +174,54 @@ textarea{
     bottom: 0;
 }
 
-.message{
+.message {
     font-size: 75%;
 }
 
-#title{
+#setFavorite {
+    fill: white;
+    position: absolute;
+    right: 3px;
+    margin-top: 2px;
+    width: 50px;
+    height: 50px;
+    z-index: 2;
+}
+
+#mobileBackArrow{
+    display: none;
+}
+
+#title {
     font-size: 150%;
     text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
 }
-.reply{
+
+.reply {
     font-size: 75%;
     cursor: pointer;
 }
 
-.profile{
+.profile {
     border: solid 2px white;
     width: max-content;
     max-width: 25%;
     font-size: 110%;
     display: table-cell;
-    
+
 }
-.profilePicture{
+
+.profilePicture {
     /* display: ; */
     position: relative;
     height: 40px;
     width: 40px;
     bottom: -5px;
 }
-.replyProfilePicture{
+
+.replyProfilePicture {
     position: relative;
     height: 30px;
     width: 30px;
@@ -198,7 +249,7 @@ textarea{
     display: none;
 }
 
-#confirmAction{
+#confirmAction {
     position: fixed;
     background-color: grey;
     opacity: 0.5;
@@ -209,7 +260,7 @@ textarea{
     display: none;
 }
 
-#confirmBox{
+#confirmBox {
     display: none;
     width: 50%;
     left: 25%;
@@ -224,17 +275,17 @@ textarea{
     z-index: 3;
 }
 
-#confirmText{
+#confirmText {
     text-align: center;
 }
 
-.but{
+.but {
     width: fit-content;
     display: block;
     margin: auto;
 }
 
-#confirmBut1{
+#confirmBut1 {
     position: relative;
     /* display: inline-block; */
     bottom: 10;
@@ -242,7 +293,8 @@ textarea{
     background-color: black;
     overflow: hidden;
 }
-#confirmBut2{
+
+#confirmBut2 {
     position: relative;
     /* display: inline-block; */
     /* width: 25%; */
@@ -254,16 +306,67 @@ textarea{
 
 
 @keyframes colorchange {
-    
+
     0% {
         background-color: rgb(65, 65, 65);
     }
+
     10% {
         background-color: rgb(65, 65, 65);
     }
+
     100% {
         background-color: black;
     }
+}
 
 
+@media only screen and (max-width: 600px) {
+    #channel {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 4;
+        display: none;
+    }
+    
+    #themes {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-right: 20px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    #favorites {
+        display: none;
+    }
+
+    #mobileBackArrow{
+        /* display: unset; */
+        aspect-ratio: 1 / 1;
+        width: 50px;
+        position: absolute;
+    }
+    #selectFavorite {
+        display: unset;
+    }
+    #setFavorite{
+        display: unset;
+    }
+    
+    #setFavorite{
+        right: 30px;
+    }
+}
+
+#selector
+{
+    display: none;
 }
