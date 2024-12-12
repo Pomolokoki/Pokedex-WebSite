@@ -487,17 +487,33 @@ function divEvoCase(stage, data) {
     divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "'> <br>";
   }
   if(data.moveName  != null){
-    divElementEvoCase.innerHTML += "doit maitriser" + data.moveName;
+    divElementEvoCase.innerHTML += "doit maitriser " + getText(data.moveName) + "<br>";
   }
   if(data.tyName  != null){
-    divElementEvoCase.innerHTML += "doit maitriser" + data.tyName;
+    divElementEvoCase.innerHTML += "doit maitriser " + getText(data.tyName) + "<br>";
   }
-  if(data.locationId  != null){
-    divElementEvoCase.innerHTML +=  data.locationId;
+  if(data.locationName  != null){
+    divElementEvoCase.innerHTML +=  getText(data.locationName) + "<br>";
+  }
+  if(data.minAffection  != null){
+    divElementEvoCase.innerHTML += "niveau d'affection " + data.minAffection + "<br>";
+  }
+  if(data.minBeauty  != null){
+    divElementEvoCase.innerHTML += "niveau de beauté " +  data.minBeauty + "<br>";
+  }
+  if(data.minHappiness  != null){
+    divElementEvoCase.innerHTML += "niveau de bonheur " + data.minHappiness + "<br>";
+  }
+  if(data.minLevel  != null){
+    divElementEvoCase.innerHTML += "niveau " + data.minLevel + "<br>";
   }
   // if(data.  != null){
     
   // }
+  // if(data.  != null){
+    
+  // }
+
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
 }
 
@@ -653,7 +669,7 @@ var LoadEvoPokemon = function (id) {
       it2.sprite AS it2sprite,
       move.name AS moveName,
       ty1.name AS tyName,
-      ev.locationId,
+      location.name AS locationName,
       ev.minAffection,
       ev.minBeauty,
       ev.minHappiness,
