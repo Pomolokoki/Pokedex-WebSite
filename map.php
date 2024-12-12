@@ -38,6 +38,20 @@ include_once('header.php');
                 <image id="refocus" draggable="fase" src="./img/refocusIcon.png"></image>
                 <label>Center map</label>
             </div>
+            <?php if ($isSet) echo '
+            <div id="pokemon">
+                <image id="pokemonImage" draggable="fase" src="./img/refocusIcon.png"></image>
+                <p>
+            </div>
+
+            '; 
+            else {
+                echo '
+            <div id="pokeListContainer">
+                <select id="pokeList"><select>
+            </div>
+            ';
+            } ?>
 
         </div>
     </div>
@@ -54,10 +68,10 @@ include_once('header.php');
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
                     if ($i == ($isSet ? $_POST["generationId"] : 1)) {
-                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
+                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</option>";
                         continue;
                     }
-                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</ption>";
+                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</option>";
                 }
                 ?>
             </select>
