@@ -204,3 +204,5 @@ Mr je saia pas comment je m'appelle
 en fait y'en a 2 (id > 10000 pour fix)
 Foreign key pas set dans evolution
 refaactorisation evolution
+432 passer feu et glace à 1
+803 - 809 recupérer atk gen 18

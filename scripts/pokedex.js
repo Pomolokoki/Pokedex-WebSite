@@ -486,30 +486,30 @@ function divEvoCase(stage, data) {
   if(data.it2name != null) {
     divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "'> <br>";
   }
-  if(data.moveName  != null){
+  if(data.moveName != null){
     divElementEvoCase.innerHTML += "doit maitriser " + getText(data.moveName) + "<br>";
   }
-  if(data.tyName  != null){
+  if(data.tyName != null){
     divElementEvoCase.innerHTML += "doit maitriser " + getText(data.tyName) + "<br>";
   }
-  if(data.locationName  != null){
+  if(data.locationName != null){
     divElementEvoCase.innerHTML +=  getText(data.locationName) + "<br>";
   }
-  if(data.minAffection  != null){
+  if(data.minAffection != null){
     divElementEvoCase.innerHTML += "niveau d'affection " + data.minAffection + "<br>";
   }
-  if(data.minBeauty  != null){
+  if(data.minBeauty != null){
     divElementEvoCase.innerHTML += "niveau de beauté " +  data.minBeauty + "<br>";
   }
-  if(data.minHappiness  != null){
+  if(data.minHappiness != null){
     divElementEvoCase.innerHTML += "niveau de bonheur " + data.minHappiness + "<br>";
   }
-  if(data.minLevel  != null){
+  if(data.minLevel != null){
     divElementEvoCase.innerHTML += "niveau " + data.minLevel + "<br>";
   }
-  // if(data.  != null){
-    
-  // }
+  if(data.needsOverworldRain == 1 ){
+    divElementEvoCase.innerHTML += "Pling Pling Plong"
+  }
   // if(data.  != null){
     
   // }
