@@ -38,6 +38,7 @@ $messageData = getDataFromDB("SELECT message.id,
     ?>
     <?php
     $playerFavChannelData = getDataFromDB("SELECT channelId, title FROM player_fav_channel JOIN channel ON channel.id = channelId WHERE playerId = " . (isset($_SESSION["LOGGED_USER"]) ? $_SESSION["LOGGED_USER"][0]["id"] : "NULL"), null, null, true);
+    if ($playerFavChannelData == "No results found.") $playerFavChannelData = [];
     ?>
     <div id="forumFrame">
         <?php if (isset($_SESSION["LOGGED_USER"])) {

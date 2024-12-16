@@ -1,0 +1,56 @@
+html{
+    margin: 0;
+    height: 100%;
+    overflow-y: hidden;
+}
+body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+}
+
+.textButton{
+    padding-bottom: 14px;
+}
+
+#moveContainer{
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: calc(100% - 140px);
+}
+
+#moveList{
+    overflow-y: scroll;
+    background-color: aqua;
+}
+
+.headCells{
+    font-size: larger;
+    padding: 10px;
+}
+
+.AtkDescription{
+    font-size: xx-small;
+}
+
+.AtkCell{
+    padding: 10px;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+}
+
+/* .separator{
+    /* height: 25px; *
+    /* width: 2500px; *
+    background-color: brown;
+    border: 1px solid black;
+    position: sticky;
+    border-radius: 50px;
+    /* top: 0px; *
+    margin-left: 150px;
+} */
+
+.AtkTypeLabel{
+    border-radius: 50px;
+}

@@ -161,10 +161,10 @@ function getFavortie(playerId, themeId) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            // console.log(this.response, JSON.stringify("No results found."))
-            // console.log(typeof this.response)
+            console.log(this.response, JSON.stringify("No results found."))
+            console.log(JSON.parse(this.response))
 
-            if (this.response == JSON.stringify("No results found.") || this.response == "No results found." || this.response == 'No results found.')
+            if (JSON.parse(this.response) == "No results found.")
                 bool = false;
             else
                 bool = true;

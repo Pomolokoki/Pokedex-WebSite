@@ -1,10 +1,10 @@
 <?php
 include_once("database/extractDataFromDB.php");
-$pokemonMoveData = getDataFromDB("SELECT name, smallDescription, accuracy, pp, pc, type.name, priority, criticity FROM move JOIN type ON type.id = move.type ORDER BY name", null, null, true);
+$pokemonMoveData = getDataFromDB("SELECT move.name, smallDescription, accuracy, pp, pc, type.name AS type, priority, criticity, effectType FROM move JOIN type ON type.id = move.type ORDER BY name", null, null, true);
 $isSet = isset($_POST["moveId"]);
 // var_dump($_POST);
 // var_dump($_POST["pokemonId"]);
-$columnList = ["Name", "Type", "Catégorie", "Power", "PP", "Accuracy", "Priorité", "Description", "Taux Crit"];
+$columnList = ["Nom", "Type", "Catégorie", "Puissance", "PP", "Précision", "Priorité", "Description", "Taux_Crit"];
 $selectedMoveData = $isSet ? getDataFromDB("SELECT name, smallDescription, accuracy, pp, pc, type.name, priority, criticity FROM move JOIN type ON type.id = move.type WHERE move.id = " . $_POST["moveId"], "", "", true) : null;
 
 // name VARCHAR(70),
@@ -33,40 +33,58 @@ $selectedMoveData = $isSet ? getDataFromDB("SELECT name, smallDescription, accur
 <head>
     <meta charset="utf-8">
     <title>Pokedex</title>
-    <link rel="stylesheet" type="text/css" href="css/map.css">
-    <link rel="stylesheet" type="text/css" href="css/customRadioButton.css">
+    <link rel="stylesheet" type="text/css" href="css/pokemonMove.css">
+	<link rel="stylesheet" type="text/css" href="css/typeColor.php">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <?php
 include_once('header.php');
 ?>
 
-<body>
-    <table id="moveList">
-        <thead>
-            <tr>
-                <?php
-                for ($i = 0; $i < count($columnList); ++$i) {
-                    echo '<th scope="col">' . $columnList[$i] . '</th>';
-                }
-                ?>
-            </tr>
-        </thead>
-        <?php
-        for ($i = 0; $i < count($pokemonMoveData); ++$i) {
-            ?>
-            <tr>
-                <td><?= $pokemonMoveData[$i]['name'] ?> </td>
-                <td><?= $pokemonMoveData[$i]['type'] ?> </td>
-                <td><?= $pokemonMoveData[$i]['name'] ?> </td>
-                <td><?= $pokemonMoveData[$i]['name'] ?> </td>
-            </tr>
 
+<body>
+    <div id="moveContainer">
+
+        <table id="moveList">
+            <thead>
+                <tr>
+                    <?php
+                    for ($i = 0; $i < count($columnList); ++$i) {
+                        echo '<th class="headCells" scope="col">' . $columnList[$i] . '</th>';
+                    }
+                    ?>
+                </tr>
+            </thead>
             <?php
-        }
-        ?>
-    </table>
-    <div id="moveFrame">
+            for ($i = 0; $i < count($pokemonMoveData); ++$i) {
+                ?>
+                <tr>
+                    <td class='AtkCell AtkName'><?= getTextLang($pokemonMoveData[$i]['name'], $language) ?> <div class="separator"></div></td>
+                    <td class='AtkCell AtkType'><p class='AtkTypeLabel <?= getTextLang($pokemonMoveData[$i]['type'], 'en')?>'><?= getTextLang($pokemonMoveData[$i]['type'], $language) ?></p> </td>
+                    <td class='AtkCell AtkEffectType'><?php $category = $pokemonMoveData[$i]['effectType'];
+                    if ($category == 1)
+                        echo getTextLang("Physical/Physique", $language);
+                    else if ($category == 2)
+                        echo getTextLang("Special/Spéciale", $language);
+                    else if ($category == 3)
+                        echo getTextLang("Statut/Statut", $language);
+                    else
+                        echo getTextLang("Other/Autre", $language); ?> </td>
+                    <td class='AtkCell AtkPc'><?= $pokemonMoveData[$i]['pc'] ?> </td>
+                    <td class='AtkCell AtkPp'><?= $pokemonMoveData[$i]['pp'] ?> </td>
+                    <td class='AtkCell AtkAccuracy'><?= $pokemonMoveData[$i]['accuracy'] ?> </td>
+                    <td class='AtkCell AtkPriority'><?= $pokemonMoveData[$i]['priority'] ?> </td>
+                    <td class='AtkCell AtkDescription'><?= getTextLang($pokemonMoveData[$i]['smallDescription'], $language) ?> </td>
+                    <td class='AtkCell AtkCriticity'><?= $pokemonMoveData[$i]['criticity'] ?> </td>
+                    
+                </tr>
+                
+                <?php
+            }
+            ?>
+        </table>
+    </div>
+    <!-- <div id="moveFrame">
         <div id="smallMapFrame">
             <span id="mapContainer">
                 <image id="imgMap" draggable="false" src="./img/Kanto.png"></image>
@@ -143,7 +161,7 @@ include_once('header.php');
     </div>
 
     <script src="scripts/svg.js"></script>
-    <script src="scripts/map.js"></script>
+    <script src="scripts/map.js"></script> -->
 </body>
 
 </html>

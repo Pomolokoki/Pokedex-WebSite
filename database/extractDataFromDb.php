@@ -1,6 +1,7 @@
 
 <?php
 include_once("connectSQL.php");
+$language = "fr";
 function getDataFromDB($table, $columns, $condition, $fullRequest = false)
 {
     if ($fullRequest)
@@ -18,6 +19,8 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
     global $db;
     $statement = $db->prepare($sqlQuery);
     $statement->execute();
+    if ($statement->rowCount() == 0)
+        return "No results found.";
     return $statement->fetchAll();
 }
  
