@@ -167,7 +167,7 @@ var LoadDataPokemon = function (id) {
       console.log(dataPokemon)
       // Info pokemon
       document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
-      if(getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette" ){
+      if (getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette") {
         document.getElementById("nom_Pokemon").innerHTML = " Nom : " + getText(dataPokemon["name"]);
       }
       else {
@@ -220,27 +220,30 @@ var LoadDataPokemon = function (id) {
         document.getElementById('graph_Stat' + i).style.backgroundColor = colorStat[i - 1];
       }
       // Faiblesse/Resistance
-      let Resistance_Value = dataPokemon[15].split("/");
-      for (let i = 0; i < 18; i++) {
-        document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i + 1];
-        if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25") {
-          document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
+      if (dataPokemon[15] != null) {
+        let Resistance_Value = dataPokemon[15].split("/");
+        for (let i = 0; i < 18; i++) {
+          document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i + 1];
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25") {
+            document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.5") {
+            document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(157,252,142,1) 7%, rgba(138,231,132,1) 21%, rgba(115,194,99,1) 48%, rgba(129,237,101,1) 64%, rgba(125,196,121,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0") {
+            document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(142,142,142,1) 7%, rgba(184,184,184,1) 21%, rgba(133,128,128,1) 48%, rgba(181,178,178,1) 64%, rgba(94,94,94,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x1") {
+            document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(255,218,89,1) 7%, rgba(210,160,82,1) 21%, rgba(246,208,64,1) 48%, rgba(213,172,70,1) 64%, rgba(255,198,51,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x2") {
+            document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(255,119,119,1) 7%, rgba(193,88,88,1) 21%, rgba(232,106,106,1) 48%, rgba(207,69,69,1) 64%, rgba(255,93,93,1) 90%)';
+          }
+          if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x4") {
+            document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(193,31,31,1) 7%, rgba(207,81,81,1) 21%, rgba(193,16,16,1) 48%, rgba(237,12,12,1) 64%, rgba(157,2,2,1) 90%)';
+          }
         }
-        if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.5") {
-          document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(157,252,142,1) 7%, rgba(138,231,132,1) 21%, rgba(115,194,99,1) 48%, rgba(129,237,101,1) 64%, rgba(125,196,121,1) 90%)';
-        }
-        if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0") {
-          document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(142,142,142,1) 7%, rgba(184,184,184,1) 21%, rgba(133,128,128,1) 48%, rgba(181,178,178,1) 64%, rgba(94,94,94,1) 90%)';
-        }
-        if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x1") {
-          document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(255,218,89,1) 7%, rgba(210,160,82,1) 21%, rgba(246,208,64,1) 48%, rgba(213,172,70,1) 64%, rgba(255,198,51,1) 90%)';
-        }
-        if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x2") {
-          document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(255,119,119,1) 7%, rgba(193,88,88,1) 21%, rgba(232,106,106,1) 48%, rgba(207,69,69,1) 64%, rgba(255,93,93,1) 90%)';
-        }
-        if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x4") {
-          document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(193,31,31,1) 7%, rgba(207,81,81,1) 21%, rgba(193,16,16,1) 48%, rgba(237,12,12,1) 64%, rgba(157,2,2,1) 90%)';
-        }
+
       }
       document.getElementById("genAtk").innerText = document.getElementById("gen_Pokemon").innerText;
       LoadAtkPokemon(id);
@@ -386,23 +389,14 @@ var LoadAtkPokemon = function (id, isGen = -1) {
   xmlhttp.send();
 };
 
-var LoadLocationPokemonOnMap = function (id, isGen = -1) {
+var LoadLocationPokemonOnMap = function (id) {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      dataMove = JSON.parse(this.responseText);
-      document.getElementById("Attaque").innerText = "";
-      document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
-      let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
-      let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
-      if (isGen != -1 && isGen < 1) {
-        return
-      }
-      if (dataMove.length == 0) {
-        LoadAtkPokemon(id, isGen = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1 : isGen - 1)
-        return
-      }
-      for (let i = -1; i < dataMove.length; i++) {
+      dataLocation = JSON.parse(this.responseText);
+      document.getElementById("Location").innerText = "";
+      document.getElementById("Location").style.gridTemplateRows = "repeat(" + parseInt(dataLocation.length + 1) + ",1fr)"
+      for (let i = -1; i < dataLocation.length; i++) {
         for (let j = 0; j < 7; ++j) {
           let divElementName = document.createElement("div");
           divElementName.classList.add("Val_atk_case");
@@ -472,79 +466,82 @@ function divEvoCaseGroup(stage) {
 function divEvoCase(stage, data) {
   let divElementEvoCase = document.createElement("div");
   divElementEvoCase.classList = "Evo_case";
-  if(data.evolutionTrigger != null){
-    if(data.evolutionTrigger == "Other"){
-      
+  if (data.evolutionTrigger != null) {
+    if (getText(data.evolutionTrigger) == "Other") {
+      divElementEvoCase.innerHTML += "remplir une condition précise"
     }
-    else{
+    else {
       divElementEvoCase.innerHTML += getText(data.evolutionTrigger) + "<br>";
     }
   }
-  if(data.gender != null){
-    if(data.gender == 1){
+  if (data.gender != null) {
+    if (data.gender == 1) {
       divElementEvoCase.innerHTML = "Si femelle(♀) <br> ";
     }
     else {
       divElementEvoCase.innerHTML = "Si male(♂) <br> ";
     }
   }
-  if(data.it1name != null){
+  if (data.it1name != null) {
     divElementEvoCase.innerHTML += "<img src='" + data.it1sprite + "'> <br>";
   }
-  if(data.it2name != null) {
+  if (data.it2name != null) {
     divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "'> <br>";
   }
-  if(data.moveName != null){
+  if (data.moveName != null) {
     divElementEvoCase.innerHTML += "doit maitriser " + getText(data.moveName) + "<br>";
   }
-  if(data.tyName != null){
+  if (data.tyName != null) {
     divElementEvoCase.innerHTML += "doit maitriser " + getText(data.tyName) + "<br>";
   }
-  if(data.locationName != null){
-    divElementEvoCase.innerHTML +=  getText(data.locationName) + "<br>";
+  if (data.locationName != null) {
+    divElementEvoCase.innerHTML += getText(data.locationName) + "<br>";
   }
-  if(data.minAffection != null){
+  if (data.minAffection != null) {
     divElementEvoCase.innerHTML += "niveau d'affection " + data.minAffection + "<br>";
   }
-  if(data.minBeauty != null){
-    divElementEvoCase.innerHTML += "niveau de beauté " +  data.minBeauty + "<br>";
+  if (data.minBeauty != null) {
+    divElementEvoCase.innerHTML += "niveau de beauté " + data.minBeauty + "<br>";
   }
-  if(data.minHappiness != null){
+  if (data.minHappiness != null) {
     divElementEvoCase.innerHTML += "niveau de bonheur " + data.minHappiness + "<br>";
   }
-  if(data.minLevel != null){
+  if (data.minLevel != null) {
     divElementEvoCase.innerHTML += "niveau " + data.minLevel + "<br>";
   }
-  if(data.needsOverworldRain == 1 ){
+  if (data.needsOverworldRain == 1) {
     divElementEvoCase.innerHTML += "Pling Pling Plong"
   }
-  if(data.n3 != null){
+  if (data.n3 != null) {
     divElementEvoCase.innerHTML += "avec " + getText(data.n3) + " dans l'équipe";
   }
-  if(data.ty2Name != null){
+  if (data.ty2Name != null) {
     divElementEvoCase.innerHTML += "avec pokemon " + getText(data.ty2Name) + " dans l'équipe <br>";
   }
-  if(data.relativePhysicalStats  != null){
-    if(data.relativePhysicalStats == 1){
+  if (data.relativePhysicalStats != null) {
+    if (data.relativePhysicalStats == 1) {
       divElementEvoCase.innerHTML += "atk > def";
     }
-    else{
+    else {
       divElementEvoCase.innerHTML += "def > atk";
     }
   }
-  if(data.timeOfDay != null){
-    if(data.timeOfDay == "day"){
+  if (data.timeOfDay != null) {
+    if (data.timeOfDay == "day") {
       divElementEvoCase.innerHTML += " de jour";
     }
-    if(data.timeOfDay == "night"){
+    if (data.timeOfDay == "night") {
       divElementEvoCase.innerHTML += " de nuit";
     }
-    else{
+    else {
       divElementEvoCase.innerHTML += " nuit de pleine lune";
     }
   }
-  if(data.n4 != null){
+  if (data.n4 != null) {
     divElementEvoCase.innerHTML += "avec " + getText(data.n4) + "<br>";
+  }
+  if (data.turnUpSideDown != 0 && data.turnUpSideDown != null) {
+    divElementEvoCase.innerHTML += "en retournant la console"
   }
 
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
@@ -569,6 +566,15 @@ var LoadEvoPokemon = function (id) {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       dataEvol = JSON.parse(this.responseText);
+      if (dataEvol == "No results found.") {
+        document.getElementById("evoSection").style.display = "none";
+        document.getElementById("Evo").style.display = "none";
+        return;
+      }
+      else {
+        document.getElementById("evoSection").style.display = "unset";
+        document.getElementById("Evo").style.display = "flex";
+      }
       document.getElementById("Evo").innerHTML = "";
       console.log(dataEvol)
       dataEvol.sort((a, b) => { return a.evolutionStade - b.evolutionStade; })
@@ -600,8 +606,7 @@ var LoadEvoPokemon = function (id) {
             let s2 = document.getElementById("stage2")
             let s1 = document.getElementById("stage1")
             console.log("passe ici", s2)
-            if (s2 != null)
-            {
+            if (s2 != null) {
               let s3 = divStagePokemon("stage3");
               tabStageEvo.push(2);
               s3.innerHTML = s2.innerHTML;
@@ -620,21 +625,23 @@ var LoadEvoPokemon = function (id) {
           img.src = dataEvol[i].s1
           divElementPokemon.appendChild(img)
           divElementPokemon.addEventListener('click', function () {
-              LoadPokemon(dataEvol[i].id1);
-              document.getElementById(dataEvol[i].id1).scrollIntoView({ behavior: "smooth" });
-              document.getElementById('Pokemon').scroll({top:0,behavior:'smooth'});
-            });
+            LoadPokemon(dataEvol[i].id1);
+            if (dataEvol[i].id1 > 10000) {
+              return;
+            }
+            document.getElementById(dataEvol[i].id1).scrollIntoView({ behavior: "smooth" });
+            document.getElementById('Pokemon').scroll({ top: 0, behavior: 'smooth' });
+          });
         }
 
 
 
-        if (tabEvoCaseGroup.includes(dataEvol[i].evolutionStade) == false)
-        {
+        if (tabEvoCaseGroup.includes(dataEvol[i].evolutionStade) == false) {
           divEvoCaseGroup(dataEvol[i].evolutionStade);
           tabEvoCaseGroup.push(dataEvol[i].evolutionStade);
         }
         divEvoCase(dataEvol[i].evolutionStade, dataEvol[i]);
-        
+
 
         // insert a new div to contains pokemon (one for each evolution)
         if (tabStageEvo.includes(dataEvol[i].evolutionStade + 1) == false) {
@@ -643,29 +650,29 @@ var LoadEvoPokemon = function (id) {
           if (dataEvol[i].evolutionStade == 0) {
             divElementPokemon.id = "stage2";
             tabStageEvo.push(dataEvol[i].evolutionStade + 1);
-            
+
           }
           else {
             divElementPokemon.id = "stage3";
             tabStageEvo.push(dataEvol[i].evolutionStade + 1);
           }
           document.getElementById("Evo").appendChild(divElementPokemon);
-          
-          
-        //   // tabEvo.push(dataEvol[i].n2)
-        //   if (dataEvol[i].n6 != null && (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga"))) {
-        //     console.log("ooo", tabStageEvo)
-        //     if (tabStageEvo.includes(-1) == true) {
-        //       return
-        //     }
-        //     else {
-        //       let divElementPokemon = document.createElement("div");
-        //       divElementPokemon.classList.add("EvoStage_Pokemon_case");
-        //       divElementPokemon.id = "stage4";
-        //       tabStageEvo.push(-1);
-        //       document.getElementById("Evo").appendChild(divElementPokemon);
-        //     }
-        //   }
+
+
+          //   // tabEvo.push(dataEvol[i].n2)
+          //   if (dataEvol[i].n6 != null && (dataEvol[i].n6.toLowerCase().match("mega") || dataEvol[i].n6.toLowerCase().match("giga"))) {
+          //     console.log("ooo", tabStageEvo)
+          //     if (tabStageEvo.includes(-1) == true) {
+          //       return
+          //     }
+          //     else {
+          //       let divElementPokemon = document.createElement("div");
+          //       divElementPokemon.classList.add("EvoStage_Pokemon_case");
+          //       divElementPokemon.id = "stage4";
+          //       tabStageEvo.push(-1);
+          //       document.getElementById("Evo").appendChild(divElementPokemon);
+          //     }
+          //   }
         }
 
         // insert pokemon on their divssss
@@ -685,7 +692,7 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.addEventListener('click', function () {
             LoadPokemon(dataEvol[i].id2);
             document.getElementById(dataEvol[i].id2).scrollIntoView({ behavior: "smooth" });
-            document.getElementById('Pokemon').scroll({top:0,behavior:'smooth'});
+            document.getElementById('Pokemon').scroll({ top: 0, behavior: 'smooth' });
           });
         }
       }
@@ -754,11 +761,15 @@ var LoadEvoPokemon = function (id) {
   xmlhttp.send();
 };
 
-function LoadPokemon(id){
+function LoadPokemon(id) {
   LoadDataPokemon(id)
   LoadAbilityPokemon(id)
+  LoadLocationPokemonOnMap(id)
   LoadEvoPokemon(id)
   last_id = id;
+  if (id > 10000) {
+    return;
+  }
   let pok = document.getElementById(id);
   pok.children[0].classList.remove("selectAnimation")
   void pok.offsetWidth

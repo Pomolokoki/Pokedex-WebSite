@@ -210,4 +210,6 @@ refaactorisation evolution
 803 - 809 recupérer atk gen 18
 899 - 905 récupérér atk gen 23
 891 -> 892 + ajouter -> 100000+ ntm (ajouter traduction evolition trigger)
+mettre other sur les pokemons qui ont comme "null" comme evolution trigger
+evolution trigger id 865 868 a traduire
 
