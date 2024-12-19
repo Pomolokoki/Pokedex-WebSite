@@ -22,8 +22,9 @@ body{
 }
 
 #moveList{
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     background-color: aqua;
+    padding: 0;
 }
 
 .headCells{
@@ -54,3 +55,17 @@ body{
 .AtkTypeLabel{
     border-radius: 50px;
 }
+
+#thead {
+    position: fixed;
+    z-index: 1;
+    background-color: brown;
+    margin-top: -90px;
+    width: calc(100% - 19px);
+    overflow-x: hidden;
+}
+
+/* tbody {
+    position: relative;
+    top: 90px;
+} */
