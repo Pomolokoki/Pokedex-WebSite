@@ -5,7 +5,7 @@ include_once("./database/extractDataFromDB.php");
 $type = array("Steel", "Fighting", "Dragon", "Water", "Electric", "Fairy", "Fire", "Ice", "Bug", "Normal", "Grass", "Poison", "Psychic", "Rock", "Ground", "Ghost", "Dark", "Flying");
 
 $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "Défense Spéciale", "Vitesse");
-$datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 10000 ORDER BY pokemon.id", null, null, true);
+$datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 100000 ORDER BY pokemon.id", null, null, true);
 $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 ?>
 
@@ -331,9 +331,14 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			<div id="Attaque">
 
 			</div>
-
-			<h2 class="name_section">Évolution :</h2>
+			
+			<h2 class="name_section" id="evoSection">Évolution :</h2>
 			<div id="Evo">
+
+			</div>
+
+			<h2 class="name_section">Localisation :</h2>
+			<div id="Location">
 
 			</div>
 		</div>

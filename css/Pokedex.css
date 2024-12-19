@@ -718,7 +718,7 @@ select {
 
 .divElementTypeAtk {
     border-radius: 150px;
-    padding-left: 5px;
+    padding-left: 7px;
     padding-right: 5px;
     background-color: #0000ff;
 }
@@ -767,8 +767,7 @@ select {
 .Evo_case {
     height: 50px;
     padding: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 25px;
     background-color: rgb(30, 255, 0);
     text-align: center;
 }
