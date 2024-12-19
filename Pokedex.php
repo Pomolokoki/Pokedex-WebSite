@@ -335,13 +335,6 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			<h2 class="name_section" id="evoSection">Évolution :</h2>
 			<div id="Evo">
 
-			</div>
-
-			<h2 class="name_section">Localisation :</h2>
-			<div id="Location">
-
-			</div>
-		</div>
 	</div>
 	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
 	<script src="./scripts/pokedex.js"></script>

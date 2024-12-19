@@ -389,74 +389,6 @@ var LoadAtkPokemon = function (id, isGen = -1) {
   xmlhttp.send();
 };
 
-var LoadLocationPokemonOnMap = function (id) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataLocation = JSON.parse(this.responseText);
-      document.getElementById("Location").innerText = "";
-      document.getElementById("Location").style.gridTemplateRows = "repeat(" + parseInt(dataLocation.length + 1) + ",1fr)"
-      for (let i = -1; i < dataLocation.length; i++) {
-        for (let j = 0; j < 7; ++j) {
-          let divElementName = document.createElement("div");
-          divElementName.classList.add("Val_atk_case");
-          if (i == -1) {
-            divElementName.innerHTML = "<h3>" + tab1[j] + "</h3>"
-            divElementName.style.order = 0;
-          }
-          else {
-            divElementName.classList.add("Val_atk_case" + i);
-            divElementName.style.order = 1;
-            if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Montée de niveau")
-              divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
-            else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
-              divElementName.innerHTML = "CT/CS";
-            else if (j == 2)
-              if (dataMove[i][tab2[j]] == 1)
-                divElementName.innerHTML = "Physique"
-              else if (dataMove[i][tab2[j]] == 2)
-                divElementName.innerHTML = "Spéciale"
-              else
-                divElementName.innerHTML = "Statut"
-            else if (j == 3 || j == 4 || j == 5)
-              if (dataMove[i][tab2[j]] == undefined)
-                divElementName.innerHTML = "--"
-              else
-                divElementName.innerHTML = dataMove[i][tab2[j]];
-            else if (j == 1) {
-              let divElementTypeAtk = document.createElement("div");
-              divElementTypeAtk.classList.add("divElementTypeAtk");
-              divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
-              divElementName.appendChild(divElementTypeAtk);
-              divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]], "en"))
-            }
-            else
-              divElementName.innerHTML = getText(dataMove[i][tab2[j]]);
-          }
-          document.getElementById("Attaque").appendChild(divElementName);
-        }
-      }
-      orderGrid();
-    }
-  }
-  let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT 
-      move.name,
-      type.name AS type,
-      move.effectType,
-      move.pc,
-      move.accuracy,
-      mp.learnMethod,
-      mp.learnAtLevel,
-      move.pp 
-      FROM move_pokemon AS mp 
-      INNER JOIN move ON mp.moveId = move.id 
-      JOIN type ON move.type = type.id 
-      WHERE mp.pokemonId = ` + id + ' AND mp.generation = ' + genValue, true);
-  xmlhttp.send();
-};
-
 function divEvoCaseGroup(stage) {
   let divElementEvoCase = document.createElement("div");
   divElementEvoCase.classList = "Evo_case_group";
@@ -545,6 +477,7 @@ function divEvoCase(stage, data) {
   }
 
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
+  return divElementEvoCase;
 }
 
 function divStagePokemon(name) {
@@ -576,27 +509,19 @@ var LoadEvoPokemon = function (id) {
         document.getElementById("Evo").style.display = "flex";
       }
       document.getElementById("Evo").innerHTML = "";
-      console.log(dataEvol)
       dataEvol.sort((a, b) => { return a.evolutionStade - b.evolutionStade; })
-      console.log(dataEvol)
       let tabEvo = [];
       let tabEvoCaseGroup = [];
       let tabStageEvo = [];
 
 
       for (let i = 0; i < dataEvol.length; i++) {
-        console.log(dataEvol[i].evolutionStade)
-        console.log(tabStageEvo)
-
-
 
         // insert a div to put base pokemon in
         if (tabStageEvo.includes(dataEvol[i].evolutionStade) == false) {
           divStagePokemon("stage1");
           tabStageEvo.push(dataEvol[i].evolutionStade);
         }
-
-
 
         // insert the pokemon in the previous div
         if (tabEvo.includes(dataEvol[i].n1) == false) {
@@ -619,7 +544,6 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.classList.add("Evo_Pokemon_case");
           divElementPokemon.id = dataEvol[i].n1;
           document.getElementById("stage1").appendChild(divElementPokemon);
-          // divEvoCase(dataEvol[i]);
           tabEvo.push(dataEvol[i].n1)
           let img = document.createElement("img")
           img.src = dataEvol[i].s1
@@ -634,14 +558,11 @@ var LoadEvoPokemon = function (id) {
           });
         }
 
-
-
         if (tabEvoCaseGroup.includes(dataEvol[i].evolutionStade) == false) {
           divEvoCaseGroup(dataEvol[i].evolutionStade);
           tabEvoCaseGroup.push(dataEvol[i].evolutionStade);
         }
         divEvoCase(dataEvol[i].evolutionStade, dataEvol[i]);
-
 
         // insert a new div to contains pokemon (one for each evolution)
         if (tabStageEvo.includes(dataEvol[i].evolutionStade + 1) == false) {
@@ -649,12 +570,31 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.classList.add("EvoStage_Pokemon_case");
           if (dataEvol[i].evolutionStade == 0) {
             divElementPokemon.id = "stage2";
-            tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+            if(dataEvol[i].id == 67){
+              tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.height = '65px';
+              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.marginBottom = '30px';
+            }
+            else{
+              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.height = '50px';
+              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.marginBottom = '25px';
+              tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+            }
 
           }
           else {
             divElementPokemon.id = "stage3";
-            tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+            if(dataEvol[i].id == 442){
+              tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+              divElementPokemon.style.alignSelf = 'end'
+              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.alignSelf = 'end'
+
+            }
+            else{
+              divElementPokemon.style.alignSelf = 'center'
+              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.alignSelf = 'center'
+              tabStageEvo.push(dataEvol[i].evolutionStade + 1);
+            }
           }
           document.getElementById("Evo").appendChild(divElementPokemon);
 
@@ -764,7 +704,6 @@ var LoadEvoPokemon = function (id) {
 function LoadPokemon(id) {
   LoadDataPokemon(id)
   LoadAbilityPokemon(id)
-  LoadLocationPokemonOnMap(id)
   LoadEvoPokemon(id)
   last_id = id;
   if (id > 10000) {
