@@ -30,6 +30,7 @@ body{
 .headCells{
     font-size: larger;
     padding: 10px;
+    position: relative;
 }
 
 .AtkDescription{
@@ -64,8 +65,34 @@ body{
     width: calc(100% - 19px);
     overflow-x: hidden;
 }
+th {
+    width: max-content; 
+}
+
+/* th {
+} */
 
 /* tbody {
     position: relative;
     top: 90px;
 } */
+
+
+
+.sorter{
+    width: 15px;
+    height: 30px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    float: right;
+}
+
+.headText{
+    /* margin-right: 20px; */
+}
+
+.sorterContainer{
+    width: 50px;
+    float: right;
+}

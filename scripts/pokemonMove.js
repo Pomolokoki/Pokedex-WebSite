@@ -10,6 +10,7 @@ let priorityFilter = document.getElementById("priorityFilter")
 let descriptionFilter = document.getElementById("descriptionFilter")
 let criticityFilter = document.getElementById("criticityFilter")
 
+
 let inputs = {
     nameInput : '',
     typeInput : '',
@@ -21,8 +22,10 @@ let inputs = {
     descriptionInput : '',
     criticityInput : ''
 }
-let inputsKeys = Object.keys(inputs);
 
+let inputsKeys = Object.keys(inputs);
+let listAtk = document.getElementsByTagName('tr')
+var column = "0";
 
 container.addEventListener('scroll', () => {
     // console.log(container.scrollLeft)
@@ -35,12 +38,36 @@ header.addEventListener('mousewheel', (e) => {
     container.scrollLeft += e.deltaY; 
 })
 
-let listAtk = document.getElementsByTagName('tr')
 
 function sort()
 {
-    console.log("name :", nameInput, "\ntype :", typeInput, "\ncategory :", categoryInput, "\npc :", pcInput, "\npp :", ppInput, "\naccuracy :", accuracyInput, "\npriority :", priorityInput, "\ndescription :", descriptionInput, "\ncriticity :", criticityInput)
-
+    let sorting = true;
+    let toReplace = false;
+    let i = 0;
+    let j = 0;
+    while (sorting) {
+        j++;
+        if (j == 1005501) { return;}
+        listAtk = document.getElementsByTagName('tr')
+        
+        sorting = false;
+        for (i = 1; i < listAtk.length - 1; i++) {
+            toReplace = false;
+            let td1 = listAtk[i].getElementsByTagName('td')[parseInt(column)];
+            // console.log(td1, parseInt(column), listAtk[i].getElementsByTagName('td'), listAtk[i])
+            let td2 = listAtk[i + 1].getElementsByTagName('td')[parseInt(column)];
+            if (td1 == undefined || td2 == undefined) continue;
+            if (td1.innerHTML.toLowerCase() > td2.innerHTML.toLowerCase()) {                shouldSwitch = true;
+                toReplace = true;
+                break;
+            }
+        }
+        console.log(j, i, listAtk, toReplace)
+        if (toReplace) {
+            listAtk[i].parentNode.insertBefore(listAtk[i + 1], listAtk[i]);
+            sorting = true;
+        }
+    }
 }
 function filter()
 {
@@ -50,14 +77,15 @@ function filter()
         if (tds.length == 0) continue;
         listAtk[i].style.display = "";
         for (j = 0; j < inputsKeys.length; ++j) {
-            console.log(tds[j].innerHTML, inputs[inputsKeys[j]])
+            // console.log(tds[j].innerHTML, inputs[inputsKeys[j]])
             if (!tds[j].innerHTML.includes(inputs[inputsKeys[j]])) {
-                console.log("unview")
+                // console.log("unview")
                 listAtk[i].style.display = "none";
                 break;
             }
         }
     }
+    sort();
 }
 
 nameFilter.addEventListener('input', () => {
@@ -96,3 +124,16 @@ criticityFilter.addEventListener('input', () => {
     inputs.criticityInput = criticityFilter.value;
     filter();
 })
+
+
+let listHeads = document.getElementsByClassName('headText')
+
+for (let i = 0; i < listHeads.length; ++i)
+{
+    listHeads[i].addEventListener('click', () => {
+        console.log(this, self, listHeads[i])
+        column = listHeads[i].dataset.id;
+        console.log(column, listHeads[i].dataset.id)
+        sort();
+    })
+}

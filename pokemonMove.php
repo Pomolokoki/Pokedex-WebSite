@@ -50,82 +50,109 @@ include_once('header.php');
         <table id="moveList">
             <thead id="thead">
                 <tr>
-                    <th class="headCells" scope="col">Nom<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="0">Nom
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="nameFilter"></input>
                     </th>
-                    <th class="headCells" scope="col">Type<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="1">Type
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <select class="filter" id="typeFilter">
-                            <option value =''>--Tout--</option>
+                            <option value=''>--Tout--</option>
                             <?php for ($i = 0; $i < count($typeData); ++$i) { ?>
                                 <option data-type=<?= getTextLang($typeData[$i]['name'], 'en') ?>><?= getTextLang($typeData[$i]['name'], $language) ?></option>
                             <?php } ?>
                         </select>
                     </th>
-                    <th class="headCells" scope="col">Catégorie<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="2">Catégorie  
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <select class="filter" id="categoryFilter">
-                            <option value =''>--Tout--</option>
+                            <option value=''>--Tout--</option>
                             <option data-type='special'>Spécial</option>
                             <option data-type='physical'>Physique</option>
                             <option data-type='statut'>Statut</option>
                         </select>
                     </th>
-                    <th class="headCells" scope="col">Puissance<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="3">Puissance
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="pcFilter"></input>
                     </th>
-                    <th class="headCells" scope="col">PP<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="4">PP
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="ppFilter"></input>
                     </th>
-                    <th class="headCells" scope="col">Précision<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="5">Précision
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="accuracyFilter"></input>
                     </th>
-                    <th class="headCells" scope="col">Priority<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="6">Priority
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="priorityFilter"></input>
                     </th>
-                    <th class="headCells" scope="col">Description<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="7">Description
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="descriptionFilter"></input>
                     </th>
-                    <th class="headCells" scope="col">TauxCritique<br>
+                    <th class="headCells" scope="col">
+                        <p class="headText" data-id="8">Taux Critique
+                            <img class="sorter" src="./img/selector.png">
+                        </p>
                         <input type="text" class="filter" id="criticityFilter"></input>
                     </th>
                 </tr>
             </thead>
             <thead>
                 <tr>
-                    <th class="headCells" scope="col">Nom<br>
+                    <th class="headCells">Nom<br>
                         <input type="text" class="filter"></input>
                     </th>
-                    <th class="headCells" scope="col">Type<br>
+                    <th class="headCells">Type<br>
                         <select class="filter">
                             <option>--Tout--</option>
                             <?php for ($i = 0; $i < count($typeData); ++$i) { ?>
-                                <option data-type=<?= getTextLang($typeData[$i]['name'], 'en') ?>><?= getTextLang($typeData[$i]['name'], $language) ?></option>
+                                <option><?= getTextLang($typeData[$i]['name'], $language) ?></option>
                             <?php } ?>
                         </select>
                     </th>
-                    <th class="headCells" scope="col">Catégorie<br>
+                    <th class="headCells">Catégorie<br>
                         <select class="filter">
                             <option>--Tout--</option>
-                            <option data-type='special'>Spécial</option>
-                            <option data-type='physical'>Physique</option>
-                            <option data-type='statut'>Statut</option>
+                            <option>Spécial</option>
+                            <option>Physique</option>
+                            <option>Statut</option>
                         </select>
                     </th>
-                    <th class="headCells" scope="col">Puissance<br>
+                    <th class="headCells">Puissance<br>
                         <input type="text" class="filter"></input>
                     </th>
-                    <th class="headCells" scope="col">PP<br>
+                    <th class="headCells">PP<br>
                         <input type="text" class="filter"></input>
                     </th>
-                    <th class="headCells" scope="col">Précision<br>
+                    <th class="headCells">Précision<br>
                         <input type="text" class="filter"></input>
                     </th>
-                    <th class="headCells" scope="col">Priority<br>
+                    <th class="headCells">Priority<br>
                         <input type="text" class="filter"></input>
                     </th>
-                    <th class="headCells" scope="col">Description<br>
+                    <th class="headCells">Description<br>
                         <input type="text" class="filter"></input>
                     </th>
-                    <th class="headCells" scope="col">TauxCritique<br>
+                    <th class="headCells">TauxCritique<br>
                         <input type="text" class="filter"></input>
                     </th>
                 </tr>
