@@ -38,36 +38,84 @@ header.addEventListener('mousewheel', (e) => {
     container.scrollLeft += e.deltaY; 
 })
 
-
+var lastColumn = "0";
 function sort()
 {
-    let sorting = true;
-    let toReplace = false;
-    let i = 0;
-    let j = 0;
-    while (sorting) {
-        j++;
-        if (j == 1005501) { return;}
-        listAtk = document.getElementsByTagName('tr')
+    // let sorting = true;
+    // let toReplace = false;
+    // let i = 0;
+    // let j = 0;
+    let table = document.getElementById("moveList")
+    let rows = Array.from(table.rows);
+    console.log(rows)
+    console.log(typeof rows)
+    // console.log(rows.values())
+    // rows.splice(0, 1);
+    // let arr = [1, 2, 5, 8, 7, 4];
+    // arr.shift();
+    rows.splice(0, 2);
+    if (lastColumn == column)
+        lastColumn = '-1';
+    else
+        lastColumn = column;
+    console.log(parseInt(rows[1].getElementsByTagName('td')['0'].innerHTML));
+    rows.sort((a,b) => {
+        let td1 = a.getElementsByTagName('td')[parseInt(column)];
+        // console.log(td1, parseInt(column), listAtk[i].getElementsByTagName('td'), listAtk[i])
+        let td2 = b.getElementsByTagName('td')[parseInt(column)];
+        if (td1 == undefined)
+            return 1;
+        if (td2 == undefined)
+            return -1;
+        if (!isNaN(parseInt(td1.innerHTML))) {
+            let result;
+            if (isNaN(parseInt(td2.innerHTML)))
+                result = -1;
+            if (parseInt(td1.innerHTML) < parseInt(td2.innerHTML))
+                result = -1;
+            else if (parseInt(td1.innerHTML) > parseInt(td2.innerHTML))
+                result = 1;
+            else
+            result = 0;
+            if (lastColumn == '-1')
+                result *= -1;
+            return result;
+        }
+        else {
+            if (lastColumn == '-1')
+                return td2.innerHTML.localeCompare(td1.innerHTML);
+            return td1.innerHTML.localeCompare(td2.innerHTML);
+        }
+    })
+    // while (sorting) {
+    //     j++;
+    //     if (j == 1005501) { return; }
+    //     listAtk = document.getElementsByTagName('tr')
         
-        sorting = false;
-        for (i = 1; i < listAtk.length - 1; i++) {
-            toReplace = false;
-            let td1 = listAtk[i].getElementsByTagName('td')[parseInt(column)];
-            // console.log(td1, parseInt(column), listAtk[i].getElementsByTagName('td'), listAtk[i])
-            let td2 = listAtk[i + 1].getElementsByTagName('td')[parseInt(column)];
-            if (td1 == undefined || td2 == undefined) continue;
-            if (td1.innerHTML.toLowerCase() > td2.innerHTML.toLowerCase()) {                shouldSwitch = true;
-                toReplace = true;
-                break;
-            }
-        }
-        console.log(j, i, listAtk, toReplace)
-        if (toReplace) {
-            listAtk[i].parentNode.insertBefore(listAtk[i + 1], listAtk[i]);
-            sorting = true;
-        }
+    //     sorting = false;
+    //     for (i = 1; i < listAtk.length - 1; i++) {
+    //         toReplace = false;
+    //         let td1 = listAtk[i].getElementsByTagName('td')[parseInt(column)];
+    //         // console.log(td1, parseInt(column), listAtk[i].getElementsByTagName('td'), listAtk[i])
+    //         let td2 = listAtk[i + 1].getElementsByTagName('td')[parseInt(column)];
+    //         if (td1 == undefined || td2 == undefined) continue;
+    //         if (td1.innerHTML.toLowerCase() > td2.innerHTML.toLowerCase()) {                shouldSwitch = true;
+    //             toReplace = true;
+    //             break;
+    //         }
+    //     }
+    //     console.log(j, i, listAtk, toReplace)
+    //     if (toReplace) {
+    //         listAtk[i].parentNode.insertBefore(listAtk[i + 1], listAtk[i]);
+    //         sorting = true;
+    //     }
+    // }
+    let body = document.getElementById("tbody")
+    body.innerHTML = "";
+    for (let i = 0; i < rows.length; ++i) {
+        body.appendChild(rows[i]);
     }
+    // rows.forEach(row => { body.appendChild(row) });
 }
 function filter()
 {
