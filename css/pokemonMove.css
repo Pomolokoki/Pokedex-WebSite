@@ -96,3 +96,12 @@ th {
     width: 50px;
     float: right;
 }
+
+@media only screen and (max-width: 600px) {
+    #thead {
+        width: calc(100% - 14px);
+    }
+    body{
+        /* font-size: 12px; */
+    }
+}
