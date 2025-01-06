@@ -30,6 +30,58 @@ var colorStat = ["#9afd7c", "#fff26b", "#ffb15c", "#7cfeff", "#6da2ff", "#c67bff
 
 var language = "Fr";
 
+document.getElementById('check_fav').addEventListener('click', function () {
+  let id_user = document.getElementById('Data_User').textContent;
+  let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
+});
+
+document.getElementById('check_capture').addEventListener('click', function () {
+  let id_user = document.getElementById('Data_User').textContent;
+  let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
+
+});
+
+function check_favorite(id){
+  let id_user = document.getElementById('Data_User').textContent;
+}
+
+function check_capture(id){
+  let id_user = document.getElementById('Data_User').textContent;
+
+}
+
+var check_pokemonUser = function (id) {
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      dataAbility = JSON.parse(this.responseText);
+      document.getElementById("Talent").innerText = "";
+      document.getElementById("Talent").classList.remove("NB_talent0", "NB_talent1", "NB_talent2", "NB_talent3")
+      document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
+      for (let i = 0; i < dataAbility.length; i++) {
+        let divElementName = document.createElement("div");
+        divElementName.classList.add("nom_talent");
+        divElementName.innerHTML = getText(dataAbility[i]["name"]);
+        document.querySelector("body #content #Pokemon #Talent").appendChild(divElementName);
+      }
+      for (let i = 0; i < dataAbility.length; i++) {
+        let divElementDesc = document.createElement("div");
+        divElementDesc.classList.add("desc_talent");
+        divElementDesc.innerHTML = getText(dataAbility[i]["smallDescription"]);
+        document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
+      }
+      console.log("pokemonCheck Loaded !");
+    }
+  }
+  xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      SELECT 
+      pf.playerId,
+      pf.pokemonId,
+      FROM player_favorites AS pf 
+      INNER JOIN ability ON ap.abilityId = ability.id 
+      WHERE ap.pokemonId = ` + id, true);
+  xmlhttp.send();
+}
 
 document.getElementById('gender_button').addEventListener('click', function () {
   if (dataPokemon != undefined && dataPokemon["spriteF"] != null) {

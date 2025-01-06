@@ -213,3 +213,4 @@ refaactorisation evolution
 mettre other sur les pokemons qui ont comme "null" comme evolution trigger
 evolution trigger id 865 868 a traduire
 
+

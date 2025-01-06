@@ -25,6 +25,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 <?php include_once("header.php"); ?>
 
 <body>
+	<div id="Data_User"><?php echo($_SESSION["LOGGED_USER"][0]["id"]) ?></div>
 	<div id="content">
 		<div id="img_background"></div>
 		<div id="core">

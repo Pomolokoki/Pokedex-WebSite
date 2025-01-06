@@ -48,6 +48,11 @@ h3 {
     z-index: 5;
 }
 
+#Data_User {
+    display: none;
+    visibility: hidden;
+}
+
 /*#region headerPokedex*/
 #headerPokedex {
     width: 100%;
