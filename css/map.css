@@ -29,8 +29,8 @@ body{
     position: relative;
     /* top: 10%; */
     margin: auto;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     background-color: blueviolet;
 
     background-color: rgb(0, 132, 255);
@@ -218,6 +218,39 @@ select {
     height: 25px;
     pointer-events: none;
 }
+
+
+
+
+#pokemonSearch{
+    width: 180px;
+    height: 20px;
+    resize: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: auto;
+}
+#pokedex {
+    width: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 150px;
+    font-size: 10px;
+}
+
+.pokemonImage{
+    height: 50px;
+    width: 50px;
+}
+
+.pokemon {
+    display: flex;
+}
+
+.pokemon p{
+    align-self: center;
+}
+
 
 
 @media only screen and (max-width: 600px) {

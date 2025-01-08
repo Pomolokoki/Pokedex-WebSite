@@ -238,6 +238,7 @@ function setLocation(location) {
     replaceBubble(currentLocation, true);
     currentLocation.style.filter = "brightness(70%)";
     location.style.backgroundColor = "#ffffff";
+    showLocationPokemon(location.dataset.location);
 
     // if (currentRegion == "Kanto" && (currentLocation.id == "Route 17" || currentLocation.id == "Route 18" || currentLocation.id == "Route 12" || currentLocation.id == "Sea Route 19"))
     // {
@@ -247,13 +248,14 @@ function setLocation(location) {
     //     clone.addEventListener("mouseleave", onLeave);
     //     svgMap.appendChild(clone);
     // }
-    
+
 }
 function removeLocation(location) {
     removeBubble(true);
     currentLocation = undefined;
     if (location != null)
         location.style.backgroundColor = "#ff0000";
+    showLocationPokemon("");
 }
 
 function selectLocation(name) {
@@ -275,7 +277,7 @@ function selectLocation(name) {
 function onLeave(e) {
     // if (e.target.id != cloned)
     removeBubble();
-    
+
     // let clone = document.getElementById("cloned")
     // if (clone && e.target.id != cloned)
     // {
@@ -331,12 +333,12 @@ function bindInteractiveMap() {
         listLocation[location].addEventListener("click", onClick)
         objectWithEvent.push(listLocation[location])
     }
-    
-    
+
+
     let locationList = document.getElementsByClassName("location")
     for (let location in locationList) {
         if (typeof locationList[location] != "object") continue;
-        locationList[location].addEventListener("click", () => {onLocationClick(locationList[location])})
+        locationList[location].addEventListener("click", () => { onLocationClick(locationList[location]) })
     }
 }
 
@@ -364,3 +366,130 @@ center();
 // document.getElementById("currentgen").addEventListener('click', () => {document.location.href = './map.php?pokemonId=4&generationId=1'; window.open("")})
 
 // bindInteractiveMap();
+
+
+
+
+
+
+
+let lastPokemonClickedId = -1
+function pokemonClick(id) {
+
+    console.log("pokemon id : ", id)
+
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let dataLocation = JSON.parse(this.responseText);
+            // Info Location
+            locationContainer.innerHTML = "";
+            for (let i = 0; i < dataLocation.length; ++i) {
+                let location = document.createElement("div");
+                location.className = "location"
+                location.dataset.location = getText(dataLocation[i]["name"], "en")
+                location.innerHTML = getText(dataLocation[i]["name"], language);
+                locationContainer.appendChild(location)
+            }
+        }
+    }
+    if (lastPokemonClickedId == id) {
+        xmlhttp.open("GET", `./ajax/getDBData.php?request=
+            SELECT location.name 
+            FROM location 
+            JOIN region ON location.regionId = region.id 
+            WHERE region.name LIKE '` + currentRegion + "%'"
+        );
+        lastPokemonClickedId = -1;
+    }
+    else {
+        xmlhttp.open("GET", `./ajax/getDBData.php?request=
+            SELECT location.name 
+            FROM location 
+            JOIN location_pokemon AS lp ON location.id = lp.locationId 
+            JOIN region ON location.regionId = region.id 
+            WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id
+        );
+        lastPokemonClickedId = id;
+    }
+    xmlhttp.send();
+}
+let pokedex = document.getElementById("pokedex");
+function showLocationPokemon(location) {
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let dataPokemon = JSON.parse(this.responseText);
+            // Info Location
+            pokedex.innerHTML = "";
+            for (let i = 0; i < dataPokemon.length; ++i) {
+                let pokemon = document.createElement("div");
+                pokemon.className = "pokemon";
+                let img = pokemon.createElement("img");
+                img.className = "pokemonImage";
+                img.draggable = false;
+                img.src = dataPokemon[i]["spriteM"];
+                img.dataset.id = dataPokemon[i]["id"]
+                let p = pokemon.createElement("p");
+                p.innerHTML = getText(dataPokemon[i]["name"], language);
+                pokedex.appendChild(pokemon)
+            }
+        }
+    }
+    if (location == "") {
+
+        xmlhttp.open("GET", `./ajax/getDBData.php?request=
+            SELECT pokemon.name, pokemon.spriteM, pokemon.id 
+            FROM pokemon 
+            JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
+            JOIN region ON lp.generation = region.id 
+            WHERE region.name LIKE '` + currentRegion + "%");
+    }
+    else {
+        xmlhttp.open("GET", `./ajax/getDBData.php?request=
+            SELECT pokemon.name, pokemon.spriteM, pokemon.id 
+            FROM pokemon 
+            JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
+            JOIN location ON location.id = lp.locationId 
+            JOIN region ON lp.generation = region.id 
+            WHERE region.name LIKE '` + currentRegion + "%' AND location.name LIKE'" + location + "%'");
+    }
+    xmlhttp.send();
+}
+
+function pokemonSearch() {
+    [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
+        pokemon.style.display = "none";
+    });
+    let searchBar = document.getElementById('pokemonSearch')
+    searchBar = searchBar.value.toLowerCase();
+    let pokemonList = document.getElementsByClassName("pokemon")
+    for (let i = 0; i < pokemonList.length; ++i) {
+        if (typeof pokemonList[i] != "object") continue;
+        if (pokemonList[i].innerHTML.toLowerCase().includes(searchBar))
+            pokemonList[i].style.display = "block";
+    }
+}
+
+[...document.querySelectorAll(".pokemon")].forEach(pokemon => {
+    pokemon.addEventListener("click", pokemonClick(pokemon.firstChild.dataset.id))
+    pokemon.addEventListener("dbclick", () => {
+        let form = document.createElement('form');
+        form.setAttribute('method', 'POST');
+        form.setAttribute('action', "./pokedex.php");
+
+        let data = document.createElement('input');
+        data.setAttribute('type', 'hidden');
+        data.setAttribute('name', 'pokemonId');
+        data.setAttribute('value', pokemon.firstChild.dataset.id);
+        form.appendChild(data);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+    );
+});
+
+document.getElementById('pokemonSearch').addEventListener('input', pokemonSearch);
