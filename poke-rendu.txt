@@ -1,4 +1,67 @@
-tom:
+Rendu : 
+
+Pokedex
+
+Yram / Tristan / Tom
+
+Sommaire :
+Intro : 
+	Présentation
+	Cahier des charges
+	Membre du groupe
+
+Conception :
+	Outils utilisés
+	Stratégie de developpement
+	Problèmes attendus et rencontrés
+
+	Evolutions du projet
+	Performances du project
+	Mise en production
+
+Conclusion :
+	Etat du projet
+	Conclusions personnelles
+	Prolongements
+	Retour sur les choix faits
+	Axes d'améliorations
+
+
+
+
+Cahier des charges: 
+Page Pokedex = Acceuil (le fondement du projet) :
+	- Liste de tous les pokémons existants
+	- Système de filtre et recherche
+	- Détails disponibles pour chaques pokémons
+	- Syncronisation avec un pokedex personnel (favoris / capture/ equipes)
+
+Page Table des types :
+	- Faiblesses et resistances par types
+	- Possibilité de prendre en compte les doubles types
+
+Page Cartes des différents jeux :
+	- Interactivité (possibilité de voir les pokemons présentS dans une zone séléctionnée)
+
+Page Joueur :
+	- Information sur le joueur / compte
+	- Liste d'amis
+	- Possibilité de voir les pokemons favoris / capturés / mis dans uen équipe
+
+Page Inscription
+
+Page Items : 
+	- Liste des différents items pouvant êtres trouvés dans le jeu
+
+Page Attaque : 
+	- Liste des attaques 
+	- Système de recherche et de filtre
+	- Détails des attaques
+
+Page Forum
+
+
+
 travail à partir de maquettes
 creation bdd:
 	php api ->sql
@@ -14,6 +77,5 @@ Database needs:
 	ability effect
 	move effect
 	Fr 
-poke-typeTable needs:
-	type on the left being float
+
 	

@@ -115,6 +115,7 @@ function updateMap(e) {
                 imgMap.src = "./img/" + currentRegion + "Realist.png";
             else
                 imgMap.src = "./img/" + currentRegion + ".png";
+            document.getElementById("pokedexContainer").style.display = "none"
         }
         else if (currentMode == "Interactive") {
             if (currentRegion != "Hoenn" && currentRegion != "Kanto") {
@@ -131,7 +132,8 @@ function updateMap(e) {
                 svgMap.innerHTML = Hoenn
             else if (currentRegion == "Kanto")
                 svgMap.innerHTML = Kanto
-            bindInteractiveMap()
+            bindInteractiveMap();
+            document.getElementById("pokedexContainer").style.display = "block"
         }
         center();
     }
@@ -292,7 +294,7 @@ function onClick(e) {
 }
 
 function onLocationClick(location) {
-    console.log(location)
+    // console.log(location)
     let mapLocationList = document.getElementsByClassName("mapLocation")
     for (let loc in mapLocationList) {
         if (typeof mapLocationList[loc] != "object") continue
@@ -376,7 +378,6 @@ center();
 let lastPokemonClickedId = -1
 function pokemonClick(id) {
 
-    console.log("pokemon id : ", id)
 
 
     var xmlhttp = new XMLHttpRequest();
@@ -384,14 +385,33 @@ function pokemonClick(id) {
         if (this.readyState == 4 && this.status == 200) {
             let dataLocation = JSON.parse(this.responseText);
             // Info Location
-            locationContainer.innerHTML = "";
-            for (let i = 0; i < dataLocation.length; ++i) {
-                let location = document.createElement("div");
-                location.className = "location"
-                location.dataset.location = getText(dataLocation[i]["name"], "en")
-                location.innerHTML = getText(dataLocation[i]["name"], language);
-                locationContainer.appendChild(location)
+            if (dataLocation == "No results found.")
+                return;
+            let locationList = document.getElementsByClassName("location")
+            for (let i = 0; i < locationList.length; ++i) {
+                if (typeof locationList[i] != "object") continue;
+                locationList[i].style.display = "none"
             }
+            for (let i = 0; i < locationList.length; ++i) {
+                if (typeof locationList[i] != "object") continue;
+                let found = false;
+                for (let j = 0; j < dataLocation.length; ++j) {
+                    if (locationList[i].dataset.location == getText(dataLocation[j]["name"], "en"))
+                        found = true;
+                    // console.log(found, locationList[i].dataset.location)
+                }
+
+                if (found)
+                    locationList[i].style.display = "block"
+                else
+                    locationList[i].style.display = "none"
+                // let location = document.createElement("div");
+                // location.className = "location"
+                // location.dataset.location = getText(dataLocation[i]["name"], "en")
+                // location.innerHTML = getText(dataLocation[i]["name"], language);
+                // locationContainer.appendChild(location)
+            }
+            // bindInteractiveMap();
         }
     }
     if (lastPokemonClickedId == id) {
@@ -405,19 +425,23 @@ function pokemonClick(id) {
     }
     else {
         xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT location.name 
+            SELECT DISTINCT location.name 
             FROM location 
-            JOIN location_pokemon AS lp ON location.id = lp.locationId 
-            JOIN region ON location.regionId = region.id 
+            INNER JOIN location_pokemon AS lp ON location.id = lp.locationId 
+            INNER JOIN region ON location.regionId = region.id 
             WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id
         );
+        console.log(`SELECT location.name 
+            FROM location 
+            INNER JOIN location_pokemon AS lp ON location.id = lp.locationId 
+            INNER JOIN region ON location.regionId = region.id 
+            WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id)
         lastPokemonClickedId = id;
     }
     xmlhttp.send();
 }
 let pokedex = document.getElementById("pokedex");
 function showLocationPokemon(location) {
-
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -427,29 +451,30 @@ function showLocationPokemon(location) {
             for (let i = 0; i < dataPokemon.length; ++i) {
                 let pokemon = document.createElement("div");
                 pokemon.className = "pokemon";
-                let img = pokemon.createElement("img");
+                let img = document.createElement("img");
                 img.className = "pokemonImage";
                 img.draggable = false;
                 img.src = dataPokemon[i]["spriteM"];
                 img.dataset.id = dataPokemon[i]["id"]
-                let p = pokemon.createElement("p");
+                pokemon.appendChild(img);
+                let p = document.createElement("p");
                 p.innerHTML = getText(dataPokemon[i]["name"], language);
+                pokemon.appendChild(p);
                 pokedex.appendChild(pokemon)
             }
         }
     }
     if (location == "") {
-
         xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT pokemon.name, pokemon.spriteM, pokemon.id 
+            SELECT DISTINCT pokemon.name, pokemon.spriteM, pokemon.id 
             FROM pokemon 
             JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
             JOIN region ON lp.generation = region.id 
-            WHERE region.name LIKE '` + currentRegion + "%");
+            WHERE region.name LIKE '` + currentRegion + "%'");
     }
     else {
         xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT pokemon.name, pokemon.spriteM, pokemon.id 
+            SELECT DISTINCT pokemon.name, pokemon.spriteM, pokemon.id 
             FROM pokemon 
             JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
             JOIN location ON location.id = lp.locationId 
@@ -474,8 +499,9 @@ function pokemonSearch() {
 }
 
 [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
-    pokemon.addEventListener("click", pokemonClick(pokemon.firstChild.dataset.id))
-    pokemon.addEventListener("dbclick", () => {
+    pokemon.addEventListener("click", () => { pokemonClick(pokemon.firstElementChild.dataset.id) })
+    pokemon.addEventListener("dblclick", () => {
+        console.log("dbb")
         let form = document.createElement('form');
         form.setAttribute('method', 'POST');
         form.setAttribute('action', "./pokedex.php");
@@ -483,7 +509,7 @@ function pokemonSearch() {
         let data = document.createElement('input');
         data.setAttribute('type', 'hidden');
         data.setAttribute('name', 'pokemonId');
-        data.setAttribute('value', pokemon.firstChild.dataset.id);
+        data.setAttribute('value', pokemon.firstElementChild.dataset.id);
         form.appendChild(data);
 
         document.body.appendChild(form);
