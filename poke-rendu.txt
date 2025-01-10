@@ -28,6 +28,7 @@ Conclusion :
 
 
 
+Présentation :
 
 Cahier des charges: 
 Page Pokedex = Acceuil (le fondement du projet) :
@@ -64,7 +65,7 @@ Page Forum
 
 travail à partir de maquettes
 creation bdd:
-	php api ->sql
+	php api -> sql
 	pioche dans plusieurs api ? (oui)
 	table ability (is hidden ?) -> table ability_pokemon -> (idPoke, idAbil, isHidden) -> pas caché sur tous les poké
 	for loop though all but id non consecutive, so foreach thought a file with all subfiles listed

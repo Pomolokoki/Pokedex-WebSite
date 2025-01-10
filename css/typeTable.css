@@ -1,23 +1,24 @@
+/*#region globalElement*/
+
 html{
     margin: 0;
     height: 100%;
 }
+
 body{
     margin: 0;
     height: 100%;
     background-color: black;
 }
-/* #header{
-    background-color: red;
-    width: 100%;
-    height: 140px;
-    z-index: -1;
-} */
+/*#endregion*/
 
+/*#region headerPokedex*/
 .textButton{
     padding-bottom: 14px;
 }
+/*#endregion*/
 
+/*#region aroundTypeTable*/
 #typeTableFrame{
     width: 100%;
     height: calc(100% - 140px);
@@ -43,7 +44,6 @@ body{
     align-items: center;
 }
 
-
 #defLabel{
     position: fixed;
     margin-left: 25%;
@@ -64,10 +64,11 @@ body{
     /* text-orientation:upright; */
     text-align: center;
 }
+/*#endregion*/
+
+/*#region TypeTable*/
 #grid{
     position: relative;
-    /* width: 90%; */
-    /* height: 80%; */
     left: 25px;
     display: grid;
     gap: 0.3%;
@@ -80,33 +81,6 @@ body{
 
 }
 
-#gridParameters{
-    /* position: fixed; */
-    width: 100%;
-    /* height: 3%; */
-    margin-top: 675px;
-    margin-left: 100px;
-}
-
-#fitScreenLabel{
-    position: absolute;
-    color: white;
-    left: 0;
-    bottom: 0;
-    font-size: 0.875em
-}
-#fitScreenBox{
-    position: relative;
-    right: 0;
-}
-
-#doubleTypeLabel{
-    position: absolute;
-    color: white;
-    bottom: 0;
-    font-size: 0.875em
-}
-
 .gridElement{
     border-radius: 5px;
     background-color: white;
@@ -114,7 +88,6 @@ body{
     padding: 0;
     text-align: center;
     margin-top: 5%;
-    /* margin-left: 5%; */
     align-content: center;
 }
 .gridElement > img {
@@ -124,14 +97,9 @@ body{
     vertical-align: middle;
 }
 
-/* .gridElement > img:not(.gridElementButton > img){
-    margin-top: -12%;
-} */
-
 .gridElementButton{
     padding: 0;
     margin-top: 2.5%;
-    /* max-width: 150%; */
     min-width: 150px;
     text-align: center;
     float: left;
@@ -142,43 +110,28 @@ body{
     align-self:center;
     vertical-align: middle;
 }
+/*#endregion*/
 
-#highlight{
-    pointer-events: none;
-    position: absolute;
-    width: 100.5%;
-    height: 5%;
-    border: solid red;
-    border-width: 3% 3% 3% 3%;
-    opacity: 0;
-    /* border-radius: 5%; */
-    /* margin-left: -1.4%; */
-    left: -0.5%;
-    /* top: 2.3%; */
-    /* margin-top: -1.2%; */
-    z-index: 1;
-    /* background-color: blue; */
-}
-
+/*#region under TypeTable*/
 #warning{
     color: white;
-    /* font-size: 150%;     */
     width: 100%;
     height: auto;
     margin-top: 20px;
-    /* position: fixed; */
     color: white;
     cursor: pointer;
 }
+/*#endregion*/
 
+/*#region responsive*/
 @media only screen and (max-width: 600px) {
 
     #defLabel{
         position: fixed;
         margin-left: 5%;
         text-align: center;
-        /* position: relative; */
         font-size: 35px;
         color: white;
     }
 }
+/*#endregion*/
