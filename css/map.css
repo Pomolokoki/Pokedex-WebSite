@@ -1,22 +1,25 @@
-html{
+/*#region global*/
+html {
     margin: 0;
     height: 100%;
 }
-body{
+body {
     margin: 0;
     height: 100%;
     background-color: black;
 }
+/*#endregion*/
 
-.textButton{
+/*#region header*/
+.textButton {
     padding-bottom: 14px;
 }
+/*#endregion*/
 
-#phoneContainer1{
-    margin-left: 10px;
-}
+/*#region map*/
 
-#mapFrame{
+/* map container */
+#mapFrame {
     position: absolute;
     right: 0%;
     width: 70%;
@@ -25,23 +28,21 @@ body{
     align-content: center;
     z-index: 0;
 }
-#smallMapFrame{
+
+#smallMapFrame {
     position: relative;
-    /* top: 10%; */
     margin: auto;
     width: 100%;
     height: 100%;
-    background-color: blueviolet;
-
     background-color: rgb(0, 132, 255);
     background: radial-gradient(rgb(57, 188, 231), rgb(48, 48, 230));
-    /* align-content: center; */
     overflow: hidden;
     clip: auto;
     z-index: 0;
-}   
+}
 
-#imgMap, #svgMap{
+/* map */
+#imgMap, #svgMap {
     position: absolute;
     display: block;
     width: auto;
@@ -54,11 +55,13 @@ body{
     pointer-events: none;
 }
 
-.road, .special, .city{
+/* svg map element */
+.road, .special, .city {
     pointer-events: auto;
 }
 
-#centered{
+/* center map */
+#centered {
     position: absolute;
     height: 2.5vh;
     width: max-content;
@@ -70,7 +73,7 @@ body{
     align-content: center;
 }
 
-#refocus{
+#refocus {
     position: relative;
     height: 100%;
     width: auto;
@@ -81,122 +84,22 @@ body{
     right: 100%;
     top: 20%;
 }
+/*#endregion*/
 
-#info{
-    max-width: 50%;
-    position: relative;
-    width: 30%;
-    height: calc(100% - 140px);;
-    flex-direction: column;
-    display: flex;
-    overflow: hidden;
-}
+/* #region Bubble (Interactive */
 
-#currentgen{
-    width: 100%;
-    height: auto;
-    /* padding: 2%; */
-    color: white;
-    font-size: auto;
+#bubble {
+    background-color: grey;
+    position: absolute;
+    left: 60px;
+    top: 40px;
+    width: 25px;
+    transform: rotate(45deg);
+    height: 25px;
+    pointer-events: none;
 }
 
-#mapList{
-    position: relative;
-    color: black;
-    width: 80%;
-    left: 10%;
-    margin-top:2%;
-}
-
-select {
-      /* Arrow */
-  border: unset;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1vw top 50%;
-  background-size: 1vw auto;
-  padding-left: 10px;
-}
-.select-selected{
-    
-  border: 6px solid transparent;
-}
-
-.gens{
-    background-color: red;
-    color: white;
-    align-content: center;
-}
-
-#radioButtonsHolder{
-    display: inline;
-    padding-top:12px;
-    margin-top: 5%;
-    font-size: 14px;
-}
-
-.radioLabel{
-    position: relative;
-    color: white;
-    margin-left: 35px;
-    top: -3px;
-}
-
-#phoneContainer2{
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-#searchBarContainer{
-    
-    position: relative;
-    width: 80%;
-    left: 10%;
-    margin-top: 10%;
-    padding-left: 5%;
-}
-#searchBar{
-    width: 100%;
-}
-
-#mapLocation{
-    position: relative;
-    height: auto;
-    width: 80%;
-    left: 10%;
-    display: inline-block;
-    /* background-color: red; */
-    overflow: auto;
-    clip: auto;
-    vertical-align: middle;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    padding-bottom: 2%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.location{
-    border: double;
-    margin-top: 1%;
-    background-color: red;
-    color: black;
-    border-color: white;
-    /* height: max-content; */
-    font-size-adjust: inherit;
-    border-radius: 1vw;
-    padding-left: 5%;
-    font-size: 15px;
-    /* width: max-content; */
-    max-width: 90%;
-    margin-left: 5%;
-    /* margin: 1% auto 0%; */
-}
-
-#locationName{
-    /* display: none; */
+#locationName {
     transform: rotate(-45deg);
     position: absolute;
     width: 250px;
@@ -208,21 +111,139 @@ select {
     text-align: center;
     background-color: grey;
 }
-#bubble{
-    background-color: grey;
-    position: absolute;
-    left: 60px;
-    top: 40px;
-    width: 25px;
-    transform: rotate(45deg);
-    height: 25px;
-    pointer-events: none;
+/* #endregion */
+
+/* #region Info panel */
+
+/* container */
+#info {
+    max-width: 50%;
+    position: relative;
+    width: 30%;
+    height: calc(100% - 140px);;
+    flex-direction: column;
+    display: flex;
+    overflow: hidden;
 }
 
+#phoneContainer1 {
+    margin-left: 10px;
+}
+
+/* label */
+#currentgen {
+    width: 100%;
+    height: auto;
+    color: white;
+    font-size: auto;
+}
+
+/* select box */
+#mapList {
+    position: relative;
+    color: black;
+    width: 80%;
+    left: 10%;
+    margin-top:2%;
+}
+
+/* Arrow */
+select {
+  border: unset;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1vw top 50%;
+  background-size: 1vw auto;
+  padding-left: 10px;
+}
+
+.select-selected {
+  border: 6px solid transparent;
+}
+
+/* select value in sleect list for region */
+.gens {
+    background-color: red;
+    color: white;
+    align-content: center;
+}
+
+/* radio button container */
+#radioButtonsHolder {
+    display: inline;
+    padding-top:12px;
+    margin-top: 5%;
+    font-size: 14px;
+}
+ /* radio button label */
+.radioLabel {
+    position: relative;
+    color: white;
+    margin-left: 35px;
+    top: -3px;
+}
+/* #endregion */
+
+/* #region location select */
+/* container */
+#phoneContainer2 {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* search bar */
+#searchBarContainer {
+    
+    position: relative;
+    width: 80%;
+    left: 10%;
+    margin-top: 10%;
+    padding-left: 5%;
+}
+
+#searchBar {
+    width: 100%;
+}
+
+/* scroll list */
+#mapLocation {
+    position: relative;
+    height: auto;
+    width: 80%;
+    left: 10%;
+    display: inline-block;
+    overflow: auto;
+    clip: auto;
+    vertical-align: middle;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-bottom: 2%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* scroll list option */
+.location {
+    border: double;
+    margin-top: 1%;
+    background-color: red;
+    color: black;
+    border-color: white;
+    font-size-adjust: inherit;
+    border-radius: 1vw;
+    padding-left: 5%;
+    font-size: 15px;
+    max-width: 90%;
+    margin-left: 5%;
+}
+
+/* #endregion */
 
 
-
-#pokemonSearch{
+/* pokemon (Interactive) */
+#pokemonSearch {
     width: 180px;
     height: 20px;
     resize: none;
@@ -230,6 +251,12 @@ select {
     margin-right: 10px;
     overflow: auto;
 }
+
+#pokedexContainer {
+    display: none;
+}
+
+/* conainer scrollable */
 #pokedex {
     width: 200px;
     overflow-y: scroll;
@@ -238,27 +265,26 @@ select {
     font-size: 10px;
 }
 
-.pokemonImage{
-    height: 50px;
-    width: 50px;
-}
-
+/* pokemon */
 .pokemon {
     display: flex;
 }
 
-.pokemon p{
+.pokemonImage {
+    height: 50px;
+    width: 50px;
+}
+
+.pokemon p {
     align-self: center;
 }
-
-#pokedexContainer{
-    display: none;
-}
+/* #endregion */
 
 
 
+/* #region responsive */
 @media only screen and (max-width: 600px) {
-    #mapFrame{
+    #mapFrame {
         position: absolute;
         right: 0%;
         width: 100%;
@@ -268,7 +294,8 @@ select {
         flex-direction: row;
         background-color: blueviolet;
     }
-    #info{
+
+    #info {
         max-width: unset;
         position: relative;
         width: 100%;
@@ -277,10 +304,12 @@ select {
         display: flex;
         overflow: auto;
     }
-    #phoneContainer1{
+
+    #phoneContainer1 {
         width: unset;
     }
-    #mapLocation{
+
+    #mapLocation {
         left: 0;
         width: 90%;
         height: 100%;
@@ -288,13 +317,17 @@ select {
         margin-bottom: 0;
         margin-top: 2%;
     }
-    #searchBarContainer{
+
+    #searchBarContainer {
         left: 0%;
         margin-top: 2%;
     }
 }
+/* #endregion */
 
-.mapLocation:hover{
+/* #region interative hover */
+.mapLocation:hover {
     filter: brightness(70%);
     z-index: 0;
 }
+/* #endregion */

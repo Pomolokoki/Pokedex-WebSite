@@ -29,6 +29,12 @@ Conclusion :
 
 
 Présentation :
+Nous nous sommes mis en groupe de 3 (Yran Tristan Tom) pour ce projet.
+Et avons choisi de faire un pokédex.
+Le but du projet était la réalisation d'un site mettant en forme un pokédex. 
+Nous avons commencé a immaginer quelles pourrait êtres les différentes pages de notre site et les avons consignés par écrit.
+La validation de ces dernières par nos proffesseurs à conduit a un cahier des charges bien défini.
+
 
 Cahier des charges: 
 Page Pokedex = Acceuil (le fondement du projet) :
@@ -60,6 +66,31 @@ Page Attaque :
 	- Détails des attaques
 
 Page Forum
+(Facultatif : page de jeux (quizz...), page de combat, se battre, choix des amis (duel), choix de l'équipe
+
+Membre du groupe : 
+Yram :
+
+Tristan :
+
+Tom :
+	Domaine de stage : Application communicante avec une base de donnée. (Stage à partir de fin Janvier)
+	Me débrouille avec le SQL
+	Me débrouille avec n'importe quel language appris (en l'occurence : PHP, HTML, CSS, JS, SQL)
+	Préfère le dev back-end
+	Préfère utiliser les languages directement (préfère js pur, pas de framework/librarie)
+	Préfère travailler seul
+
+
+Conception :
+Outils utilisés : 
+	Github / GitHubDesktop (gestion de version, collaboration)
+	VisualStudioCode (IDE) (pour nous trois)
+	Xampp / Uwamp (en fonction des disponibilité dans les salles asignés pour nos heures de projets et du parefeu)
+	Languages : HTML / CSS / JS / PHP / SQL
+
+Statégie de développement : 
+	
 
 
 
