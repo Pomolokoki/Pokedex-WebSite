@@ -1,32 +1,12 @@
 <?php
 include_once("database/extractDataFromDB.php");
 $pokemonMoveData = getDataFromDB("SELECT move.name, smallDescription, accuracy, pp, pc, type.name AS type, priority, criticity, effectType FROM move JOIN type ON type.id = move.type ORDER BY name", null, null, true);
+// not used but if pokedex -> link -> move
 $isSet = isset($_POST["moveId"]);
-// var_dump($_POST);
-// var_dump($_POST["pokemonId"]);
 $columnList = ["Nom", "Type", "Catégorie", "Puissance", "PP", "Précision", "Priorité", "Description", "Taux_Crit"];
 $idForColumList = ["nameFilter", "typeFilter", "categoryFilter", "pcFilter", "ppFilter", "accuracyFilter", "priorityFilter", "descriptionFilter", "criticityFilter"];
 $selectedMoveData = $isSet ? getDataFromDB("SELECT name, smallDescription, accuracy, pp, pc, type.name, priority, criticity FROM move JOIN type ON type.id = move.type WHERE move.id = " . $_POST["moveId"], "", "", true) : null;
 $typeData = getDataFromDB("SELECT name FROM type", null, null, true);
-// var_dump($typeData)
-// name VARCHAR(70),
-// description TEXT,
-// smallDescription TEXT,
-// accuracy TINYINT UNSIGNED,
-// type SMALLINT UNSIGNED,
-// pc TINYINT UNSIGNED,
-// pp TINYINT UNSIGNED,
-// statut VARCHAR(25),
-// effect VARCHAR(25),
-// effectValue FLOAT,
-// effectDuration TINYINT,
-// effectType TINYINT UNSIGNED,
-// affect INT UNSIGNED,
-// comboMin TINYINT UNSIGNED,
-// comboMax TINYINT UNSIGNED,
-// priority BOOLEAN,
-// criticity FLOAT,
-
 
 ?>
 <!DOCTYPE html>
@@ -48,6 +28,7 @@ include_once('header.php');
     <div id="moveContainer">
 
         <table id="moveList">
+            <?php // there is two header bcs I need one to be "static"?>
             <thead id="thead">
                 <tr>
                     <th class="headCells" scope="col">

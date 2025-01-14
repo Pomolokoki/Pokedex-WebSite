@@ -3,16 +3,13 @@ html{
     height: 100%;
     overflow-y: hidden;
 }
+
 body{
     margin: 0;
     height: 100%;
     width: 100%;
     background-color: black;
     text-align: center;
-}
-
-.textButton{
-    padding-bottom: 14px;
 }
 
 #moveContainer{
@@ -22,7 +19,6 @@ body{
 }
 
 #moveList{
-    /* overflow-y: scroll; */
     background-color: aqua;
     padding: 0;
 }
@@ -42,17 +38,6 @@ body{
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
-/* .separator{
-    /* height: 25px; *
-    /* width: 2500px; *
-    background-color: brown;
-    border: 1px solid black;
-    position: sticky;
-    border-radius: 50px;
-    /* top: 0px; *
-    margin-left: 150px;
-} */
-
 .AtkTypeLabel{
     border-radius: 50px;
 }
@@ -65,20 +50,12 @@ body{
     width: calc(100% - 19px);
     overflow-x: hidden;
 }
+
 th {
     width: max-content; 
 }
 
-/* th {
-} */
-
-/* tbody {
-    position: relative;
-    top: 90px;
-} */
-
-
-
+/* sorter buttons */
 .sorter{
     width: 15px;
     height: 30px;
@@ -86,10 +63,6 @@ th {
     margin-bottom: 10px;
     position: relative;
     float: right;
-}
-
-.headText{
-    /* margin-right: 20px; */
 }
 
 .sorterContainer{
@@ -101,7 +74,7 @@ th {
     #thead {
         width: calc(100% - 14px);
     }
-    body{
-        /* font-size: 12px; */
-    }
+    /* body{
+        font-size: 12px;
+    } */
 }
