@@ -17,7 +17,6 @@ $messageData = getDataFromDB("SELECT message.id,
     LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
     WHERE message.channelId = 1 
     ORDER BY message.postDate", "", "", true);
-// echo $isSet ? "true" : "false";
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +37,8 @@ $messageData = getDataFromDB("SELECT message.id,
     ?>
     <?php
     $playerFavChannelData = getDataFromDB("SELECT channelId, title FROM player_fav_channel JOIN channel ON channel.id = channelId WHERE playerId = " . (isset($_SESSION["LOGGED_USER"]) ? $_SESSION["LOGGED_USER"][0]["id"] : "NULL"), null, null, true);
-    if ($playerFavChannelData == "No results found.") $playerFavChannelData = [];
+    if ($playerFavChannelData == "No results found.")
+        $playerFavChannelData = [];
     ?>
     <div id="forumFrame">
         <?php if (isset($_SESSION["LOGGED_USER"])) {
@@ -58,6 +58,7 @@ $messageData = getDataFromDB("SELECT message.id,
                 <textarea id="themeSearchbar" placeholder="Rechercher un thème" rows="1"></textarea>
                 <p id="themeSearchbarResultsTitle"> Thèmes les plus récents :</p>
             </div>
+
             <div id="themeResults">
                 <?php
                 for ($i = 0; $i < count($channelData); $i++) {
@@ -92,13 +93,13 @@ $messageData = getDataFromDB("SELECT message.id,
             }
             ?>
             <div id="selector">
-                <button>
-                    << /button>
-                        <button>1</button>
-                        <button>2</button>
-                        <button>></button>
+                <button><< /button>
+                <button>1</button>
+                <button>2</button>
+                <button>></button>
             </div>
         </div>
+
         <div id="channel">
             <img id="mobileBackArrow" src="./img/backIcon.png" alt="retourAuxThemes">
             <?php
@@ -114,8 +115,9 @@ $messageData = getDataFromDB("SELECT message.id,
                     ?>
                     <svg id="setFavorite" data-selected="true" xmlns="http://www.w3.org/2000/svg" class="star star-dotted"
                         viewBox="0 0 16 16">
-                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-                        </svg>
+                        <path
+                            d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                    </svg>
                 <?php } else { ?>
                     <svg id="setFavorite" data-selected="false" xmlns="http://www.w3.org/2000/svg" class="star star-dotted"
                         viewBox="0 0 16 16">
@@ -124,6 +126,7 @@ $messageData = getDataFromDB("SELECT message.id,
                     </svg>
                 <?php }
             } ?>
+
             <div id="channelMessages">
                 <h2 id='title' class="message" data-owner=<?php echo '"' . $messageData[0]["playerId"] . '"'; ?>><?php echo $channelData[1]["title"]; ?></h2><br>
                 <?php
@@ -139,6 +142,7 @@ $messageData = getDataFromDB("SELECT message.id,
                 }
                 ?>
             </div>
+
             <?php
             if (isset($_SESSION["LOGGED_USER"])) {
                 echo '
@@ -154,11 +158,10 @@ $messageData = getDataFromDB("SELECT message.id,
                     <div id="answerOption" class="options">Répondre</div>
                     <div id="deleteOption" class="options">Supprimer</div>
                     <div id="reportOption" class="options">Signaler</div>
-                    <!-- <div id="reportOption" class="options">Silencer Temporairemnt</div>
-                    <div id="reportOption" class="options">Silencer</div>  userstuff -->
                 </div>
             </div>
         </div>
+
         <div id="favorites">
             <p> Vos thèmes favoris :</p>
             <div id="favList">
@@ -177,8 +180,10 @@ $messageData = getDataFromDB("SELECT message.id,
             </div>
         </div>
     </div>
+
     <div id="confirmAction">
     </div>
+    
     <div id="confirmBox">
         <p id="confirmText"> Help, je suis en grand danger, sauvez moi</p>
         <div id="confirmBut1" class="but"> Confirmer </div>
