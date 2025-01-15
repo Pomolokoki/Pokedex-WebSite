@@ -10,14 +10,14 @@ function getStringReplace($string, $addQuote = true)
     }
     else if ($addQuote)
     {
-        $string = str_replace("/", "\/", $string);
-        $string = str_replace("\\", "\\\\", $string);
+        // $string = str_replace("/", "\/", $string);
+        // $string = str_replace("\\", "\\\\", $string);
         return '"' . str_replace('"','\\"',$string) . '"';
     }
     else 
     {
-        $string = str_replace("/", "\/", $string);
-        $string = str_replace("\\", "\\\\", $string);
+        // $string = str_replace("/", "\/", $string);
+        // $string = str_replace("\\", "\\\\", $string);
         return str_replace('"','\\"',$string);
     }
 }

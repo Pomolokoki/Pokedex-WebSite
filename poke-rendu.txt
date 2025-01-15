@@ -1,7 +1,161 @@
-tom:
-travail à partir de maquettes
+Rendu : 
+
+Pokedex
+
+Yram / Tristan / Tom
+
+Sommaire :
+Intro : 
+	Présentation
+	Cahier des charges
+	Membre du groupe
+
+Conception :
+	Outils utilisés
+	Stratégie de developpement
+	Problèmes attendus et rencontrés
+
+	Evolutions du projet
+	Performances du project
+	Mise en production
+
+Conclusion :
+	Etat du projet
+	Conclusions personnelles
+	Prolongements
+	Retour sur les choix faits
+	Axes d'améliorations
+
+
+
+Présentation :
+Nous nous sommes mis en groupe de 3 (Yran Tristan Tom) pour ce projet.
+Et avons choisi de faire un pokédex.
+Le but du projet était la réalisation d'un site mettant en forme un pokédex. 
+Nous avons commencé a immaginer quelles pourraient êtres les différentes pages de notre site et les avons consignés par écrit.
+La validation de ces dernières par nos proffesseurs à conduit à un cahier des charges 'bien' défini.
+
+
+Cahier des charges: 
+Page Pokedex = Acceuil (le fondement du projet) :
+	- Liste de tous les pokémons existants
+	- Système de filtre et recherche
+	- Détails disponibles pour chaques pokémons
+	- Syncronisation avec un pokedex personnel (favoris / capture/ equipes)
+
+Page Table des types :
+	- Faiblesses et resistances par types
+	- Possibilité de prendre en compte les doubles types
+
+Page Cartes des différents jeux :
+	- Interactivité (possibilité de voir les pokemons présentS dans une zone séléctionnée)
+
+Page Joueur :
+	- Information sur le joueur / compte
+	- Liste d'amis
+	- Possibilité de voir les pokemons favoris / capturés / mis dans uen équipe
+
+Page Inscription
+
+Page Items : 
+	- Liste des différents items pouvant êtres trouvés dans le jeu
+
+Page Attaque : 
+	- Liste des attaques 
+	- Système de recherche et de filtre
+	- Détails des attaques
+
+Page Forum
+(Facultatif : page de jeux (quizz...), page de combat, se battre, choix des amis (duel), choix de l'équipe
+
+Membre du groupe : 
+Yram :
+
+Tristan :
+
+Tom :
+	Domaine de stage : Application communicante avec une base de donnée. (Stage à partir de fin Janvier)
+	Me débrouille avec le SQL
+	Me débrouille avec n'importe quel language appris (en l'occurence : PHP, HTML, CSS, JS, SQL)
+	Préfère le dev back-end
+	Préfère utiliser les languages directement (préfère js pur, pas de framework/libraries)
+	Préfère travailler seul
+
+
+Conception :
+Outils utilisés : 
+	Github / GitHubDesktop (gestion de version, collaboration)
+	VisualStudioCode (IDE) (pour nous trois)
+	Xampp / Uwamp (en fonction des disponibilité dans les salles asignés pour nos heures de projets et du parefeu)
+	Languages : HTML / CSS / JS / PHP / SQL
+
+Stratégie de développement : 
+	Très incrémentale, pour commencer, nous avons tous choisi une page et avons commencé à la designer en s'aidant de la maquette associer
+	Nous avons commencé avec : page Pokedex, le header et page des cartes
+	
+	Yram :
+	Tristan:
+	Tom : J'ai choisi de commencer avec la page 'table des types', je ne voulais pas attaquer trop gros pour rentrer doucement dans le projet, une fois finie (juste en attente des données),
+		j'ai atatqué la page des cartes car j'ai trouvé interessant de savoir comment on allait procéder pour 'l'intéractivité', je sais que j'aurai pas mal de travail sur cette page
+
+	
+	Or, lors de la réalisation de ces pages quelque chose s'est avéré manquant : les données.
+	Cela nous a un moment échappé, alors on a commencé avec des exemples (de data)
+	
+	Tom : après concertation, j'ai laissé la page des cartes de coté pour me concentrer sur la base de données
+
+	L'API la plus complète que nous aillons trouvé était celle de PokeAPI
+	Donc nous avons basé notre base de données sur celle-ci.
+	
+	Puis pour chaqun d'entre nous : après avoir fini base de données ou page, on passait sur la page suivante.
+	En faisant attention à répartir les pages pour que chaque personne touche à tous les langages
+
+	Tom : Après avoir fait en partie les cartes et avoir "finalisé" la base de donnée, je me suis tourné vers un autre gros morceau : le forum
+		le forum fini, j'ai terminé la page des cartes
+		et ma dernière réalisation fut la page 'attaque'
+		Tout au long de la réalisation, je me suis aussi chargé de correction des données / mise à jour dans la base de données.
+
+Probèmes attendu et recontrés :
+	Yram :
+	Tristan : 
+	Tom : 
+		Page 'table des types':
+			je ne m'attendais pas à avoir de problème concernant cette page
+
+		    	mais forcé de l'admettre, mes premiers jets n'était pas forcément très réussi
+ 			utilisation d'une checkbox (custom) pour la selection de doubles types (que je n'arrivait pas à gérer (en responsive))
+			j'avais prévu de mettre un marqueur rouge pour mettre en valeur la ou les lignes séléectionée par l'utilisateur, gérer sa posiitione t sa taille s'est arrévé tricky
+			au final, le marqueur et la checkbox ont disparu pour laissé place a une autre méthode : griser les ccellules non selectionnées
+
+		Page 'cartes' :
+			je m'attendais a avoir quelques difficultés survenir au moment de l'interactivité comme : 
+				déplacer et zoomer la carte
+				faire une carte qui réagit à la souris
+				faire en sorte que la liste des localisation soit liée aux localisation sur la carte (je voyais ca très long)
+			
+			finalement :	
+				les fonctions pour se déplacer et zoomer sur la carte ont été rapidement mises en service, seuls quelques petit problème restait mais une scénace de debuggage a suffi a les eliminés
+				pour faire la carte qui réagit à la souris : un svg était la solution évidente (quelques petit problèmes rencontrés pour chanegr le contenue d'un balise svg, mais qui a fini par se résoudre)
+				faire le lien entre les elements svg et la liste des localisations à demander des efforts supplémentaires : se débrouiller pour avoir le meme résultat sur l'un et l'autre, mais à partir d'object totalement différents
+				
+				la dernier point non prévu viens de l'intriodction d'un mini-pokedex directement sur cette page pour visualiser où ces derniers pouvvent êtres trouvés
+				Or, le scroll du mini-pokedex empiète sur celui du zoom de la carte
+		
+		Base de données : 
+			Quand je me suis lancé dans la base de donnée, je ne savais pas du tout a quoi m'attendre, juste une bonne tourné de SQL et que cela prendrait certainement un peu de temps
+			
+			Notre site a besoin de données pour fonctionner correctement, ces données ne peuvent être récuprérée directement part des appels API (trop longs) et pour les besoins du projet, il faillait une base de données
+			Après conseil des proffesseurs : j'ai téléchargé l'API (pokePAI) et j'irai lire les fichiers directement pour créer ma base.
+			J'ai choisi de les lire en PHP car c'est un techno vue en cours et pour la quelle on s'est déja servi pour se connecter a une base de donnée. Ce serait aussi le languages utilisé pour faire nos pages html (et les remplir directement de données) 
+			
+ 			J'ai eu besoin de l'apport d'un autre API (tyradex) pour combler les manques dans la première
+
+			J'ai du créer de nouvelle tables pour faire des liens entre deux autres (cette implémentationétait plus efficace), car rien n'est régulier dans pokémons, il n'y a pas un nombre fixe d'attribut par pokemon
+			J'ai commencé par des boucle 'for' pour récupérer mes valeurs, mais cela ne coincidait pas avec les id des pokémons (rien n'est régulier), je me suis résolu à juste parcourir les fichiers
+			Pour sauvegarder les odnnées
+
 creation bdd:
-	php api ->sql
+	php api -> sql
 	pioche dans plusieurs api ? (oui)
 	table ability (is hidden ?) -> table ability_pokemon -> (idPoke, idAbil, isHidden) -> pas caché sur tous les poké
 	for loop though all but id non consecutive, so foreach thought a file with all subfiles listed
@@ -14,6 +168,5 @@ Database needs:
 	ability effect
 	move effect
 	Fr 
-poke-typeTable needs:
-	type on the left being float
+
 	

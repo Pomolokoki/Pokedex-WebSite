@@ -24,10 +24,6 @@ $typeData = getDataFromDB("type", "*", null);
 
 	<script src="scripts/typeTable.js"></script>
 	<div id="typeTableFrame">
-
-		<!-- <div id="midVertival"> -->
-
-
 		<div id="midVertical">
 			<div id="defLabel">Défenseur</div>
 			<div id="gridAtckFlex">
@@ -54,22 +50,9 @@ $typeData = getDataFromDB("type", "*", null);
 					?>
 				</div>
 			</div>
-			<div id="warning">Les données peuvent varier selon les pokémons, merci de vous référer à <a href="./pokedex.php">pokedex</a> pour une meilleure précision</div>
+			<div id="warning">Les données peuvent varier selon les pokémons, merci de vous référer à <a
+					href="./pokedex.php">pokedex</a> pour une meilleure précision</div>
 		</div>
-		<!-- <div id="gridParameters">
-				<input type="checkbox" id="doubleType" value="Double Type">
-				<label class="checkbox">
-					<input type="checkbox" checked="checked" id="doubleType" onchange="doubleTypeChanged()">
-					<span class="checkmark"></span>
-				</label>
-				<label for="doubleType" id="doubleTypeLabel"> Double type </label><br>
-				<label class="checkbox" id="fitScreenBox">
-					<input type="checkbox" checked="checked" id="fitScreen" onchange="FitScreen()">
-					<span class="checkmark"></span>
-				</label>
-				<label for="fitScreen" id="fitScreenLabel"> Fit Screen </label><br>
-			</div> -->
-		<!-- </div> -->
 	</div>
 </body>
 

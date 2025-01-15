@@ -1,3 +1,4 @@
+/* #region global stuff */
 html {
     margin: 0;
     height: 100%;
@@ -10,6 +11,18 @@ body {
     color: white;
 }
 
+textarea {
+    overflow-y: hidden;
+    margin: none;
+    resize: none;
+    padding: 10px 5px 10px;
+    font-size: 65%;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+/* #endregion */
+
 /* #header{
     background-color: red;
     width: 100%;
@@ -20,10 +33,11 @@ body {
 #forumFrame {
     width: 100%;
     height: calc(100% - 140px);
-    /* overflow-x: scroll; */
     display: flex;
 }
 
+/* #region themes  */
+/* container */
 #themes {
     width: 20%;
     height: 100%;
@@ -31,9 +45,9 @@ body {
     flex-direction: column;
     padding-left: 10px;
     padding-top: 10px;
-    /* overflow-x: scroll; */
 }
 
+/* star svg */
 #selectFavorite {
     fill: white;
     position: absolute;
@@ -50,20 +64,12 @@ body {
     width: 100%;
 }
 
+/* induction ofr result of searchbar */
 #themeSearchbarResultsTitle {
     color: white;
 }
 
-textarea {
-    overflow-y: hidden;
-    margin: none;
-    resize: none;
-    padding: 10px 5px 10px;
-    font-size: 65%;
-    background-color: lightgray;
-    border-radius: 10px;
-}
-
+/* container for results */
 #themeResults {
     border: solid 2px white;
     flex: auto;
@@ -88,24 +94,29 @@ textarea {
     overflow-x: hidden;
 }
 
+/* create theme button */
 #createTheme {
     text-align: center;
 }
 
+/* ain't displayed */
 #selector {
     margin-bottom: 20px;
     display: flex;
 }
+/* #endregion */
 
+/* #region favorites */
+/* big container */
 #favorites {
     width: 20%;
     height: 100%;
     padding-top: 10px;
     padding-right: 10px;
     padding-left: 10px;
-    /* overflow-x: scroll; */
 }
 
+/* list container */
 #favList {
     border: solid 2px white;
     max-height: 90%;
@@ -113,6 +124,7 @@ textarea {
     min-height: 30%;
 }
 
+/* idk  */
 .favorite {
     padding-left: 10px;
     color: white;
@@ -120,6 +132,7 @@ textarea {
     cursor: pointer;
 }
 
+/* favorite theme */
 .favoriteTheme{
     position: absolute;
     height: 25px;
@@ -129,10 +142,13 @@ textarea {
     margin-left: -5px;
 }
 
+/* no fav theme yet */
 #noTheme {
     cursor: auto;
 }
+/* #endregion */
 
+/* #region channel */
 #channel {
     position: relative;
     width: 60%;
@@ -142,6 +158,7 @@ textarea {
     overflow-x: hidden;
 }
 
+/* container */
 #messageArea {
     width: 100%;
     position: fixed;
@@ -152,6 +169,7 @@ textarea {
     padding-bottom: 15px;
 }
 
+/* writting messages */
 #messageTextBox {
     position: relative;
     bottom: 5px;
@@ -159,6 +177,7 @@ textarea {
     max-height: 100px;
 }
 
+/* what are you typing */
 #typing {
     position: absolute;
     margin-top: -30px;
@@ -166,6 +185,7 @@ textarea {
     background-color: black;
 }
 
+/* send message button */
 #submitMessage {
     width: 30px;
     height: 30px;
@@ -178,6 +198,7 @@ textarea {
     font-size: 75%;
 }
 
+/* star svg */
 #setFavorite {
     fill: white;
     position: absolute;
@@ -204,6 +225,7 @@ textarea {
     cursor: pointer;
 }
 
+/* container for profile stuff */
 .profile {
     border: solid 2px white;
     width: max-content;
@@ -231,12 +253,14 @@ textarea {
 .selectAnimation {
     animation: colorchange 4s 1;
 }
+/* #endregion */
 
+/* #region options */
+/* |...| boxes */
 #optionsTrigger {
     border: solid 2px white;
     text-align: center;
     align-items: center;
-    /* position: relative; */
     margin-top: 0;
     top: 0;
     display: none;
@@ -279,6 +303,7 @@ textarea {
     text-align: center;
 }
 
+/* option buttons (=confirmBut1 + confirmBut2)*/
 .but {
     width: fit-content;
     display: block;
@@ -287,7 +312,6 @@ textarea {
 
 #confirmBut1 {
     position: relative;
-    /* display: inline-block; */
     bottom: 10;
     border: solid 2px red;
     background-color: black;
@@ -296,14 +320,12 @@ textarea {
 
 #confirmBut2 {
     position: relative;
-    /* display: inline-block; */
-    /* width: 25%; */
     right: 0;
     bottom: 10;
     border: solid 2px red;
     background-color: black;
 }
-
+/* #endregion */
 
 @keyframes colorchange {
 
@@ -319,7 +341,6 @@ textarea {
         background-color: black;
     }
 }
-
 
 @media only screen and (max-width: 600px) {
     #channel {

@@ -1,12 +1,8 @@
 <?php
 include_once("./database/extractDataFromDB.php");
-$isSet = isset($_POST["pokemonId"]) && isset($_POST["generationId"]);
-// var_dump($_POST);
-// var_dump($_POST["pokemonId"]);
-$pokemonLocationData = $isSet ? getDataFromDB("SELECT location.name, pokemon.spriteM, pokemon.name AS pokemonName, generation FROM location_pokemon AS lp JOIN location ON location.id = lp.locationId JOIN pokemon ON pokemon.id = lp.pokemonId WHERE pokemonId = " . $_POST["pokemonId"], "", "", true) : null;
+$pokemonData = getDataFromDB("SELECT spriteM, name, id FROM pokemon WHERE id < 10000", null, null, true);
 $regionData = getDataFromDB("region", "*", null);
-$locationData = getDataFromDB("location", "*", "WHERE regionId = " . ($isSet ? $_POST["generationId"] : 1));
-$language = "fr";
+$locationData = getDataFromDB("location", "*", "WHERE regionId =  1");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -25,60 +21,60 @@ include_once('header.php');
 <body>
     <div id="mapFrame">
         <div id="smallMapFrame">
-            <span id="mapContainer">
+
+            <span id="mapContainer"> 
                 <image id="imgMap" draggable="false" src="./img/Kanto.png"></image>
                 <svg viewBox="0 0 350 350" width="350" heigh="350" id="svgMap" draggable="false"
                     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" clip-rule="evenodd"
                     version="1.1">
-                    <?php //include_once("./svg/Hoenn.svg") ?>
                 </svg>
-
             </span>
+
             <div id="centered">
                 <image id="refocus" draggable="fase" src="./img/refocusIcon.png"></image>
                 <label>Center map</label>
             </div>
-            <?php if ($isSet) echo '
-            <div id="pokemon">
-                <image id="pokemonImage" draggable="fase" src="./img/refocusIcon.png"></image>
-                <p>
-            </div>
 
-            '; 
-            else {
-                echo '
-            <div id="pokeListContainer">
-                <select id="pokeList"><select>
+            <div id="pokedexContainer">
+                <textarea id="pokemonSearch" rows="1"></textarea>
+                <div id="pokedex">
+                    <?php for ($i = 0; $i < count($pokemonData); ++$i) { ?>
+                        <div class="pokemon">
+                            <image class="pokemonImage" draggable="fase" src="<?= $pokemonData[$i]['spriteM'] ?>"
+                                data-id="<?= $pokemonData[$i]['id'] ?>"></image>
+                            <p><?= getTextLang($pokemonData[$i]['name'], $language) ?></p>
+                        </div>
+                    <?php } ?>
+                </div>
             </div>
-            ';
-            } ?>
 
         </div>
     </div>
+
     <div id="bubble">
         <div id="locationName">
             Je suis ton père
         </div>
     </div>
+
     <div id="info">
         <div id="phoneContainer1">
-
             <div id="currentgen">Current map generation : </div>
             <select id="mapList">
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
                     if ($i == ($isSet ? $_POST["generationId"] : 1)) {
-                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</option>";
+                        echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"], $language) . "</option>";
                         continue;
                     }
-                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"]) . "</option>";
+                    echo "<option value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"], $language) . "</option>";
                 }
                 ?>
             </select>
-            <div id="radioButtonsHolder">
 
+            <div id="radioButtonsHolder">
                 <label class="radioBut">
-                    <input <?php if (!$isSet) { echo 'checked="checked"'; }?> name="mapType" type="radio" class="checkboxInput" id="gameMap">
+                    <input checked="checked" name="mapType" type="radio" class="checkboxInput" id="gameMap">
                     <span class="radio"></span>
                 </label>
                 <label for="gameMap" id="gameMapLabel" class="radioLabel"> - In Game Map </label>
@@ -88,29 +84,27 @@ include_once('header.php');
                 </label>
                 <label for="realMap" id="realMapLabel" class="radioLabel"> - Realistic Map </label>
                 <label class="radioBut">
-                    <input <?php if ($isSet) { echo 'checked="checked"'; }?> name="mapType" type="radio" id="interactiveMap" class="checkboxInput">
+                    <input name="mapType" type="radio" id="interactiveMap" class="checkboxInput">
                     <span class="radio"></span>
                 </label>
                 <label for="interactiveMap" id="interactiveMapLabel" class="radioLabel"> - Interactive Map </label>
             </div>
+
         </div>
+
         <div id="phoneContainer2">
             <div id="searchBarContainer">
                 <input type="searchbar" id="searchBar" placeholder="Search..."></input>
             </div>
             <div id="mapLocation">
                 <?php
-                $datas = $isSet ? $pokemonLocationData : $locationData;
-                for ($i = 0; $i < count($datas); $i++) {
-                    echo '<div class=location data-location="' . GetTextLang($datas[$i]["name"], "en") . '">' . GetTextLang($datas[$i]["name"]) . '</div>';
-                }
-                if ($isSet)
-                {
-                    echo "<div id=pokemon> <img src=" . $pokemonLocationData["spriteM"] . " alt='" . $pokemonLocationData["pokemonName"] . "Image'> <label>" . $pokemonLocationData["pokemonName"] . "<div>";
+                for ($i = 0; $i < count($locationData); $i++) {
+                    echo '<div class=location data-location="' . GetTextLang($locationData[$i]["name"], "en") . '">' . GetTextLang($locationData[$i]["name"], $language) . '</div>';
                 }
                 ?>
             </div>
         </div>
+
     </div>
 
     <script src="scripts/svg.js"></script>
