@@ -31,55 +31,92 @@ var colorStat = ["#9afd7c", "#fff26b", "#ffb15c", "#7cfeff", "#6da2ff", "#c67bff
 var language = "Fr";
 
 document.getElementById('check_fav').addEventListener('click', function () {
-  let id_user = document.getElementById('Data_User').textContent;
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
+  let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
+  if(document.getElementsByClassName("star-dotted")[0].style.display == "block"){
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      INSERT INTO player_favorites VALUES (`+ id_player +`,` + id_pokemon +`);`)
+  xmlhttp.send();
+    console.log('azerty')
+  }
+  else {
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", `./ajax/getDBData.php?request= 
+      DELETE FROM player_favorites WHERE playerId =`+ id_player +` AND pokemonId =` + id_pokemon +`;`)
+  xmlhttp.send();
+  }
+  check_pokemonUser(id_pokemon);
 });
 
 document.getElementById('check_capture').addEventListener('click', function () {
-  let id_user = document.getElementById('Data_User').textContent;
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
-
+  let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
+  if(document.getElementsByClassName("pokeball-empty")[0].style.display == "block"){
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+      INSERT INTO player_pokemon VALUES (`+ id_player +`,` + id_pokemon +`);`)
+  xmlhttp.send();
+    console.log('qwerty')
+    console.log(`INSERT INTO player_pokemon VALUES (`+ id_player +`,` + id_pokemon +`);`)
+    console.log(dataCheck)
+  }
+  else {
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", `./ajax/getDBData.php?request= 
+      DELETE FROM player_pokemon WHERE playerId =`+ id_player +` AND pokemonId =` + id_pokemon +`;`)
+  xmlhttp.send();
+  }
+  check_pokemonUser(id_pokemon);
 });
-
-function check_favorite(id){
-  let id_user = document.getElementById('Data_User').textContent;
-}
-
-function check_capture(id){
-  let id_user = document.getElementById('Data_User').textContent;
-
-}
 
 var check_pokemonUser = function (id) {
   let xmlhttp = new XMLHttpRequest();
+  let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      dataAbility = JSON.parse(this.responseText);
-      document.getElementById("Talent").innerText = "";
-      document.getElementById("Talent").classList.remove("NB_talent0", "NB_talent1", "NB_talent2", "NB_talent3")
-      document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
-      for (let i = 0; i < dataAbility.length; i++) {
-        let divElementName = document.createElement("div");
-        divElementName.classList.add("nom_talent");
-        divElementName.innerHTML = getText(dataAbility[i]["name"]);
-        document.querySelector("body #content #Pokemon #Talent").appendChild(divElementName);
+      dataCheck = JSON.parse(this.responseText);
+      console.log(dataCheck)
+      if (dataCheck == "No results found.") {
+        document.getElementsByClassName("star-dotted")[0].style.display = "block";
+        document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
+        document.getElementsByClassName("star-fill")[0].style.display = "none";
+        document.getElementsByClassName("pokeball-fill")[0].style.display = "none";
+        return
       }
-      for (let i = 0; i < dataAbility.length; i++) {
-        let divElementDesc = document.createElement("div");
-        divElementDesc.classList.add("desc_talent");
-        divElementDesc.innerHTML = getText(dataAbility[i]["smallDescription"]);
-        document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
+      else {
+        for (let i = 0; i < dataCheck.length; i++) {
+          if (dataCheck[i]["pokemonFav"] == null) {
+            document.getElementsByClassName("star-dotted")[0].style.display = "block";
+            document.getElementsByClassName("star-fill")[0].style.display = "none";
+            console.log("aled")
+          }
+          else {
+            document.getElementsByClassName("star-dotted")[0].style.display = "none";
+            document.getElementsByClassName("star-fill")[0].style.display = "block";
+          }
+          if (dataCheck[i]["pokemonPlayer"] == null) {
+            document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
+            document.getElementsByClassName("pokeball-fill")[0].style.display = "none";
+          }
+          else {
+            document.getElementsByClassName("pokeball-empty")[0].style.display = "none";
+            document.getElementsByClassName("pokeball-fill")[0].style.display = "block";
+          }
+
+        }
       }
-      console.log("pokemonCheck Loaded !");
     }
+    console.log("pokemonCheck Loaded !");
   }
   xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
-      pf.playerId,
-      pf.pokemonId,
+      pf.pokemonId AS pokemonFav,
+      pp.pokemonId AS pokemonPlayer 
       FROM player_favorites AS pf 
-      INNER JOIN ability ON ap.abilityId = ability.id 
-      WHERE ap.pokemonId = ` + id, true);
+      LEFT JOIN player_pokemon AS pp ON pp.playerId = `+ id +` 
+      WHERE pf.playerId = ` + (document.getElementById('Data_User').textContent) + ` AND pf.pokemonId= ` + id, true);
+
   xmlhttp.send();
 }
 
@@ -622,12 +659,12 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.classList.add("EvoStage_Pokemon_case");
           if (dataEvol[i].evolutionStade == 0) {
             divElementPokemon.id = "stage2";
-            if(dataEvol[i].id == 67){
+            if (dataEvol[i].id == 67) {
               tabStageEvo.push(dataEvol[i].evolutionStade + 1);
               document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.height = '65px';
               document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.marginBottom = '30px';
             }
-            else{
+            else {
               document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.height = '50px';
               document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.marginBottom = '25px';
               tabStageEvo.push(dataEvol[i].evolutionStade + 1);
@@ -636,13 +673,13 @@ var LoadEvoPokemon = function (id) {
           }
           else {
             divElementPokemon.id = "stage3";
-            if(dataEvol[i].id == 442){
+            if (dataEvol[i].id == 442) {
               tabStageEvo.push(dataEvol[i].evolutionStade + 1);
               divElementPokemon.style.alignSelf = 'end'
               document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.alignSelf = 'end'
 
             }
-            else{
+            else {
               divElementPokemon.style.alignSelf = 'center'
               document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.alignSelf = 'center'
               tabStageEvo.push(dataEvol[i].evolutionStade + 1);
@@ -757,6 +794,7 @@ function LoadPokemon(id) {
   LoadDataPokemon(id)
   LoadAbilityPokemon(id)
   LoadEvoPokemon(id)
+  check_pokemonUser(id)
   last_id = id;
   if (id > 10000) {
     return;
@@ -771,16 +809,15 @@ for (let i = 0; i < pokemons.length; i++) {
 
   pokemons[i].addEventListener('click', () => {
     if (last_id === pokemons[i].id) {
-      console.log("a");
       last_id = "x";
-      core.style.margin = "";
+      core.style.margin = "0";
       core.style.maxWidth = "";
       dataPokemon = undefined;
     }
     else {
       LoadPokemon(pokemons[i].id)
       core.style.margin = "0px";
-      // core.style.marginLeft = "275px";
+      core.style.marginLeft = "275px";
       core.style.maxWidth = "450px";
     }
   }, false);
