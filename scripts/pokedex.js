@@ -114,7 +114,13 @@ var check_pokemonUser = function (id) {
       pf.pokemonId AS pokemonFav,
       pp.pokemonId AS pokemonPlayer 
       FROM player_favorites AS pf 
-      LEFT JOIN player_pokemon AS pp ON pp.playerId = `+ id +` 
+      RIGHT JOIN player_pokemon AS pp ON pp.playerId = pf.playerId
+      UNION
+      SELECT 
+      pf.pokemonId AS pokemonFav,
+      pp.pokemonId AS pokemonPlayer 
+      FROM player_favorites AS pf 
+      LEFT JOIN player_pokemon AS pp ON pp.playerId = pf.playerId  
       WHERE pf.playerId = ` + (document.getElementById('Data_User').textContent) + ` AND pf.pokemonId= ` + id, true);
 
   xmlhttp.send();

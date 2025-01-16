@@ -88,6 +88,7 @@ Outils utilisés :
 	VisualStudioCode (IDE) (pour nous trois)
 	Xampp / Uwamp (en fonction des disponibilité dans les salles asignés pour nos heures de projets et du parefeu)
 	Languages : HTML / CSS / JS / PHP / SQL
+	Ajax (pour js)
 
 Stratégie de développement : 
 	Très incrémentale, pour commencer, nous avons tous choisi une page et avons commencé à la designer en s'aidant de la maquette associer

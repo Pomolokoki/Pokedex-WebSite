@@ -24,9 +24,10 @@ function getText(str, language) {
 
 // map zoom
 mapP.addEventListener("wheel", function (e) {
-    if (e == "pokedex") {
+    
+    if (document.getElementById("pokedex").contains(e.target))
         return;
-    }
+
     if (e.deltaY < 0) { //scroll direction : < 0 = zoom
         if (parseFloat(map.style.height) * 1.1 > 3000) { // max zoom
             return;
@@ -391,7 +392,7 @@ function filter() {
     for (let i = 0; i < locationList.length; ++i) {
         if (typeof locationList[i] != "object") continue;
         if (locationList[i].innerHTML.toLowerCase().includes(searchBar));
-            locationList[i].style.display = "block";
+        locationList[i].style.display = "block";
     }
 }
 
@@ -449,7 +450,7 @@ function pokemonClick(id) {
             INNER JOIN region ON location.regionId = region.id 
             WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id
         );
-       lastPokemonClickedId = id;
+        lastPokemonClickedId = id;
     }
     xmlhttp.send();
 }
@@ -508,10 +509,13 @@ function pokemonSearch() {
     let searchBar = document.getElementById('pokemonSearch');
     searchBar = searchBar.value.toLowerCase();
     let pokemonList = document.getElementsByClassName("pokemon");
+    console.log(searchBar)
     for (let i = 0; i < pokemonList.length; ++i) {
         if (typeof pokemonList[i] != "object") continue;
+        pokemonList[i].style.display = "none";
+        console.log(pokemonList[i].lastChild)
         if (pokemonList[i].innerHTML.toLowerCase().includes(searchBar));
-            pokemonList[i].style.display = "block";
+            pokemonList[i].style.display = "flex";
     }
 }
 
