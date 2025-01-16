@@ -340,7 +340,7 @@ nav a:hover::after {
 
     .Connexion {
         font-size: 0.75rem;
-        margin-right: 50px;
+        margin-right: 3%;
     }
 
     .textButton {
@@ -362,7 +362,7 @@ nav a:hover::after {
 
     #Login {
         font-size: 0.75rem;
-        margin-right: 50px;
+        margin-right: 3%;
     }
 
     .nav-items {

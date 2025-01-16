@@ -40,11 +40,8 @@ h3 {
     height: 100%;
     width: 100%;
     background-color: gray;
-    /* max-width: 900px; */
-    max-width: 450px;
-    /* margin: 0 auto; */
-    margin: 0;
-    margin-left: 12%;
+    max-width: 900px;
+    margin: 0 auto;
     z-index: 5;
 }
 
@@ -131,7 +128,6 @@ select {
     background-color: rgb(255, 255, 255);
     height: 85px;
     width: 100%;
-    margin-bottom: 0.8%;
     overflow: hidden;
 }
 
@@ -264,6 +260,7 @@ select {
     position: relative;
     height: 100%;
     background-color: grey;
+    display: none;
     overflow-y: scroll;
 }
 
@@ -332,7 +329,7 @@ select {
 
 #Info_Pok_l {
     background-color: white;
-    width: 40%;
+    width: 45%;
     height: 90%;
     margin: 8px;
 }
@@ -395,7 +392,7 @@ select {
 #Info_Pok_r {
     display: flex;
     background-color: white;
-    width: 60%;
+    width: 65%;
     height: 90%;
     margin: 8px;
 }
@@ -789,14 +786,16 @@ select {
 /*#region media*/
 @media only screen and (max-width: 500px) {
     .pokemon {
-        height: 60px;
         width: 100%;
-        margin-bottom: 0.8%;
         overflow: hidden;
     }
 
     select {
         background-size: 1.5vw auto;
+    }
+
+    select {
+        font-size: 75%;
     }
 
     .img_pokemon {

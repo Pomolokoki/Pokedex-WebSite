@@ -419,7 +419,7 @@ var LoadAtkPokemon = function (id, isGen = -1) {
       if (isGen != -1 && isGen < 1) {
         return
       }
-      if (dataMove.length == 0) {
+      if (dataMove == "No results found.") {
         LoadAtkPokemon(id, isGen = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] - 1 : isGen - 1)
         return
       }
@@ -438,18 +438,20 @@ var LoadAtkPokemon = function (id, isGen = -1) {
               divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
             else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
               divElementName.innerHTML = "CT/CS";
-            else if (j == 2)
+            else if (j == 2){
               if (dataMove[i][tab2[j]] == 1)
                 divElementName.innerHTML = "Physique"
               else if (dataMove[i][tab2[j]] == 2)
                 divElementName.innerHTML = "Spéciale"
               else
                 divElementName.innerHTML = "Statut"
-            else if (j == 3 || j == 4 || j == 5)
+            }
+            else if (j == 3 || j == 4 || j == 5){
               if (dataMove[i][tab2[j]] == undefined)
                 divElementName.innerHTML = "--"
               else
                 divElementName.innerHTML = dataMove[i][tab2[j]];
+            }
             else if (j == 1) {
               let divElementTypeAtk = document.createElement("div");
               divElementTypeAtk.classList.add("divElementTypeAtk");
@@ -816,14 +818,15 @@ for (let i = 0; i < pokemons.length; i++) {
   pokemons[i].addEventListener('click', () => {
     if (last_id === pokemons[i].id) {
       last_id = "x";
-      core.style.margin = "0";
-      core.style.maxWidth = "";
+      core.style.maxWidth = "900px";
+      core.style.margin = "auto";
+      document.getElementById('Pokemon').style.display = 'none';
       dataPokemon = undefined;
     }
     else {
       LoadPokemon(pokemons[i].id)
       core.style.margin = "0px";
-      core.style.marginLeft = "275px";
+      document.getElementById('Pokemon').style.display = 'block';
       core.style.maxWidth = "450px";
     }
   }, false);
