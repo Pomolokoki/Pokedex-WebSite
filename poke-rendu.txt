@@ -66,7 +66,7 @@ Page Attaque :
 	- Détails des attaques
 
 Page Forum
-(Facultatif : page de jeux (quizz...), page de combat, se battre, choix des amis (duel), choix de l'équipe
+(Facultatif : page de jeux (quizz...), page de combat, se battre, choix des amis (duel), choix de l'équipe)
 
 Membre du groupe : 
 Yram :
@@ -139,11 +139,13 @@ Probèmes attendu et recontrés :
 				pour faire la carte qui réagit à la souris : un svg était la solution évidente (quelques petit problèmes rencontrés pour chanegr le contenue d'un balise svg, mais qui a fini par se résoudre)
 				faire le lien entre les elements svg et la liste des localisations à demander des efforts supplémentaires : se débrouiller pour avoir le meme résultat sur l'un et l'autre, mais à partir d'object totalement différents
 				
-				la dernier point non prévu viens de l'intriodction d'un mini-pokedex directement sur cette page pour visualiser où ces derniers pouvvent êtres trouvés
+				certains élément svg ont été fait rapidment, pour y pallier j'ai essayer de les cloner et de les passer en avant plan, mais j'ai abandonner cette idée trop consomatrice en temps et source d'autres problèmes
+
+				le dernier point non prévu viens de l'introduction d'un mini-pokedex directement sur cette page pour visualiser où ces derniers pouvvent êtres trouvés
 				Or, le scroll du mini-pokedex empiète sur celui du zoom de la carte
 		
 		Base de données : 
-			Quand je me suis lancé dans la base de donnée, je ne savais pas du tout a quoi m'attendre, juste une bonne tourné de SQL et que cela prendrait certainement un peu de temps
+			Quand je me suis lancé dans la base de données, je ne savais pas du tout à quoi m'attendre, juste une bonne tourné de SQL et que cela prendrait certainement un peu de temps
 			
 			Notre site a besoin de données pour fonctionner correctement, ces données ne peuvent être récuprérée directement part des appels API (trop longs) et pour les besoins du projet, il faillait une base de données
 			Après conseil des proffesseurs : j'ai téléchargé l'API (pokePAI) et j'irai lire les fichiers directement pour créer ma base.
@@ -153,7 +155,15 @@ Probèmes attendu et recontrés :
 
 			J'ai du créer de nouvelle tables pour faire des liens entre deux autres (cette implémentationétait plus efficace), car rien n'est régulier dans pokémons, il n'y a pas un nombre fixe d'attribut par pokemon
 			J'ai commencé par des boucle 'for' pour récupérer mes valeurs, mais cela ne coincidait pas avec les id des pokémons (rien n'est régulier), je me suis résolu à juste parcourir les fichiers
-			Pour sauvegarder les odnnées
+			Pour sauvegarder les données
+		
+		Page 'forum' :
+			Un gros morceau à faire, beaucoup de temps à passer, le problème ettendu : récuprer l'id user
+
+			Pour l'id de l'utilisateur, j'ai demander des coneil, on m'a proposer d'utiliser les cookies, ce que je n'ai pas réussi à faire, et j'ai choisi la solution de facilité qui foncionne très bien, le mettre en data dans une div
+
+
+
 
 creation bdd:
 	php api -> sql
