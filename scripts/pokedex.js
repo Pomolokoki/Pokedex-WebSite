@@ -30,21 +30,25 @@ var colorStat = ["#9afd7c", "#fff26b", "#ffb15c", "#7cfeff", "#6da2ff", "#c67bff
 
 var language = "Fr";
 
+function mobileVersion() {
+  return window.innerWidth < 500;
+}
+
 document.getElementById('check_fav').addEventListener('click', function () {
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
-  if(document.getElementsByClassName("star-dotted")[0].style.display == "block"){
+  if (document.getElementsByClassName("star-dotted")[0].style.display == "block") {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO player_favorites VALUES (`+ id_player +`,` + id_pokemon +`);`)
-  xmlhttp.send();
+      INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`)
+    xmlhttp.send();
     console.log('azerty')
   }
   else {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request= 
-      DELETE FROM player_favorites WHERE playerId =`+ id_player +` AND pokemonId =` + id_pokemon +`;`)
-  xmlhttp.send();
+      DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`)
+    xmlhttp.send();
   }
   check_pokemonUser(id_pokemon);
 });
@@ -52,20 +56,20 @@ document.getElementById('check_fav').addEventListener('click', function () {
 document.getElementById('check_capture').addEventListener('click', function () {
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
-  if(document.getElementsByClassName("pokeball-empty")[0].style.display == "block"){
+  if (document.getElementsByClassName("pokeball-empty")[0].style.display == "block") {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO player_pokemon VALUES (`+ id_player +`,` + id_pokemon +`);`)
-  xmlhttp.send();
+      INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`)
+    xmlhttp.send();
     console.log('qwerty')
-    console.log(`INSERT INTO player_pokemon VALUES (`+ id_player +`,` + id_pokemon +`);`)
+    console.log(`INSERT INTO player_pokemon VALUES (` + id_player + `,` + id_pokemon + `);`)
     console.log(dataCheck)
   }
   else {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request= 
-      DELETE FROM player_pokemon WHERE playerId =`+ id_player +` AND pokemonId =` + id_pokemon +`;`)
-  xmlhttp.send();
+      DELETE FROM player_pokemon WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`)
+    xmlhttp.send();
   }
   check_pokemonUser(id_pokemon);
 });
@@ -153,6 +157,21 @@ document.getElementById('gen+').addEventListener('click', function () {
     return
   mas.innerHTML = "Gen : " + parseInt(parseInt(mas.innerHTML.match(/\d+/)[0]) + 1);
   LoadAtkPokemon(last_id);
+});
+
+document.getElementById('TitleAtk').addEventListener('click', function () {
+  let atk = document.getElementById('Attaque');
+  let atkTitle = document.getElementById('TitleAtk');
+  let atkButton = document.getElementById('atkButtons')
+  if (atk.classList.contains('open')) {
+    atk.classList.remove('open');
+    atkTitle.innerHTML = "Attaque : ▲";
+    atkButton.style.display = 'none';
+  } else {
+    atk.classList.add('open');
+    atkTitle.innerHTML = "Attaque : ▼";
+    atkButton.style.display = '';
+  }
 });
 
 function getText(str, lang = "fr") {
@@ -438,7 +457,7 @@ var LoadAtkPokemon = function (id, isGen = -1) {
               divElementName.innerHTML = "niveau " + dataMove[i]["learnAtLevel"];
             else if (j == 6 && getText(dataMove[i]["learnMethod"]) == "Capsule")
               divElementName.innerHTML = "CT/CS";
-            else if (j == 2){
+            else if (j == 2) {
               if (dataMove[i][tab2[j]] == 1)
                 divElementName.innerHTML = "Physique"
               else if (dataMove[i][tab2[j]] == 2)
@@ -446,7 +465,7 @@ var LoadAtkPokemon = function (id, isGen = -1) {
               else
                 divElementName.innerHTML = "Statut"
             }
-            else if (j == 3 || j == 4 || j == 5){
+            else if (j == 3 || j == 4 || j == 5) {
               if (dataMove[i][tab2[j]] == undefined)
                 divElementName.innerHTML = "--"
               else
@@ -574,6 +593,16 @@ function divEvoCase(stage, data) {
   }
 
   document.getElementById("Evo_case_group" + stage).appendChild(divElementEvoCase);
+  if (data.id == 67) {
+    let eevee = document.getElementsByClassName("Evo_case");
+    for (let eevee_count = 0; eevee_count < eevee.length; eevee_count++) {
+      eevee[eevee_count].style.height = '96px';
+      eevee[eevee_count].style.marginBottom = '0px';
+    }
+  }
+  else {
+    return;
+  }
   return divElementEvoCase;
 }
 
@@ -667,17 +696,7 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.classList.add("EvoStage_Pokemon_case");
           if (dataEvol[i].evolutionStade == 0) {
             divElementPokemon.id = "stage2";
-            if (dataEvol[i].id == 67) {
-              tabStageEvo.push(dataEvol[i].evolutionStade + 1);
-              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.height = '65px';
-              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.marginBottom = '30px';
-            }
-            else {
-              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.height = '50px';
-              document.getElementById("Evo_case_group" + dataEvol[i].evolutionStade).style.marginBottom = '25px';
-              tabStageEvo.push(dataEvol[i].evolutionStade + 1);
-            }
-
+            tabStageEvo.push(dataEvol[i].evolutionStade + 1);
           }
           else {
             divElementPokemon.id = "stage3";
@@ -822,12 +841,22 @@ for (let i = 0; i < pokemons.length; i++) {
       core.style.margin = "auto";
       document.getElementById('Pokemon').style.display = 'none';
       dataPokemon = undefined;
+      console.log("pokemon unload")
     }
     else {
-      LoadPokemon(pokemons[i].id)
-      core.style.margin = "0px";
-      document.getElementById('Pokemon').style.display = 'block';
-      core.style.maxWidth = "450px";
+      if (mobileVersion() == true) {
+        document.getElementById('core').style.display = 'none';
+        LoadPokemon(pokemons[i].id)
+        core.style.margin = "0px";
+        document.getElementById('Pokemon').style.display = 'block';
+        core.style.maxWidth = "450px";
+      }
+      else {
+        LoadPokemon(pokemons[i].id)
+        core.style.margin = "0px";
+        document.getElementById('Pokemon').style.display = 'block';
+        core.style.maxWidth = "450px";
+      }
     }
   }, false);
 }

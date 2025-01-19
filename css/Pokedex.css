@@ -174,9 +174,11 @@ select {
     5% {
         filter: brightness(180%);
     }
+
     20% {
-        filter:brightness(350%);
+        filter: brightness(350%);
     }
+
     100% {
         filter: brightness(100%);
     }
@@ -437,10 +439,12 @@ select {
     height: 100%;
 }
 
-.star,.pokeball,.circle{
+.star,
+.pokeball,
+.circle {
     height: 25%;
     width: 80%;
-    margin-left:2.5px;
+    margin-left: 2.5px;
     margin-top: 10px;
 }
 
@@ -497,7 +501,9 @@ select {
     display: block;
 }
 
-#check_fav,#check_capture,#check_equipe{
+#check_fav,
+#check_capture,
+#check_equipe {
     display: none;
 }
 
@@ -705,6 +711,13 @@ select {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr 1fr;
     height: max-content;
     background-color: rgb(0, 0, 0);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.8s ease;
+}
+
+#Attaque.open {
+    max-height: 1500px;
 }
 
 .Val_atk_case {
@@ -729,7 +742,7 @@ select {
     display: flex;
 }
 
-#genAtk{
+#genAtk {
     margin-top: 15px;
     margin-left: 5px;
     margin-right: 5px;
@@ -754,13 +767,13 @@ select {
     margin: 15px;
 }
 
-.EvoStage_Pokemon_case{
+.EvoStage_Pokemon_case {
     width: 96px;
     align-self: center;
     background-color: aqua;
 }
 
-.Evo_Pokemon_case{
+.Evo_Pokemon_case {
     width: 96px;
     height: 96px;
     background-color: rgb(98, 0, 255);
@@ -773,6 +786,7 @@ select {
     background-color: rgb(30, 255, 0);
     text-align: center;
 }
+
 .Evo_case_group {
     height: fit-content;
     align-self: center;
@@ -785,6 +799,11 @@ select {
 
 /*#region media*/
 @media only screen and (max-width: 500px) {
+
+    .name_section {
+        font-size: 15.6px;
+    }
+
     .pokemon {
         width: 100%;
         overflow: hidden;
@@ -805,6 +824,143 @@ select {
         height: 80%;
         aspect-ratio: 1/1;
     }
+
+    #info_pokemon {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        height: 8em;
+        width: 390px;
+    }
+
+    #Info_Pokemon {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        height: 8em;
+        width: 395px;
+    }
+
+    #Info_Pok_l {
+        width: 55%;
+        margin-left: 4px;
+        margin-top: 5px;
+    }
+
+    #Info_Pok_r {
+        width: 48%;
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    #sprit {
+        height: 75%;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    #img {
+        margin-left: 16px;
+    }
+
+    #Info {
+        width: 270px;
+    }
+
+    #id_Pokemon {
+        height: 19px;
+        font-size: 12px;
+        margin: 6px;
+    }
+
+    #nom_Pokemon {
+        background-color: rgb(81, 255, 0);
+        height: 19px;
+        width: fit-content;
+        font-size: 7.8px;
+        margin: 6px;
+    }
+
+    #categorie_Pokemon {
+        background-color: rgb(81, 255, 0);
+        width: fit-content;
+        height: 19px;
+        font-size: 10px;
+        margin: 6px;
+    }
+
+    #type_Pokemon {
+        height: 15px;
+        font-size: 7px;
+        padding-left: 3px;
+        padding-right: 3px;
+        margin: 6px;
+    }
+
+    #data_pokemon {
+        width: 75%;
+    }
+
+    #gen_Pokemon {
+        height: 19px;
+        margin: 6px;
+        font-size: 10px;
+    }
+
+    #taille_Pokemon {
+        height: 19px;
+        font-size: 7px;
+        margin: 6px;
+    }
+
+    #poids_Pokemon {
+        height: 19px;
+        font-size: 6.4px;
+        margin: 6px;
+    }
+
+    #catch_rate_Pokemon {
+        background-color: rgb(81, 255, 0);
+        height: 19px;
+        width: fit-content;
+        font-size: 5.5px;
+        margin: 6px;
+    }
+
+    #Talent {
+        grid-gap: 1.5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        max-width: 395px;
+        width: 395px;
+        background-color: rgb(0, 0, 0);
+        font-size: 10px;
+    }
+
+    #Description {
+        font-size: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 395px;
+    }
+
+    #Stat {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        height: 270px;
+        width: 395px;
+        font-size: 8px;
+    }
+
+    .graphique {
+        margin: 5px;
+        height: 20px;
+    }
+
 }
 
 /*#endregion */
