@@ -8,7 +8,6 @@ $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="scripts/items.js"></script>
 <!-- <script type="text/javascript" src="scripts/header.js"></script> -->
 <style>
     <?php include("css/items.css"); ?>
@@ -27,17 +26,51 @@ function getTextFrEng($str, $language = "fr")
     }
 }
 
+// function getTextLangTest($str, $mot)
+// {
 
+    
+//     $nodesc = "Cet item ne possède pas de description";
+    
+//     if ($language == "fr") {
+//         if ($split[1] == "NULL") {
+//             $str =  $split[0];
+//             if ($split[0] == "NULL") {
+//                  return "Cet item n'a pas de description / effet";                
+//             }
+//         }
+//         // if ($split[0] == "NULL" && $split[1] =="NULL"){
+//         //     return "mais ";
+//         // }
+//         if ($str == "NULL/NULL") {
+//             return "NULL/NULL";
+//         }
+//         // else{
+//         //     return $split[1];
+//         // }              
+//     } else {
+//         return $split[0];
+//     }
+//     return $str;
+// }
 
+function getTest($str,$mot){        
+    if($str == "NULL"){
+        return "Cet item n'a pas de " . $mot;
+    }
+    else{
+        return $str;
+    }
+}
 
 ?>
 <div id="itemTable">
     <div id="itemFilter">
-        <label for="inputName">itemName:</label>
-        <input type="text" class="input-text" id="inputName">
-        <label for="inputCategory">Category:</label>
-        <select name="inputCategory" id="inputCategory">
-            <option value>- Tout -</option>
+        <label for="inputName">Nom de l'item:</label>
+        <input type="text" class="input-text" id="inputName" onkeyup="recherche()">
+        <label for="inputCategory">Catégorie:</label>
+        <select name="inputCategories" id="inputCategory">
+            <option value="All">- Tout -</option>
             <option value="battle">Combat</option>
             <option value="berries">Baies</option>
             <option value="key">Clés</option>
@@ -66,18 +99,19 @@ function getTextFrEng($str, $language = "fr")
                         <div id="itemEffect">Effet</div>
                     </th>
             </thead>
-            <tbody class="itemListBody">
+            <tbody id="itemListBody">
                 <?php for ($i = 0; $i < count($dataItems); $i++):
                     ?>
-                    <tr>
-                        <td><?php echo getTextLang($dataItems[$i]["name"],"fr") ?></td>
-                        <td><?php echo $dataItems[$i]["category"] ?></td>
-                        <td><?php echo $dataItems[$i]["smallDescription"]?></td>
-                        <td><?php echo $dataItems[$i]["effect"]?></td>
-                    
-                </tr>
+                    <tr data-id="<?php echo $dataItems[$i]["id"] ?>" data-name="<?php echo $dataItems[$i]["name"] ?>"
+                        data-category="<?php $dataItems[$i]["category"] ?>">
+                        <td id="itemNameData"><?php echo getTextLang($dataItems[$i]["name"], "fr") ?></td>
+                        <td><?php echo $dataItems[$i]["pocket"] ?></td>
+                        <td><?php echo getTest(getTextLang($dataItems[$i]["smallDescription"], "fr"), "description") ?></td>
+                        <td><?php echo getTest(getTextLang($dataItems[$i]["effect"], "fr"), "effet") ?></td>
+                    </tr>
                 <?php endfor; ?>
             </tbody>
-        </table>
-    </div>
-</div>
+            </div>
+            </div>
+
+<script type="text/javascript" src="scripts/items.js"></script>

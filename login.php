@@ -6,7 +6,7 @@
 <!-- <script type="text/javascript" src="header.js"></script> -->
 <style>
     <?php include("css/login.css"); ?>
-    </style>
+</style>
 
 
 
@@ -50,8 +50,7 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
     $checkDB = 0;
-    while ($row = $parcoursPlayerTable->fetch()) {
-        echo "fghjk";
+    while ($row = $parcoursPlayerTable->fetch()) {        
         echo "<br>";
         if ($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
@@ -59,7 +58,10 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                 $findEmailPlayer->bindParam(':identifier', $_POST['id']);
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
-                $_SESSION['LOGGED_USER'] = $test; 
+                $_SESSION['LOGGED_USER'] = $test;
+                $_SESSION['user_id'] = $userData['id'];
+                $_SESSION['username'] = $userData['nickname'];
+                $_SESSION['user_email'] = $userData['email'];
                 break;
             }
         } else {
@@ -133,8 +135,9 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                     Bonjour <?php echo $id["nickname"] ?> et bienvenue notre PokeSite !
 
                 <?php endforeach; ?>
+                <?php echo $_SESSION['LOGGED_USER'][0]['nickname']; ?>
                 <?php
-                $new_url = 'items.php';
+                $new_url = 'pokedex.php';
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
             </div>

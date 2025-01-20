@@ -10,7 +10,7 @@ session_start()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header.css">
     <script src="scripts/header.js" defer></script>
-    <script src="scripts/profile.js" defer></script>
+    <!-- <script src="scripts/profile.js" defer></script> -->
     <title>PokeKrazy</title>
 </head>
 
@@ -32,9 +32,9 @@ session_start()
                         <li class="pokedexPageMob2"><a href="Pokedex.php">- Pokedex</a></li>
                         <li id="typeTablePage2"><a href="typeTable.php">- Table des types</a></li>
                         <li id="mapPage2"><a href="map.php"> -Maps</a></li>
-                        <li><a href="#">- Attaques</a></li>
-                        <li><a href="#">- Objet</a></li>
-                        <li><a href="#">- Combat</a></li>
+                        <li><a href="pokemonMove.php">- Attaques</a></li>
+                        <li><a href="items.php">- Objet</a></li>
+                        <li><a href="forum.php">- Forum</a></li>
                     </ul>
                     <hr>
                     <ul class="account">
@@ -56,22 +56,23 @@ session_start()
 
             <div id="Title">
                 <p id="pokeTitle">PokeDex</p>                
-            </div>            
+            </div>
             <div id="Profile">
             <?php if (!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])): ?>
-                    <button type="button" class="Connexion" id="Login">Connexion</button>
-                <?php else: ?>
-                    <div id="myPage">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="myProfile"
+                <button type="button" class="Connexion" id="Login">Connexion</button>
+            <?php else: ?>
+                <div id="myPage">
+                    <a href="profile.php">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="myProfile" 
                             class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                         </svg>
-                        <form action="<?php echo htmlspecialchars("logout.php"); ?>" method="post">
-                            <input type="submit" id="disconnect" value="Déconnexion">
-                            </button>
-                        </form>
-                    </div>
-                <?php endif; ?>
+                    </a>
+                    <form action="<?php echo htmlspecialchars("logout.php"); ?>" method="post">
+                        <input type="submit" id="disconnect" value="Déconnexion">
+                    </form>
+                </div>
+            <?php endif; ?>
             </div>
         </div>
         <div id="Nav">
@@ -107,9 +108,9 @@ session_start()
                 </div>
             </div>
 
-            <div id="box6" class="navButton">
+            <div id="forumPage" class="navButton">
                 <div class="textButton" id="tb6">
-                    <p>Combat</p>
+                    <p>Forum</p>
                 </div>
             </div>
         </div>
