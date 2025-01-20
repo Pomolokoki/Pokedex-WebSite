@@ -58,6 +58,7 @@ body {
 /* svg map element */
 .road, .special, .city {
     pointer-events: auto;
+    cursor: pointer;
 }
 
 /* center map */
@@ -237,6 +238,7 @@ select {
     font-size: 15px;
     max-width: 90%;
     margin-left: 5%;
+    cursor: pointer;
 }
 
 /* #endregion */

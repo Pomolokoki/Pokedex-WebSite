@@ -1,6 +1,6 @@
 <?php
 include_once("database/connectSQL.php");
-//include_once("database/getDataFunction.php");
+
 ?>
 <!-- Inclusion du header -->
 <?php include_once("header.php") ?>
@@ -11,33 +11,44 @@ include_once("database/connectSQL.php");
 </style>
 
 <!-- #region Sécurisation et Gestion des exceptions-->
-<?php
+<?php 
 #region Sécurisation et Gestion des exceptions
 $_SESSION["accountCreated"] = false;
 $_SESSION["uname"] = $_SESSION["email"] = $_SESSION["pword"] = $_SESSION['confirm_password'] = "";
 $unameErr = $emailErr = $pwordErr = $confirm_passwordErr = "";
 $passwordBool = true;
 $idBool = true;
+$donneeForm = array(
+    'username' => '',
+    'email' => '',
+    'password' => '',
+    'confirm_password' => ''    
+);
 $passwordCheck = "";
 $confirm_passwordCheck = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    $donneeForm = array(
+        'username' => $_POST['username'] ?? '',
+        'email' => $_POST['email'] ?? '',
+        'password' => $_POST['password'] ?? '',
+        'confirm_password' => $_POST['confirm_password'] ?? ''
+    );
     if (empty($_POST["username"])) {
         $unameErr = "Veuillez entrer un pseudo correct";
     } else {
-        $_SESSION["uname"] = test_input($_POST["username"]);
+        $donneeForm["username"] = test_input($_POST["username"]);
         /*Check si le nom contient seulement des lettres et espace
         preg_match() recherche un pattern de string, et retourne vrai si le pattern existe */
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $_SESSION["uname"])) {
-            $unameErr = "Seulement des lettres et des espaces sont autorisés";
+        if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $donneeForm["username"])) {
+            $unameErr = "Seulement des lettres, des chiffres et des espaces sont autorisés";
         }
     }
     if (empty($_POST["email"])) {
         $emailErr = "Veuillez entrer un email correct";
     } else {
-        $_SESSION["email"] = test_input($_POST["email"]);
-        if (!filter_var($_SESSION["email"], FILTER_VALIDATE_EMAIL)) {
+        $donneeForm["email"] = test_input($_POST["email"]);
+        if (!filter_var($donneeForm["email"], FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Email invalide";
         }
     }
@@ -45,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["password"]) && !empty($_POST["confirm_password"])) {
         $passwordCheck = test_input($_POST["password"]);
         $confirm_passwordCheck = test_input($_POST["confirm_password"]);
-        $_SESSION["pword"] = $passwordCheck;
-        $_SESSION["confirm_password"] = $confirm_passwordCheck;
+        // $_SESSION["pword"] = $passwordCheck;
+        // $_SESSION["confirm_password"] = $confirm_passwordCheck;
         if (empty($confirm_passwordCheck)) {
             $confirm_passwordErr .= "Veuillez entrer la confirmation du mot de passe.";
             $passwordBool = false;
@@ -83,45 +94,49 @@ function test_input($data)
     return $data;
 }
 
-#endregion
 
-if (!empty($_POST["username"]) && !empty($_POST["email"])) {
-    $parcoursPlayerTable = $db->prepare("SELECT nickname,email,password FROM player");
-    $parcoursPlayerTable->execute();
-    $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
-    while ($row = $parcoursPlayerTable->fetch()) {
-        if ($row['nickname'] === $_SESSION['uname']) {
+
+if (!empty($donneeForm['username']) && !empty($donneeForm['email'])) {
+    $stmt = $db->prepare("SELECT nickname, email FROM player WHERE nickname = :nickname OR email = :email");
+    $stmt->execute([
+        ':nickname' => $donneeForm['username'],
+        ':email' => $donneeForm['email']
+    ]);
+    
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        if ($row['nickname'] === $donneeForm['username']) {
             $unameErr = "Pseudo déjà pris";
             $idBool = false;
         }
-        if ($row['email'] === $_SESSION['email']) {
+        if ($row['email'] === $donneeForm['email']) {
             $emailErr = "Email déjà pris";
             $idBool = false;
         }
     }
 }
+#endregion
 
-#region Validation du formulaire -->
-if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION["pword"]) && $passwordCheck === $confirm_passwordCheck && $passwordBool === true && $idBool === true) {
+#region Validation du formulaire
+if (!empty($donneeForm["username"]) && !empty($donneeForm["email"]) && !empty($donneeForm["password"]) && $passwordCheck === $confirm_passwordCheck && $passwordBool === true && $idBool === true) {
 
-    if (isset($_SESSION["uname"]) && isset($_SESSION["email"]) && isset($_SESSION["pword"])) {
+    if (isset($donneeForm["username"]) && isset($donneeForm["email"]) && isset($donneeForm["password"])) {
         $inscription = $db->prepare('INSERT INTO player(nickname, email, password) VALUES (:nickname, :email, :password)');
         $inscription->bindParam(':nickname', $username);
         $inscription->bindParam(':email', $email);
         $inscription->bindParam(':password', $password);
         //$query = 'INSERT INTO player(nickname, email, password) VALUES ('.$username . "," .$email . ",". $password .')';
         
-        $username = $_SESSION['uname'];
-        $email = $_SESSION['email'];
-        $password = password_hash($_SESSION['pword'], PASSWORD_DEFAULT);
+        $username = $donneeForm['username'];
+        $email = $donneeForm['email'];
+        $password = password_hash($donneeForm['password'], PASSWORD_DEFAULT);
 
         $inscription->execute();
-        //saveToDb($query,null,null,false,true);
         $_SESSION["accountCreated"] = true;
         $new_url = 'login.php';
         echo "<script>window.location.replace('$new_url');</script>";
     }
 }
+#endregion
 ?>
 
 <!--#endregion -->
@@ -146,7 +161,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION
                     <br><br>
                 </div>
                 <div class="col-75">
-                    <input type="text" id="uname" name="username" placeholder="Votre pseudo...">
+                    <input type="text" id="uname" name="username" placeholder="Votre pseudo..." value="<?php echo htmlspecialchars($donneeForm['username']); ?>">
                     <span class="error">* <?php echo $unameErr; ?></span>
                     <br><br>
                 </div>
@@ -156,7 +171,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION
                     <label for="email">Votre Email</label>
                 </div>
                 <div class="col-75">
-                    <input type="email" id="email" name="email" placeholder="sacha.dubourgpalette@pokemon.com">
+                    <input type="email" id="email" name="email" placeholder="sacha.dubourgpalette@pokemon.com" value="<?php echo htmlspecialchars($donneeForm['email']); ?>">
                     <span class="error">* <?php echo $emailErr; ?></span>
                     <br><br>
                 </div>
@@ -166,7 +181,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION
                     <label for="pword">Votre mot de passe</label>
                 </div>
                 <div class="col-75">
-                    <input type="password" id="pword" name="password">
+                    <input type="password" id="pword" name="password" value="<?php echo htmlspecialchars($donneeForm['password']); ?>">
                     <span class="error">* <br><?php echo nl2br($pwordErr); ?></span>
                     <br><br>
                 </div>
@@ -176,7 +191,7 @@ if (!empty($_SESSION["uname"]) && !empty($_SESSION["email"]) && !empty($_SESSION
                     <label for="pword2">Confirmer votre mot de passe</label>
                 </div>
                 <div class="col-75">
-                    <input type="password" id="pword2" name="confirm_password">
+                    <input type="password" id="pword2" name="confirm_password" value="<?php echo htmlspecialchars($donneeForm['confirm_password']); ?>">
                     <span class="error">* <?php echo nl2br($confirm_passwordErr); ?></span>
                     <br><br>
                 </div>

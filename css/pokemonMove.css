@@ -12,6 +12,10 @@ body{
     text-align: center;
 }
 
+.textButton {
+    padding-bottom: 14px;
+}
+
 #moveContainer{
     overflow-x: scroll;
     overflow-y: scroll;

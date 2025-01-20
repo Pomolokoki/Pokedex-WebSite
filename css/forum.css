@@ -11,6 +11,10 @@ body {
     color: white;
 }
 
+.textButton {
+    padding-bottom: 14px;
+}
+
 textarea {
     overflow-y: hidden;
     margin: none;
@@ -308,6 +312,7 @@ textarea {
     width: fit-content;
     display: block;
     margin: auto;
+    cursor: pointer;
 }
 
 #confirmBut1 {

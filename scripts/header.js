@@ -13,9 +13,18 @@ document.getElementById('mapPage').addEventListener('click',function(){
   document.location.href = 'map.php';
 });
 
-// document.getElementById('attackPage').addEventListener('click',function(){
-//   document.location.href = 'movePokemon.php';
-// });
+document.getElementById('itemsPage').addEventListener('click',function(){
+  document.location.href = 'items.php';
+});
+
+document.getElementById('attackPage').addEventListener('click',function(){
+  document.location.href = 'pokemonMove.php';
+});
+
+document.getElementById('forumPage').addEventListener('click',function(){
+  document.location.href = 'forum.php';
+});
+
 
 let login = document.getElementById('Login')
 if (login)
