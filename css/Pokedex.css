@@ -9,6 +9,10 @@ body {
     background-color: black;
 }
 
+.textButton {
+    padding-bottom: 14px;
+}
+
 h3 {
     margin: 0;
 }
