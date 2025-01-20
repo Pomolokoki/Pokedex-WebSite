@@ -132,7 +132,6 @@ select {
 #pokedexCore {
     display: flex;
     width: 100%;
-    height: 95%;
     background-color: azure;
 }
 
@@ -280,7 +279,7 @@ select {
 
 #Pokemon {
     position: relative;
-    height: 100%;
+    height: max-content ;
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     display: none;
     overflow-y: scroll;
@@ -874,19 +873,20 @@ select {
         margin-bottom: 10px;
         margin-right: 10px;
         height: 8em;
-        width: 390px;
+        width: 371px;
     }
 
     #Info_Pokemon {
-        margin-left: 10px;
+        margin-left: 8px;
         margin-bottom: 10px;
         margin-right: 10px;
         height: 8em;
-        width: 395px;
+        width: 371px;
     }
 
     #Info_Pok_l {
         width: 55%;
+        margin: 0px;
         margin-left: 4px;
         margin-top: 5px;
     }
@@ -901,6 +901,7 @@ select {
     #sprit {
         height: 75%;
         width: 98px;
+        margin: 0px;
         margin-left: 10px;
         margin-top: 15px;
     }
@@ -995,8 +996,8 @@ select {
         margin-left: 10px;
         margin-right: 10px;
         margin-bottom: 10px;
-        max-width: 395px;
-        width: 395px;
+        max-width: 371px;
+        width: 371px;
         background-color: rgb(0, 0, 0);
         font-size: 10px;
     }
@@ -1006,7 +1007,7 @@ select {
         margin-left: 10px;
         margin-right: 10px;
         margin-bottom: 10px;
-        width: 395px;
+        width: 371px;
     }
 
     #Stat {
@@ -1014,7 +1015,7 @@ select {
         margin-right: 10px;
         margin-bottom: 10px;
         height: 270px;
-        width: 395px;
+        width: 371px;
         font-size: 8px;
     }
 
@@ -1023,6 +1024,9 @@ select {
         height: 20px;
     }
 
+    #section_5 {
+        font-size: 13.6px;
+    }
 
     #TitleAtk {
         width: 50%;
@@ -1038,7 +1042,7 @@ select {
         margin-right: 10px;
         margin-bottom: 10px;
         font-size: 5.5px;
-        width: 390px;
+        width: 371px;
         gap: 1.px;
     }
 
