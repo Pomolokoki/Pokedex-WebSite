@@ -164,7 +164,10 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 		</div>
 
 		<div id="Pokemon">
-			<h2 class="name_section">Information Pokemon :</h2>
+			<div id="secteur1">
+				<button id="pokedex_back"><</button>
+				<h2 class="name_section" id="name_section_1">Information Pokemon :</h2>
+			</div>
 			<div id="Info_Pokemon">
 				<div id="sprit">
 					<div id="img"></div>
@@ -320,14 +323,16 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 				?>
 			</div>
 			<div id="atkTiltle">
-				<h2 class="name_section">Attaque :</h2>
-				<button class="moreLessButton" id="gen-">
-					<label><-</label>
-				</button>
-				<label id ="genAtk">gen 1</label>
-				<button class="moreLessButton" id="gen+">
-					<label>-></label>
-				</button>
+			<h2 id="TitleAtk" class="name_section">Attaque : ▲</h2>
+				<div id ="atkButtons">
+					<button class="moreLessButton" id="gen-">
+						<label><-</label>
+					</button>
+					<label id ="genAtk">gen 1</label>
+					<button class="moreLessButton" id="gen+">
+						<label>-></label>
+					</button>
+				</div>
 			</div>
 			<div id="Attaque">
 
