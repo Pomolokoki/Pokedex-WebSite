@@ -445,7 +445,13 @@ var LoadAtkPokemon = function (id, isGen = -1) {
       dataMove = JSON.parse(this.responseText);
       document.getElementById("Attaque").innerText = "";
       document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
-      let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
+      let tab1 = []
+      if (mobileVersion() == true) {
+        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Learn"]
+      }
+      else {
+        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
+      }
       let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
       if (isGen != -1 && isGen < 1) {
         return
@@ -608,8 +614,14 @@ function divEvoCase(stage, data) {
   if (data.id == 67) {
     let eevee = document.getElementsByClassName("Evo_case");
     for (let eevee_count = 0; eevee_count < eevee.length; eevee_count++) {
-      eevee[eevee_count].style.height = '96px';
-      eevee[eevee_count].style.marginBottom = '0px';
+      if (mobileVersion() == true) {
+        eevee[eevee_count].style.height = '70px';
+        eevee[eevee_count].style.marginBottom = '0px';
+      }
+      else {
+        eevee[eevee_count].style.height = '96px';
+        eevee[eevee_count].style.marginBottom = '0px';
+      }
     }
   }
   else {

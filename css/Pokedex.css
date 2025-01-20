@@ -745,7 +745,8 @@ select {
 }
 
 .Val_atk_case {
-    max-width: 100%;
+    min-width: 100%;
+    min-height: 18px;
     margin-bottom: 1px;
     background-color: rgb(255, 255, 255);
     display: grid;
