@@ -237,9 +237,6 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 									#button_user{
 										display: none;
 									}
-									#data_pokemon{
-										width: 100%;
-									}
 								</style>
 								<?php endif;?>
 						</div>
@@ -298,7 +295,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					?>
 				</div>
 			</div>
-			<h2 class="name_section">Faiblesses/Résistances :</h2>
+			<h2 class="name_section" id="section_5">Faiblesses/Résistances :</h2>
 			<div id="Table_type">
 				<?php for ($i = 0; $i < count($dataType); $i++) {
 					if ($dataType[$i]["id"] > 18) {
