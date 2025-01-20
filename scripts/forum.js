@@ -145,6 +145,11 @@ function AddChannelToDB(id, owner, title, keyWords, creationDate) {
 }
 
 //get favorite themes
+let channel = [];
+let sendMessageButton = document.getElementById('submitMessage');
+let messageBox = document.getElementById("messageTextBox");
+let typing = document.getElementById("typing");
+
 function getFavortie(playerId, themeId) {
     let bool;
     var xmlhttp = new XMLHttpRequest();
@@ -380,10 +385,6 @@ if (selectFav) {
 }
 
 // region Send message
-let channel = [];
-let sendMessageButton = document.getElementById('submitMessage');
-let messageBox = document.getElementById("messageTextBox");
-let typing = document.getElementById("typing");
 
 // send messge buitton click
 const playerValues = document.getElementById("data");

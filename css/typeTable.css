@@ -10,6 +10,10 @@ body{
     height: 100%;
     background-color: black;
 }
+
+button{
+    cursor: pointer;
+}
 /*#endregion*/
 
 /*#region headerPokedex*/

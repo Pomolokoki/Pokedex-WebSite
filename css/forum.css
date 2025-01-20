@@ -308,6 +308,7 @@ textarea {
     width: fit-content;
     display: block;
     margin: auto;
+    cursor: pointer;
 }
 
 #confirmBut1 {
