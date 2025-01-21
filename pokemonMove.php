@@ -153,13 +153,13 @@ include_once('header.php');
                         </td>
                         <td class='AtkCell AtkEffectType'><?php $category = $pokemonMoveData[$i]['effectType'];
                         if ($category == 1)
-                            echo getTextLang("Physical/Physique", $language);
+                            echo getTextLang("Physical///Physique", $language);
                         else if ($category == 2)
-                            echo getTextLang("Special/Spéciale", $language);
+                            echo getTextLang("Special///Spéciale", $language);
                         else if ($category == 3)
-                            echo getTextLang("Statut/Statut", $language);
+                            echo getTextLang("Statut///Statut", $language);
                         else
-                            echo getTextLang("Other/Autre", $language); ?> </td>
+                            echo getTextLang("Other///Autre", $language); ?> </td>
                         <td class='AtkCell AtkPc'>
                             <?= $pokemonMoveData[$i]['pc'] == '' ? '- -' : $pokemonMoveData[$i]['pc'] ?>
                         </td>

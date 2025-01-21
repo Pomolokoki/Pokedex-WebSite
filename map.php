@@ -22,7 +22,7 @@ include_once('header.php');
     <div id="mapFrame">
         <div id="smallMapFrame">
 
-            <span id="mapContainer"> 
+            <span id="mapContainer">
                 <image id="imgMap" draggable="false" src="./img/Kanto.png"></image>
                 <svg viewBox="0 0 350 350" width="350" heigh="350" id="svgMap" draggable="false"
                     xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" clip-rule="evenodd"
@@ -36,7 +36,7 @@ include_once('header.php');
             </div>
 
             <div id="pokedexContainer">
-                <textarea id="pokemonSearch" rows="1"></textarea>
+                <textarea id="pokemonSearch" rows="1" placeholder="search for..."></textarea>
                 <div id="pokedex">
                     <?php for ($i = 0; $i < count($pokemonData); ++$i) { ?>
                         <div class="pokemon">
@@ -53,13 +53,13 @@ include_once('header.php');
 
     <div id="bubble">
         <div id="locationName">
-            Je suis ton père
+            Je suis une localisation
         </div>
     </div>
 
     <div id="info">
         <div id="phoneContainer1">
-            <div id="currentgen">Current map generation : </div>
+            <div id="currentgen"> Génération actuelle : </div>
             <select id="mapList">
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
@@ -77,17 +77,17 @@ include_once('header.php');
                     <input checked="checked" name="mapType" type="radio" class="checkboxInput" id="gameMap">
                     <span class="radio"></span>
                 </label>
-                <label for="gameMap" id="gameMapLabel" class="radioLabel"> - In Game Map </label>
+                <label for="gameMap" id="gameMapLabel" class="radioLabel"> - Carte de jeu </label>
                 <label class="radioBut">
                     <input name="mapType" type="radio" id="realMap" class="checkboxInput">
                     <span class="radio"></span>
                 </label>
-                <label for="realMap" id="realMapLabel" class="radioLabel"> - Realistic Map </label>
+                <label for="realMap" id="realMapLabel" class="radioLabel"> - Carte réaliste </label>
                 <label class="radioBut">
                     <input name="mapType" type="radio" id="interactiveMap" class="checkboxInput">
                     <span class="radio"></span>
                 </label>
-                <label for="interactiveMap" id="interactiveMapLabel" class="radioLabel"> - Interactive Map </label>
+                <label for="interactiveMap" id="interactiveMapLabel" class="radioLabel"> - Carte interactive </label>
             </div>
 
         </div>

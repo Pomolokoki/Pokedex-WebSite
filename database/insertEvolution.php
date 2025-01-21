@@ -51,11 +51,11 @@ foreach (getDataFromFile("/evolution-chain")->results as $family)
     setEvolution($evolutionData->chain, $id, $values, 0);
 }
 
-$sqlAddBonusData = "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (442, 840, 1011, 2109, \"Use item/Utilisation d'un objet\", 0);\n";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, knownMoveId, evolutionTrigger, evolutionStade) VALUES (442, 1011, 1019, 913, \"Level up/Montée de niveau\", 1);\n";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (465, 884, 1018, 60000, \"Use item/Utilisation d'un objet\", 0);\n";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (539, 1012, 1013, 2110, \"Use item/Utilisation d'un objet\", 0);\n";
-$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (539, 1012, 60000, 2111, \"Use item/Utilisation d'un objet\", 0);\n";
+$sqlAddBonusData = "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (442, 840, 1011, 2109, \"Use item///Utilisation d'un objet\", 0);\n";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, knownMoveId, evolutionTrigger, evolutionStade) VALUES (442, 1011, 1019, 913, \"Level up///Montée de niveau\", 1);\n";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (465, 884, 1018, 60000, \"Use item///Utilisation d'un objet\", 0);\n";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (539, 1012, 1013, 2110, \"Use item///Utilisation d'un objet\", 0);\n";
+$sqlAddBonusData = $sqlAddBonusData . "INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, itemId, evolutionTrigger, evolutionStade) VALUES (539, 1012, 60000, 2111, \"Use item///Utilisation d'un objet\", 0);\n";
 $sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution SET basePokemonId = 10161 WHERE basePokemonId = 53;\n";
 $sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution SET basePokemonId = 10166 WHERE basePokemonId = 83;\n";
 $sqlAddBonusData = $sqlAddBonusData . "UPDATE evolution SET basePokemonId = 10168 WHERE basePokemonId = 122;\n";

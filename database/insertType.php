@@ -1,6 +1,23 @@
 <?php
 include_once("extractApi.php");
-include_once("extractDataFromDB.php");
+
+function getTextLang($str, $language = "fr")
+{
+    // echo $str;
+    // echo "<br>";
+    $split = explode('///', $str);
+    // echo $split[1];
+    if ($language == "fr")
+    {
+        if ($split[1] == "NULL")
+          return $split[0];
+        return $split[1];
+    }
+    else
+    {
+        return $split[0];
+    }
+}
 
 $sqlInsertType = "INSERT INTO type (id, name, efficiency, sprite) VALUES ";
 $values = "";
@@ -44,5 +61,6 @@ foreach(getDataFromFile("/type")->results as $type)
     //     break;
     // }
 }
+echo $values;
 saveToDb($sqlInsertType, "type", $values)
 ?>

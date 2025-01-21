@@ -4,67 +4,52 @@ include_once("sqlQuery.php");
 
 function getStringReplace($string, $addQuote = true)
 {
-    if ($string == null)
-    {
+    if ($string == null) {
         return "NULL";
-    }
-    else if ($addQuote)
-    {
+    } else if ($addQuote) {
         // $string = str_replace("/", "\/", $string);
         // $string = str_replace("\\", "\\\\", $string);
-        return '"' . str_replace('"','\\"',$string) . '"';
-    }
-    else 
-    {
+        return '"' . str_replace('"', '\\"', $string) . '"';
+    } else {
         // $string = str_replace("/", "\/", $string);
         // $string = str_replace("\\", "\\\\", $string);
-        return str_replace('"','\\"',$string);
+        return str_replace('"', '\\"', $string);
     }
 }
 
 function getTextFromData($data, $value)
 {
-    if ($data == null || count($data) == 0)
-    {
-        return '"NULL/NULL"';
+    if ($data == null || count($data) == 0) {
+        return '"NULL///NULL"';
     }
     $return = '"';
     $fr = -1;
     $en = -1;
     for ($j = 0; $j < count($data); $j++) //name
     {
-        if ($data[$j]->language->name == "en")
-        {
+        if ($data[$j]->language->name == "en") {
             $en = $j;
         }
-        if ($data[$j]->language->name == "fr")
-        {
+        if ($data[$j]->language->name == "fr") {
             $fr = $j;
         }
     }
-    if ($en == -1)
-    {
+    if ($en == -1) {
         $return = $return . 'NULL';
-    }
-    else
-    {
+    } else {
         $return = $return . getStringReplace($data[$en]->$value, false);
     }
-    if ($fr == -1)
-    {
-        $return = $return . '/NULL"';
-    }
-    else
-    {
-        $return = $return . '/' . getStringReplace($data[$fr]->$value, false) . '"';
+    if ($fr == -1) {
+        $return = $return . '///NULL"';
+    } else {
+        $return = $return . '///' . getStringReplace($data[$fr]->$value, false) . '"';
     }
     return $return;
 }
 
 function getIdFromUrl($url)
 {
-    if ($url == null)
-    {
+    if ($url == null) {
         return "NULL";
     }
     $split = explode('/', $url);
@@ -87,13 +72,11 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
     global $db;
     $file = 'pokedexFromPhp.sql';
     $current = file_get_contents($file);
-    if ($delete)
-    {
+    if ($delete) {
         //$current .= "DELETE FROM " . $table . " WHERE 1 = 1;\n";
         $statement = $db->prepare("DELETE FROM " . $table . " WHERE 1 = 1;");
         $statement->execute();
-        if ($deleteOnly)
-        { 
+        if ($deleteOnly) {
             //file_put_contents($file, $current);
             return;
         }
@@ -106,10 +89,8 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
     // echo "<br>";
     // echo "<br>";
     $dataToSave = "";
-    for ($i = 0; $i < count($data); $i++)
-    {
-        if (($i != 0 && $i % 100 == 0) || $i == count($data) - 1)
-        {
+    for ($i = 0; $i < count($data); $i++) {
+        if (($i != 0 && $i % 100 == 0) || $i == count($data) - 1) {
             $dataToSave = $dataToSave . $data[$i];
             $dataToSave = rtrim($dataToSave, ",,");
             echo $insert . $dataToSave;
@@ -117,12 +98,11 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
             $statement = $db->prepare($insert . $dataToSave);
             $statement->execute();
             $dataToSave = "";
-        }
-        else {
+        } else {
             $dataToSave = $dataToSave . $data[$i] . ",\n";
         }
     }
-    
+
     file_put_contents($file, $current);
 
     //$statement = $db->prepare($insert . $values);
@@ -136,21 +116,15 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
 }
 function exists($base, $path)
 {
-    if (count($path) == 0)
-    {
+    if (count($path) == 0) {
         return $base;
-    }
-    else if ($base == null)
-    {
+    } else if ($base == null) {
         return null;
     }
     $str = $path[0];
-    if ($base->$str == null)
-    {
+    if ($base->$str == null) {
         return null;
-    }
-    else
-    {
+    } else {
         return exists($base->$str, array_slice($path, 1, count($path)));
     }
 }

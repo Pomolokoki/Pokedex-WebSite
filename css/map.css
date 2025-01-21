@@ -55,6 +55,15 @@ body {
     pointer-events: none;
 }
 
+#imgMap{
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1/1;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+}
+
 /* svg map element */
 .road, .special, .city {
     pointer-events: auto;
@@ -72,6 +81,7 @@ body {
     text-align: right;
     font-size: 2vh;
     align-content: center;
+    display: none;
 }
 
 #refocus {
@@ -90,6 +100,7 @@ body {
 /* #region Bubble (Interactive */
 
 #bubble {
+    display: none;
     background-color: grey;
     position: absolute;
     left: 60px;
@@ -238,24 +249,30 @@ select {
     font-size: 15px;
     max-width: 90%;
     margin-left: 5%;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 /* #endregion */
 
+/* #region pokemon (Interactive) */
 
-/* pokemon (Interactive) */
 #pokemonSearch {
     width: 180px;
-    height: 20px;
+    height: 27px;
+    font-size: 14px;
+    padding-top: 0;
     resize: none;
     margin-left: 10px;
     margin-right: 10px;
     overflow: auto;
+    border-radius: 5px;
+    margin-top: 2px;
 }
 
 #pokedexContainer {
     display: none;
+    border: 2px, solid black;
+    width: fit-content;
 }
 
 /* conainer scrollable */
@@ -270,6 +287,7 @@ select {
 /* pokemon */
 .pokemon {
     display: flex;
+    cursor: pointer;
 }
 
 .pokemonImage {

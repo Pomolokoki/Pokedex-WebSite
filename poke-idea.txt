@@ -213,6 +213,10 @@ refaactorisation evolution
 mettre other sur les pokemons qui ont comme "null" comme evolution trigger
 evolution trigger id 865 868 a traduire
 
+map en gros
+interactive ne s'active pas
+
+
 
 id 10001 et 10002 de item, nom à ajouter
 id 60000 de item, tout sauf id et name a mettre en NULL/NULL. Category à "evolution"

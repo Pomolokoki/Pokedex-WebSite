@@ -11,14 +11,14 @@ MYSQL_HOST, MYSQL_PORT),
 MYSQL_USER,
 getPassword()
 );
-$sqlCreateBD = 
-"DROP DATABASE IF EXISTS pokedex;
-CREATE DATABASE pokedex CHARACTER SET utf8;
-USE pokedex;";
+// $sqlCreateBD = 
+// "DROP DATABASE IF EXISTS pokedex;
+// CREATE DATABASE pokedex CHARACTER SET utf8;
+// USE pokedex;";
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $statement = $db->prepare($sqlCreateBD);
-    $statement->execute();
+    // $statement = $db->prepare($sqlCreateBD);
+    // $statement->execute();
 } catch(Exception $exception) {
     die('Erreur : '.$exception->getMessage());
 }

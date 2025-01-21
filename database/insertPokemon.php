@@ -192,7 +192,7 @@ saveToDb($sqlInsertFormPokemon, "form_pokemon", $FPvalues);
 $sqlAddBonusData = "UPDATE pokemon SET category=3 WHERE id IN (793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806);\n";
 $sqlAddBonusData = $sqlAddBonusData . "UPDATE pokemon SET category=4 WHERE id IN (984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1010, 1020, 1021, 1022, 1023);\n";
 $sqlAddBonusData = $sqlAddBonusData . 'INSERT INTO pokemon (id, name, description, species, category, generation, spriteM, spriteF, type1, type2, hp, attack, defense, atackspe, defensespe, speed ,mega ,height, weight, catch_rate, form, typeEfficiency) 
-VALUES (60000, "Masterpiece Form Sinistcha/Théffroyable Forme Exceptionnelle","It prefers cool, dark places, such as the back of a shelf or the space beneath a home\'s floorboards. It wanders in search of prey after sunset./NULL","Matcha Pokémon/Matcha",0,9,"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png",NULL,12,8,71,60,106,121,80,70,FALSE,2,22,60,2,"0/0/0/2/1/0.5/1/1/2/1/2/0.5/0.5/0.5/1/2/1/2/1");\n';
+VALUES (60000, "Masterpiece Form Sinistcha///Théffroyable Forme Exceptionnelle","It prefers cool, dark places, such as the back of a shelf or the space beneath a home\'s floorboards. It wanders in search of prey after sunset.///NULL","Matcha Pokémon///Matcha",0,9,"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png",NULL,12,8,71,60,106,121,80,70,FALSE,2,22,60,2,"0/0/0/2/1/0.5/1/1/2/1/2/0.5/0.5/0.5/1/2/1/2/1");\n';
 saveToDb($sqlAddBonusData, "", "", false, true);
 //$statement = $db->prepare($sqlAddBonusData);
 //$statement->execute();

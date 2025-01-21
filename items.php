@@ -15,14 +15,14 @@ $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.
 <?php 
 function getTextFrEng($str, $language = "fr")
 {
-
-    if ($language == "fr" && explode('/',$str)[1] != "NULL")
+    if ($language == "fr" && explode('///',$str)[1] != "NULL")
     {
-        return explode('/', $str)[1];
+        echo $str;
+        return explode('///', $str)[1];
     }
     else
     {
-        return explode('/', $str)[0];
+        return explode('///', $str)[0];
     }
 }
 

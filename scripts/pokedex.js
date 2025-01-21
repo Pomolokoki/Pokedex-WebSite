@@ -188,12 +188,12 @@ document.getElementById('TitleAtk').addEventListener('click', function () {
 
 function getText(str, lang = "fr") {
   if (lang === "fr") {
-    if (str.split('/')[1] == "NULL")
-      return str.split('/')[0];
-    return str.split('/')[1];
+    if (str.split('///')[1] == "NULL")
+      return str.split('///')[0];
+    return str.split('///')[1];
   }
   else
-    return str.split('/')[0];
+    return str.split('///')[0];
 }
 
 function isNumber(value) {
@@ -886,3 +886,10 @@ for (let i = 0; i < pokemons.length; i++) {
   }, false);
 }
 
+
+let sb = document.getElementById("searchBarInput");
+document.addEventListener("keydown", (e) => {
+  if (messageBox != null && e.key.length === 1 && e.target.id != "searchBarInput") {
+    messageBox.focus();
+  }
+})

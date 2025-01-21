@@ -2,20 +2,22 @@
 include_once("extractApi.php");
 
 $sqlInsertPlayer = 
-"INSERT INTO player (nickname) VALUES
-('Patrick');\n";
+"INSERT INTO player (id, nickname, email, password, forumRank) VALUES
+(1, 'Patrick', 'p.pat@gmail.com', 'abc', 1),
+(2, 'Jean', 'j.jean@gmail.com', 'abcd', 1),
+(3, 'Mokal', 'm.mok@gmail.com', 'abcdf', 1)";
 
 $sqlInsertChannel = 
-"INSERT INTO channel (title, keyWords, creationDate) VALUES
-('Hoenn is intercative', 'hoenn map interactive', '2009-08-12'),
-('XY game is out', 'XY release game', '2007-01-04');\n";
+"INSERT INTO channel (id, title, keyWords, creationDate) VALUES
+(1, 'Hoenn est interactive', 'hoenn map interactive', '2009-08-12'),
+(2, 'Le jeu XY est sorti', 'XY sorti jeu', '2007-01-04')";
 
 $sqlInsertMessage = 
 "INSERT INTO message (id, text, reply, postDate, owner, channelId) VALUES
-(NULL, 'I just saw that they added an intercactive now, woahh that \'s crazyyyyyy', NULL, '2009-08-12 12:00:00', NULL, 1),
-(NULL, 'yes i checked that, but I don\'t really like the map style, \\nnot very representative of real colors in game', NULL, '2009-08-13 02:54:41', 1, 1),
-(NULL, 'I don\'t agree, the style is may not an exact representation of the game, but it has it\'s own mood and style, and think of the effort the dev have putted in to make that map interactive', NULL, '2009-08-13 08:15:20', NULL, 1),
-(NULL, 'First', NULL, '2015-04-23 13:06:33',NULL , 2);\n";
+(NULL, 'Je viens de voir qu\'il ont mis cette cart onteractive, c\'est ouf', NULL, '2009-08-12 12:00:00', 2, 1),
+(NULL, 'Oui j\'ai vu ca, mais j\'aime pas vraiment le style de la map, pas très representatif des vraies couleurs', NULL, '2009-08-13 02:54:41', 1, 1),
+(NULL, 'Je ne suis pas d\'accord, ce n\'est peut etre pas ure réalisations correcte, mais c\'ets tout de meme très impressionant, et j\'aime bien cette texture, ca donne une dimension nouvelle à la carte, bravo aux travaux des devs', NULL, '2009-08-13 08:15:20', 2, 1),
+(NULL, 'Premier', NULL, '2015-04-23 13:06:33',3 , 2)";
 
 
 saveToDb($sqlInsertPlayer, "", "", false, true);

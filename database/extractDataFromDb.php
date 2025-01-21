@@ -26,7 +26,7 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
  
 function getTextLang($str, $language = "fr")
 {
-    $split = explode('/', $str);
+    $split = explode('///', $str);
     if ($language == "fr")
     {
         if ($split[1] == "NULL")

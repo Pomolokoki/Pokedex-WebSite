@@ -15,16 +15,17 @@ let locationContainer = document.getElementById("mapLocation");
 // in DB text are wrotten like : 'en/fr', so we can split it up to get the desired language
 function getText(str, language) {
     if (language === "fr") {
-        if (str.split('/')[1] == "NULL") // if not foudn, return en version
-            return str.split('/')[0];
-        return str.split('/')[1];
+        if (str.split('///')[1] == "NULL") // if not foudn, return en version
+            return str.split('///')[0];
+        return str.split('///')[1];
     }
-    return str.split('/')[0];
+    return str.split('///')[0];
 }
 
 // map zoom
 mapP.addEventListener("wheel", function (e) {
-    
+    if (currentMode != "Interactive")
+        return;
     if (document.getElementById("pokedex").contains(e.target))
         return;
 
@@ -54,7 +55,8 @@ mapP.addEventListener("wheel", function (e) {
 
 let drag = false;
 mapP.addEventListener("mousedown", function () {
-    drag = true; //start dragging
+    if (currentMode == "Interactive")
+        drag = true; //start dragging
 })
 
 document.addEventListener("mouseup", function () {
@@ -89,6 +91,8 @@ document.onmousemove = function (e) {
 
 // re-center / re-size the map
 function center() {
+    if (currentMode != "Interactive")
+        return;
     map.style.width = '350px';
     map.style.height = '350px';
     map.style.left = mapP.offsetWidth / 2 - parseFloat(map.style.width) / 2 + "px";
@@ -105,10 +109,14 @@ document.getElementById("centered").addEventListener("click", center)
 // map management
 let imgMap = document.getElementById("imgMap");
 let svgMap = document.getElementById("svgMap");
-imgMap.style.left = "0px";
-imgMap.style.top = "0px";
-imgMap.style.width = "350px";
-imgMap.style.height = "350px";
+map.style.left = mapP.offsetWidth / 2 - parseFloat(map.offsetWidth) / 2 + "px";
+map.style.top = mapP.offsetHeight / 2 - parseFloat(map.offsetHeight) / 2 + "px";
+    
+// imgMap.style.left = "0px";
+// imgMap.style.top = "0px";
+// imgMap.style.width = "350px";
+// imgMap.style.height = "350px";
+imgMap.style.margin = "auto";
 svgMap.style.left = "0px";
 svgMap.style.top = "0px";
 svgMap.style.width = "350px";
@@ -128,7 +136,9 @@ function updateMap(e) {
             else
                 imgMap.src = "./img/" + currentRegion + ".png";
             document.getElementById("pokedexContainer").style.display = "none"; // disbale pokedex (reserved Interactive map)
-        }
+            document.getElementById("centered").style.display = "none";         // disbale center button (reserved Interactive map)
+            [...document.querySelectorAll(".location")].forEach(location => {location.style.cursor = "unset";})
+        }   
         else if (currentMode == "Interactive") {
             if (currentRegion != "Hoenn" && currentRegion != "Kanto") { // only those have svg ready
                 alert("Interactive map haven't been set yet for this region");
@@ -146,6 +156,8 @@ function updateMap(e) {
                 svgMap.innerHTML = Kanto;
             bindInteractiveMap();
             document.getElementById("pokedexContainer").style.display = "block"; // enable pokedex (reserved Interactive map)
+            document.getElementById("centered").style.display = "block";         // enable center button (reserved Interactive map)
+            [...document.querySelectorAll(".location")].forEach(location => {location.style.cursor = "pointer";})
         }
         center(); // center the map
     }
@@ -164,6 +176,14 @@ document.getElementById("realMap").addEventListener("click", (e) => {
 })
 
 document.getElementById("interactiveMap").addEventListener("click", (e) => {
+    if (currentRegion != "Hoenn" && currentRegion != "Kanto") { // only those have svg ready
+        alert("Interactive map haven't been set yet for this region");
+        if (currentMode == "InGame")
+            document.getElementById("gameMap").click();
+        else
+            document.getElementById("realMap").click();
+        return;
+    }
     currentMode = "Interactive";
     updateMap(e);
 })
@@ -183,6 +203,10 @@ document.getElementById("mapList").addEventListener("change", (e) => {
                 location.dataset.location = getText(dataLocation[i]["name"], "en");
                 location.innerHTML = getText(dataLocation[i]["name"], language);
                 locationContainer.appendChild(location);
+            }
+            if (currentMode == "Interactive" && (currentRegion != "Kanto" && currentRegion != "Hoenn")) {
+                alert("carte pas encore interactive");
+                return;
             }
             updateMap("regionChanged");
             console.log(currentRegion);
@@ -410,11 +434,16 @@ function pokemonClick(id) {
         if (this.readyState == 4 && this.status == 200) {
             let dataLocation = JSON.parse(this.responseText);
             // Info Location in DB
-            if (dataLocation == "No results found.")
+            let locationList = document.getElementsByClassName("location");
+            if (dataLocation == "No results found.") {
+                for (let i = 0; i < locationList.length; ++i) {
+                    if (typeof locationList[i] != "object") continue;
+                    locationList[i].style.display = "block";
+                }
                 return;
+            }
 
             //filter
-            let locationList = document.getElementsByClassName("location");
             for (let i = 0; i < locationList.length; ++i) {
                 if (typeof locationList[i] != "object") continue;
                 locationList[i].style.display = "none";
@@ -503,20 +532,21 @@ function showLocationPokemon(location) {
 
 // pokemon searchBar
 function pokemonSearch() {
-    [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
-        pokemon.style.display = "none";
-    });
+    // [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
+    //     pokemon.style.display = "none";
+    // });
     let searchBar = document.getElementById('pokemonSearch');
     searchBar = searchBar.value.toLowerCase();
     let pokemonList = document.getElementsByClassName("pokemon");
-    console.log(searchBar)
     for (let i = 0; i < pokemonList.length; ++i) {
         if (typeof pokemonList[i] != "object") continue;
         pokemonList[i].style.display = "none";
-        console.log(pokemonList[i].lastChild)
-        if (pokemonList[i].innerHTML.toLowerCase().includes(searchBar));
+        // console.log(pokemonList[i].lastElementChild.innerHTML.toLowerCase(), searchBar);
+        console.log(pokemonList[i].lastElementChild.innerHTML.toLowerCase().includes(searchBar));
+        if (pokemonList[i].lastElementChild.innerHTML.toLowerCase().includes(searchBar))
             pokemonList[i].style.display = "flex";
     }
+    // console.log(searchBar)
 }
 
 [...document.querySelectorAll(".pokemon")].forEach(pokemon => {

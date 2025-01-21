@@ -4,7 +4,7 @@
 
 function getPassword()
 {
-    // $usePassword = true;
+    $usePassword = true;
     $usePassword = false; // comment if UwAmp
     $MYSQL_PASSWORD = 'mdp';
     if ($usePassword)

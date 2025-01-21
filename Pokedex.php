@@ -63,7 +63,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					</select>
 				</div>
 				<div id="searchBar">
-					<input type="text" name="text" class="search" placeholder="Rechercher" />
+					<input id="searchBarInput"type="text" name="text" class="search" placeholder="Rechercher" />
 				</div>
 			</div>
 			<div id="pokedexCore">
