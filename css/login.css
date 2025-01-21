@@ -3,11 +3,17 @@
   font-family: 'pokefont2';
 }
 
-body, html{
+body,
+html {
   height: 100%;
+  overflow-x: hidden;
 }
 
-input[type=text], select, textarea,input[type=email],input[type=password] {
+input[type=text],
+select,
+textarea,
+input[type=email],
+input[type=password] {
   width: 95%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -65,18 +71,21 @@ input[type=submit]:hover {
   clear: both;
 }
 
-#registerLink{
-    float: left;
+#registerLink {
+  float: left;
 }
 
-.navButton{
-  align-items: center;  
+.navButton {
+  align-items: center;
   padding: 0;
 }
 
 
 @media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
+
+  .col-25,
+  .col-75,
+  input[type=submit] {
     width: 100%;
     margin-top: 0;
   }

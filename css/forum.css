@@ -7,8 +7,10 @@ html {
 body {
     margin: 0;
     height: 100%;
-    background-color: black;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     color: white;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .textButton {
@@ -76,6 +78,7 @@ textarea {
 /* container for results */
 #themeResults {
     border: solid 2px white;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     flex: auto;
     display: flex;
     flex-direction: column;
@@ -92,6 +95,7 @@ textarea {
     position: relative;
     padding-left: 10px;
     color: white;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     border: solid 2px white;
     cursor: pointer;
     width: 100%;
@@ -108,6 +112,7 @@ textarea {
     margin-bottom: 20px;
     display: flex;
 }
+
 /* #endregion */
 
 /* #region favorites */
@@ -137,7 +142,7 @@ textarea {
 }
 
 /* favorite theme */
-.favoriteTheme{
+.favoriteTheme {
     position: absolute;
     height: 25px;
     width: 25px;
@@ -150,6 +155,7 @@ textarea {
 #noTheme {
     cursor: auto;
 }
+
 /* #endregion */
 
 /* #region channel */
@@ -213,7 +219,7 @@ textarea {
     z-index: 2;
 }
 
-#mobileBackArrow{
+#mobileBackArrow {
     display: none;
 }
 
@@ -257,6 +263,7 @@ textarea {
 .selectAnimation {
     animation: colorchange 4s 1;
 }
+
 /* #endregion */
 
 /* #region options */
@@ -330,6 +337,7 @@ textarea {
     border: solid 2px red;
     background-color: black;
 }
+
 /* #endregion */
 
 @keyframes colorchange {
@@ -348,6 +356,11 @@ textarea {
 }
 
 @media only screen and (max-width: 600px) {
+
+    #themeResults {
+        margin-left: 8px;
+    }
+
     #channel {
         position: absolute;
         width: 100%;
@@ -359,7 +372,13 @@ textarea {
         z-index: 4;
         display: none;
     }
-    
+
+    .theme {
+        text-align: center;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
     #themes {
         width: 100%;
         height: 100%;
@@ -374,25 +393,26 @@ textarea {
         display: none;
     }
 
-    #mobileBackArrow{
+    #mobileBackArrow {
         /* display: unset; */
         aspect-ratio: 1 / 1;
         width: 50px;
         position: absolute;
     }
+
     #selectFavorite {
         display: unset;
     }
-    #setFavorite{
+
+    #setFavorite {
         display: unset;
     }
-    
-    #setFavorite{
+
+    #setFavorite {
         right: 30px;
     }
 }
 
-#selector
-{
+#selector {
     display: none;
 }

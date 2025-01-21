@@ -3,17 +3,21 @@ html {
     margin: 0;
     height: 100%;
 }
+
 body {
     margin: 0;
     height: 100%;
     background-color: black;
+    overflow-x: hidden;
 }
+
 /*#endregion*/
 
 /*#region header*/
 .textButton {
     padding-bottom: 14px;
 }
+
 /*#endregion*/
 
 /*#region map*/
@@ -42,7 +46,8 @@ body {
 }
 
 /* map */
-#imgMap, #svgMap {
+#imgMap,
+#svgMap {
     position: absolute;
     display: block;
     width: auto;
@@ -55,7 +60,7 @@ body {
     pointer-events: none;
 }
 
-#imgMap{
+#imgMap {
     height: 100%;
     width: 100%;
     aspect-ratio: 1/1;
@@ -65,7 +70,9 @@ body {
 }
 
 /* svg map element */
-.road, .special, .city {
+.road,
+.special,
+.city {
     pointer-events: auto;
     cursor: pointer;
 }
@@ -95,6 +102,7 @@ body {
     right: 100%;
     top: 20%;
 }
+
 /*#endregion*/
 
 /* #region Bubble (Interactive */
@@ -123,6 +131,7 @@ body {
     text-align: center;
     background-color: grey;
 }
+
 /* #endregion */
 
 /* #region Info panel */
@@ -131,8 +140,10 @@ body {
 #info {
     max-width: 50%;
     position: relative;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     width: 30%;
-    height: calc(100% - 140px);;
+    height: calc(100% - 140px);
+    ;
     flex-direction: column;
     display: flex;
     overflow: hidden;
@@ -154,24 +165,26 @@ body {
 #mapList {
     position: relative;
     color: black;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     width: 80%;
+    height: 25px;
     left: 10%;
-    margin-top:2%;
+    margin-top: 2%;
 }
 
 /* Arrow */
 select {
-  border: unset;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1vw top 50%;
-  background-size: 1vw auto;
-  padding-left: 10px;
+    border: unset;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1vw top 50%;
+    background-size: 1vw auto;
+    padding-left: 10px;
 }
 
 .select-selected {
-  border: 6px solid transparent;
+    border: 6px solid transparent;
 }
 
 /* select value in sleect list for region */
@@ -184,17 +197,23 @@ select {
 /* radio button container */
 #radioButtonsHolder {
     display: inline;
-    padding-top:12px;
+    padding-top: 12px;
     margin-top: 5%;
     font-size: 14px;
 }
- /* radio button label */
+
+/* radio button label */
 .radioLabel {
     position: relative;
     color: white;
     margin-left: 35px;
     top: -3px;
 }
+
+.radioBut input:checked~.radio {
+    background-color: #af0000;
+}
+
 /* #endregion */
 
 /* #region location select */
@@ -207,16 +226,17 @@ select {
 
 /* search bar */
 #searchBarContainer {
-    
     position: relative;
     width: 80%;
-    left: 10%;
-    margin-top: 10%;
+    left: 8%;
+    margin-top: 6%;
     padding-left: 5%;
 }
 
 #searchBar {
     width: 100%;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+    color: aliceblue;
 }
 
 /* scroll list */
@@ -228,6 +248,7 @@ select {
     display: inline-block;
     overflow: auto;
     clip: auto;
+    border: 2px solid;
     vertical-align: middle;
     margin-top: 5%;
     margin-bottom: 5%;
@@ -240,7 +261,7 @@ select {
 .location {
     border: double;
     margin-top: 1%;
-    background-color: red;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     color: black;
     border-color: white;
     font-size-adjust: inherit;
@@ -298,6 +319,7 @@ select {
 .pokemon p {
     align-self: center;
 }
+
 /* #endregion */
 
 
@@ -309,7 +331,7 @@ select {
         right: 0%;
         width: 100%;
         height: calc(60% - 100px);
-        bottom: 0;
+        bottom: 15px;
         display: flex;
         flex-direction: row;
         background-color: blueviolet;
@@ -319,7 +341,7 @@ select {
         max-width: unset;
         position: relative;
         width: 100%;
-        height: calc(40% - 10px);
+        height: calc(50% - 40px);
         flex-direction: row;
         display: flex;
         overflow: auto;
@@ -332,17 +354,23 @@ select {
     #mapLocation {
         left: 0;
         width: 90%;
-        height: 100%;
+        height: 77%;
         bottom: 0;
+        border: none;
         margin-bottom: 0;
-        margin-top: 2%;
+        margin-top: 7%;
+    }
+
+    .location {
+        font-size: 11px;
     }
 
     #searchBarContainer {
-        left: 0%;
-        margin-top: 2%;
+        left: 3%;
+        margin-top: 6%;
     }
 }
+
 /* #endregion */
 
 /* #region interative hover */
@@ -350,4 +378,5 @@ select {
     filter: brightness(70%);
     z-index: 0;
 }
+
 /* #endregion */
