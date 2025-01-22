@@ -13,7 +13,19 @@
     height: 140px;
 } */
 
-input[type=text], select, textarea,input[type=email],input[type=password]{
+body {
+  background: #6d0000
+}
+
+a {
+  color: #006cff;
+}
+
+input[type=text],
+select,
+textarea,
+input[type=email],
+input[type=password] {
   width: 95%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -21,20 +33,20 @@ input[type=text], select, textarea,input[type=email],input[type=password]{
   resize: vertical;
 }
 
-input[type=email]{
+input[type=email] {
   font-family: 'pokefont2';
 }
 
 textarea {
-    width: 100%;
-    height: 100px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
+  width: 100%;
+  height: 100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
 }
 
 label {
@@ -43,7 +55,7 @@ label {
 }
 
 input[type=submit] {
-  background-color: #04AA6D;
+  background-color: #00981f;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -58,7 +70,8 @@ input[type=submit]:hover {
 
 .container {
   border-radius: 5px;
-  background-color: #f2f2f2;
+  color: aliceblue;
+  background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
   padding: 20px;
 }
 
@@ -81,19 +94,24 @@ input[type=submit]:hover {
   clear: both;
 }
 
-#registerLink{
-    float: left;
+#registerLink {
+  float: left;
 }
 
-.navButton{
-  align-items: center;  
+.navButton {
+  align-items: center;
   padding: 0;
 }
 
-.error {color: #FF0000;}
+.error {
+  color: #b80000;
+}
 
 @media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
+
+  .col-25,
+  .col-75,
+  input[type=submit] {
     width: 95%;
     margin-top: 0;
   }

@@ -7,6 +7,11 @@ body,
 html {
   height: 100%;
   overflow-x: hidden;
+  background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
+}
+
+a {
+  color: #006cff;
 }
 
 input[type=text],
@@ -23,7 +28,7 @@ input[type=password] {
 }
 
 .error {
-  color: #FF0000;
+  color: #b80000;
 
 }
 
@@ -33,7 +38,7 @@ label {
 }
 
 input[type=submit] {
-  background-color: #04AA6D;
+  background-color: #00981f;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -48,7 +53,8 @@ input[type=submit]:hover {
 
 .container {
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+  color: aliceblue;
   padding: 20px;
 }
 
