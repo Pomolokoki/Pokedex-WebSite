@@ -7,7 +7,7 @@
 $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.sprite,item.category,item.pocket,item.effect FROM item", null, null, true);
 ?>
 
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- <script type="text/javascript" src="scripts/header.js"></script> -->
 <style>
     <?php include("css/items.css"); ?>
@@ -26,7 +26,7 @@ function getItemNoDescOrEffect($str,$mot){
 <div id="itemTable">
     <div id="itemFilter">
         <label for="inputName">Nom de l'item:</label>
-        <input type="text" class="input-text" id="inputName" onkeyup="recherche()">
+        <input type="text" class="input-text" id="inputName">
         <label for="inputCategory">Catégorie:</label>
         <select name="inputCategories" id="inputCategory">
             <option value="All">- Tout -</option>

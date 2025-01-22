@@ -3,7 +3,7 @@
 include_once("database/connectSQL.php");
 include_once("./database/extractDataFromDb.php");
 
-$dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
+$dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
 $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
 ?>
 <!DOCTYPE html>
@@ -249,7 +249,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                         <div class="card h-100">
                                             <div class="card-body">
                                                 <p class="card-text">
-                                                    <img class="pokemon" data-id="<?php echo $dataPokemonCatch[$i]["pokemonId"]?>" src="<?php echo $dataPokemonFav[$i]["pokemonSprite"]?>" alt="">
+                                                    <img class="pokemon" data-id="<?php echo $dataPokemonFav[$i]["pokemonId"]?>" src="<?php echo $dataPokemonFav[$i]["pokemonSprite"]?>" alt="">
                                                 </p>
                                             </div>
                                         </div>
