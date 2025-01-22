@@ -223,4 +223,4 @@ id 60000 de item, tout sauf id et name a mettre en NULL/NULL. Category à "evolu
 
 Id de l'item / sprite à ajouter : 
 2045 : https://archives.bulbagarden.net/media/upload/d/dc/Bag_Auspicious_Armor_SV_Sprite.png
-
+$2y$10$01ByUnJoLA7W3RHABEw/SerrVU7QbvrbFRQqLi/D87Y028/B1/bge

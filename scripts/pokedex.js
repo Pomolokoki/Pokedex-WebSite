@@ -889,7 +889,7 @@ for (let i = 0; i < pokemons.length; i++) {
 
 let sb = document.getElementById("searchBarInput");
 document.addEventListener("keydown", (e) => {
-  if (messageBox != null && e.key.length === 1 && e.target.id != "searchBarInput") {
-    messageBox.focus();
+  if (sb != null && e.key.length === 1 && e.target.id != "searchBarInput") {
+    sb.focus();
   }
 })

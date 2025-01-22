@@ -67,6 +67,7 @@ th {
     margin-bottom: 10px;
     position: relative;
     float: right;
+    cursor: pointer;
 }
 
 .sorterContainer{
