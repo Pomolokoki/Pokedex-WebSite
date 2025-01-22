@@ -17,7 +17,7 @@ session_start()
 <header id="header">
     <div class="mycontainer">
         <div id="BackHeader">
-            <nav>
+            <nav id="theBugerParent">
                 <input type="checkbox" id="check">
                 <label for="check" class="menu">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"

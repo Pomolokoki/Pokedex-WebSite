@@ -35,8 +35,10 @@ if (login)
 }
 
 document.addEventListener('click', (e) => {
-  if (document.getElementsByClassName("nav-items")[0].getBoundingClientRect().x > -5 && !document.getElementsByClassName("nav-items")[0].contains(e.target))
-  {
+  if (document.getElementsByClassName("nav-items")[0].getBoundingClientRect().x > -5 && !document.getElementById("theBugerParent").contains(e.target))
+    {
+    // if (e.target == document.getElementById("check")) return;
+    console.log(e.target)
     document.getElementById("check").click();
   }
 })
