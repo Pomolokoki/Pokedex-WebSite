@@ -14,7 +14,6 @@ include_once("database/connectSQL.php");
 <?php 
 #region Sécurisation et Gestion des exceptions
 $_SESSION["accountCreated"] = false;
-$_SESSION["uname"] = $_SESSION["email"] = $_SESSION["pword"] = $_SESSION['confirm_password'] = "";
 $unameErr = $emailErr = $pwordErr = $confirm_passwordErr = "";
 $passwordBool = true;
 $idBool = true;
@@ -56,8 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["password"]) && !empty($_POST["confirm_password"])) {
         $passwordCheck = test_input($_POST["password"]);
         $confirm_passwordCheck = test_input($_POST["confirm_password"]);
-        // $_SESSION["pword"] = $passwordCheck;
-        // $_SESSION["confirm_password"] = $confirm_passwordCheck;
         if (empty($confirm_passwordCheck)) {
             $confirm_passwordErr .= "Veuillez entrer la confirmation du mot de passe.";
             $passwordBool = false;

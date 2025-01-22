@@ -7,54 +7,13 @@
 $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.sprite,item.category,item.pocket,item.effect FROM item", null, null, true);
 ?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- <script type="text/javascript" src="scripts/header.js"></script> -->
 <style>
     <?php include("css/items.css"); ?>
 </style>
 <?php 
-function getTextFrEng($str, $language = "fr")
-{
-    if ($language == "fr" && explode('///',$str)[1] != "NULL")
-    {
-        echo $str;
-        return explode('///', $str)[1];
-    }
-    else
-    {
-        return explode('///', $str)[0];
-    }
-}
-
-// function getTextLangTest($str, $mot)
-// {
-
-    
-//     $nodesc = "Cet item ne possède pas de description";
-    
-//     if ($language == "fr") {
-//         if ($split[1] == "NULL") {
-//             $str =  $split[0];
-//             if ($split[0] == "NULL") {
-//                  return "Cet item n'a pas de description / effet";                
-//             }
-//         }
-//         // if ($split[0] == "NULL" && $split[1] =="NULL"){
-//         //     return "mais ";
-//         // }
-//         if ($str == "NULL/NULL") {
-//             return "NULL/NULL";
-//         }
-//         // else{
-//         //     return $split[1];
-//         // }              
-//     } else {
-//         return $split[0];
-//     }
-//     return $str;
-// }
-
-function getTest($str,$mot){        
+function getItemNoDescOrEffect($str,$mot){        
     if($str == "NULL"){
         return "Cet item n'a pas de " . $mot;
     }
@@ -106,8 +65,8 @@ function getTest($str,$mot){
                         data-category="<?php $dataItems[$i]["category"] ?>">
                         <td id="itemNameData"><?php echo getTextLang($dataItems[$i]["name"], "fr") ?></td>
                         <td><?php echo $dataItems[$i]["pocket"] ?></td>
-                        <td><?php echo getTest(getTextLang($dataItems[$i]["smallDescription"], "fr"), "description") ?></td>
-                        <td><?php echo getTest(getTextLang($dataItems[$i]["effect"], "fr"), "effet") ?></td>
+                        <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]["smallDescription"], "fr"), "description") ?></td>
+                        <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]["effect"], "fr"), "effet") ?></td>
                     </tr>
                 <?php endfor; ?>
             </tbody>
