@@ -249,7 +249,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                         <div class="card h-100">
                                             <div class="card-body">
                                                 <p class="card-text">
-                                                    <img src="<?php echo $dataPokemonFav[$i]["pokemonSprite"]?>" alt="">
+                                                    <img class="pokemon" data-id="<?php echo $dataPokemonCatch[$i]["pokemonId"]?>" src="<?php echo $dataPokemonFav[$i]["pokemonSprite"]?>" alt="">
                                                 </p>
                                             </div>
                                         </div>
