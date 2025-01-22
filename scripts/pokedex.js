@@ -474,7 +474,8 @@ var LoadAtkPokemon = function (id, isGen = -1) {
             }
             else if (j == 1) {
               let divElementTypeAtk = document.createElement("div");
-              divElementTypeAtk.classList.add("divElementTypeAtk");
+              divElementTypeAtk.classList.add("divElementTypeAtk"); 
+              divElementTypeAtk.classList.add("typeDisplay"); 
               divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
               divElementName.appendChild(divElementTypeAtk);
               divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]], "en"))
@@ -681,7 +682,7 @@ var LoadEvoPokemon = function (id) {
               return;
             }
             document.getElementById(dataEvol[i].id1).scrollIntoView({ behavior: "smooth" });
-            document.getElementById('Pokemon').scroll({ top: 0, behavior: 'smooth' });
+            document.getElementById('name_section_1').scrollIntoView({ behavior: 'smooth' });
           });
         }
 
@@ -749,7 +750,7 @@ var LoadEvoPokemon = function (id) {
           divElementPokemon.addEventListener('click', function () {
             LoadPokemon(dataEvol[i].id2);
             document.getElementById(dataEvol[i].id2).scrollIntoView({ behavior: "smooth" });
-            document.getElementById('Pokemon').scroll({ top: 0, behavior: 'smooth' });
+            document.getElementById('name_section_1').scrollIntoView({ behavior: 'smooth' });
           });
         }
       }
