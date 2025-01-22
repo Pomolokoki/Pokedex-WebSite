@@ -55,9 +55,6 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
                 $_SESSION['LOGGED_USER'] = $test;
-                // $_SESSION['user_id'] = $userData['id'];
-                // $_SESSION['username'] = $userData['nickname'];
-                // $_SESSION['user_email'] = $userData['email'];
                 break;
             }
         } else {
@@ -131,7 +128,6 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
                     Bonjour <?php echo $id["nickname"] ?> et bienvenue notre PokeSite !
 
                 <?php endforeach; ?>
-                <?php echo $_SESSION['LOGGED_USER'][0]['nickname']; ?>
                 <?php
                 $new_url = 'pokedex.php';
                 echo "<script>window.location.replace('$new_url');</script>";

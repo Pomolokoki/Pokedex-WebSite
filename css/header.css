@@ -34,9 +34,7 @@ div.mycontainter div {
 }
 
 div.mycontainer div#Logo {
-    width: 60px;
     overflow: visible;
-    aspect-ratio: 1/1;
     -webkit-user-select: none;
     user-select: none;
 }
@@ -45,17 +43,17 @@ div.mycontainer div#Logo {
     width: 100%;
     height: 100px;
     min-height: 80px;
-    background-color: purple;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     display: flex;
     position: relative;
 
 }
 
 div.mycontainer div#Title {
-    width: 40%;
+    /* width: 40%; */
     height: 50%;
     display: inline-block;
-    margin-left: 1%;
+    margin-left: 5px;
     align-content: center;
     font-size: 3em;
     font-weight: bold;
@@ -87,7 +85,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 
 #PokeLogo {
-    width: 75%;
+    width: 350px;
     max-width: 100%;
     min-width: 60px;
     height: auto;
@@ -115,6 +113,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
     min-height: 20px;
     max-height: 100%;
     max-width: 100%;
+    padding: 2px;
 }
 
 #Login:hover {
@@ -343,11 +342,10 @@ nav a:hover::after {
     }
 
     #PokeLogo {
-        height: 40px;
-        width: 50px;
+        height: auto;
+        width: 150px;
         min-width: none;
         max-width: none;
-        margin-top: 5px;
     }
 
     #pokeTitle {
@@ -418,6 +416,7 @@ nav a:hover::after {
         z-index: 99;
         display: block;
         height: 50px;
+        padding: 0;
     }
 
     #check:checked~.nav-items {

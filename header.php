@@ -44,7 +44,7 @@ if(isset($_FILES['image'])){
         $_SESSION['LOGGED_USER'][0]['picture'] = $file_destination;
     }
     else{
-        echo "Erreur lors de l'upload 222";
+        echo "Erreur lors de l'upload";
     }
     }
     else{
@@ -89,11 +89,12 @@ if(isset($_FILES['image'])){
                 </style>
                 <?php endif;?>
             <div id="Logo">
-                <img src="img/PokeLogo.png" alt="PokeLogo bien carré" id="PokeLogo" />
+                <img src="img/PokeLogov2.png" alt="Logo" id="PokeLogo" />
+                <!-- <img src="img/PokeLogo.png" alt="PokeLogo bien carré" id="PokeLogo" />
             </div>
 
             <div id="Title">
-                <p id="pokeTitle">PokeDex</p>                
+                <p id="pokeTitle">PokeDex</p>                 -->
             </div>
             <div id="Profile">
             <?php if (!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])): ?>
