@@ -132,17 +132,17 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
         <div class="row align-items-start">
             <div class="col align-items-start">
                 <!-- #region Profil -->
-                <div class="col-12 col-lg-15">
+                <div class="col-12 col-lg-15 ">
                     <div class="card shadow">
-                        <div class="card-body">
+                        <div class="card-body profil-bloc ">
                             <?php if ($success_message): ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <?php echo htmlspecialchars($success_message); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    
+
                                 </div>
                             <?php endif; ?>
-    
+
                             <div class="text-center mb-4">
                                 <div class="profile-avatar mb-3">
                                     <!-- <i class="fas fa-user"></i> -->
@@ -160,31 +160,31 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                     </form>
                                 </div>
                                 <!-- <i class="fa fa-pencil-square" aria-hidden="true"></i> -->
-    
+
                                 <h2 class="card-title">Profil de <?php echo htmlspecialchars($username); ?></h2>
                             </div>
-    
-                            <div class="row g-3 mb-3">
-                                <div class="col-20 col-md-6">
+
+                            <div class="row g-3 mb-3 info-user">
+                                <div class="col-20 col-md-6 profil-bloc">
                                     <div class="card h-100">
-                                        <div class="card-body">
-                                            <h6 class="card-subtitle mb-2 text-muted">Pseudo : </h6>
+                                        <div class="card-body profil-data">
+                                            <h6 class="card-subtitle mb-2">Pseudo : </h6>
                                             <p class="card-text"><?php echo htmlspecialchars($username); ?></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-20 col-md-6">
+                                <div class="col-20 col-md-6 profil-bloc">
                                     <div class="card h-100">
-                                        <div class="card-body">
-                                            <h6 class="card-subtitle mb-2 text-muted">Email : </h6>
+                                        <div class="card-body profil-data">
+                                            <h6 class="card-subtitle mb-2">Email : </h6>
                                             <p class="card-text" id="email"><?php echo htmlspecialchars($email); ?></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-20 col-md-12">
                                     <div class="card h-100">
-                                        <div class="card-body">
-                                            <h6 class="card-subtitle mb-2 text-muted">Thème du header : </h6>
+                                        <div class="card-body profil-data">
+                                            <h6 class="card-subtitle mb-2">Thème du header : </h6>
                                             <p class="list-group">
                                                 <button class="list-group-item list-group-item-action">Team Magma</button>
                                                 <button class="list-group-item list-group-item-action">Team Aqua</button>
@@ -194,7 +194,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <button class="btn btn-primary me-md-2" data-bs-toggle="modal"
                                     data-bs-target="#editProfileModal">
@@ -207,54 +207,54 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                         </div>
                     </div>
                 </div>
-                <!-- #endregion -->                
+                <!-- #endregion -->
                 <div class="col align-items-start">
-                <!-- #region Pokemon Capturés -->
-                <div class="col-auto col-xs-auto col-lg-15">
-                    <div class="card shadow mt-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Pokémon capturés</h5>
-                            <div class="row g-3">
-                            <?php if(isset($dataPokemonCatch)  && $dataPokemonCatch != "No results found."):?>
-                                <?php for ($i = 0; $i < count($dataPokemonCatch); $i++): ?>
-                                    <div class="col-auto col-xs-auto col-md-auto col-lg-auto">
-                                        <div class="card h-100">
-                                            <div class="card-body pokemonCatch">
-                                                <p class="card-text">
-                                                    <img class="pokemon" data-id="<?php echo $dataPokemonCatch[$i]["pokemonId"]?>" src="<?php echo $dataPokemonCatch[$i]["pokemonSprite"] ?>" alt="">
-                                                </p>
+                    <!-- #region Pokemon Capturés -->
+                    <div class="col-auto col-xs-auto col-lg-15 ">
+                        <div class="card shadow mt-4">
+                            <div class="card-body profil-bloc">
+                                <h5 class="card-title text-center">Pokémon capturés</h5>
+                                <div class="row g-3">
+                                    <?php if (isset($dataPokemonCatch)  && $dataPokemonCatch != "No results found."): ?>
+                                        <?php for ($i = 0; $i < count($dataPokemonCatch); $i++): ?>
+                                            <div class="col-auto col-xs-auto col-md-auto col-lg-auto">
+                                                <div class="card h-100">
+                                                    <div class="card-body pokemonLike-Owned">
+                                                        <p class="card-text">
+                                                            <img class="pokemon" data-id="<?php echo $dataPokemonCatch[$i]["pokemonId"] ?>" src="<?php echo $dataPokemonCatch[$i]["pokemonSprite"] ?>" alt="">
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                <?php endfor; ?>
-                                <?php endif; ?>
+                                        <?php endfor; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <!-- endregion -->
                 </div>
-                <!-- endregion -->
-            </div>
-            
+
             </div>
             <!-- #region Pokemon Favoris -->
             <div class="col align-items-start">
-                <div class="col-12 col-lg-15">
+                <div class="col-12 col-lg-15 ">
                     <div class="card shadow mt-4">
-                        <div class="card-body">
+                        <div class="card-body profil-bloc">
                             <h5 class="card-title text-center">Pokémon favoris</h5>
                             <div class="row g-3">
-                            <?php if(isset($dataPokemonFav)  && $dataPokemonFav != "No results found."):?>
-                            <?php for ($i = 0; $i < count($dataPokemonFav); $i++): ?>
-                                    <div class="col-auto col-xs-auto col-sm-auto col-md-auto col-lg-auto">        
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <p class="card-text">
-                                                    <img class="pokemon" data-id="<?php echo $dataPokemonFav[$i]["pokemonId"]?>" src="<?php echo $dataPokemonFav[$i]["pokemonSprite"]?>" alt="">
-                                                </p>
+                                <?php if (isset($dataPokemonFav)  && $dataPokemonFav != "No results found."): ?>
+                                    <?php for ($i = 0; $i < count($dataPokemonFav); $i++): ?>
+                                        <div class="col-auto col-xs-auto col-sm-auto col-md-auto col-lg-auto">
+                                            <div class="card h-100">
+                                                <div class="card-body pokemonLike-Owned">
+                                                    <p class="card-text">
+                                                        <img class="pokemon" data-id="<?php echo $dataPokemonFav[$i]["pokemonId"] ?>" src="<?php echo $dataPokemonFav[$i]["pokemonSprite"] ?>" alt="">
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php endfor; ?>
+                                    <?php endfor; ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -262,7 +262,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                 </div>
             </div>
             <!-- endregion -->
-        </div>        
+        </div>
     </div>
     <!--#endregion -->
 

@@ -5,7 +5,7 @@
 
 #itemTable {
     height: 100%;
-    background-color: #f0f0f0;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -19,11 +19,18 @@ input[type=text] {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+    color: aliceblue;
+}
+
+select {
+    background: #6f6f6f;
+    color: aliceblue;
 }
 
 #itemFilter {
-    background-color: #4CAF50;
-    color: white;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
+    color: aliceblue;
     width: 80%;
     text-align: center;
     padding: 10px;
@@ -31,10 +38,13 @@ input[type=text] {
     border-radius: 4px;
 }
 
-td, th {
-    border: 1px solid gray;
+td,
+th {
+    border: 1px solid rgb(104, 102, 102);
     text-align: left;
     padding: 8px;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
+    color: aliceblue;
 }
 
 table {
@@ -50,6 +60,7 @@ table {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #af0000
 }
 
 @media (max-width: 768px) {
