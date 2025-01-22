@@ -1,10 +1,10 @@
-html{
+html {
     margin: 0;
     height: 100%;
     overflow-y: hidden;
 }
 
-body{
+body {
     margin: 0;
     height: 100%;
     width: 100%;
@@ -16,51 +16,52 @@ body{
     padding-bottom: 14px;
 }
 
-#moveContainer{
+#moveContainer {
     overflow-x: scroll;
     overflow-y: scroll;
     height: calc(100% - 140px);
 }
 
-#moveList{
-    background-color: aqua;
+#moveList {
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     padding: 0;
 }
 
-.headCells{
+.headCells {
     font-size: larger;
+    color: aliceblue;
     padding: 10px;
     position: relative;
 }
 
-.AtkDescription{
+.AtkDescription {
     font-size: xx-small;
 }
 
-.AtkCell{
+.AtkCell {
     padding: 10px;
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
-.AtkTypeLabel{
+.AtkTypeLabel {
     border-radius: 50px;
 }
 
 #thead {
     position: fixed;
     z-index: 1;
-    background-color: brown;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     margin-top: -90px;
     width: calc(100% - 19px);
     overflow-x: hidden;
 }
 
 th {
-    width: max-content; 
+    width: max-content;
 }
 
 /* sorter buttons */
-.sorter{
+.sorter {
     width: 15px;
     height: 30px;
     margin-right: 10px;
@@ -69,7 +70,7 @@ th {
     float: right;
 }
 
-.sorterContainer{
+.sorterContainer {
     width: 50px;
     float: right;
 }
@@ -78,6 +79,7 @@ th {
     #thead {
         width: calc(100% - 14px);
     }
+
     /* body{
         font-size: 12px;
     } */

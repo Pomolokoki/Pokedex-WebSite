@@ -1,56 +1,63 @@
 /*#region globalElement*/
 
-html{
+html {
     margin: 0;
     height: 100%;
 }
 
-body{
+body {
     margin: 0;
     height: 100%;
     background-color: black;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-button{
+button {
     cursor: pointer;
 }
+
 /*#endregion*/
 
 /*#region headerPokedex*/
-.textButton{
+.textButton {
     padding-bottom: 14px;
 }
+
 /*#endregion*/
 
 /*#region aroundTypeTable*/
-#typeTableFrame{
+#typeTableFrame {
     width: 100%;
     height: calc(100% - 140px);
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     margin-top: 140px;
     margin: auto;
     overflow-x: scroll;
 }
 
-#midVertical{
+#midVertical {
     display: contents;
     align-content: center;
     width: 100%;
     height: 100%;
 }
 
-#gridAtckFlex{
+#gridAtckFlex {
     margin-top: 55px;
     top: 5%;
     width: fit-content;
     display: flex;
     margin: 100px 0px auto;
+    margin: 100px 0px auto;
+    margin-left: 200px;
     /* height: calc(100% - 50px); */
     align-items: center;
 }
 
-#defLabel{
+#defLabel {
     position: fixed;
-    margin-left: 25%;
+    margin-left: 43%;
     text-align: center;
     /* position: relative; */
     font-size: 35px;
@@ -59,7 +66,7 @@ button{
     pointer-events: none;
 }
 
-#atckLabel{
+#atckLabel {
     position: relative;
     font-size: 35px;
     /* height: 100%; */
@@ -68,10 +75,11 @@ button{
     /* text-orientation:upright; */
     text-align: center;
 }
+
 /*#endregion*/
 
 /*#region TypeTable*/
-#grid{
+#grid {
     position: relative;
     left: 25px;
     display: grid;
@@ -85,7 +93,7 @@ button{
 
 }
 
-.gridElement{
+.gridElement {
     border-radius: 5px;
     background-color: white;
     border: none;
@@ -94,14 +102,15 @@ button{
     margin-top: 5%;
     align-content: center;
 }
-.gridElement > img {
+
+.gridElement>img {
     height: 25px;
     aspect-ratio: 1/1;
-    filter:brightness(0);
+    filter: brightness(0);
     vertical-align: middle;
 }
 
-.gridElementButton{
+.gridElementButton {
     padding: 0;
     margin-top: 2.5%;
     min-width: 150px;
@@ -110,32 +119,69 @@ button{
     font-family: 'pokefont';
 }
 
-.gridElementButton > text{
-    align-self:center;
+.gridElementButton>text {
+    align-self: center;
     vertical-align: middle;
 }
+
 /*#endregion*/
 
 /*#region under TypeTable*/
-#warning{
+#warning {
     color: white;
     width: 100%;
     height: auto;
     margin-top: 20px;
+    margin-left: 255px;
     color: white;
     cursor: pointer;
 }
+
 /*#endregion*/
 
 /*#region responsive*/
 @media only screen and (max-width: 600px) {
 
-    #defLabel{
+    body {
+        overflow-y: scroll;
+    }
+
+    #defLabel {
         position: fixed;
-        margin-left: 5%;
+        margin-left: 30%;
         text-align: center;
-        font-size: 35px;
+        font-size: 20px;
         color: white;
     }
+
+    #atckLabel {
+        font-size: 20px;
+    }
+
+    #grid {
+        left: 10px;
+    }
+
+    #typeTableFrame {
+        height: 100%;
+    }
+
+    #gridAtckFlex {
+        margin-left: 5%;
+        margin-top: 70px;
+    }
+
+
+    #warning {
+        position: fixed;
+        text-align: center;
+        margin-left: 2%;
+        padding-right: 15px;
+        margin-top: 20px;
+        font-size: 9px;
+    }
+
+
 }
+
 /*#endregion*/

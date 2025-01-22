@@ -880,7 +880,7 @@ for (let i = 0; i < pokemons.length; i++) {
         LoadPokemon(pokemons[i].id)
         core.style.margin = "0px";
         document.getElementById('Pokemon').style.display = 'block';
-        core.style.maxWidth = "450px";
+        core.style.maxWidth = "500px";
       }
     }
   }, false);
