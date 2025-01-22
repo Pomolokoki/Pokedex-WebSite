@@ -415,7 +415,7 @@ function filter() {
     let locationList = document.getElementsByClassName("location");
     for (let i = 0; i < locationList.length; ++i) {
         if (typeof locationList[i] != "object") continue;
-        if (locationList[i].innerHTML.toLowerCase().includes(searchBar));
+        if (locationList[i].innerHTML.toLowerCase().includes(searchBar))
         locationList[i].style.display = "block";
     }
 }

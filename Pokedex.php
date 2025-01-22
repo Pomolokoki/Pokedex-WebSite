@@ -110,7 +110,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 										</div>
 										<div class="type">
 											<div
-												class="type_1 textcolor <?php echo getTextLang($datapokemon[$i]["type1"], 'en'); ?>">
+												class="typeDisplay type_1 textcolor <?php echo getTextLang($datapokemon[$i]["type1"], 'en'); ?>">
 												<?php
 												echo getTextLang($datapokemon[$i]["type1"]);
 												?>
@@ -118,7 +118,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 											<?php
 											if ($datapokemon[$i]["type2"] != null): ?>
 												<div
-													class="type_2 textcolor <?php echo getTextLang($datapokemon[$i]["type2"], 'en'); ?>">
+													class="typeDisplay type_2 textcolor <?php echo getTextLang($datapokemon[$i]["type2"], 'en'); ?>">
 													<?php
 													echo getTextLang(
 														$datapokemon[$i]["type2"]
@@ -297,10 +297,34 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 			</div>
 			<h2 class="name_section" id="section_5">Faiblesses/Résistances :</h2>
 			<div id="Table_type">
+				
+			<div id="Table_type1">
 				<?php for ($i = 0; $i < count($dataType); $i++) {
+					if ($dataType[$i]["id"] > 9) {
+						continue;
+					}
+					?>
+					<div class="tab_Type <?php echo getTextLang($dataType[$i]["name"], "en") ?>">
+						<img class="type_img" src="<?php echo $dataType[$i]["sprite"] ?>">
+					</div>
+					
+					<?php
+				}
+				?>
+				<?php for ($j = 0; $j < 9; $j++) {
+					?>
+					<div class="Faibless_Resistance" id="Faibless_Resistance<?php echo ($j) ?>">
+						<h2 class="Faibless_Resistance_Value" id="Faibless_Resistance_Value<?php echo ($j) ?>"></h2>
+					</div>
+					<?php
+				}
+				?>
+			</div>
+			<div id="Table_type2">
+				
+				<?php for ($i = 9; $i < count($dataType); $i++) {
 					if ($dataType[$i]["id"] > 18) {
 						continue;
-
 					}
 					?>
 					<div class="tab_Type <?php echo getTextLang($dataType[$i]["name"], "en") ?>">
@@ -310,7 +334,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<?php
 				}
 				?>
-				<?php for ($j = 0; $j < 18; $j++) {
+				<?php for ($j = 9; $j < 18; $j++) {
 					?>
 					<div class="Faibless_Resistance" id="Faibless_Resistance<?php echo ($j) ?>">
 						<h2 class="Faibless_Resistance_Value" id="Faibless_Resistance_Value<?php echo ($j) ?>"></h2>
@@ -318,6 +342,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 					<?php
 				}
 				?>
+			</div>
 			</div>
 			<div id="atkTiltle">
 			<h2 id="TitleAtk" class="name_section">Attaque : ▲</h2>

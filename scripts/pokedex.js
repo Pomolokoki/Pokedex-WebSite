@@ -34,35 +34,23 @@ function mobileVersion() {
   return window.innerWidth < 500;
 }
 
-document.getElementById('pokedex_back').addEventListener('click', function () {
-  let id_tmp = last_id
-  last_id = "x";
-  document.getElementById('core').style.display = 'block';
-  core.style.maxWidth = "900px";
-  core.style.margin = "auto";
-  document.getElementById('Pokemon').style.display = 'none';
-  dataPokemon = undefined;
-  document.getElementById(id_tmp).scrollIntoView({ behavior: "smooth" });
-  console.log("pokemon unload")
-});
-
 document.getElementById('check_fav').addEventListener('click', function () {
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   if (document.getElementsByClassName("star-dotted")[0].style.display == "block") {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`)
+      INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
     xmlhttp.send();
     console.log('azerty')
   }
   else {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request= 
-      DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`)
+      DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
     xmlhttp.send();
   }
-  check_pokemonUser(id_pokemon);
+  checkFav(id_player ,id_pokemon);
 });
 
 document.getElementById('check_capture').addEventListener('click', function () {
@@ -71,7 +59,7 @@ document.getElementById('check_capture').addEventListener('click', function () {
   if (document.getElementsByClassName("pokeball-empty")[0].style.display == "block") {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`)
+      INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
     xmlhttp.send();
     console.log('qwerty')
     console.log(`INSERT INTO player_pokemon VALUES (` + id_player + `,` + id_pokemon + `);`)
@@ -80,66 +68,67 @@ document.getElementById('check_capture').addEventListener('click', function () {
   else {
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", `./ajax/getDBData.php?request= 
-      DELETE FROM player_pokemon WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`)
+      DELETE FROM player_pokemon WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
     xmlhttp.send();
   }
-  check_pokemonUser(id_pokemon);
+  checkCapture(id_player, id_pokemon);
 });
 
-var check_pokemonUser = function (id) {
+function checkFav(playerId, id)
+{
   let xmlhttp = new XMLHttpRequest();
-  let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       dataCheck = JSON.parse(this.responseText);
       console.log(dataCheck)
       if (dataCheck == "No results found.") {
         document.getElementsByClassName("star-dotted")[0].style.display = "block";
-        document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
         document.getElementsByClassName("star-fill")[0].style.display = "none";
-        document.getElementsByClassName("pokeball-fill")[0].style.display = "none";
-        return
       }
       else {
-        for (let i = 0; i < dataCheck.length; i++) {
-          if (dataCheck[i]["pokemonFav"] == null) {
-            document.getElementsByClassName("star-dotted")[0].style.display = "block";
-            document.getElementsByClassName("star-fill")[0].style.display = "none";
-            console.log("aled")
-          }
-          else {
-            document.getElementsByClassName("star-dotted")[0].style.display = "none";
-            document.getElementsByClassName("star-fill")[0].style.display = "block";
-          }
-          if (dataCheck[i]["pokemonPlayer"] == null) {
-            document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
-            document.getElementsByClassName("pokeball-fill")[0].style.display = "none";
-          }
-          else {
-            document.getElementsByClassName("pokeball-empty")[0].style.display = "none";
-            document.getElementsByClassName("pokeball-fill")[0].style.display = "block";
-          }
-
-        }
+          document.getElementsByClassName("star-dotted")[0].style.display = "none";
+          document.getElementsByClassName("star-fill")[0].style.display = "block";
       }
     }
-    console.log("pokemonCheck Loaded !");
   }
   xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
-      pf.pokemonId AS pokemonFav,
-      pp.pokemonId AS pokemonPlayer 
+      pf.pokemonId AS pokemonFav 
       FROM player_favorites AS pf 
-      RIGHT JOIN player_pokemon AS pp ON pp.playerId = pf.playerId
-      UNION
+      WHERE pf.playerId = ` + playerId + ` AND pf.pokemonId= ` + id,true);
+  xmlhttp.send();
+}
+
+function checkCapture(playerId, id)
+{
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      dataCheck = JSON.parse(this.responseText);
+      console.log(dataCheck)
+      if (dataCheck == "No results found.") {
+        document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
+        document.getElementsByClassName("pokeball-fill")[0].style.display = "none";
+      }
+      else {
+        document.getElementsByClassName("pokeball-empty")[0].style.display = "none";
+        document.getElementsByClassName("pokeball-fill")[0].style.display = "block";
+      }
+    }
+  }
+  xmlhttp.open("GET", `./ajax/getDBData.php?request=
       SELECT 
-      pf.pokemonId AS pokemonFav,
       pp.pokemonId AS pokemonPlayer 
-      FROM player_favorites AS pf 
-      LEFT JOIN player_pokemon AS pp ON pp.playerId = pf.playerId  
-      WHERE pf.playerId = ` + (document.getElementById('Data_User').textContent) + ` AND pf.pokemonId= ` + id, true);
+      FROM player_pokemon AS pp 
+      WHERE pp.playerId = ` + playerId + ` AND pp.pokemonId= ` + id, true);
 
   xmlhttp.send();
+}
+
+var check_pokemonUser = function (id) {
+  let id_player = document.getElementById('Data_User').textContent;
+  checkFav(id_player, id);
+  checkCapture(id_player, id);
 }
 
 document.getElementById('gender_button').addEventListener('click', function () {
@@ -182,7 +171,7 @@ document.getElementById('TitleAtk').addEventListener('click', function () {
   } else {
     atk.classList.add('open');
     atkTitle.innerHTML = "Attaque : ▼";
-    atkButton.style.display = 'block';
+    atkButton.style.display = '';
   }
 });
 
@@ -445,13 +434,7 @@ var LoadAtkPokemon = function (id, isGen = -1) {
       dataMove = JSON.parse(this.responseText);
       document.getElementById("Attaque").innerText = "";
       document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
-      let tab1 = []
-      if (mobileVersion() == true) {
-        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Learn"]
-      }
-      else {
-        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
-      }
+      let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
       let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
       if (isGen != -1 && isGen < 1) {
         return
@@ -491,7 +474,8 @@ var LoadAtkPokemon = function (id, isGen = -1) {
             }
             else if (j == 1) {
               let divElementTypeAtk = document.createElement("div");
-              divElementTypeAtk.classList.add("divElementTypeAtk");
+              divElementTypeAtk.classList.add("divElementTypeAtk"); 
+              divElementTypeAtk.classList.add("typeDisplay"); 
               divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
               divElementName.appendChild(divElementTypeAtk);
               divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]], "en"))
@@ -614,14 +598,8 @@ function divEvoCase(stage, data) {
   if (data.id == 67) {
     let eevee = document.getElementsByClassName("Evo_case");
     for (let eevee_count = 0; eevee_count < eevee.length; eevee_count++) {
-      if (mobileVersion() == true) {
-        eevee[eevee_count].style.height = '70px';
-        eevee[eevee_count].style.marginBottom = '0px';
-      }
-      else {
-        eevee[eevee_count].style.height = '96px';
-        eevee[eevee_count].style.marginBottom = '0px';
-      }
+      eevee[eevee_count].style.height = '96px';
+      eevee[eevee_count].style.marginBottom = '0px';
     }
   }
   else {
@@ -680,6 +658,7 @@ var LoadEvoPokemon = function (id) {
           if (tabEvo.includes(dataEvol[i].n2)) {
             let s2 = document.getElementById("stage2")
             let s1 = document.getElementById("stage1")
+            console.log("passe ici", s2)
             if (s2 != null) {
               let s3 = divStagePokemon("stage3");
               tabStageEvo.push(2);
@@ -695,7 +674,6 @@ var LoadEvoPokemon = function (id) {
           document.getElementById("stage1").appendChild(divElementPokemon);
           tabEvo.push(dataEvol[i].n1)
           let img = document.createElement("img")
-          img.classList.add("img_evo")
           img.src = dataEvol[i].s1
           divElementPokemon.appendChild(img)
           divElementPokemon.addEventListener('click', function () {
@@ -704,7 +682,7 @@ var LoadEvoPokemon = function (id) {
               return;
             }
             document.getElementById(dataEvol[i].id1).scrollIntoView({ behavior: "smooth" });
-            document.getElementById('Pokemon').scroll({ top: 0, behavior: 'smooth' });
+            document.getElementById('name_section_1').scrollIntoView({ behavior: 'smooth' });
           });
         }
 
@@ -767,13 +745,12 @@ var LoadEvoPokemon = function (id) {
           }
           tabEvo.push(dataEvol[i].n2);
           let img = document.createElement("img");
-          img.classList.add("img_evo")
           img.src = dataEvol[i].s2;
           divElementPokemon.appendChild(img);
           divElementPokemon.addEventListener('click', function () {
             LoadPokemon(dataEvol[i].id2);
             document.getElementById(dataEvol[i].id2).scrollIntoView({ behavior: "smooth" });
-            document.getElementById('Pokemon').scroll({ top: 0, behavior: 'smooth' });
+            document.getElementById('name_section_1').scrollIntoView({ behavior: 'smooth' });
           });
         }
       }
@@ -889,7 +866,7 @@ for (let i = 0; i < pokemons.length; i++) {
 
 let sb = document.getElementById("searchBarInput");
 document.addEventListener("keydown", (e) => {
-  if (messageBox != null && e.key.length === 1 && e.target.id != "searchBarInput") {
-    messageBox.focus();
+  if (sb != null && e.key.length === 1 && e.target.id != "searchBarInput") {
+    sb.focus();
   }
 })

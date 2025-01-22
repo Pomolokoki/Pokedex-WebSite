@@ -150,7 +150,27 @@ let sendMessageButton = document.getElementById('submitMessage');
 let messageBox = document.getElementById("messageTextBox");
 let typing = document.getElementById("typing");
 
-function getFavortie(playerId, themeId) {
+function getFavorites(playerId, themeId) {
+    let data;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // console.log(this.response, JSON.stringify("No results found."))
+            // console.log(JSON.parse(this.response));
+
+            if (JSON.parse(this.response) == "No results found.")
+                bool = [];
+            else
+                data = JSON.parse(this.response);
+        }
+    }
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+        SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
+    xmlhttp.send();
+    return data;
+}
+
+function getFavorite(playerId, themeId) {
     let bool;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -174,7 +194,7 @@ function getFavortie(playerId, themeId) {
 // is it fovrited theme (set svg star)
 function isFavorite(themeId) {
     if (playerValues) {
-        let isFav = getFavortie(playerValues.dataset.id, themeId);
+        let isFav = getFavorite(playerValues.dataset.id, themeId);
         if (isFav) {
             setFav.dataset.selected = true;
             setFav.innerHTML = filledStar;
@@ -243,25 +263,6 @@ function getMessages(channelId) {
       WHERE message.channelId = ` + channelId + " ORDER BY message.postDate", true);
     xmlhttp.send();
 }
-
-// remove message on channel & DB
-function removeMessage(message) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-        DELETE FROM message WHERE id='` + message.id + "'");
-    xmlhttp.send();
-    message.previousElementSibling.remove();
-    message.remove();
-}
-
-// update messge on channel & DB
-function updateMessage(message) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-        UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
-    xmlhttp.send();
-}
-
 
 // change theme
 let channelDiv = document.getElementById("channel");
@@ -374,12 +375,26 @@ if (setFav) {
 if (selectFav) {
     selectFav.addEventListener('click', () => {
         if (selectFav.dataset.selected == "false") {
-            selectFav.innerHTML = starfilled;
+            selectFav.innerHTML = filledStar;
             selectFav.dataset.selected = "true";
+            let themes = document.getElementsByClassName("theme");
+            for (let i = 0; i < themes.length; ++i) {
+                if (typeof themes[i] != "object") continue;
+                console.log(playerValues.dataset.id, themes[i].dataset.channelid)
+                if (getFavorite(playerValues.dataset.id, themes[i].dataset.channelid) || themes[i].id == "createTheme")
+                    themes[i].style.display = "";
+                else
+                    themes[i].style.display = "none";
+            }
         }
         else {
             selectFav.innerHTML = emptyStar;
             selectFav.dataset.selected = "false";
+            let themes = document.getElementsByClassName("theme");
+            for (let i = 0; i < themes.length; ++i) {
+                if (typeof themes[i] != "object") continue;
+                themes[i].style.display = "";
+            }
         }
     })
 }
@@ -467,6 +482,25 @@ if (sendMessageButton) {
 [...document.getElementsByClassName("reply")].forEach(message => {
     message.addEventListener("click", () => { toMessage(message.dataset.id) })
 })
+
+
+// remove message on channel & DB
+function removeMessage(message) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+        DELETE FROM message WHERE id='` + message.id + "'");
+    xmlhttp.send();
+    message.previousElementSibling.remove();
+    message.remove();
+}
+
+// update messge on channel & DB
+function updateMessage(message) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", `./ajax/getDBData.php?request=
+        UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
+    xmlhttp.send();
+}
 
 // press enter to send message
 document.addEventListener("keydown", (e) => {
@@ -601,6 +635,6 @@ document.getElementById("reportOption").addEventListener("click", () => {
 // mobile stuff
 arrow.addEventListener('click', () => {
     channelDiv.style.display = "none";
-    themesDiv.style.display = "unset";
+    themesDiv.style.display = "";
     arrow.style.display = "none";
 })
