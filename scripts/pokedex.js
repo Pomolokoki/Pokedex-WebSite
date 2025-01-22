@@ -894,3 +894,10 @@ document.addEventListener("keydown", (e) => {
     sb.focus();
   }
 })
+
+let pokemonSelectedOnLoad = document.getElementById("pokemonSelected");
+if (pokemonSelectedOnLoad)
+{
+  console.log(pokemonSelectedOnLoad)
+  document.getElementById(pokemonSelectedOnLoad.dataset.pokemon).click();
+}

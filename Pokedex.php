@@ -7,6 +7,11 @@ $type = array("Steel", "Fighting", "Dragon", "Water", "Electric", "Fairy", "Fire
 $Stat_name = array("Stat", "PV", "Attaque", "Défense", "Attaque Spéciale", "Défense Spéciale", "Vitesse");
 $datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 100000 ORDER BY pokemon.id", null, null, true);
 $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
+
+$pokemonToShow = null;
+if (isset($_POST["pokemonId"])) {
+	$pokemonToShow = $_POST["pokemonId"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +31,7 @@ $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 
 <body>
 	<div id="Data_User"><?php echo($_SESSION["LOGGED_USER"][0]["id"]) ?></div>
+	<span id="pokemonSelected" data-pokemon="<?=$pokemonToShow?>"></span>
 	<div id="content">
 		<div id="img_background"></div>
 		<div id="core">
