@@ -8,9 +8,6 @@
     <?php include("css/login.css"); ?>
 </style>
 
-
-
-
 <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
 <?php
 
@@ -50,18 +47,17 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
     $checkDB = 0;
-    while ($row = $parcoursPlayerTable->fetch()) {        
-        echo "<br>";
+    while ($row = $parcoursPlayerTable->fetch()) {                
         if ($row['nickname'] === $_POST["id"] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
-                $findEmailPlayer = $db->prepare("SELECT id,email,nickname,forumRank FROM player WHERE email=:identifier OR nickname=:identifier");
+                $findEmailPlayer = $db->prepare("SELECT id,email,nickname,forumRank,picture FROM player WHERE email=:identifier OR nickname=:identifier");
                 $findEmailPlayer->bindParam(':identifier', $_POST['id']);
                 $findEmailPlayer->execute();
                 $test = $findEmailPlayer->fetchAll(PDO::FETCH_ASSOC);
                 $_SESSION['LOGGED_USER'] = $test;
-                $_SESSION['user_id'] = $userData['id'];
-                $_SESSION['username'] = $userData['nickname'];
-                $_SESSION['user_email'] = $userData['email'];
+                // $_SESSION['user_id'] = $userData['id'];
+                // $_SESSION['username'] = $userData['nickname'];
+                // $_SESSION['user_email'] = $userData['email'];
                 break;
             }
         } else {

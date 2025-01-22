@@ -1,22 +1,27 @@
 <!-- Inclusion du header -->
-<?php include_once("header.php") ?>
-<?php include_once("database/connectSQL.php"); ?>
+<?php include_once("header.php");
+include_once("database/connectSQL.php");
+include_once("./database/extractDataFromDb.php");
+
+$dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
+$dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Utilisateur</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        <?php include("css/profile.css"); ?>
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+<title>Profil Utilisateur</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+    <?php include("css/profile.css"); ?>
+</style>
 
 <body>
-<!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
+    <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
+    <div id="ID_User"><?php $_SESSION["LOGGED_USER"][0]["id"] ?></div>
 
-<?php
+    <?php
     if (!isset($_SESSION['LOGGED_USER'])) {
         header("Location: login.php");
         exit();
@@ -27,7 +32,6 @@
     $user_id = $_SESSION['LOGGED_USER'][0]['id'];
     $success_message = '';
     $error_message = '';
-
     #region Validation du formulaire -->
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
         $new_username = trim($_POST['new_username']);
@@ -69,7 +73,6 @@
                     $errors[] = "Le mot de passe actuel est incorrect";
                 }
             }
-            
         }
 
         if (!empty($new_password) || !empty($confirm_password)) {
@@ -113,7 +116,6 @@
                 $success_message = "Profil mis à jour avec succès!";
                 $username = $new_username;
                 $email = $new_email;
-
             } catch (Exception $e) {
                 $db->rollBack();
                 $error_message = "Une erreur est survenue lors de la mise à jour du profil";
@@ -123,71 +125,130 @@
         }
     }
     #endregion
-?>
-<!--#endregion -->
+    ?>
+    <!--#endregion -->
     <!-- #region Affichage du profil -->
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <?php if ($success_message): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <?php echo htmlspecialchars($success_message); ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="container-fluid py-5">
+        <div class="row align-items-start">
+            <div class="col align-items-start">
+                <!-- #region Profil -->
+                <div class="col-12 col-lg-15">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <?php if ($success_message): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <?php echo htmlspecialchars($success_message); ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    
+                                </div>
+                            <?php endif; ?>
+    
+                            <div class="text-center mb-4">
+                                <div class="profile-avatar mb-3">
+                                    <!-- <i class="fas fa-user"></i> -->
+                                    <form action="profile.php" method="POST" enctype="multipart/form-data">
+                                        <label for="fileImage" class="position-relative" style="cursor: pointer;">
+                                            <img src="<?php echo htmlspecialchars($profilePictureUser) ?>" alt=""
+                                                id="output">
+                                            <i class="fas fa-edit me-2 profile-edit" aria-hidden="true"
+                                                id="profile-pic"></i>
+                                            <input type="file" name="image" id="fileImage" style="display: none;"
+                                                accept="image/*">
+                                            <button type="submit" name="submitImage" style="display: none;"
+                                                id="submitButton">Test</button>
+                                        </label>
+                                    </form>
+                                </div>
+                                <!-- <i class="fa fa-pencil-square" aria-hidden="true"></i> -->
+    
+                                <h2 class="card-title">Profil de <?php echo htmlspecialchars($username); ?></h2>
                             </div>
-                        <?php endif; ?>
-
-                        <div class="text-center mb-4">
-                            <div class="profile-avatar mb-3">
-                                <i class="fas fa-user"></i>
+    
+                            <div class="row g-3 mb-3">
+                                <div class="col-20 col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted">Pseudo : </h6>
+                                            <p class="card-text"><?php echo htmlspecialchars($username); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-20 col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted">Email : </h6>
+                                            <p class="card-text" id="email"><?php echo htmlspecialchars($email); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h2 class="card-title">Profil de <?php echo htmlspecialchars($username); ?></h2>
+    
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button class="btn btn-primary me-md-2" data-bs-toggle="modal"
+                                    data-bs-target="#editProfileModal">
+                                    <i class="fas fa-edit me-2"></i>Modifier le profil
+                                </button>
+                                <a href="logout.php" class="btn btn-danger">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                                </a>
+                            </div>
                         </div>
-
-                        <div class="row g-4 mb-4">
-                            <div class="col-12 col-md-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">Pseudo</h6>
-                                        <p class="card-text"><?php echo htmlspecialchars($username); ?></p>
+                    </div>
+                </div>
+                <!-- #endregion -->
+                <div class="col align-items-start">
+                <!-- #region Pokemon Capturés -->
+                <div class="col-auto col-xs-auto col-lg-15">
+                    <div class="card shadow mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Pokémon capturés</h5>
+                            <div class="row g-3">
+                                <?php for ($i = 0; $i < count($dataPokemonCatch); $i++): ?>
+                                    <div class="col-auto col-xs-auto col-md-auto col-lg-auto">
+                                        <div class="card h-100">
+                                            <div class="card-body pokemonCatch">
+                                                <p class="card-text">
+                                                    <img class="pokemon" data-id="<?php $dataPokemonCatch[$i]["pokemonId"]?>" src="<?php echo $dataPokemonCatch[$i]["pokemonSprite"] ?>" alt="">
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">Email</h6>
-                                        <p class="card-text" id="email"><?php echo htmlspecialchars($email); ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">ID Utilisateur</h6>
-                                        <p class="card-text"># <?php echo htmlspecialchars($user_id); ?></p>
-                                    </div>
-                                </div>
+                                <?php endfor; ?>
                             </div>
                         </div>
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <button class="btn btn-primary me-md-2" data-bs-toggle="modal"
-                                data-bs-target="#editProfileModal">
-                                <i class="fas fa-edit me-2"></i>Modifier le profil
-                            </button>
-                            <a href="logout.php" class="btn btn-danger">
-                                <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
-                            </a>
+                    </div>
+                </div>
+                <!-- endregion -->
+            </div>
+            </div>
+            <!-- #region Pokemon Favoris -->
+            <div class="col align-items-start">
+                <div class="col-12 col-lg-15">
+                    <div class="card shadow mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Pokémon favoris</h5>
+                            <div class="row g-3">
+                            <?php for ($i = 0; $i < count($dataPokemonFav); $i++): ?>
+                                    <div class="col-auto col-xs-auto col-sm-auto col-md-auto col-lg-auto">        
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    <img src="<?php echo $dataPokemonFav[$i]["pokemonSprite"]?>" alt="">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endfor; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- endregion -->
+        </div>        
     </div>
     <!--#endregion -->
-    
+
     <!-- #region Édition du profil -->
 
     <div class="modal fade" id="editProfileModal" tabindex="-1">
@@ -241,13 +302,14 @@
             </div>
         </div>
     </div>
-<!--#endregion -->
-    
+    <!--#endregion -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/profile.js"></script>
     <script>
         // Affiche l'édition du profil en cas d'erreur
         <?php if ($error_message): ?>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 new bootstrap.Modal(document.getElementById('editProfileModal')).show();
             });
         <?php endif; ?>
