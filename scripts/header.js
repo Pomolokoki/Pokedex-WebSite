@@ -33,3 +33,10 @@ if (login)
     document.location.href = 'login.php';
   });
 }
+
+document.addEventListener('click', (e) => {
+  if (document.getElementsByClassName("nav-items")[0].getBoundingClientRect().x > -5 && !document.getElementsByClassName("nav-items")[0].contains(e.target))
+  {
+    document.getElementById("check").click();
+  }
+})
