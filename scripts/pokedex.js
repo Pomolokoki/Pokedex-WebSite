@@ -34,6 +34,18 @@ function mobileVersion() {
   return window.innerWidth < 500;
 }
 
+document.getElementById('pokedex_back').addEventListener('click', function () {
+  let id_tmp = last_id
+  last_id = "x";
+  document.getElementById('core').style.display = 'block';
+  core.style.maxWidth = "900px";
+  core.style.margin = "auto";
+  document.getElementById('Pokemon').style.display = 'none';
+  dataPokemon = undefined;
+  document.getElementById(id_tmp).scrollIntoView({ behavior: "smooth" });
+  console.log("pokemon unload")
+});
+
 document.getElementById('check_fav').addEventListener('click', function () {
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
@@ -171,7 +183,7 @@ document.getElementById('TitleAtk').addEventListener('click', function () {
   } else {
     atk.classList.add('open');
     atkTitle.innerHTML = "Attaque : ▼";
-    atkButton.style.display = '';
+    atkButton.style.display = 'block';
   }
 });
 
@@ -434,8 +446,13 @@ var LoadAtkPokemon = function (id, isGen = -1) {
       dataMove = JSON.parse(this.responseText);
       document.getElementById("Attaque").innerText = "";
       document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
-      let tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
-      let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+      let tab1 = []
+      if (mobileVersion() == true) {
+        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Learn"]
+      }
+      else {
+        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
+      }let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
       if (isGen != -1 && isGen < 1) {
         return
       }
@@ -598,8 +615,14 @@ function divEvoCase(stage, data) {
   if (data.id == 67) {
     let eevee = document.getElementsByClassName("Evo_case");
     for (let eevee_count = 0; eevee_count < eevee.length; eevee_count++) {
-      eevee[eevee_count].style.height = '96px';
-      eevee[eevee_count].style.marginBottom = '0px';
+      if (mobileVersion() == true) {
+        eevee[eevee_count].style.height = '70px';
+        eevee[eevee_count].style.marginBottom = '0px';
+      }
+      else {
+        eevee[eevee_count].style.height = '96px';
+        eevee[eevee_count].style.marginBottom = '0px';
+      }
     }
   }
   else {
@@ -658,7 +681,6 @@ var LoadEvoPokemon = function (id) {
           if (tabEvo.includes(dataEvol[i].n2)) {
             let s2 = document.getElementById("stage2")
             let s1 = document.getElementById("stage1")
-            console.log("passe ici", s2)
             if (s2 != null) {
               let s3 = divStagePokemon("stage3");
               tabStageEvo.push(2);
@@ -674,6 +696,7 @@ var LoadEvoPokemon = function (id) {
           document.getElementById("stage1").appendChild(divElementPokemon);
           tabEvo.push(dataEvol[i].n1)
           let img = document.createElement("img")
+          img.classList.add("img_evo")
           img.src = dataEvol[i].s1
           divElementPokemon.appendChild(img)
           divElementPokemon.addEventListener('click', function () {
@@ -744,9 +767,10 @@ var LoadEvoPokemon = function (id) {
             document.getElementById("stage3").appendChild(divElementPokemon);
           }
           tabEvo.push(dataEvol[i].n2);
+          img.classList.add("img_evo")
           let img = document.createElement("img");
-          img.src = dataEvol[i].s2;
           divElementPokemon.appendChild(img);
+          img.src = dataEvol[i].s2;
           divElementPokemon.addEventListener('click', function () {
             LoadPokemon(dataEvol[i].id2);
             document.getElementById(dataEvol[i].id2).scrollIntoView({ behavior: "smooth" });
@@ -857,7 +881,7 @@ for (let i = 0; i < pokemons.length; i++) {
         LoadPokemon(pokemons[i].id)
         core.style.margin = "0px";
         document.getElementById('Pokemon').style.display = 'block';
-        core.style.maxWidth = "500px";
+        core.style.maxWidth = "450px";
       }
     }
   }, false);
