@@ -8,7 +8,6 @@ $dataItems = getDataFromDB("SELECT item.id,item.name,item.smallDescription,item.
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- <script type="text/javascript" src="scripts/header.js"></script> -->
 <style>
     <?php include("css/items.css"); ?>
 </style>
@@ -41,28 +40,28 @@ function getItemNoDescOrEffect($str,$mot){
         </select>
         <div id="filterCategory"></div>
     </div>
-    <div class="itemList">
-        <table class="itemListTable">
+    <div class="table-responsive itemList">
+        <table class="table itemListTable">
             <thead>
                 <tr>
-                    <th id="itemName">
+                    <th id="itemName" scope="col">
                         <div>Nom</div>
                     </th>
                     <th>
-                        <div id="itemCategory">Category</div>
+                        <div id="itemCategory" scope="col">Category</div>
                     </th>
                     <th>
-                        <div id="itemDescription">Description</div>
+                        <div id="itemDescription" scope="col">Description</div>
                     </th>
                     <th>
-                        <div id="itemEffect">Effet</div>
+                        <div id="itemEffect" scope="col">Effet</div>
                     </th>
             </thead>
             <tbody id="itemListBody">
                 <?php for ($i = 0; $i < count($dataItems); $i++):
                     ?>
                     <tr data-id="<?php echo $dataItems[$i]["id"] ?>" data-name="<?php echo $dataItems[$i]["name"] ?>"
-                        data-category="<?php $dataItems[$i]["category"] ?>">
+                        data-category="<?php $dataItems[$i]["category"] ?>" scope="row">
                         <td id="itemNameData"><?php echo getTextLang($dataItems[$i]["name"], "fr") ?></td>
                         <td><?php echo $dataItems[$i]["pocket"] ?></td>
                         <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]["smallDescription"], "fr"), "description") ?></td>

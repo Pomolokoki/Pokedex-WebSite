@@ -185,10 +185,10 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                     <div class="card h-100">
                                         <div class="card-body profil-data">
                                             <h6 class="card-subtitle mb-2">Thème du header : </h6>
-                                            <p class="list-group">
-                                                <button class="list-group-item list-group-item-action">Team Magma</button>
-                                                <button class="list-group-item list-group-item-action">Team Aqua</button>
-                                                <button class="list-group-item list-group-item-action">Team Plasm</button>
+                                            <p class="list-group" id="list-tab" role="tablist">
+                                                <a class="list-group-item list-group-item-action" id="list-magma-list"  data-bs-toggle="list" aria-controls="list-magma" href="#magma">Team Magma</a>
+                                                <a class="list-group-item list-group-item-action" id="list-aqua-list" data-bs-toggle="list" aria-controls="list-aqua">Team Aqua</a>
+                                                <a class="list-group-item list-group-item-action" id="list-plasma-list" data-bs-toggle="list"  aria-controls="list-plasma">Team Plasma</a>
                                             </p>
                                         </div>
                                     </div>
