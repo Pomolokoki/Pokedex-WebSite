@@ -18,7 +18,7 @@ $sqlInsertMessage =
 "INSERT INTO message (id, text, reply, postDate, owner, channelId) VALUES
 (NULL, 'Je viens de voir qu\'il ont mis cette carte interactive, c\'est ouf', NULL, '2009-08-12 12:00:00', 2, 1),
 (NULL, 'Oui j\'ai vu ca, mais j\'aime pas vraiment le style de la map, pas très représentatif des vraies couleurs', NULL, '2009-08-13 02:54:41', 1, 1),
-(NULL, 'Je ne suis pas d\'accord, ce n\'est peut etre pas une réalisation correcte, mais c\'ets tout de meme très impressionant, et j\'aime bien cette texture, ca donne une dimension nouvelle à la carte, bravo aux travaux des devs', NULL, '2009-08-13 08:15:20', 2, 1),
+(NULL, 'Je ne suis pas d\'accord, ce n\'est peut etre pas une réalisation correcte, mais c\'est tout de meme très impressionant, et j\'aime bien cette texture, ca donne une dimension nouvelle à la carte, bravo aux devs', NULL, '2009-08-13 08:15:20', 2, 1),
 (NULL, 'Premier', NULL, '2015-04-23 13:06:33',3 , 2)";
 
 

@@ -1,6 +1,7 @@
 <?php
-session_start()
-    ?>
+session_start();
+include_once("database/connectSQL.php");
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,18 +11,55 @@ session_start()
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header.css">
     <script src="scripts/header.js" defer></script>
-    <!-- <script src="scripts/profile.js" defer></script> -->
+    
+    <script src="scripts/profile.js" defer></script>
     <title>PokeKrazy</title>
 </head>
 
+<?php if (isset($_SESSION['LOGGED_USER'][0]['picture'])) {
+    $profilePictureUser = $_SESSION['LOGGED_USER'][0]['picture'];
+    $user_id = $_SESSION['LOGGED_USER'][0]['id'];
+}
+
+if(isset($_FILES['image'])){
+    
+    $file_name = $_FILES['image']['name'];
+    $file_tmpName = $_FILES['image']['tmp_name'];
+    $file_error = $_FILES['image']['error'];
+    //Créer un dossier pour stocker les images
+    $upload_dir = 'uploads/';
+    if(!is_dir($upload_dir)){
+        mkdir($upload_dir);
+    }
+    
+    $file_destination = $upload_dir . $file_name;
+    if ($file_error === 0){
+        if(move_uploaded_file($file_tmpName, $file_destination)){
+        $updateSQL = "UPDATE player SET picture = :picture WHERE id = :id";
+        $stmt = $db->prepare($updateSQL);
+        $stmt->execute([
+            ':picture' => $file_destination,
+            ':id' => $user_id
+        ]);
+        $_SESSION['LOGGED_USER'][0]['picture'] = $file_destination;
+    }
+    else{
+        echo "Erreur lors de l'upload 222";
+    }
+    }
+    else{
+        echo "Erreur : " . $file_error;
+    }
+}
+?>
 <header id="header">
     <div class="mycontainer">
         <div id="BackHeader">
-            <nav>
+            <nav id="theBugerParent">
                 <input type="checkbox" id="check">
                 <label for="check" class="menu">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-list" viewBox="0 0 16 16">
+                        class="bi bi-list" viewBox="0 0 16 16" id="menuIcon">
                         <path fill-rule="evenodd"
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                     </svg>
@@ -63,14 +101,15 @@ session_start()
             <?php else: ?>
                 <div id="myPage">
                     <a href="profile.php">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="myProfile" 
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="myProfile" 
                             class="bi bi-person-fill" viewBox="0 0 16 16">
                             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg>
+                        </svg> -->
+                        <img src="<?php echo htmlspecialchars($profilePictureUser); ?>" alt="Profile Picture" id="profilePicture">
                     </a>
-                    <form action="<?php echo htmlspecialchars("logout.php"); ?>" method="post">
+                    <!-- <form action="<?php echo htmlspecialchars("logout.php"); ?>" method="post">
                         <input type="submit" id="disconnect" value="Déconnexion">
-                    </form>
+                    </form> -->
                 </div>
             <?php endif; ?>
             </div>
@@ -116,9 +155,5 @@ session_start()
         </div>
 
     </div>
-
 </header>
-<div>
-</div>
-
 </html>

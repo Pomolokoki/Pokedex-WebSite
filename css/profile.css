@@ -9,7 +9,7 @@ body {
 .profile-avatar {
     width: 128px;
     height: 128px;
-    background-color: blue;
+    background-color: black;
     color: white;
     border-radius: 50%;
     font-family: 'pokefont2';
@@ -17,9 +17,57 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 3rem;
+    position: relative;
     margin: 0 auto;
 }
 
+/* #ID_User {
+    display: none;
+    visibility: hidden;
+} */
+
+.fa-pencil-square{
+    font-size: 1.5rem;
+    color: red;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+#profile-pic{
+    font-size: 1.5rem;
+    color: grey;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+/* #user_id{
+    display: none;
+} */
+
 #email,#new_email{
     font-family: 'pokefont2';
+}
+
+#fileImage{
+    display: none;
+}
+
+#output{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
 }
