@@ -767,8 +767,8 @@ var LoadEvoPokemon = function (id) {
             document.getElementById("stage3").appendChild(divElementPokemon);
           }
           tabEvo.push(dataEvol[i].n2);
-          img.classList.add("img_evo")
           let img = document.createElement("img");
+          img.classList.add("img_evo")
           divElementPokemon.appendChild(img);
           img.src = dataEvol[i].s2;
           divElementPokemon.addEventListener('click', function () {
