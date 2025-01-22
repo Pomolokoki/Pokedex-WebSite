@@ -99,7 +99,7 @@ select {
     display: block;
     float: right;
     right: 2%;
-    width: 32%;
+    width: 31%;
     height: 75%;
 }
 
@@ -107,7 +107,8 @@ select {
     display: block;
     position: relative;
     margin-top: 3.3px;
-    padding-left: px;
+    padding-left: 10px;
+    margin-left: 6px;
     border: 0;
     width: 100%;
     height: 100%;
@@ -468,7 +469,7 @@ select {
 }
 
 #button_user {
-    background-color: green;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     width: 10%;
     height: 100%;
 }
@@ -478,10 +479,12 @@ select {
 .circle {
     height: 25%;
     width: 80%;
-    margin-left: 2.5px;
+    margin-left: 3.5px;
     margin-top: 10px;
+    color: aliceblue;
 }
-svg{
+
+svg {
     cursor: pointer;
 }
 
@@ -699,6 +702,7 @@ svg{
     margin-bottom: 20px;
     height: auto;
 }
+
 #Table_type1 {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -1044,6 +1048,7 @@ svg{
 
     #button_user {
         width: 15%;
+        border-radius: 50px;
     }
 
     .star,
@@ -1051,7 +1056,7 @@ svg{
     .circle {
         height: 26%;
         width: 90%;
-        margin-left: 0.5px;
+        margin-left: -2.5px;
         margin-top: 6px;
     }
 
@@ -1090,6 +1095,28 @@ svg{
 
     #Table_type {
         display: block;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #Table_type1,
+    #Table_type2 {
+        width: 371px;
+    }
+
+    #Table_type2 {
+        margin-top: 20px;
+    }
+
+    .type_img {
+        width: 30px;
+        height: 30px;
+        margin: 4px;
+    }
+
+    .Faibless_Resistance_Value {
+        width: 100%;
+        height: 100%;
     }
 
     #section_5 {
