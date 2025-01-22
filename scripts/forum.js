@@ -3,7 +3,7 @@ let creatingTheme = false;
 
 // text area fit to content
 document.querySelectorAll('textarea, #searchBar').forEach(element => {
-    element.style.height = `${element.scrollHeight}px`;
+    element.style.height = 54 + `px`;
     element.addEventListener('input', event => {
         if (parseFloat(event.target.style.height) > 100 && event.target.scrollHeight > 100) {
             return;
@@ -63,17 +63,17 @@ function toMessage(id) {
 
 // add message into the channel
 function AddMessage(messageId, owner, picture, nickname, text, replyId, replyOwner, replyPicture, replyNickname, replyText) {
-    
+
     let profile = document.createElement("div");
     profile.className = "profile";
     messageContainer.appendChild(profile);
-    
+
     let profilePicture = document.createElement("img");
     profilePicture.className = "profilePicture";
     profilePicture.src = picture;
     profilePicture.alt = "profilePicture";
     profile.appendChild(profilePicture);
-    
+
     let name = document.createElement("label");
     name.innerHTML = nickname;
     profile.appendChild(name);
@@ -405,7 +405,7 @@ if (selectFav) {
 const playerValues = document.getElementById("data");
 if (sendMessageButton) {
     sendMessageButton.addEventListener('click', () => {
-        
+
         if (typing.innerHTML == "Modification du message") { // are we editing message ?
             let message = document.getElementById(typing.dataset.message);
             message.innerHTML = messageBox.value;
@@ -434,7 +434,7 @@ if (sendMessageButton) {
         let replyPicture, replyName
         [replyPicture, replyName] = replyId == null ? [null, null] : getPlayerInfo(replyOwner);
         let replyText = replyId == null ? null : document.getElementById(replyId).innerHTML;
-        
+
         if (typing.innerHTML == "Titre du nouveau thème") { // are we creating a new theme ?
             typing.innerHTML = "KeyWords (separate by /)";
             messageBox.value = "";
@@ -578,7 +578,7 @@ let confirmBut2 = document.getElementById("confirmBut2");
 
 // editing message
 document.getElementById("editOption").addEventListener("click", () => {
-    
+
     let message = optionsTrigger.parentNode;
     if (message.dataset.owner != playerValues.dataset.id)
         return;

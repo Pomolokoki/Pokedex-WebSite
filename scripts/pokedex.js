@@ -62,7 +62,7 @@ document.getElementById('check_fav').addEventListener('click', function () {
       DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
     xmlhttp.send();
   }
-  checkFav(id_player ,id_pokemon);
+  checkFav(id_player, id_pokemon);
 });
 
 document.getElementById('check_capture').addEventListener('click', function () {
@@ -86,8 +86,7 @@ document.getElementById('check_capture').addEventListener('click', function () {
   checkCapture(id_player, id_pokemon);
 });
 
-function checkFav(playerId, id)
-{
+function checkFav(playerId, id) {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -98,8 +97,8 @@ function checkFav(playerId, id)
         document.getElementsByClassName("star-fill")[0].style.display = "none";
       }
       else {
-          document.getElementsByClassName("star-dotted")[0].style.display = "none";
-          document.getElementsByClassName("star-fill")[0].style.display = "block";
+        document.getElementsByClassName("star-dotted")[0].style.display = "none";
+        document.getElementsByClassName("star-fill")[0].style.display = "block";
       }
     }
   }
@@ -107,12 +106,11 @@ function checkFav(playerId, id)
       SELECT 
       pf.pokemonId AS pokemonFav 
       FROM player_favorites AS pf 
-      WHERE pf.playerId = ` + playerId + ` AND pf.pokemonId= ` + id,true);
+      WHERE pf.playerId = ` + playerId + ` AND pf.pokemonId= ` + id, true);
   xmlhttp.send();
 }
 
-function checkCapture(playerId, id)
-{
+function checkCapture(playerId, id) {
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -353,6 +351,7 @@ var LoadDataPokemon = function (id) {
           document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i + 1];
           if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25") {
             document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
+            document.getElementById('Faibless_Resistance_Value' + i).style.fontSize = 7 + "px";
           }
           if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.5") {
             document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(157,252,142,1) 7%, rgba(138,231,132,1) 21%, rgba(115,194,99,1) 48%, rgba(129,237,101,1) 64%, rgba(125,196,121,1) 90%)';
@@ -451,8 +450,8 @@ var LoadAtkPokemon = function (id, isGen = -1) {
         tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Learn"]
       }
       else {
-        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Apprentisage"]
-      }let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
+        tab1 = ["Nom", "Type", "Catégorie", "Précision", "Puissance", "PP", "Learning"]
+      } let tab2 = ["name", "type", "effectType", "accuracy", "pc", "pp", "learnMethod"]
       if (isGen != -1 && isGen < 1) {
         return
       }
@@ -491,8 +490,8 @@ var LoadAtkPokemon = function (id, isGen = -1) {
             }
             else if (j == 1) {
               let divElementTypeAtk = document.createElement("div");
-              divElementTypeAtk.classList.add("divElementTypeAtk"); 
-              divElementTypeAtk.classList.add("typeDisplay"); 
+              divElementTypeAtk.classList.add("divElementTypeAtk");
+              divElementTypeAtk.classList.add("typeDisplay");
               divElementTypeAtk.innerHTML = getText(dataMove[i][tab2[j]]);
               divElementName.appendChild(divElementTypeAtk);
               divElementTypeAtk.classList.add(getText(dataMove[i][tab2[j]], "en"))

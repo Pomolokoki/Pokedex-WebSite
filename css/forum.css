@@ -51,7 +51,7 @@ textarea {
     flex-direction: column;
     padding-left: 10px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
 /* star svg */
@@ -88,6 +88,7 @@ textarea {
 
 #channelMessages {
     color: aliceblue;
+    margin-bottom: 180px;
 }
 
 .favoriteTheme {
@@ -205,13 +206,13 @@ textarea {
     position: absolute;
     margin-top: -30px;
     width: calc(60% - 100px);
+    color: aliceblue;
 }
 
 /* send message button */
 #submitMessage {
-    width: 30px;
-    height: 30px;
-    background-color: cyan;
+    width: 45px;
+    height: 45px;
     border-radius: 10px;
     bottom: 0;
 }
@@ -315,8 +316,8 @@ textarea {
     height: max-content;
     margin: auto;
     position: fixed;
-    border: solid 2px red;
-    background-color: black;
+    color: aliceblue;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     align-content: center;
     opacity: 2;
     z-index: 3;
@@ -337,8 +338,8 @@ textarea {
 #confirmBut1 {
     position: relative;
     bottom: 10;
-    border: solid 2px red;
-    background-color: black;
+    color: aliceblue;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     overflow: hidden;
 }
 
@@ -346,8 +347,8 @@ textarea {
     position: relative;
     right: 0;
     bottom: 10;
-    border: solid 2px red;
-    background-color: black;
+    color: aliceblue;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
 /* #endregion */
@@ -381,7 +382,7 @@ textarea {
     #channel {
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 50px);
         padding-left: 20px;
         padding-right: 20px;
         overflow-y: auto;
@@ -428,6 +429,30 @@ textarea {
     #setFavorite {
         right: 30px;
     }
+
+    #channelMessages {
+        margin-bottom: 160px;
+    }
+
+    #messageTextBox {
+        bottom: -5px;
+        width: 320px;
+        max-height: none;
+        height: 51px;
+    }
+
+    #submitMessage {
+        width: 40px;
+        height: 40px;
+    }
+
+    #typing {
+        width: 380px;
+    }
+
+
+
+
 }
 
 #selector {
