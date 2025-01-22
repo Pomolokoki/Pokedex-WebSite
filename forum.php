@@ -163,7 +163,7 @@ $messageData = getDataFromDB("SELECT message.id,
         </div>
 
         <div id="favorites">
-            <p> Vos thèmes favoris :</p>
+            <p id="favTitle"> Vos thèmes favoris :</p>
             <div id="favList">
                 <?php
                 if (isset($_SESSION["LOGGED_USER"])) {

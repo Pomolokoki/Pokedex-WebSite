@@ -189,7 +189,7 @@ select {
 
 /* select value in sleect list for region */
 .gens {
-    background-color: red;
+    background-color: #af0000;
     color: white;
     align-content: center;
 }
@@ -236,6 +236,10 @@ select {
 #searchBar {
     width: 100%;
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+    color: aliceblue;
+}
+
+::placeholder {
     color: aliceblue;
 }
 

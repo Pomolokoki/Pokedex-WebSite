@@ -8,7 +8,7 @@ body {
     margin: 0;
     height: 100%;
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
-    color: white;
+    /* color: white; */
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -73,6 +73,7 @@ textarea {
 /* induction ofr result of searchbar */
 #themeSearchbarResultsTitle {
     color: white;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
 /* container for results */
@@ -82,6 +83,10 @@ textarea {
     flex: auto;
     display: flex;
     flex-direction: column;
+}
+
+#channelMessages {
+    color: aliceblue;
 }
 
 .favoriteTheme {
@@ -127,16 +132,23 @@ textarea {
 
 /* list container */
 #favList {
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     border: solid 2px white;
     max-height: 90%;
     margin-top: 10px;
     min-height: 30%;
 }
 
+#favTitle {
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
+    color: aliceblue;
+}
+
 /* idk  */
 .favorite {
     padding-left: 10px;
     color: white;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     border: solid 2px white;
     cursor: pointer;
 }
