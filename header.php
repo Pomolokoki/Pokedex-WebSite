@@ -67,9 +67,9 @@ if(isset($_FILES['image'])){
                 <div class="nav-items">
                     <ul class="overview">
                         <h3>PokeWorld :</h3>
-                        <li class="pokedexPageMob2"><a href="Pokedex.php">- Pokedex</a></li>
-                        <li id="typeTablePage2"><a href="typeTable.php">- Table des types</a></li>
-                        <li id="mapPage2"><a href="map.php"> -Maps</a></li>
+                        <li><a href="Pokedex.php">- Pokedex</a></li>
+                        <li><a href="typeTable.php">- Table des types</a></li>
+                        <li><a href="map.php"> -Maps</a></li>
                         <li><a href="pokemonMove.php">- Attaques</a></li>
                         <li><a href="items.php">- Objet</a></li>
                         <li><a href="forum.php">- Forum</a></li>
@@ -77,7 +77,7 @@ if(isset($_FILES['image'])){
                     <hr>
                     <ul class="account">
                         <h3>Compte :</h3>
-                        <li id="myProfile"><a href="#"><pre>- Profil</pre></a></li>
+                        <li><a href="profile.php">- Profil</a></li>
                     </ul>
                 </div>
             </nav>
@@ -99,17 +99,9 @@ if(isset($_FILES['image'])){
             <?php if (!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])): ?>
                 <button type="button" class="Connexion" id="Login">Connexion</button>
             <?php else: ?>
-                <div id="myPage">
-                    <a href="profile.php">
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="myProfile" 
-                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg> -->
+                <div id="myPage" style="cursor: pointer;">
                         <img src="<?php echo htmlspecialchars($profilePictureUser); ?>" alt="Profile Picture" id="profilePicture">
                     </a>
-                    <!-- <form action="<?php echo htmlspecialchars("logout.php"); ?>" method="post">
-                        <input type="submit" id="disconnect" value="Déconnexion">
-                    </form> -->
                 </div>
             <?php endif; ?>
             </div>

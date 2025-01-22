@@ -181,6 +181,18 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-20 col-md-12">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted">Thème du header : </h6>
+                                            <p class="list-group">
+                                                <button class="list-group-item list-group-item-action">Team Magma</button>
+                                                <button class="list-group-item list-group-item-action">Team Aqua</button>
+                                                <button class="list-group-item list-group-item-action">Team Plasm</button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
     
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
@@ -195,7 +207,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                         </div>
                     </div>
                 </div>
-                <!-- #endregion -->
+                <!-- #endregion -->                
                 <div class="col align-items-start">
                 <!-- #region Pokemon Capturés -->
                 <div class="col-auto col-xs-auto col-lg-15">
@@ -203,23 +215,26 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                         <div class="card-body">
                             <h5 class="card-title text-center">Pokémon capturés</h5>
                             <div class="row g-3">
+                            <?php if(isset($dataPokemonCatch)  && $dataPokemonCatch != "No results found."):?>
                                 <?php for ($i = 0; $i < count($dataPokemonCatch); $i++): ?>
                                     <div class="col-auto col-xs-auto col-md-auto col-lg-auto">
                                         <div class="card h-100">
                                             <div class="card-body pokemonCatch">
                                                 <p class="card-text">
-                                                    <img class="pokemon" data-id="<?php $dataPokemonCatch[$i]["pokemonId"]?>" src="<?php echo $dataPokemonCatch[$i]["pokemonSprite"] ?>" alt="">
+                                                    <img class="pokemon" data-id="<?php echo $dataPokemonCatch[$i]["pokemonId"]?>" src="<?php echo $dataPokemonCatch[$i]["pokemonSprite"] ?>" alt="">
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 <?php endfor; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- endregion -->
             </div>
+            
             </div>
             <!-- #region Pokemon Favoris -->
             <div class="col align-items-start">
@@ -228,6 +243,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                         <div class="card-body">
                             <h5 class="card-title text-center">Pokémon favoris</h5>
                             <div class="row g-3">
+                            <?php if(isset($dataPokemonFav)  && $dataPokemonFav != "No results found."):?>
                             <?php for ($i = 0; $i < count($dataPokemonFav); $i++): ?>
                                     <div class="col-auto col-xs-auto col-sm-auto col-md-auto col-lg-auto">        
                                         <div class="card h-100">
@@ -239,6 +255,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                         </div>
                                     </div>
                                 <?php endfor; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

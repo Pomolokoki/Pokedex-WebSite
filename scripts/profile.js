@@ -1,4 +1,4 @@
-document.getElementById('myProfile').addEventListener('click',function(){
+document.getElementById('myPage').addEventListener('click',function(){
     document.location.href = 'profile.php';
   });
 
@@ -16,35 +16,41 @@ var loadFile = function(event) {
   console.log(id_user);
 };
 
-document.getElementById("fileImage").addEventListener("change", function (event) {
-  console.log("ftcyvgjokplm");
-    const preview = document.getElementById("output");
-    const file = event.target.files[0];
-    if (file) {
-      preview.src = URL.createObjectURL(file);
-      const formData = new FormData();
-      formData.append("image", file);
-      fetch("profile.php", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.text())
-        .then((data) => {
-          console.log(data);
-          console.log("Image uploaded", data);
-          console.log(response);
+let changePP  = document.getElementById('fileImage');
+
+
+if(changePP){
+  changePP.addEventListener("change", function (event) {
+    console.log("ftcyvgjokplm");
+      const preview = document.getElementById("output");
+      const file = event.target.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+        const formData = new FormData();
+        formData.append("image", file);
+        fetch("profile.php", {
+          method: "POST",
+          body: formData,
         })
-        .catch((error) => console.error("Error:", error));
-    }
-    document.getElementById("submitButton").click();
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            console.log("Image uploaded", data);
+            console.log(response);
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+      document.getElementById("submitButton").click();
+    });
+  
+  
+  changePP.addEventListener('change', function(event){
+    const output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    document.getElementById('submitButton').click();
   });
+}
 
-
-document.getElementById('fileImage').addEventListener('change', function(event){
-  const output = document.getElementById('output');
-  output.src = URL.createObjectURL(event.target.files[0]);
-  document.getElementById('submitButton').click();
-});
 
 
 [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
