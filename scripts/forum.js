@@ -260,7 +260,7 @@ function getMessages(channelId) {
       LEFT JOIN player ON message.owner = player.id 
       LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
       LEFT JOIN channel ON message.channelId = channel.id 
-      WHERE message.channelId = ` + channelId + " ORDER BY message.postDate", true);
+      WHERE message.channelId = '` + channelId + "' ORDER BY message.postDate", true);
     xmlhttp.send();
 }
 
