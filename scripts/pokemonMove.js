@@ -122,7 +122,7 @@ function filter()
 
         listAtk[i].style.display = "";
         for (j = 0; j < inputsKeys.length; ++j) {
-            if (!tds[j].innerHTML.includes(inputs[inputsKeys[j]])) {
+            if (!tds[j].innerHTML.toLowerCase().includes(inputs[inputsKeys[j]].toLowerCase())) {
                 listAtk[i].style.display = "none";
                 break;
             }

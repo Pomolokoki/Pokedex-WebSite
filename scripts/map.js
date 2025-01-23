@@ -287,7 +287,7 @@ function setLocation(location) {
     currentLocation = document.getElementById(location.dataset.location);
     replaceBubble(currentLocation, true);
     currentLocation.style.filter = "brightness(70%)";
-    location.style.backgroundColor = "#ffffff";
+    location.style.background = "#ffffff";
     showLocationPokemon(location.dataset.location);
 
     // Kanto clone stuff (l.230)
@@ -308,7 +308,7 @@ function removeLocation(location) {
     removeBubble(true);
     currentLocation = undefined;
     if (location != null)
-        location.style.backgroundColor = "#ff0000";
+        location.style.background = "";
     showLocationPokemon("");
 }
 
@@ -433,9 +433,11 @@ function pokemonClick(id) {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let dataLocation = JSON.parse(this.responseText);
+            console.log(dataLocation)
             // Info Location in DB
             let locationList = document.getElementsByClassName("location");
             if (dataLocation == "No results found.") {
+                alert("pas de lieu trouvé")
                 for (let i = 0; i < locationList.length; ++i) {
                     if (typeof locationList[i] != "object") continue;
                     locationList[i].style.display = "block";
@@ -491,28 +493,39 @@ function showLocationPokemon(location) {
         if (this.readyState == 4 && this.status == 200) {
             let dataPokemon = JSON.parse(this.responseText);
             // Info pokemon live on this location in BD
+            
+            let pokemons = document.getElementsByClassName("pokemon");
+
+            // if (dataPokemon == "No results found.") {
+            //     for (let i = 0; i < pokemons.length; ++i) {
+            //         if (typeof pokemons[i] != "object") continue;
+            //         pokemons[i].style.display = "block";
+            //     }
+            //     return;
+            // }
 
             //update pokedex
-            pokedex.innerHTML = "";
-            for (let i = 0; i < dataPokemon.length; ++i) {
-                let pokemon = document.createElement("div");
-                pokemon.className = "pokemon";
-                let img = document.createElement("img");
-                img.className = "pokemonImage";
-                img.draggable = false;
-                img.src = dataPokemon[i]["spriteM"];
-                img.dataset.id = dataPokemon[i]["id"];
-                pokemon.appendChild(img);
-                let p = document.createElement("p");
-                p.innerHTML = getText(dataPokemon[i]["name"], language);
-                pokemon.appendChild(p);
-                pokedex.appendChild(pokemon);
+            let found = false;
+            for (let i = 0 ; i < pokemons.length; ++i) {
+                if (typeof pokemons[i] != "object") continue;
+                pokemons[i].style.display = "none";
+                for (let j = 0; j < dataPokemon.length; ++j) {
+                    found = false;
+                    if (pokemons[i].firstElementChild.dataset.id == dataPokemon[j]["id"]) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                    pokemons[i].style.display = "flex";
+                else
+                    pokemons[i].style.display = "none";
             }
         }
     }
     if (location == "") { // unselect location
         xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT DISTINCT pokemon.name, pokemon.spriteM, pokemon.id 
+            SELECT DISTINCT pokemon.id 
             FROM pokemon 
             JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
             JOIN region ON lp.generation = region.id 
@@ -520,7 +533,7 @@ function showLocationPokemon(location) {
     }
     else { // select location
         xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT DISTINCT pokemon.name, pokemon.spriteM, pokemon.id 
+            SELECT DISTINCT pokemon.id 
             FROM pokemon 
             JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
             JOIN location ON location.id = lp.locationId 

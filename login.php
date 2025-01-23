@@ -128,7 +128,7 @@ if (!empty($_POST["id"]) && !empty($_POST["password"])) {
 
                 <?php endforeach; ?>
                 <?php
-                $new_url = 'pokedex.php';
+                $new_url = 'forum.php';
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
             </div>

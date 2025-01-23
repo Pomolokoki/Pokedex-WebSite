@@ -43,7 +43,7 @@ document.getElementById('pokedex_back').addEventListener('click', function () {
   document.getElementById('Pokemon').style.display = 'none';
   dataPokemon = undefined;
   document.getElementById(id_tmp).scrollIntoView({ behavior: "smooth" });
-  console.log("pokemon unload")
+  // console.log("pokemon unload")
 });
 
 document.getElementById('check_fav').addEventListener('click', function () {
@@ -54,7 +54,7 @@ document.getElementById('check_fav').addEventListener('click', function () {
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
     xmlhttp.send();
-    console.log('azerty')
+    // console.log('azerty')
   }
   else {
     let xmlhttp = new XMLHttpRequest();
@@ -73,9 +73,9 @@ document.getElementById('check_capture').addEventListener('click', function () {
     xmlhttp.open("GET", `./ajax/getDBData.php?request=
       INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
     xmlhttp.send();
-    console.log('qwerty')
-    console.log(`INSERT INTO player_pokemon VALUES (` + id_player + `,` + id_pokemon + `);`)
-    console.log(dataCheck)
+    // console.log('qwerty')
+    // console.log(`INSERT INTO player_pokemon VALUES (` + id_player + `,` + id_pokemon + `);`)
+    // console.log(dataCheck)
   }
   else {
     let xmlhttp = new XMLHttpRequest();
@@ -91,7 +91,7 @@ function checkFav(playerId, id) {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       dataCheck = JSON.parse(this.responseText);
-      console.log(dataCheck)
+      // console.log(dataCheck)
       if (dataCheck == "No results found.") {
         document.getElementsByClassName("star-dotted")[0].style.display = "block";
         document.getElementsByClassName("star-fill")[0].style.display = "none";
@@ -115,7 +115,7 @@ function checkCapture(playerId, id) {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       dataCheck = JSON.parse(this.responseText);
-      console.log(dataCheck)
+      // console.log(dataCheck)
       if (dataCheck == "No results found.") {
         document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
         document.getElementsByClassName("pokeball-fill")[0].style.display = "none";
@@ -230,7 +230,7 @@ function filtre() {
   else
     searchBar = "";
   [...document.querySelectorAll(".pokemon" + gen + type + rarete + searchBar)].forEach(pokemon => {
-    pokemon.style.display = "inline-block";
+    pokemon.style.display = "";
   });
 }
 
@@ -289,7 +289,7 @@ var LoadDataPokemon = function (id) {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       dataPokemon = JSON.parse(this.responseText)[0];
-      console.log(dataPokemon)
+      // console.log(dataPokemon)
       // Info pokemon
       document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
       if (getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette") {
@@ -328,7 +328,7 @@ var LoadDataPokemon = function (id) {
         document.getElementById("type_Pokemon").style.background = 'linear-gradient( 90deg, #' + TableColor[colorType1][0] + ', #' + TableColor[colorType2][0] + ')';
       }
       document.getElementById("gen_Pokemon").innerHTML = "Gen : " + dataPokemon["generation"];
-      console.log("in pokemon : " + document.getElementById("gen_Pokemon").innerHTML)
+      // console.log("in pokemon : " + document.getElementById("gen_Pokemon").innerHTML)
       document.getElementById("taille_Pokemon").innerHTML = "Taille : " + dataPokemon["height"] / 10.0 + " m";
       document.getElementById("poids_Pokemon").innerHTML = "Poids : " + dataPokemon["weight"] / 10.0 + " Kg";
       document.getElementById("catch_rate_Pokemon").innerHTML = "Taux de capture : " + dataPokemon["catch_rate"];
@@ -423,7 +423,7 @@ var LoadAbilityPokemon = function (id) {
         divElementDesc.innerHTML = getText(dataAbility[i]["smallDescription"]);
         document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
       }
-      console.log("ability Loaded !");
+      // console.log("ability Loaded !");
     }
   }
   xmlhttp.open("GET", `./ajax/getDBData.php?request=
@@ -843,6 +843,11 @@ var LoadEvoPokemon = function (id) {
 };
 
 function LoadPokemon(id) {
+  document.getElementById('searchBarInput').value = "";
+  document.getElementById('rarete').value = "all";
+  document.getElementById('type').value = "all";
+  document.getElementById('gen').value = "all";
+  filtre();
   LoadDataPokemon(id)
   LoadAbilityPokemon(id)
   LoadEvoPokemon(id)
@@ -866,7 +871,8 @@ for (let i = 0; i < pokemons.length; i++) {
       core.style.margin = "auto";
       document.getElementById('Pokemon').style.display = 'none';
       dataPokemon = undefined;
-      console.log("pokemon unload")
+
+      // console.log("pokemon unload")
     }
     else {
       if (mobileVersion() == true) {
@@ -895,8 +901,8 @@ document.addEventListener("keydown", (e) => {
 })
 
 let pokemonSelectedOnLoad = document.getElementById("pokemonSelected");
-if (pokemonSelectedOnLoad)
+if (pokemonSelectedOnLoad && pokemonSelectedOnLoad.dataset.pokemon != "")
 {
-  console.log(pokemonSelectedOnLoad)
+  // console.log(pokemonSelectedOnLoad)
   document.getElementById(pokemonSelectedOnLoad.dataset.pokemon).click();
 }

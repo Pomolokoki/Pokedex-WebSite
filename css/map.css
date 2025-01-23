@@ -164,7 +164,7 @@ body {
 /* select box */
 #mapList {
     position: relative;
-    color: black;
+    color: white;
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
     width: 80%;
     height: 25px;
@@ -294,10 +294,16 @@ select {
     margin-top: 2px;
 }
 
+
+#pokemonSearch::placeholder{
+    color: grey;
+}
+
 #pokedexContainer {
     display: none;
     border: 2px, solid black;
     width: fit-content;
+    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
 /* conainer scrollable */
@@ -310,9 +316,10 @@ select {
 }
 
 /* pokemon */
-.pokemon {
+.pokemonn {
     display: flex;
     cursor: pointer;
+    color: white;
 }
 
 .pokemonImage {
@@ -320,7 +327,7 @@ select {
     width: 50px;
 }
 
-.pokemon p {
+.pokemonn p {
     align-self: center;
 }
 

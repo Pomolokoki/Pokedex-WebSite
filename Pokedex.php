@@ -9,8 +9,9 @@ $datapokemon = getDataFromDB("SELECT pokemon.id,pokemon.name,pokemon.spriteM,pok
 $dataType = getDataFromDB("SELECT * FROM type", null, null, true);
 
 $pokemonToShow = null;
-if (isset($_POST["pokemonId"])) {
+if (isset($_POST["pokemonId"]) && $_POST["pokemonId"] != "") {
 	$pokemonToShow = $_POST["pokemonId"];
+	$_POST["pokemonId"] != "";
 }
 ?>
 

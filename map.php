@@ -39,7 +39,7 @@ include_once('header.php');
                 <textarea id="pokemonSearch" rows="1" placeholder="search for..."></textarea>
                 <div id="pokedex">
                     <?php for ($i = 0; $i < count($pokemonData); ++$i) { ?>
-                        <div class="pokemon">
+                        <div class="pokemonn">
                             <image class="pokemonImage" draggable="fase" src="<?= $pokemonData[$i]['spriteM'] ?>"
                                 data-id="<?= $pokemonData[$i]['id'] ?>"></image>
                             <p><?= getTextLang($pokemonData[$i]['name'], $language) ?></p>
@@ -63,7 +63,7 @@ include_once('header.php');
             <select id="mapList">
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
-                    if ($i == ($isSet ? $_POST["generationId"] : 1)) {
+                    if ($i == 1) {
                         echo "<option selected=selected value = " . getTextLang($regionData[$i - 1]["name"], "en") . " class = gens >$i - " . getTextLang($regionData[$i - 1]["name"], $language) . "</option>";
                         continue;
                     }
