@@ -48,7 +48,7 @@ function getItemNoDescOrEffect($str,$mot){
                         <div>Nom</div>
                     </th>
                     <th>
-                        <div id="itemCategory" scope="col">Category</div>
+                        <div id="itemCategory" scope="col">Categorie</div>
                     </th>
                     <th>
                         <div id="itemDescription" scope="col">Description</div>
@@ -64,8 +64,8 @@ function getItemNoDescOrEffect($str,$mot){
                         data-category="<?php $dataItems[$i]["category"] ?>" scope="row">
                         <td id="itemNameData"><?php echo getTextLang($dataItems[$i]["name"], "fr") ?></td>
                         <td><?php echo $dataItems[$i]["pocket"] ?></td>
-                        <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]["smallDescription"], "fr"), "description") ?></td>
                         <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]["effect"], "fr"), "effet") ?></td>
+                        <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]["smallDescription"], "fr"), "description") ?></td>
                     </tr>
                 <?php endfor; ?>
             </tbody>

@@ -24,10 +24,9 @@ if(isset($_SESSION['LOGGED_USER']) && $_SESSION['LOGGED_USER'] === true){
 	<?php endif; ?>
 
 	<body>
-		<?php if (isset($_SESSION['LOGGED_USER'])): ?>
+		<?php if (!isset($_SESSION['LOGGED_USER'])): ?>
 			<?php
 			include_once("Pokedex.php");
-			session_destroy();
 			?>
 		<?php endif; ?>
 
