@@ -494,7 +494,7 @@ function showLocationPokemon(location) {
             let dataPokemon = JSON.parse(this.responseText);
             // Info pokemon live on this location in BD
             
-            let pokemons = document.getElementsByClassName("pokemon");
+            let pokemons = document.getElementsByClassName("pokemonn");
 
             // if (dataPokemon == "No results found.") {
             //     for (let i = 0; i < pokemons.length; ++i) {
@@ -550,22 +550,22 @@ function pokemonSearch() {
     // });
     let searchBar = document.getElementById('pokemonSearch');
     searchBar = searchBar.value.toLowerCase();
-    let pokemonList = document.getElementsByClassName("pokemon");
+    let pokemonList = document.getElementsByClassName("pokemonn");
     for (let i = 0; i < pokemonList.length; ++i) {
         if (typeof pokemonList[i] != "object") continue;
         pokemonList[i].style.display = "none";
-        // console.log(pokemonList[i].lastElementChild.innerHTML.toLowerCase(), searchBar);
-        console.log(pokemonList[i].lastElementChild.innerHTML.toLowerCase().includes(searchBar));
+        console.log(pokemonList[i].lastElementChild.innerHTML.toLowerCase(), searchBar);
+        // console.log(pokemonList[i].lastElementChild.innerHTML.toLowerCase().includes(searchBar));
         if (pokemonList[i].lastElementChild.innerHTML.toLowerCase().includes(searchBar))
             pokemonList[i].style.display = "flex";
     }
     // console.log(searchBar)
 }
 
-[...document.querySelectorAll(".pokemon")].forEach(pokemon => {
+[...document.querySelectorAll(".pokemonn")].forEach(pokemon => {
     pokemon.addEventListener("click", () => { pokemonClick(pokemon.firstElementChild.dataset.id); })
     pokemon.addEventListener("dblclick", () => {
-        console.log("dbb")
+        // console.log("dbb")
         let form = document.createElement('form');
         form.setAttribute('method', 'POST');
         form.setAttribute('action', "./pokedex.php");
@@ -577,9 +577,9 @@ function pokemonSearch() {
         form.appendChild(data);
 
         document.body.appendChild(form);
+        // console.log( pokemon.firstElementChild.dataset.id)
         form.submit();
-    }
-    );
+    })
 });
 
 document.getElementById('pokemonSearch').addEventListener('input', pokemonSearch);
