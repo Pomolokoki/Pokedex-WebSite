@@ -39,14 +39,6 @@ body {
     background: transparent;
 }
 
-/* .card-body {
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
-} */
-
-/* #ID_User {
-    display: none;
-    visibility: hidden;
-} */
 
 .profil-bloc {
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
@@ -79,10 +71,6 @@ body {
     right: 0;
     cursor: pointer;
 }
-
-/* #user_id{
-    display: none;
-} */
 
 .pokemonLike-Owned {
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);

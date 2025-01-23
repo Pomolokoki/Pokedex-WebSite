@@ -121,7 +121,6 @@ if (!empty($donneeForm["username"]) && !empty($donneeForm["email"]) && !empty($d
         $inscription->bindParam(':nickname', $username);
         $inscription->bindParam(':email', $email);
         $inscription->bindParam(':password', $password);
-        //$query = 'INSERT INTO player(nickname, email, password) VALUES ('.$username . "," .$email . ",". $password .')';
         
         $username = $donneeForm['username'];
         $email = $donneeForm['email'];
@@ -200,7 +199,6 @@ if (!empty($donneeForm["username"]) && !empty($donneeForm["email"]) && !empty($d
                 <input type="submit" value="S'inscrire">
             </div>
         </form>
-        <!-- <script type="text/javascript" src="register.js"></script> -->
     </div>
     <footer>
     </footer>

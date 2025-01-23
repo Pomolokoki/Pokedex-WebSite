@@ -50,7 +50,6 @@ div.mycontainer div#Logo {
 }
 
 div.mycontainer div#Title {
-    /* width: 40%; */
     height: 50%;
     display: inline-block;
     margin-left: 5px;
@@ -318,8 +317,6 @@ nav a:hover::after {
     -webkit-user-select: none;
     user-select: none;
     position: static;
-
-    /* transition-duration: 0.5s; */
 }
 
 #pokedexPage {

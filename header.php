@@ -90,11 +90,6 @@ if(isset($_FILES['image'])){
                 <?php endif;?>
             <div id="Logo">
                 <img src="img/PokeLogov2.png" alt="Logo" id="PokeLogo" />
-                <!-- <img src="img/PokeLogo.png" alt="PokeLogo bien carré" id="PokeLogo" />
-            </div>
-
-            <div id="Title">
-                <p id="pokeTitle">PokeDex</p>                 -->
             </div>
             <div id="Profile">
             <?php if (!isset($_SESSION["LOGGED_USER"]) && empty($_SESSION["LOGGED_USER"])): ?>
