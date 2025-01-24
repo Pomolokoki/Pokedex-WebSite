@@ -1,5 +1,5 @@
 Intallation process 
-1. Turn up an apache and mySql serveur  
+1. Turn up an apache and mySql server  
   
 2. place the Pokedex-WebSite folder in your localhost  
   
