@@ -135,6 +135,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                 <div class="col-12 col-lg-15 ">
                     <div class="card shadow">
                         <div class="card-body profil-bloc ">
+                            <h5 class="card-title text-center">Information Utilisateur</h5>
                             <?php if ($success_message): ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <?php echo htmlspecialchars($success_message); ?>
@@ -145,7 +146,6 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
 
                             <div class="text-center mb-4">
                                 <div class="profile-avatar mb-3">
-                                    <!-- <i class="fas fa-user"></i> -->
                                     <form action="profile.php" method="POST" enctype="multipart/form-data">
                                         <label for="fileImage" class="position-relative" style="cursor: pointer;">
                                             <img src="<?php echo htmlspecialchars($profilePictureUser) ?>" alt=""
@@ -159,9 +159,8 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                         </label>
                                     </form>
                                 </div>
-                                <!-- <i class="fa fa-pencil-square" aria-hidden="true"></i> -->
 
-                                <h2 class="card-title">Profil de <?php echo htmlspecialchars($username); ?></h2>
+                                <h2 class="card-title">Bienvenue sur votre profil</h2>
                             </div>
 
                             <div class="row g-3 mb-3 info-user">
@@ -323,7 +322,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>    
     <script>
-        // Affiche l'édition du profil en cas d'erreur
+        // Affiche la modif du profil en cas d'erreur
         <?php if ($error_message): ?>
             document.addEventListener('DOMContentLoaded', function() {
                 new bootstrap.Modal(document.getElementById('editProfileModal')).show();
