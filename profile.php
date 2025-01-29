@@ -330,7 +330,4 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
         <?php endif; ?>
     </script>
 </body>
-
-
-
 </html>
