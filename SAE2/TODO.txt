@@ -1,0 +1,13 @@
+fix db request
+verify accessibility full keyboard / full mouse
+auto loading db if db doesn't exists
+header button change size
+pokemon/item/move visualisation (charge au fur et a mesure)
+animation pokedex
+forum 30s update
+image forum
+mot de passe oublié / changer mdp
+loading gifs
+full async db calls
+
+
