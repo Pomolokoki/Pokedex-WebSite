@@ -1,9 +1,9 @@
 
 <?php
 
-// include_once("extractdata.php");
-include_once("connectSQL.php");
-include_once("sqlQuery.php");
+// include_once 'extractdata.php';
+include_once 'connectSQL.php';
+include_once 'sqlQuery.php';
 
 /*
 $statement = $db->prepare($sqlCreateAbility);
@@ -64,5 +64,4 @@ file_put_contents($file, $sqlCreateAll);
 
 //$state = $statement->fetchAll();
 //echo print_r($state);
-?>
 

@@ -13,5 +13,3 @@ function getPassword()
     }
     return;
 }
-
-?>

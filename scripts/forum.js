@@ -22,32 +22,44 @@ document.querySelectorAll('textarea, #searchBar').forEach(element => {
 let messageContainer = document.getElementById("channelMessages")
 
 // UUID to store in DB
-function getUUID() {
-    let id;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            id = JSON.parse(this.responseText)[0]["uuid"];
-        }
-    }
-    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT UUID() AS uuid", false);
-    xmlhttp.send();
+async function getUUID() {
+    const decodedJSON = await fetch("./ajax/getDBDataForum.php?request=UUID")
+        .then( res => res.json() );
+
+    const id = decodedJSON[0]["uuid"];
     console.log("uuid : ", id, id.length);
     return id;
+    //let id;
+    //var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         id = JSON.parse(this.responseText)[0]["uuid"];
+    //     }
+    // }
+    // xmlhttp.open("GET", "./ajax/getDBDataForum.php?request=UUID", false);
+    // xmlhttp.send();
+    // return id;
 }
 
-function getPlayerInfo(id) {
-    var datas;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let data = JSON.parse(this.responseText)[0];
-            datas = [data[0], data[1]];
-        }
-    }
-    xmlhttp.open("GET", "./ajax/getDBData.php?request=SELECT picture, nickname FROM player WHERE id = " + id, false);
-    xmlhttp.send();
+async function getPlayerInfo(id) {
+    const decodedJSON = await fetch("./ajax/getDBDataForum.php?request=PlayerInfo&1=" + id)
+    .then( res => res.json() );
+
+    console.log(decodedJSON)
+    const datas = [decodedJSON[0][0], decodedJSON[0][1]];
+    console.log(datas)
     return datas;
+    // var datas;
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         let data = JSON.parse(this.responseText)[0];
+    //         datas = [data[0], data[1]];
+    //     }
+    // }
+    // xmlhttp.open("GET", "./ajax/getDBDataForum.php?request=PlayerInfo&1=" + id, false);
+    // xmlhttp.send();
+    // return datas;
 }
 
 // region message
@@ -106,42 +118,34 @@ function AddMessage(messageId, owner, picture, nickname, text, replyId, replyOwn
 }
 
 // add a new message into the DataBase
-function AddMessageToDB(id, postDate, text, replyId, playerId, channelId) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-    }
+async function AddMessageToDB(id, postDate, text, replyId, playerId, channelId) {
+    fetch("./ajax/getDBDataForum.php?request=NewMessage&1=" + id + "&2=" + text + "&3=" + replyId + "&4=" + playerId + "&5=" + postDate + "&6=" + channelId)
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    // }
 
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO message (id, text, reply, owner, postDate, channelId)
-    VALUES (
-      '` + id + "', '"
-        + text + "', "
-        + (replyId == null ? "NULL" : ("'" + replyId + "'")) + ", "
-        + playerId + ", '"
-        + postDate + "', '"
-        + channelId
-        + "');");
-    xmlhttp.send();
-
+    // xmlhttp.open("GET", "./ajax/getDBDataForum.php?request=NewMessage&1=" + id + "&2=" + text + "&3=" + replyId + "&4=" + playerId + "&5=" + postDate + "&6=" + channelId);
+    // xmlhttp.send();
 }
 
 // region theme
 // add a new channel into the DataBase
-function AddChannelToDB(id, owner, title, keyWords, creationDate) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-    }
+async function AddChannelToDB(id, owner, title, keyWords, creationDate) {
+    fetch("./ajax/getDBDataForum.php?request=NewChannel&1=" + id + "&2=" + owner + "&3=" + title + "&4=" + keyWords + "&5=" + creationDate)
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    // }
 
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO channel (id, owner, title, keyWords, creationDate)
-    VALUES (
-        '` + id + "', "
-        + owner + ", '"
-        + title + "', '"
-        + keyWords + "', '"
-        + creationDate
-        + "');");
-    xmlhttp.send();
+    // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
+    //   INSERT INTO channel (id, owner, title, keyWords, creationDate)
+    // VALUES (
+    //     '` + id + "', "
+    //     + owner + ", '"
+    //     + title + "', '"
+    //     + keyWords + "', '"
+    //     + creationDate
+    //     + "');");
+    // xmlhttp.send();
 }
 
 //get favorite themes
@@ -150,51 +154,61 @@ let sendMessageButton = document.getElementById('submitMessage');
 let messageBox = document.getElementById("messageTextBox");
 let typing = document.getElementById("typing");
 
-function getFavorites(playerId, themeId) {
-    let data;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // console.log(this.response, JSON.stringify("No results found."))
-            // console.log(JSON.parse(this.response));
+async function getFavorites(playerId) {
+    const decodedJSON = await fetch("./ajax/getDBDataForum.php?request=GetFav&1=" + playerId)
+    .then( res => res.json() );
 
-            if (JSON.parse(this.response) == "No results found.")
-                bool = [];
-            else
-                data = JSON.parse(this.response);
-        }
-    }
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-        SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
-    xmlhttp.send();
+    const data = decodedJSON[0];
+    if (data == "No results found.")
+        return [];
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         // console.log(this.response, JSON.stringify("No results found."))
+    //         // console.log(JSON.parse(this.response));
+
+    //         if (JSON.parse(this.response) == "No results found.")
+    //             bool = [];
+    //         else
+    //             data = JSON.parse(this.response);
+    //     }
+    // }
+    // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
+    //     SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
+    // xmlhttp.send();
     return data;
 }
 
-function getFavorite(playerId, themeId) {
-    let bool;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // console.log(this.response, JSON.stringify("No results found."))
-            // console.log(JSON.parse(this.response));
-
-            if (JSON.parse(this.response) == "No results found.")
-                bool = false;
-            else
-                bool = true;
-        }
-    }
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-        SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
-    xmlhttp.send();
-    console.log("bool", bool);
+async function getFavorite(playerId, themeId) {
+    const decodedJSON = await fetch("./ajax/getDBDataForum.php?request=GetFav&1=" + playerId + "&2=" + themeId)
+    .then( res => res.json() );
+    const bool = decodedJSON[0] == "No results found.";
+    
     return bool;
+    // let bool;
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         // console.log(this.response, JSON.stringify("No results found."))
+    //         // console.log(JSON.parse(this.response));
+
+    //         if (JSON.parse(this.response) == "No results found.")
+    //             bool = false;
+    //         else
+    //             bool = true;
+    //     }
+    // }
+    // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
+    //     SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
+    // xmlhttp.send();
+    // console.log("bool", bool);
+    // return bool;
 }
 
 // is it fovrited theme (set svg star)
-function isFavorite(themeId) {
+async function isFavorite(themeId) {
     if (playerValues) {
-        let isFav = getFavorite(playerValues.dataset.id, themeId);
+        let isFav = await getFavorite(playerValues.dataset.id, themeId);
         if (isFav) {
             setFav.dataset.selected = true;
             setFav.innerHTML = filledStar;
@@ -207,15 +221,21 @@ function isFavorite(themeId) {
 }
 
 // get all messages from a channel into the DB
-function getMessages(channelId) {
+async function getMessages(channelId) {
     console.log(channelId);
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            messageData = JSON.parse(this.responseText);
-            console.log(messageData);
+    const decodedJSON = await fetch("./ajax/getDBDataForum.php?request=GetMessages&1=" + channelId)
+    .then( res => res.json() );
+    if (decodedJSON == "No results found.")
+        return; // no message found which is impossible because theme should have a start message
+    const messageData = decodedJSON;
+    messageContainer.innerHTML = "";
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         messageData = JSON.parse(this.responseText);
+    //         console.log(messageData);
 
-            let title = document.createElement("h2");
+            const title = document.createElement("h2");
             title.innerHTML = messageData[0]["title"];
             title.className = "message";
             title.dataset.owner = messageData[0]["owner"];
@@ -239,29 +259,29 @@ function getMessages(channelId) {
                 );
             }
 
-        }
-    }
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT
-      channel.title,
-      message.id,
-      message.text,
-      message.reply,
-      player.id AS owner, 
-      player.nickname,
-      player.picture,
-      reply.id AS replyId,
-      reply.owner AS replyOwner,
-      reply.text AS replyText,
-      replyPlayer.nickname AS replyNickname,
-      replyPlayer.picture AS replyPicture 
-      FROM message 
-      LEFT JOIN message AS reply ON message.reply = reply.id 
-      LEFT JOIN player ON message.owner = player.id 
-      LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
-      LEFT JOIN channel ON message.channelId = channel.id 
-      WHERE message.channelId = '` + channelId + "' ORDER BY message.postDate", true);
-    xmlhttp.send();
+    //     }
+    // }
+    // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
+    //   SELECT
+    //   channel.title,
+    //   message.id,
+    //   message.text,
+    //   message.reply,
+    //   player.id AS owner, 
+    //   player.nickname,
+    //   player.picture,
+    //   reply.id AS replyId,
+    //   reply.owner AS replyOwner,
+    //   reply.text AS replyText,
+    //   replyPlayer.nickname AS replyNickname,
+    //   replyPlayer.picture AS replyPicture 
+    //   FROM message 
+    //   LEFT JOIN message AS reply ON message.reply = reply.id 
+    //   LEFT JOIN player ON message.owner = player.id 
+    //   LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
+    //   LEFT JOIN channel ON message.channelId = channel.id 
+    //   WHERE message.channelId = '` + channelId + "' ORDER BY message.postDate", true);
+    // xmlhttp.send();
 }
 
 // change theme
@@ -269,7 +289,6 @@ let channelDiv = document.getElementById("channel");
 let themesDiv = document.getElementById("themes");
 let arrow = document.getElementById("mobileBackArrow");
 function changeTheme(theme) {
-    messageContainer.innerHTML = "";
     if (window.innerWidth < 600) {
         channelDiv.style.display = "unset";
         themesDiv.style.display = "none";
@@ -344,15 +363,20 @@ if (messageBox) {
     });
 }
 if (typing) {
-    typing.addEventListener('click', () => { typing.innerHTML = "" })
+    typing.addEventListener('click', () => {
+        if (typing.innerHTML == "KeyWords (separate by /)" || typing.innerHTML == "Message d'introduction")
+            changeTheme(currentChannel);
+        typing.innerHTML = "" })
 }
 
-// add themem to favorite
-function setFavoriteTheme(bool) {
-    var xmlhttp = new XMLHttpRequest();
-    let query = bool ? "INSERT INTO player_fav_channel VALUES (" + playerValues.dataset.id + ", '" + currentChannel + "');" : "DELETE FROM player_fav_channel WHERE playerId = " + playerValues.dataset.id + " AND channelId = '" + currentChannel + "'";
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=` + query);
-    xmlhttp.send();
+// add theme to favorite
+async function setFavoriteTheme(bool) {
+    const query = bool ? "AddFav&1=" + playerValues.dataset.id + "&2=" + currentChannel : "RemoveFav&1=" + playerValues.dataset.id + "&2=" + currentChannel;
+    fetch("./ajax/getDBDataForum.php?request=" + query);
+
+    //var xmlhttp = new XMLHttpRequest();
+    //xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=` + query);
+    //xmlhttp.send();
 }
 
 
@@ -373,7 +397,7 @@ if (setFav) {
     })
 }
 if (selectFav) {
-    selectFav.addEventListener('click', () => {
+    selectFav.addEventListener('click', async () => {
         if (selectFav.dataset.selected == "false") {
             selectFav.innerHTML = filledStar;
             selectFav.dataset.selected = "true";
@@ -381,7 +405,7 @@ if (selectFav) {
             for (let i = 0; i < themes.length; ++i) {
                 if (typeof themes[i] != "object") continue;
                 console.log(playerValues.dataset.id, themes[i].dataset.channelid)
-                if (getFavorite(playerValues.dataset.id, themes[i].dataset.channelid) || themes[i].id == "createTheme")
+                if (themes[i].id == "createTheme" || await getFavorite(playerValues.dataset.id, themes[i].dataset.channelid))
                     themes[i].style.display = "";
                 else
                     themes[i].style.display = "none";
@@ -404,7 +428,7 @@ if (selectFav) {
 // send messge buitton click
 const playerValues = document.getElementById("data");
 if (sendMessageButton) {
-    sendMessageButton.addEventListener('click', () => {
+    sendMessageButton.addEventListener('click', async () => {
 
         if (typing.innerHTML == "Modification du message") { // are we editing message ?
             let message = document.getElementById(typing.dataset.message);
@@ -427,12 +451,12 @@ if (sendMessageButton) {
         let text = messageBox.value;
         let playerId = playerValues == null ? playerValues : playerValues.dataset.id;
         let playerPicture, playerName
-        [playerPicture, playerName] = playerId == null ? [null, null] : [...getPlayerInfo(playerId)];
+        [playerPicture, playerName] = playerId == null ? [null, null] : [... await getPlayerInfo(playerId)];
         let channelId = currentChannel;
         let replyId = typing.innerHTML.startsWith("Répondre à ") ? typing.dataset.message : null;
         let replyOwner = replyId == null ? null : document.getElementById(replyId).dataset.owner;
         let replyPicture, replyName
-        [replyPicture, replyName] = replyId == null ? [null, null] : getPlayerInfo(replyOwner);
+        [replyPicture, replyName] = replyId == null ? [null, null] : await getPlayerInfo(replyOwner);
         let replyText = replyId == null ? null : document.getElementById(replyId).innerHTML;
 
         if (typing.innerHTML == "Titre du nouveau thème") { // are we creating a new theme ?
@@ -451,7 +475,7 @@ if (sendMessageButton) {
         if (typing.innerHTML == "Message d'introduction") { // are we sending the first theme message ?
             let title = document.getElementById("title");
             title.dataset.owner = playerId;
-            let id = getUUID();
+            let id = await getUUID();
             AddChannelToDB(id, playerId, title.innerHTML, channel, date);
             typing.innerHTML = "";
             messageBox.value = "";
@@ -460,8 +484,8 @@ if (sendMessageButton) {
         }
 
         // are we sending a mesage into the channel
-        let id = getUUID();
-        AddMessageToDB(id, date, text, replyId, playerId, channelId),
+        let id = await getUUID();
+        AddMessageToDB(id, date, text, replyId, playerId, channelId);
             AddMessage(
                 id,
                 playerId,
@@ -485,21 +509,24 @@ if (sendMessageButton) {
 
 
 // remove message on channel & DB
-function removeMessage(message) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-        DELETE FROM message WHERE id='` + message.id + "'");
-    xmlhttp.send();
-    message.previousElementSibling.remove();
-    message.remove();
+async function removeMessage(message) {
+    await fetch("./ajax/getDBDataForum.php?request=RemoveMessage&1=" + message.id);
+    getMessages(currentChannel);
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
+    //     DELETE FROM message WHERE id='` + message.id + "'");
+    // xmlhttp.send();
+    // message.previousElementSibling.remove();
+    // message.remove();
 }
 
 // update messge on channel & DB
 function updateMessage(message) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-        UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
-    xmlhttp.send();
+    fetch("./ajax/getDBDataForum.php?request=UpdateMessage&1=" + message.innerHTML.substr(0, message.innerHTML.length) + "&2=" + message.id);
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
+    //     UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
+    // xmlhttp.send();
 }
 
 // press enter to send message

@@ -1,38 +1,38 @@
 <?php session_start(); 
-include_once("database/connectSQL.php");
+include_once 'database/connectSQL.php';
 
 
-$_SESSION["uname"] = $_SESSION["email"] = $_SESSION["pword"] = "";
-$unameErr = $emailErr = $pwordErr = "";
+$_SESSION['uname'] = $_SESSION['email'] = $_SESSION['pword'] = '';
+$unameErr = $emailErr = $pwordErr = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    if (empty($_POST["username"])) {
-        $unameErr = "Veuillez entrer un pseudo correct";
+    if (empty($_POST['username'])) {
+        $unameErr = 'Veuillez entrer un pseudo correct';
     } else {
-        $_SESSION["uname"] = test_input($_POST["username"]);
+        $_SESSION['uname'] = test_input($_POST['username']);
         /*Check si le nom contient seulement des lettres et espace
         preg_match() recherche un pattern de string, et retourne vrai si le pattern existe */
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $_SESSION["uname"])) {
-            $identifierErr = "Seulement des lettres et des espaces sont autorisés";
+        if (!preg_match('/^[a-zA-Z-\' ]*$/', $_SESSION['uname'])) {
+            $identifierErr = 'Seulement des lettres et des espaces sont autorisés';
         }
         
     }
-    if (empty($_POST["email"])) {
-        $emailErr = "Veuillez entrer un email correct";
+    if (empty($_POST['email'])) {
+        $emailErr = 'Veuillez entrer un email correct';
     } else {
-        $_SESSION["email"] = test_input($_POST["email"]);
+        $_SESSION['email'] = test_input($_POST['email']);
         /* A mettre dans l'inscription
         Check si l'adresse est bien formulée*/
-        if (!filter_var($_SESSION["email"], FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Email invalide";
+        if (!filter_var($_SESSION['email'], FILTER_VALIDATE_EMAIL)) {
+            $emailErr = 'Email invalide';
         }
     }
 
-    if (empty($_POST["password"])) {
-        $pwordErr = "Veuillez entrer un mot de passe";
+    if (empty($_POST['password'])) {
+        $pwordErr = 'Veuillez entrer un mot de passe';
     } else {
-        $_SESSION["pword"] = test_input($_POST["password"]);
+        $_SESSION['pword'] = test_input($_POST['password']);
     }
 }
 function test_input($data)
@@ -46,9 +46,9 @@ function test_input($data)
 #endregion
 ?>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include("css/register.css"); ?>
+    <?php include('css/register.css'); ?>
 </style>
 
 <?php 

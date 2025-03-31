@@ -1,15 +1,15 @@
 <?php
-include_once("extractApi.php");
+include_once 'extractApi.php';
 
-function getTextLang($str, $language = "fr")
+function getTextLang($str, $language = 'fr')
 {
     // echo $str;
-    // echo "<br>";
+    // echo '<br>';
     $split = explode('///', $str);
     // echo $split[1];
-    if ($language == "fr")
+    if ($language == 'fr')
     {
-        if ($split[1] == "NULL")
+        if ($split[1] == 'NULL')
           return $split[0];
         return $split[1];
     }
@@ -19,19 +19,19 @@ function getTextLang($str, $language = "fr")
     }
 }
 
-$sqlInsertType = "INSERT INTO type (id, name, efficiency, sprite) VALUES ";
-$values = "";
-//echo getDataFromApi($curl_handle, $baseUrl . "/type")->count;
-//echo "<br>";
+$sqlInsertType = 'INSERT INTO type (id, name, efficiency, sprite) VALUES ';
+$values = '';
+//echo getDataFromApi($curl_handle, $baseUrl . '/type')->count;
+//echo '<br>';
 
-foreach(getDataFromFile("/type")->results as $type)
+foreach(getDataFromFile('/type')->results as $type)
 {
     //echo $i;
-    //echo "<br>";
-    $typeData = getDataFromFile("/type/" . getIdFromUrl($type->url));
+    //echo '<br>';
+    $typeData = getDataFromFile('/type/' . getIdFromUrl($type->url));
     //if ($typeData->id >= 19) {break;}
-    $value = "(" . $typeData->id . ','; //id
-    $value = $value . getTextFromData($typeData->names, "name") . ","; //name
+    $value = '(' . $typeData->id . ','; //id
+    $value = $value . getTextFromData($typeData->names, 'name') . ','; //name
     $types = array_fill(0, 19, 1); //efficiency
     for ($k = 0; $k < count($typeData->damage_relations->double_damage_to); $k++)
     {
@@ -51,9 +51,9 @@ foreach(getDataFromFile("/type")->results as $type)
     $value = $value . '"' . $types[0];
     for ($j = 1; $j < count($types); $j++)
     {
-        $value = $value . "/" . $types[$j];
+        $value = $value . '/' . $types[$j];
     }
-    $value = $value . '","' . "./img/" . getTextLang(getTextFromData($typeData->names, "name"));
+    $value = $value . '","' . './img/' . getTextLang(getTextFromData($typeData->names, 'name'));
     $value = rtrim($value, '"');
     $values = $values . $value . '.png"),,';
     // if ($i == 20)
@@ -62,5 +62,4 @@ foreach(getDataFromFile("/type")->results as $type)
     // }
 }
 echo $values;
-saveToDb($sqlInsertType, "type", $values)
-?>
+saveToDb($sqlInsertType, 'type', $values);

@@ -1,5 +1,5 @@
 <?php
-include_once("configSQL.php");
+include_once 'configSQL.php';
 $MYSQL_HOST = 'localhost';
 $MYSQL_PORT = 3306;
 $MYSQL_NAME = 'pokedex';
@@ -14,11 +14,9 @@ try {
     );
     
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //include_once("loadDataIntoWebsite.php");
+    //include_once 'loadDataIntoWebsite.php';
 
 } catch(Exception $exception) {
 
     die('Erreur : '. $exception->getMessage());
 }
-
-?>

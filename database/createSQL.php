@@ -1,5 +1,5 @@
 <?php
-include_once("configSQL.php");
+include_once 'configSQL.php';
 const MYSQL_HOST = 'localhost';
 const MYSQL_PORT = 3306;
 const MYSQL_USER = 'root';
@@ -12,9 +12,9 @@ MYSQL_USER,
 getPassword()
 );
 // $sqlCreateBD = 
-// "DROP DATABASE IF EXISTS pokedex;
+// 'DROP DATABASE IF EXISTS pokedex;
 // CREATE DATABASE pokedex CHARACTER SET utf8;
-// USE pokedex;";
+// USE pokedex;';
 
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // $statement = $db->prepare($sqlCreateBD);
@@ -22,4 +22,3 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(Exception $exception) {
     die('Erreur : '.$exception->getMessage());
 }
-?>

@@ -14,8 +14,10 @@ let locationContainer = document.getElementById("mapLocation");
 // region map stuff
 // in DB text are wrotten like : 'en/fr', so we can split it up to get the desired language
 function getText(str, language) {
+    if (str == undefined || str == null)
+        return ""
     if (language === "fr") {
-        if (str.split('///')[1] == "NULL") // if not foudn, return en version
+        if (str.split('///')[1] == "NULL") // if not found, return en version
             return str.split('///')[0];
         return str.split('///')[1];
     }
@@ -189,12 +191,14 @@ document.getElementById("interactiveMap").addEventListener("click", (e) => {
 })
 
 // the map region has been changed
-document.getElementById("mapList").addEventListener("change", (e) => {
+document.getElementById("mapList").addEventListener("change", async (e) => {
     currentRegion = e.target.options[e.target.selectedIndex].value;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let dataLocation = JSON.parse(this.responseText);
+    const decodedJSON = await fetch("./ajax/getDBDataMaps.php?request=GetLocationFromRegion&1=" + currentRegion)
+    .then( res => res.json() );
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+            let dataLocation = decodedJSON;
             // Info Location on DB
             locationContainer.innerHTML = ""; // upd the list of map location
             for (let i = 0; i < dataLocation.length; ++i) {
@@ -210,14 +214,14 @@ document.getElementById("mapList").addEventListener("change", (e) => {
             }
             updateMap("regionChanged");
             console.log(currentRegion);
-        }
-    }
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT location.name
-      FROM location 
-      JOIN region ON location.regionId = region.id 
-      WHERE region.name LIKE '` + currentRegion + "%'", true);
-    xmlhttp.send();
+    //     }
+    // }
+    // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //   SELECT location.name
+    //   FROM location 
+    //   JOIN region ON location.regionId = region.id 
+    //   WHERE region.name LIKE '` + currentRegion + "%'", true);
+    // xmlhttp.send();
 });
 // endregion
 
@@ -428,11 +432,26 @@ let lastPokemonClickedId = -1
 let pokedex = document.getElementById("pokedex");
 
 // get location where pokemon clicked lives in
-function pokemonClick(id) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let dataLocation = JSON.parse(this.responseText);
+async function pokemonClick(id) {
+    let decodedJSON;
+    if (lastPokemonClickedId == id)
+    {
+        decodedJSON = await fetch( "./ajax/getDBDataMaps.php?request=GetLocationFromRegion&1=" + currentRegion)
+        .then( res => res.json() );
+        lastPokemonClickedId = -1;
+    }
+    else
+    {
+        decodedJSON =  await fetch("./ajax/getDBDataMaps.php?request=GetLocationFromPokemon&1=" + currentRegion + "&2=" + id)
+        .then( res => res.json() );
+        lastPokemonClickedId = id;
+    }
+
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+            const dataLocation = decodedJSON;
+
             console.log(dataLocation)
             // Info Location in DB
             let locationList = document.getElementsByClassName("location");
@@ -462,36 +481,48 @@ function pokemonClick(id) {
                 else
                     locationList[i].style.display = "none";
             }
-        }
-    }
-    if (lastPokemonClickedId == id) { // unselect pokemon
-        xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT location.name 
-            FROM location 
-            JOIN region ON location.regionId = region.id 
-            WHERE region.name LIKE '` + currentRegion + "%'"
-        );
-        lastPokemonClickedId = -1;
-    }
-    else { // select pokemon
-        xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT DISTINCT location.name 
-            FROM location 
-            INNER JOIN location_pokemon AS lp ON location.id = lp.locationId 
-            INNER JOIN region ON location.regionId = region.id 
-            WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id
-        );
-        lastPokemonClickedId = id;
-    }
-    xmlhttp.send();
+    //     }
+    // }
+    // if (lastPokemonClickedId == id) { // unselect pokemon
+    //     xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //         SELECT location.name 
+    //         FROM location 
+    //         JOIN region ON location.regionId = region.id 
+    //         WHERE region.name LIKE '` + currentRegion + "%'"
+    //     );
+    //     lastPokemonClickedId = -1;
+    // }
+    // else { // select pokemon
+    //     xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //         SELECT DISTINCT location.name 
+    //         FROM location 
+    //         INNER JOIN location_pokemon AS lp ON location.id = lp.locationId 
+    //         INNER JOIN region ON location.regionId = region.id 
+    //         WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id
+    //     );
+    //     lastPokemonClickedId = id;
+    // }
+    // xmlhttp.send();
 }
 
 // when click on location, show all pokemon living here
-function showLocationPokemon(location) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let dataPokemon = JSON.parse(this.responseText);
+async function showLocationPokemon(location) {
+    let decodedJSON;
+    if (location == "")
+        {
+            decodedJSON = await fetch( "./ajax/getDBDataMaps.php?request=GetPokemonFromRegion&1=" + currentRegion)
+            .then( res => res.json() );
+        }
+        else
+        {
+            decodedJSON =  await fetch("./ajax/getDBDataMaps.php?request=GetPokemonFromLocation&1=" + currentRegion + "&2=" + location)
+            .then( res => res.json() );
+        }
+    // var xmlhttp = new XMLHttpRequest();
+    // xmlhttp.onreadystatechange = function () {
+    //     if (this.readyState == 4 && this.status == 200) {
+    
+            const dataPokemon = decodedJSON;
             // Info pokemon live on this location in BD
             
             let pokemons = document.getElementsByClassName("pokemonn");
@@ -521,26 +552,26 @@ function showLocationPokemon(location) {
                 else
                     pokemons[i].style.display = "none";
             }
-        }
-    }
-    if (location == "") { // unselect location
-        xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT DISTINCT pokemon.id 
-            FROM pokemon 
-            JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
-            JOIN region ON lp.generation = region.id 
-            WHERE region.name LIKE '` + currentRegion + "%'");
-    }
-    else { // select location
-        xmlhttp.open("GET", `./ajax/getDBData.php?request=
-            SELECT DISTINCT pokemon.id 
-            FROM pokemon 
-            JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
-            JOIN location ON location.id = lp.locationId 
-            JOIN region ON lp.generation = region.id 
-            WHERE region.name LIKE '` + currentRegion + "%' AND location.name LIKE'" + location + "%'");
-    }
-    xmlhttp.send();
+    //     }
+    // }
+    // if (location == "") { // unselect location
+    //     xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //         SELECT DISTINCT pokemon.id 
+    //         FROM pokemon 
+    //         JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
+    //         JOIN region ON lp.generation = region.id 
+    //         WHERE region.name LIKE '` + currentRegion + "%'");
+    // }
+    // else { // select location
+    //     xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //         SELECT DISTINCT pokemon.id 
+    //         FROM pokemon 
+    //         JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
+    //         JOIN location ON location.id = lp.locationId 
+    //         JOIN region ON lp.generation = region.id 
+    //         WHERE region.name LIKE '` + currentRegion + "%' AND location.name LIKE'" + location + "%'");
+    // }
+    // xmlhttp.send();
 }
 
 // pokemon searchBar

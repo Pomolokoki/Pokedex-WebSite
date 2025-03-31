@@ -1,5 +1,5 @@
 <?php
-include_once("extractApi.php");
+include_once 'extractApi.php';
 
 $sqlInsertPlayer = 
 "INSERT INTO player (id, nickname, email, password, forumRank) VALUES
@@ -22,6 +22,6 @@ $sqlInsertMessage =
 (NULL, 'Premier', NULL, '2015-04-23 13:06:33',3 , 2)";
 
 
-saveToDb($sqlInsertPlayer, "", "", false, true);
-saveToDb($sqlInsertChannel, "", "", false, true);
-saveToDb($sqlInsertMessage, "", "", false, true);
+saveToDb($sqlInsertPlayer, '', '', false, true);
+saveToDb($sqlInsertChannel, '', '', false, true);
+saveToDb($sqlInsertMessage, '', '', false, true);

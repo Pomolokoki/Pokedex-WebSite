@@ -46,51 +46,57 @@ document.getElementById('pokedex_back').addEventListener('click', function () {
   // console.log("pokemon unload")
 });
 
-document.getElementById('check_fav').addEventListener('click', function () {
+document.getElementById('check_fav').addEventListener('click', async function () {
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   if (document.getElementsByClassName("star-dotted")[0].style.display == "block") {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
-    xmlhttp.send();
-    // console.log('azerty')
+    await fetch("./ajax/getDBDataPokedex.php?request=AddFav&1=" + id_player + "&2=" + id_pokemon)
+    // let xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //   INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
+    // xmlhttp.send();
   }
   else {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request= 
-      DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
-    xmlhttp.send();
+    await fetch("./ajax/getDBDataPokedex.php?request=RemoveFav&1=" + id_player + "&2=" + id_pokemon)
+    // let xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET", `./ajax/getDBData.php?request= 
+    //   DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
+    // xmlhttp.send();
   }
   checkFav(id_player, id_pokemon);
 });
 
-document.getElementById('check_capture').addEventListener('click', function () {
+document.getElementById('check_capture').addEventListener('click', async function () {
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   if (document.getElementsByClassName("pokeball-empty")[0].style.display == "block") {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
-    xmlhttp.send();
+    // let xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    //   INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
+    // xmlhttp.send();
+    await fetch("./ajax/getDBDataPokedex.php?request=AddPlayerPokemon&1=" + id_player + "&2=" + id_pokemon)
     // console.log('qwerty')
     // console.log(`INSERT INTO player_pokemon VALUES (` + id_player + `,` + id_pokemon + `);`)
     // console.log(dataCheck)
   }
   else {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", `./ajax/getDBData.php?request= 
-      DELETE FROM player_pokemon WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
-    xmlhttp.send();
+    // let xmlhttp = new XMLHttpRequest();
+    // xmlhttp.open("GET", `./ajax/getDBData.php?request= 
+    //   DELETE FROM player_pokemon WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
+    // xmlhttp.send();
+    await fetch("./ajax/getDBDataPokedex.php?request=RemovePlayerPokemon&1=" + id_player + "&2=" + id_pokemon)
   }
   checkCapture(id_player, id_pokemon);
 });
 
-function checkFav(playerId, id) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataCheck = JSON.parse(this.responseText);
+async function checkFav(playerId, id) {
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetFav&1=" + playerId + "&2=" + id)
+  .then( res => res.json() );
+  // let xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     dataCheck = JSON.parse(this.responseText);
+      const dataCheck = decodedJSON;
       // console.log(dataCheck)
       if (dataCheck == "No results found.") {
         document.getElementsByClassName("star-dotted")[0].style.display = "block";
@@ -100,21 +106,24 @@ function checkFav(playerId, id) {
         document.getElementsByClassName("star-dotted")[0].style.display = "none";
         document.getElementsByClassName("star-fill")[0].style.display = "block";
       }
-    }
-  }
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT 
-      pf.pokemonId AS pokemonFav 
-      FROM player_favorites AS pf 
-      WHERE pf.playerId = ` + playerId + ` AND pf.pokemonId= ` + id, true);
-  xmlhttp.send();
+  //  }
+  //}
+  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  //     SELECT 
+  //     pf.pokemonId AS pokemonFav 
+  //     FROM player_favorites AS pf 
+  //     WHERE pf.playerId = ` + playerId + ` AND pf.pokemonId= ` + id, true);
+  // xmlhttp.send();
 }
 
-function checkCapture(playerId, id) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataCheck = JSON.parse(this.responseText);
+async function checkCapture(playerId, id) {
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetFav&1=" + playerId + "&2=" + id)
+  .then( res => res.json() );
+  // let xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     dataCheck = JSON.parse(this.responseText);
+      const dataCheck = decodedJSON;
       // console.log(dataCheck)
       if (dataCheck == "No results found.") {
         document.getElementsByClassName("pokeball-empty")[0].style.display = "block";
@@ -124,15 +133,15 @@ function checkCapture(playerId, id) {
         document.getElementsByClassName("pokeball-empty")[0].style.display = "none";
         document.getElementsByClassName("pokeball-fill")[0].style.display = "block";
       }
-    }
-  }
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT 
-      pp.pokemonId AS pokemonPlayer 
-      FROM player_pokemon AS pp 
-      WHERE pp.playerId = ` + playerId + ` AND pp.pokemonId= ` + id, true);
+  //   }
+  // }
+  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  //     SELECT 
+  //     pp.pokemonId AS pokemonPlayer 
+  //     FROM player_pokemon AS pp 
+  //     WHERE pp.playerId = ` + playerId + ` AND pp.pokemonId= ` + id, true);
 
-  xmlhttp.send();
+  // xmlhttp.send();
 }
 
 var check_pokemonUser = function (id) {
@@ -284,12 +293,16 @@ function setOrder(eltliste, order) {
   }
 }
 
-var LoadDataPokemon = function (id) {
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataPokemon = JSON.parse(this.responseText)[0];
+var LoadDataPokemon = async function (id) {
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetPokemonData&1=" + id)
+  .then( res => res.json() );
+  // var xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     dataPokemon = JSON.parse(this.responseText)[0];
       // console.log(dataPokemon)
+      
+      const dataPokemon = decodedJSON[0];
       // Info pokemon
       document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
       if (getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette") {
@@ -299,7 +312,8 @@ var LoadDataPokemon = function (id) {
         document.getElementById("nom_Pokemon").innerHTML = " Nom : " + getText(dataPokemon["name"]).split(" ")[0];
       }
       document.getElementById("img").style.backgroundImage = "url('" + dataPokemon["spriteM"] + "')";
-      const category = JSON.parse(this.responseText)[0]["category"];
+      // const category = JSON.parse(this.responseText)[0]["category"];
+      const category = decodedJSON[0]["category"];
       if (category === 0) {
         document.getElementById("categorie_Pokemon").innerHTML = "Commun";
       }
@@ -373,41 +387,44 @@ var LoadDataPokemon = function (id) {
       }
       document.getElementById("genAtk").innerText = document.getElementById("gen_Pokemon").innerText;
       LoadAtkPokemon(id);
-    }
-  }
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-    SELECT pokemon.id,
-    pokemon.name,
-    pokemon.spriteM,
-    pokemon.spriteF,
-    pokemon.generation,
-    pokemon.category,
-    pokemon.height,
-    pokemon.weight,
-    pokemon.catch_rate,
-    pokemon.hp,
-    pokemon.attack,
-    pokemon.defense,
-    pokemon.atackspe,
-    pokemon.defensespe,
-    pokemon.speed,
-    typeEfficiency, 
-    pokemon.description, 
-    t1.name AS type1, 
-    t2.name AS type2 
-    FROM pokemon 
-    JOIN type AS t1 ON pokemon.type1 = t1.id 
-    LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
-    WHERE pokemon.id = ` + id, true);
-  xmlhttp.send();
+  //   }
+  // }
+  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  //   SELECT pokemon.id,
+  //   pokemon.name,
+  //   pokemon.spriteM,
+  //   pokemon.spriteF,
+  //   pokemon.generation,
+  //   pokemon.category,
+  //   pokemon.height,
+  //   pokemon.weight,
+  //   pokemon.catch_rate,
+  //   pokemon.hp,
+  //   pokemon.attack,
+  //   pokemon.defense,
+  //   pokemon.atackspe,
+  //   pokemon.defensespe,
+  //   pokemon.speed,
+  //   typeEfficiency, 
+  //   pokemon.description, 
+  //   t1.name AS type1, 
+  //   t2.name AS type2 
+  //   FROM pokemon 
+  //   JOIN type AS t1 ON pokemon.type1 = t1.id 
+  //   LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
+  //   WHERE pokemon.id = ` + id, true);
+  // xmlhttp.send();
 }
 
 
-var LoadAbilityPokemon = function (id) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataAbility = JSON.parse(this.responseText);
+var LoadAbilityPokemon = async function (id) {
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetAbilityData&1=" + id)
+  .then( res => res.json() );
+  const dataAbility = decodedJSON;
+  // let xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     dataAbility = JSON.parse(this.responseText);
       document.getElementById("Talent").innerText = "";
       document.getElementById("Talent").classList.remove("NB_talent0", "NB_talent1", "NB_talent2", "NB_talent3")
       document.getElementById("Talent").classList.add("NB_talent" + dataAbility.length);
@@ -424,25 +441,29 @@ var LoadAbilityPokemon = function (id) {
         document.querySelector("body #content #Pokemon #Talent").appendChild(divElementDesc);
       }
       // console.log("ability Loaded !");
-    }
-  }
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT 
-      ability.name,
-      ability.smallDescription,
-      ap.isHidden 
-      FROM ability_pokemon AS ap 
-      INNER JOIN ability ON ap.abilityId = ability.id 
-      WHERE ap.pokemonId = ` + id, true);
-  xmlhttp.send();
+  //   }
+  // }
+  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  //     SELECT 
+  //     ability.name,
+  //     ability.smallDescription,
+  //     ap.isHidden 
+  //     FROM ability_pokemon AS ap 
+  //     INNER JOIN ability ON ap.abilityId = ability.id 
+  //     WHERE ap.pokemonId = ` + id, true);
+  // xmlhttp.send();
 }
 
 
-var LoadAtkPokemon = function (id, isGen = -1) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataMove = JSON.parse(this.responseText);
+var LoadAtkPokemon = async function (id, isGen = -1) {
+  const genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetMoveData&1=" + id + "&2=" + genValue)
+  .then( res => res.json() );
+  const dataMove = decodedJSON;
+  // let xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     dataMove = JSON.parse(this.responseText);
       document.getElementById("Attaque").innerText = "";
       document.getElementById("Attaque").style.gridTemplateRows = "repeat(" + parseInt(dataMove.length + 1) + ",1fr)"
       let tab1 = []
@@ -503,24 +524,24 @@ var LoadAtkPokemon = function (id, isGen = -1) {
         }
       }
       orderGrid();
-    }
-  }
-  let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT 
-      move.name,
-      type.name AS type,
-      move.effectType,
-      move.pc,
-      move.accuracy,
-      mp.learnMethod,
-      mp.learnAtLevel,
-      move.pp 
-      FROM move_pokemon AS mp 
-      INNER JOIN move ON mp.moveId = move.id 
-      JOIN type ON move.type = type.id 
-      WHERE mp.pokemonId = ` + id + ' AND mp.generation = ' + genValue, true);
-  xmlhttp.send();
+  //   }
+  // }
+  // let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
+  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  //     SELECT 
+  //     move.name,
+  //     type.name AS type,
+  //     move.effectType,
+  //     move.pc,
+  //     move.accuracy,
+  //     mp.learnMethod,
+  //     mp.learnAtLevel,
+  //     move.pp 
+  //     FROM move_pokemon AS mp 
+  //     INNER JOIN move ON mp.moveId = move.id 
+  //     JOIN type ON move.type = type.id 
+  //     WHERE mp.pokemonId = ` + id + ' AND mp.generation = ' + genValue, true);
+  // xmlhttp.send();
 };
 
 function divEvoCaseGroup(stage) {
@@ -529,6 +550,7 @@ function divEvoCaseGroup(stage) {
   divElementEvoCase.id = "Evo_case_group" + stage;
   document.getElementById("Evo").appendChild(divElementEvoCase);
 }
+
 function divEvoCase(stage, data) {
   let divElementEvoCase = document.createElement("div");
   divElementEvoCase.classList = "Evo_case";
@@ -644,11 +666,14 @@ function divStagePokemon(name) {
 // });
 
 
-var LoadEvoPokemon = function (id) {
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      dataEvol = JSON.parse(this.responseText);
+var LoadEvoPokemon = async function (id) {
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetEvolutionData&1=" + id)
+  .then( res => res.json() );
+  const dataEvol = decodedJSON;
+  // let xmlhttp = new XMLHttpRequest();
+  // xmlhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     dataEvol = JSON.parse(this.responseText);
       if (dataEvol == "No results found.") {
         document.getElementById("evoSection").style.display = "none";
         document.getElementById("Evo").style.display = "none";
@@ -777,69 +802,69 @@ var LoadEvoPokemon = function (id) {
           });
         }
       }
-    }
-  }
-  xmlhttp.open("GET", `./ajax/getDBData.php?request=
-      SELECT DISTINCT
-      ev.id,
-      ev.basePokemonId,
-      ev.evoluedPokemonId,
-      ev.evolutionStade,
-      ev.gender,
-      it1.name AS it1name,
-      it1.sprite AS it1sprite,
-      it2.name AS it2name,
-      it2.sprite AS it2sprite,
-      move.name AS moveName,
-      ty1.name AS tyName,
-      location.name AS locationName,
-      ev.minAffection,
-      ev.minBeauty,
-      ev.minHappiness,
-      ev.minLevel,
-      ev.needsOverworldRain,
-      po3.name AS n3,
-      ty2.name AS ty2Name,
-      ev.relativePhysicalStats,
-      ev.timeOfDay,
-      ev.tradeSpeciesId,
-      ev.evolutionTrigger,
-      po4.name AS n4,
-      ev.turnUpSideDown,
+  //   }
+  // }
+  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  //     SELECT DISTINCT
+  //     ev.id,
+  //     ev.basePokemonId,
+  //     ev.evoluedPokemonId,
+  //     ev.evolutionStade,
+  //     ev.gender,
+  //     it1.name AS it1name,
+  //     it1.sprite AS it1sprite,
+  //     it2.name AS it2name,
+  //     it2.sprite AS it2sprite,
+  //     move.name AS moveName,
+  //     ty1.name AS tyName,
+  //     location.name AS locationName,
+  //     ev.minAffection,
+  //     ev.minBeauty,
+  //     ev.minHappiness,
+  //     ev.minLevel,
+  //     ev.needsOverworldRain,
+  //     po3.name AS n3,
+  //     ty2.name AS ty2Name,
+  //     ev.relativePhysicalStats,
+  //     ev.timeOfDay,
+  //     ev.tradeSpeciesId,
+  //     ev.evolutionTrigger,
+  //     po4.name AS n4,
+  //     ev.turnUpSideDown,
 
-      po1.spriteM AS s1,
-      po1.name AS n1,
-      po1.type1 AS type11,
-      po1.type2 AS type12,
-      po1.id AS id1, 
+  //     po1.spriteM AS s1,
+  //     po1.name AS n1,
+  //     po1.type1 AS type11,
+  //     po1.type2 AS type12,
+  //     po1.id AS id1, 
 
-      po2.spriteM AS s2,
-      po2.name AS n2,
-      po2.type1 AS type21,
-      po2.type2 AS type22,
-      po2.id AS id2   
+  //     po2.spriteM AS s2,
+  //     po2.name AS n2,
+  //     po2.type1 AS type21,
+  //     po2.type2 AS type22,
+  //     po2.id AS id2   
 
-      FROM evolution AS ev 
-      LEFT JOIN pokemon AS po1 ON basePokemonId = po1.id 
-      LEFT JOIN pokemon AS po2 ON evoluedPokemonId = po2.id 
-      LEFT JOIN item AS it1 ON heldItemId = it1.id 
-      LEFT JOIN item AS it2 ON itemId = it2.id 
-      LEFT JOIN move ON knownMoveId = move.id 
-      LEFT JOIN type AS ty1 ON knownMoveTypeId = ty1.id 
-      LEFT JOIN location ON locationId = location.id 
-      LEFT JOIN pokemon AS po3 ON partySpeciesId = po3.id 
-      LEFT JOIN type AS ty2 ON partyTypeId = ty2.id 
-      LEFT JOIN pokemon AS po4 ON tradeSpeciesId = po4.id 
+  //     FROM evolution AS ev 
+  //     LEFT JOIN pokemon AS po1 ON basePokemonId = po1.id 
+  //     LEFT JOIN pokemon AS po2 ON evoluedPokemonId = po2.id 
+  //     LEFT JOIN item AS it1 ON heldItemId = it1.id 
+  //     LEFT JOIN item AS it2 ON itemId = it2.id 
+  //     LEFT JOIN move ON knownMoveId = move.id 
+  //     LEFT JOIN type AS ty1 ON knownMoveTypeId = ty1.id 
+  //     LEFT JOIN location ON locationId = location.id 
+  //     LEFT JOIN pokemon AS po3 ON partySpeciesId = po3.id 
+  //     LEFT JOIN type AS ty2 ON partyTypeId = ty2.id 
+  //     LEFT JOIN pokemon AS po4 ON tradeSpeciesId = po4.id 
 
-      LEFT JOIN type AS t11 ON po1.type1 = t11.id 
-      LEFT JOIN type AS t12 ON po1.type2 = t12.id 
-      LEFT JOIN type AS t21 ON po2.type1 = t21.id  
-      LEFT JOIN type AS t22 ON po2.type2 = t22.id 
+  //     LEFT JOIN type AS t11 ON po1.type1 = t11.id 
+  //     LEFT JOIN type AS t12 ON po1.type2 = t12.id 
+  //     LEFT JOIN type AS t21 ON po2.type1 = t21.id  
+  //     LEFT JOIN type AS t22 ON po2.type2 = t22.id 
 
-      LEFT JOIN evolution_pokemon ON ev.id = evolutionFamilyId 
+  //     LEFT JOIN evolution_pokemon ON ev.id = evolutionFamilyId 
 
-      WHERE evolutionFamilyId = (SELECT evolutionFamilyId FROM evolution_pokemon WHERE pokemonId =` + id + ")", true);
-  xmlhttp.send();
+  //     WHERE evolutionFamilyId = (SELECT evolutionFamilyId FROM evolution_pokemon WHERE pokemonId =` + id + ")", true);
+  // xmlhttp.send();
 };
 
 function LoadPokemon(id) {
