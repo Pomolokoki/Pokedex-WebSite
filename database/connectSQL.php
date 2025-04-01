@@ -17,6 +17,10 @@ try {
     //include_once 'loadDataIntoWebsite.php';
 
 } catch(Exception $exception) {
-
-    die('Erreur : '. $exception->getMessage());
+    if (str_contains($exception->getMessage(), 'Unknown database'))
+    {
+        include_once 'createSQL.php';
+    }
+    else
+        die('Erreur : '. $exception->getMessage());
 }

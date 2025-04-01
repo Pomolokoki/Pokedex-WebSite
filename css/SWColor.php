@@ -42,5 +42,5 @@ header('Content-type: text/css; charset: UTF-8');
 
 $keys = array_keys((array)$SWvalues);
 for ($i = 0; $i <count($SWvalues) ; $i++) {
-    echo '.' . $keys[$i] . '{background: ' . $SWvalues[$keys[$i]] . ';}\n\n';
+    echo '.' . $keys[$i] . '{background: ' . $SWvalues[$keys[$i]] . ";}\n\n";
    }

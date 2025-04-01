@@ -3,7 +3,7 @@
 $sqlCreateDB =
 'DROP DATABASE IF EXISTS pokedex;
 CREATE DATABASE pokedex CHARACTER SET utf8;
-USE pokedex;\n';
+USE pokedex;';
 
 $sqlCreateAbility =
 'CREATE TABLE ability(
@@ -265,7 +265,7 @@ password VARCHAR(100),
 level SMALLINT UNSIGNED,
 xp SMALLINT UNSIGNED,
 team TINYINT UNSIGNED,
-picture VARCHAR(255) DEFAULT ./img/emptyPicture.png,
+picture VARCHAR(255) DEFAULT \'./img/emptyPicture.png\',
 combatTeam1Id INT UNSIGNED, 
 combatTeam2Id INT UNSIGNED,
 combatTeam3Id INT UNSIGNED,
@@ -363,26 +363,26 @@ CONSTRAINT player_fav_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES ch
 
 
 $sqlCreateAll =
-$sqlCreateBD . '\n' .
-$sqlCreateAbility . '\n' .
-$sqlCreateType . '\n' .
-$sqlCreateMove . '\n' .
-$sqlCreateRegion . '\n' .
-$sqlCreateLocation . '\n' .
-$sqlCreatePokemon . '\n' .
-$sqlCreateAbilityPokemonLink . '\n' .
-$sqlCreateMovePokemonLink . '\n' .
-$sqlCreateLocationPokemonLink . '\n' .
-$sqlCreateItem . '\n' .
-$sqlCreateEvolution . '\n' .
-$sqlCreateEvolutionPokemonLink . '\n' .
-$sqlCreateFormPokemon . '\n' .
-$sqlCreateTeam . '\n' .
-$sqlCreateCombatTeam . '\n' .
-$sqlCreatePlayer . '\n' .
-$sqlCreateFollowedPlayer . '\n' .
-$sqlCreatePlayerPokedexLink . '\n' .
-$sqlCreatePlayerFavoriteLink . '\n' .
-$sqlCreateForumChannel . '\n' .
-$sqlCreateForumMessage . '\n' .
-$sqlCreateForumFavoritePlayerChanel . '\n';
+$sqlCreateDB . "\n\n" .
+$sqlCreateAbility . "\n\n" .
+$sqlCreateType . "\n\n" .
+$sqlCreateMove . "\n\n" .
+$sqlCreateRegion . "\n\n" .
+$sqlCreateLocation . "\n\n" .
+$sqlCreatePokemon . "\n\n" .
+$sqlCreateAbilityPokemonLink . "\n\n" .
+$sqlCreateMovePokemonLink . "\n\n" .
+$sqlCreateLocationPokemonLink . "\n\n" .
+$sqlCreateItem . "\n\n" .
+$sqlCreateEvolution . "\n\n" .
+$sqlCreateEvolutionPokemonLink . "\n\n" .
+$sqlCreateFormPokemon . "\n\n" .
+$sqlCreateTeam . "\n\n" .
+$sqlCreateCombatTeam . "\n\n" .
+$sqlCreatePlayer . "\n\n" .
+$sqlCreateFollowedPlayer . "\n\n" .
+$sqlCreatePlayerPokedexLink . "\n\n" .
+$sqlCreatePlayerFavoriteLink . "\n\n" .
+$sqlCreateForumChannel . "\n\n" .
+$sqlCreateForumMessage . "\n\n" .
+$sqlCreateForumFavoritePlayerChanel . "\n\n";

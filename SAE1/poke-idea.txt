@@ -200,17 +200,17 @@ Poke-page attaques
 
 
 
-Mr je saia pas comment je m'appelle 773
+OK Mr je saia pas comment je m'appelle 773
 en fait y'en a 2 (id > 10000 pour fix) 855
 Foreign key pas set dans evolution
 refaactorisation evolution
-432 passer feu et glace à 1
-777 passer sol a 4
-236 -> 237 relativePhysicalstat 0  
+OK 432 passer feu et glace à 1
+OK 777 passer sol a 4
+OK 236 -> 237 relativePhysicalstat 0  
 803 - 809 recupérer atk gen 18
 899 - 905 récupérér atk gen 23
 891 -> 892 + ajouter -> 100000+ ntm (ajouter traduction evolition trigger)
-mettre other sur les pokemons qui ont comme "null" comme evolution trigger
+OK mettre other sur les pokemons qui ont comme "null" comme evolution trigger
 evolution trigger id 865 868 a traduire
 
 map en gros
@@ -218,9 +218,9 @@ interactive ne s'active pas
 
 
 
-id 10001 et 10002 de item, nom à ajouter
-id 60000 de item, tout sauf id et name a mettre en NULL/NULL. Category à "evolution"
+OK id 10001 et 10002 de item, nom à ajouter
+OK id 60000 de item, tout sauf id et name a mettre en NULL/NULL. Category à "evolution"
 
 Id de l'item / sprite à ajouter : 
-2045 : https://archives.bulbagarden.net/media/upload/d/dc/Bag_Auspicious_Armor_SV_Sprite.png
-$2y$10$01ByUnJoLA7W3RHABEw/SerrVU7QbvrbFRQqLi/D87Y028/B1/bge
+OK 2045 : https://archives.bulbagarden.net/media/upload/d/dc/Bag_Auspicious_Armor_SV_Sprite.png
+mdp az = $2y$10$01ByUnJoLA7W3RHABEw/SerrVU7QbvrbFRQqLi/D87Y028/B1/bge

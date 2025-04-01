@@ -561,6 +561,8 @@ let deleteOption = document.getElementById("deleteOption");
 let reportOption = document.getElementById("reportOption");
 
 function showOption(e) {
+    if (e.playerValues == null)
+        return;
     editOption.style.display = "block";
     answerOption.style.display = "block";
     deleteOption.style.display = "block";

@@ -38,6 +38,13 @@ switch ($req) {
         ]));
         break;
 
+    case 'GetPlayerPokemon':
+        echo json_encode(executeQueryWReturn('SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]));
+        break;
+
     case 'GetPokemonData':
         echo json_encode(
             executeQueryWReturn('SELECT pokemon.id,

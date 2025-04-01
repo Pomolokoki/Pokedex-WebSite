@@ -117,7 +117,7 @@ async function checkFav(playerId, id) {
 }
 
 async function checkCapture(playerId, id) {
-  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetFav&1=" + playerId + "&2=" + id)
+  const decodedJSON = await fetch("./ajax/getDBDataPokedex.php?request=GetPlayerPokemon&1=" + playerId + "&2=" + id)
   .then( res => res.json() );
   // let xmlhttp = new XMLHttpRequest();
   // xmlhttp.onreadystatechange = function () {
@@ -302,7 +302,7 @@ var LoadDataPokemon = async function (id) {
   //     dataPokemon = JSON.parse(this.responseText)[0];
       // console.log(dataPokemon)
       
-      const dataPokemon = decodedJSON[0];
+      dataPokemon = decodedJSON[0];
       // Info pokemon
       document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
       if (getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette") {

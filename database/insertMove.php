@@ -13,7 +13,7 @@ foreach (getDataFromFile('/move')->results as $move)
     //echo '<br>';
     //if ($moveData->id > 9999) {break;}
     $value = '(' . $moveData->id . ','; //id
-    $value = $value . getTextFromData($moveData->names, 'name') . ','; //name
+    $value = $value . (getTextFromData($moveData->names, 'name') == '"NULL///NULL"' ? '"' . getStringReplace($moveData->name, false) . '///NULL"' : getTextFromData($moveData->names, 'name')) . ','; //name
     $value = $value . getTextFromData($moveData->effect_entries, 'effect') . ','; //description
     $value = $value . getTextFromData($moveData->effect_entries, 'short_effect') . ','; //smallDescription
     $value = $value . IntValue($moveData->accuracy) . ',' ; //accurary

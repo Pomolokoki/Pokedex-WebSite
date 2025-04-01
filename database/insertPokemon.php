@@ -69,7 +69,7 @@ foreach (getDataFromFile('/pokemon')->results as $pokemon)
             $MPvalue = '(';
             $MPvalue = $MPvalue . getIdFromUrl($pokemonData->moves[$j]->move->url) . ',';
             $MPvalue = $MPvalue . $pokemonData->id . ',';
-            $MPvalue = $MPvalue . getTextFromData(getDataFromFile('/move-learn-method/' . $learnMethodId)->names, 'name') . ',';
+            $MPvalue = $MPvalue . (getTextFromData(getDataFromFile('/move-learn-method/' . $learnMethodId)->names, 'name') == '"NULL///NULL"' ? '"' . getStringReplace(getDataFromFile('/move-learn-method/' . $learnMethodId)->name, false) . '///NULL"' : getTextFromData(getDataFromFile('/move-learn-method/' . $learnMethodId)->names, 'name')) . ',';
             $MPvalue = $MPvalue . IntValue($groups[$k]->level_learned_at) . ',';
             $MPvalue = $MPvalue . getIdFromUrl(getDataFromFile('/version-group/' . $versionGroupId)->generation->url) . ')';
             $MPvalues = $MPvalues . $MPvalue . ',,';
@@ -103,11 +103,11 @@ foreach (getDataFromFile('/pokemon')->results as $pokemon)
     echo 'pb : ' . $id . ' ';
     if ($pokemonFormData->names != null)
     {
-        $value = $value . getTextFromData($pokemonFormData->names, 'name') . ','; //name
+        $value = $value . (getTextFromData($pokemonFormData->names, 'name') == '"NULL///NULL"' ? '"' . getStringReplace($pokemonFormData->name, false) . '///NULL"' : getTextFromData($pokemonFormData->names, 'name')) . ','; //name
     }
     else
     {
-        $value = $value . getTextFromData($pokemonSpeciesData->names, 'name') . ','; //name
+        $value = $value . (getTextFromData($pokemonSpeciesData->names, 'name') == '"NULL///NULL"' ? '"' . getStringReplace($pokemonSpeciesData->name, false) . '///NULL"' : getTextFromData($pokemonSpeciesData->names, 'name')) . ','; //name
     }
     $value = $value . getTextFromData($pokemonSpeciesData->flavor_text_entries, 'flavor_text') . ','; //description
     $value = $value . getTextFromData($pokemonSpeciesData->genera, 'genus') . ','; //species
@@ -189,10 +189,14 @@ saveToDb($sqlInsertLocationPokemon, 'location_pokemon', $LPvalues);
 saveToDb($sqlInsertEvolutionPokemon, 'evolution_pokemon', $EPvalues);
 saveToDb($sqlInsertFormPokemon, 'form_pokemon', $FPvalues);
 
-$sqlAddBonusData = 'UPDATE pokemon SET category=3 WHERE id IN (793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806);\n';
-$sqlAddBonusData = $sqlAddBonusData . 'UPDATE pokemon SET category=4 WHERE id IN (984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1010, 1020, 1021, 1022, 1023);\n';
+$sqlAddBonusData = 'UPDATE pokemon SET category=3 WHERE id IN (793, 794, 795, 796, 797, 798, 799, 803, 804, 805, 806);';
+$sqlAddBonusData = $sqlAddBonusData . 'UPDATE pokemon SET category=4 WHERE id IN (984, 985, 986, 987, 988, 989, 990, 991, 992, 993, 994, 995, 1005, 1006, 1009, 1010, 1020, 1021, 1022, 1023);';
+$sqlAddBonusData = $sqlAddBonusData . 'UPDATE pokemon SET name=\'Silvally///Silvallié\' WHERE id=773;';
+$sqlAddBonusData = $sqlAddBonusData . 'UPDATE pokemon SET name=\'Phony Polteageist///Polthégeist Authentique\' WHERE id=855;';
+$sqlAddBonusData = $sqlAddBonusData . 'UPDATE pokemon SET typeEfficiency=\'1/1/2/1/1/1/1/1/0/1/1/1/1/1/1/1/1/1/1\' WHERE id=432;';
+$sqlAddBonusData = $sqlAddBonusData . 'UPDATE pokemon SET typeEfficiency=\'0.5/0.5/2/0.25/0/4/0.5/0.5/1/0.25/2/1/0.5/0.5/0.5/0.5/0.5/1/0.5\' WHERE id=855;';
 $sqlAddBonusData = $sqlAddBonusData . 'INSERT INTO pokemon (id, name, description, species, category, generation, spriteM, spriteF, type1, type2, hp, attack, defense, atackspe, defensespe, speed ,mega ,height, weight, catch_rate, form, typeEfficiency) 
-VALUES (60000, \'Masterpiece Form Sinistcha///Théffroyable Forme Exceptionnelle\',\'It prefers cool, dark places, such as the back of a shelf or the space beneath a home\'s floorboards. It wanders in search of prey after sunset.///NULL\',\'Matcha Pokémon///Matcha\',0,9,\'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png\',NULL,12,8,71,60,106,121,80,70,FALSE,2,22,60,2,\'0/0/0/2/1/0.5/1/1/2/1/2/0.5/0.5/0.5/1/2/1/2/1\');\n';
+VALUES (60000, \'Masterpiece Form Sinistcha///Théffroyable Forme Exceptionnelle\',\'It prefers cool, dark places, such as the back of a shelf or the space beneath a home\\\'s floorboards. It wanders in search of prey after sunset.///NULL\',\'Matcha Pokémon///Matcha\',0,9,\'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png\',NULL,12,8,71,60,106,121,80,70,FALSE,2,22,60,2,\'0/0/0/2/1/0.5/1/1/2/1/2/0.5/0.5/0.5/1/2/1/2/1\');';
 saveToDb($sqlAddBonusData, '', '', false, true);
 //$statement = $db->prepare($sqlAddBonusData);
 //$statement->execute();

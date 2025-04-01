@@ -13,7 +13,7 @@ foreach(getDataFromFile('/ability')->results as $ability)
     $abilityData = getDataFromFile('/ability/' . getIdFromUrl($ability->url));
     if ($abilityData->is_main_series == false) { break; }
     $value = '(' . $abilityData->id . ','; //id
-    $value = $value . getTextFromData($abilityData->names, 'name') . ','; //name
+    $value = $value . (getTextFromData($abilityData->names, 'name') == '"NULL///NULL"' ? '"' . getStringReplace($abilityData->name, false) . '///NULL"' : getTextFromData($abilityData->names, 'name')) . ','; //name
     $value = $value . getTextFromData($abilityData->effect_entries, 'effect') . ','; //description
     $value = $value . getTextFromData($abilityData->effect_entries, 'short_effect') . ','; //smallDescription
     $value = $value . getTextFromData($abilityData->flavor_text_entries, 'flavor_text'); //effect

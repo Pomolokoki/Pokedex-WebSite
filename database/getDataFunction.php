@@ -9,11 +9,11 @@ function getStringReplace($string, $addQuote = true)
     } else if ($addQuote) {
         // $string = str_replace('/', '\/', $string);
         // $string = str_replace('\\', '\\\\', $string);
-        return '"' . str_replace('\'', '\\\'', $string) . '"';
+        return '"' . str_replace('"', '\"', $string) . '"';
     } else {
         // $string = str_replace('/', '\/', $string);
         // $string = str_replace('\\', '\\\\', $string);
-        return str_replace('\'', '\\\'', $string);
+        return str_replace('"', '\"', $string);
     }
 }
 
@@ -85,7 +85,7 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
     // echo $values;
     // echo '<br>';
     // echo '<br>';
-    // echo count($data);
+    echo count($data);
     // echo '<br>';
     // echo '<br>';
     $dataToSave = '';
@@ -94,12 +94,12 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
             $dataToSave = $dataToSave . $data[$i];
             $dataToSave = rtrim($dataToSave, ',,');
             echo $insert . $dataToSave;
-            $current .= $insert . '\n' . $dataToSave . ';\n';
+            $current .= $insert . "\n" . $dataToSave . ";\n\n";
             $statement = $db->prepare($insert . $dataToSave);
             $statement->execute();
             $dataToSave = '';
         } else {
-            $dataToSave = $dataToSave . $data[$i] . ',\n';
+            $dataToSave = $dataToSave . $data[$i] . "\n,";
         }
     }
 
