@@ -7,7 +7,8 @@ $sqlInsertPlayer =
 (2, \'Jean\', \'j.jean@gmail.com\', \'abcd\', 1),
 (3, \'Mokal\', \'m.mok@gmail.com\', \'abcdf\', 1),
 (4, \'pseudo\', \'pseudo@exemple.com\', \'$2y$10$l4C9YnsMIAh9pEngvcRfc.k.qhLBTYBpAlqWH3ZtFUzExeNJdgs4i\', 1),
-(5, \'az\', \'a@gmail.com\', \'$2y$10$01ByUnJoLA7W3RHABEw/SerrVU7QbvrbFRQqLi/D87Y028/B1/bge\', 1)';
+(5, \'admin\', \'nn@n.gmail.com\', \'$2y$10$mXIG4dYF3TrEd2LLtjSaD.UFxHLiehODKhFj0CBlW.X9TEIGoOeSG\', 8),
+(6, \'az\', \'a@gmail.com\', \'$2y$10$01ByUnJoLA7W3RHABEw/SerrVU7QbvrbFRQqLi/D87Y028/B1/bge\', 1)';
 
 $sqlInsertChannel = 
 'INSERT INTO channel (id, title, keyWords, creationDate) VALUES

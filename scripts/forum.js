@@ -119,7 +119,7 @@ function AddMessage(messageId, owner, picture, nickname, text, replyId, replyOwn
 
 // add a new message into the DataBase
 async function AddMessageToDB(id, postDate, text, replyId, playerId, channelId) {
-    fetch("./ajax/getDBDataForum.php?request=NewMessage&1=" + id + "&2=" + text + "&3=" + replyId + "&4=" + playerId + "&5=" + postDate + "&6=" + channelId)
+    fetch("./ajax/getDBDataForum.php?request=NewMessage&1=" + id + "&2=" + text + "&3=" + replyId + "&4=" + playerId + "&5=" + channelId)
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.onreadystatechange = function () {
     // }
@@ -131,7 +131,7 @@ async function AddMessageToDB(id, postDate, text, replyId, playerId, channelId) 
 // region theme
 // add a new channel into the DataBase
 async function AddChannelToDB(id, owner, title, keyWords, creationDate) {
-    fetch("./ajax/getDBDataForum.php?request=NewChannel&1=" + id + "&2=" + owner + "&3=" + title + "&4=" + keyWords + "&5=" + creationDate)
+    fetch("./ajax/getDBDataForum.php?request=NewChannel&1=" + id + "&2=" + owner + "&3=" + title + "&4=" + keyWords)
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.onreadystatechange = function () {
     // }
@@ -508,9 +508,11 @@ if (sendMessageButton) {
 })
 
 
-// remove message on channel & DB
+// remove message on DB
 async function removeMessage(message) {
-    await fetch("./ajax/getDBDataForum.php?request=RemoveMessage&1=" + message.id);
+    if (playerValues == null)
+        return;
+    await fetch("./ajax/getDBDataForum.php?request=RemoveMessage&1=" + message.id + "&2=" + playerValues.dataset.id);
     getMessages(currentChannel);
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
@@ -520,9 +522,11 @@ async function removeMessage(message) {
     // message.remove();
 }
 
-// update messge on channel & DB
+// update message on DB
 function updateMessage(message) {
-    fetch("./ajax/getDBDataForum.php?request=UpdateMessage&1=" + message.innerHTML.substr(0, message.innerHTML.length) + "&2=" + message.id);
+    if (playerValues == null)
+        return;
+    fetch("./ajax/getDBDataForum.php?request=UpdateMessage&1=" + message.innerHTML.substr(0, message.innerHTML.length) + "&2=" + message.id + "&3=" + playerValues.dataset.id);
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.open("GET", `./ajax/getDBDataForum.php?request=
     //     UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");

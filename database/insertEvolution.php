@@ -66,6 +66,6 @@ $sqlAddBonusData = $sqlAddBonusData . 'UPDATE evolution SET basePokemonId = 1017
 $sqlAddBonusData = $sqlAddBonusData . 'UPDATE evolution SET basePokemonId = 10253 WHERE basePokemonId = 194 AND evoluedPokemonId = 980;' . "\n";
 $sqlAddBonusData = $sqlAddBonusData . 'UPDATE evolution SET relativePhysicalStats=0 WHERE id=47 AND basePokemonId=236 AND evoluedPokemonId=237;' . "\n";
 $sqlAddBonusData = $sqlAddBonusData . 'UPDATE evolution SET relativePhysicalStats=0 WHERE id=47 AND basePokemonId=236 AND evoluedPokemonId=237;' . "\n";
-$sqlAddBonusData = $sqlAddBonusData . 'ALTER TABLE evolution ADD CONSTRAINT evolution_pokemon_evolutionFamily_FK FOREIGN KEY (evolutionFamilyId) REFERENCES evolution(id)';
+//$sqlAddBonusData = $sqlAddBonusData . 'ALTER TABLE evolution ADD CONSTRAINT evolution_pokemon_evolutionFamily_FK FOREIGN KEY (evolutionFamilyId) REFERENCES evolution(id)';
 saveToDb($sqlInsertEvolution, 'evolution', $values, false);
 saveToDb($sqlAddBonusData, '', '', false, true);

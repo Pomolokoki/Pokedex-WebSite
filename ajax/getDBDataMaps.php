@@ -1,6 +1,12 @@
 <?php
+
 include_once '../database/extractDataFromDB.php';
 //var_dump($_GET);
+if (!isset($_GET['request']))
+{
+    header("Location: unauthorized.php");
+    return;
+}
 $req = $_GET['request'];
 switch ($req) {
     case 'GetLocationFromRegion':

@@ -29,7 +29,7 @@ try {
 }
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang='fr'>
 
 <head>
@@ -39,14 +39,14 @@ try {
 	<title>Pokedex</title>
 </head>
 
-<?php include_once 'header.php'; ?>
+<?php //include_once '../header.php'; ?>
 
 	<body>
         <p>Merci d'attendre, la base de donnée est en cours de chargement</p>
-		<img src="./img/loadingPokeballGif.gif" height="100%" width="100%" aspect-ratio="1/1">
+		<img src="../img/loadingPokeballGif.gif" height="100%" width="100%" aspect-ratio="1/1">
         <form action="loadingDB.php">
             <input type="submit">
         </form>
 	</body>
 
-</html>
+</html> -->

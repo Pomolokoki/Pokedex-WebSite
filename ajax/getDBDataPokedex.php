@@ -1,50 +1,16 @@
 <?php
-include_once '../database/extractDataFromDB.php';
+
 //var_dump($_GET);
+if (!isset($_GET['request']))
+{
+//    header("Location: unauthorized.php");
+    return;
+}
 $req = $_GET['request'];
+include_once '../database/extractDataFromDB.php';
+
+
 switch ($req) {
-    case 'AddFav':
-        echo executeQuery('INSERT INTO player_favorites VALUES (:playerId, :pokemonId)', [
-            ':playerId' => $_GET[1],
-            ':pokemonId' => $_GET[2]
-        ]);
-        break;
-
-    case 'RemoveFav':
-        echo executeQuery('DELETE FROM player_favorites WHERE playerId=:playerId AND pokemonId=:pokemonId', [
-            ':playerId' => $_GET[1],
-            ':pokemonId' => $_GET[2]
-        ]);
-        break;
-
-    case 'AddPlayerPokemon':
-        echo executeQuery('INSERT INTO player_pokemon VALUES (:playerId, :pokemonId)', [
-            ':playerId' => $_GET[1],
-            ':pokemonId' => $_GET[2]
-        ]);
-        break;
-
-    case 'RemovePlayerPokemon':
-        echo executeQuery('DELETE FROM player_pokemon WHERE playerId=:playerId AND pokemonId=:pokemonId', [
-            ':playerId' => $_GET[1],
-            ':pokemonId' => $_GET[2]
-        ]);
-        break;
-
-    case 'GetFav':
-        echo json_encode(executeQueryWReturn('SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId', [
-            ':playerId' => $_GET[1],
-            ':pokemonId' => $_GET[2]
-        ]));
-        break;
-
-    case 'GetPlayerPokemon':
-        echo json_encode(executeQueryWReturn('SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId', [
-            ':playerId' => $_GET[1],
-            ':pokemonId' => $_GET[2]
-        ]));
-        break;
-
     case 'GetPokemonData':
         echo json_encode(
             executeQueryWReturn('SELECT pokemon.id,
@@ -70,7 +36,7 @@ switch ($req) {
                 [':pokemonId' => $_GET[1]]
             )
         );
-        break;
+        return;
 
     case 'GetAbilityData':
         echo json_encode(
@@ -80,7 +46,7 @@ switch ($req) {
                 [':pokemonId' => $_GET[1]]
             )
         );
-        break;
+        return;
 
     case 'GetMoveData':
         echo json_encode(
@@ -90,7 +56,7 @@ switch ($req) {
                 ':gen' => $_GET[2]
             ])
         );
-        break;
+        return;
 
     case 'GetEvolutionData':
         echo json_encode(
@@ -156,9 +122,54 @@ switch ($req) {
                 [':pokemonId' => $_GET[1]]
             )
         );
+        return;
+}
+
+if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) ||!isset($_SESSION['LOGGED_USER'][0])) {
+    header("Location: unauthorized.php");
+    return;
+}
+
+switch ($req) {
+    case 'AddFav':
+        echo executeQuery('INSERT INTO player_favorites VALUES (:playerId, :pokemonId)', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]);
         break;
 
-    default:
-        echo json_encode(getDataFromDB($_GET['request'], null, null, true));
+    case 'RemoveFav':
+        echo executeQuery('DELETE FROM player_favorites WHERE playerId=:playerId AND pokemonId=:pokemonId', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]);
+        break;
+
+    case 'AddPlayerPokemon':
+        echo executeQuery('INSERT INTO player_pokemon VALUES (:playerId, :pokemonId)', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]);
+        break;
+
+    case 'RemovePlayerPokemon':
+        echo executeQuery('DELETE FROM player_pokemon WHERE playerId=:playerId AND pokemonId=:pokemonId', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]);
+        break;
+
+    case 'GetFav':
+        echo json_encode(executeQueryWReturn('SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]));
+        break;
+
+    case 'GetPlayerPokemon':
+        echo json_encode(executeQueryWReturn('SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId', [
+            ':playerId' => $_GET[1],
+            ':pokemonId' => $_GET[2]
+        ]));
         break;
 }

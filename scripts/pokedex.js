@@ -145,9 +145,15 @@ async function checkCapture(playerId, id) {
 }
 
 var check_pokemonUser = function (id) {
+  if (document.getElementById('Data_User') == undefined)
+    return;
   let id_player = document.getElementById('Data_User').textContent;
-  checkFav(id_player, id);
-  checkCapture(id_player, id);
+  console.log("idp" + id_player)
+  if (id_player != null && id_player != undefined)
+  {
+    checkFav(id_player, id);
+    checkCapture(id_player, id);
+  }
 }
 
 document.getElementById('gender_button').addEventListener('click', function () {
