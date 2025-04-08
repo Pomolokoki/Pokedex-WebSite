@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!empty($_POST['password']) && !empty($_POST['confirm_password'])) {
+        echo $passwordBool;
         $passwordCheck = test_input($_POST['password']);
         $confirm_passwordCheck = test_input($_POST['confirm_password']);
         if (empty($confirm_passwordCheck)) {
@@ -81,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         $pwordErr .= 'Entrer votre mot de passe et sa confirmation.' . "\n";
+        $passwordBool = false;
     }
 }
 function test_input($data)
@@ -203,4 +205,3 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
     <footer>
     </footer>
 </body>
-</html>
