@@ -405,3 +405,7 @@ database/v2/*.*
 img/Thumbs.db
 uploads/
 uploads/*.*
+.env
+/vendor/
+composer.lock
+package-lock.json
