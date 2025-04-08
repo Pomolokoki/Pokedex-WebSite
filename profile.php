@@ -4,8 +4,8 @@ include_once 'header.php';
 include_once 'database/connectSQL.php';
 include_once './database/extractDataFromDb.php';
 
-$dataPokemonFav = getDataFromDB('SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id', null, null, true);
-$dataPokemonCatch = getDataFromDB('SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id', null, null, true);
+$dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
+$dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
 ?>
 <!DOCTYPE html>
 <html lang='fr'>

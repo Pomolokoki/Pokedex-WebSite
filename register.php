@@ -7,7 +7,7 @@ include_once 'database/connectSQL.php';
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include('css/register.css'); ?>
+    <?php include 'css/register.css' ; ?>
 </style>
 
 <!-- #region Sécurisation et Gestion des exceptions-->
@@ -60,27 +60,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $passwordBool = false;
         }
         if ($passwordCheck != $confirm_passwordCheck) {
-            $confirm_passwordErr .= 'Les mots de passe ne correspondent pas\n';
+            $confirm_passwordErr .= 'Les mots de passe ne correspondent pas' . "\n";
             $passwordBool = false;
         }
         if (strlen($passwordCheck) <= 8) {
-            $pwordErr .= ' - Votre mot de passe doit contenir au minimum 8 caractères.\n';
+            $pwordErr .= ' - Votre mot de passe doit contenir au minimum 8 caractères.' . "\n";
             $passwordBool = false;
         }
         if (!preg_match('#[0-9]+#', $passwordCheck)) {
-            $pwordErr .= '- Votre mot de passe doit contenir au minimum un nombre.\n';
+            $pwordErr .= '- Votre mot de passe doit contenir au minimum un nombre.' . "\n";
             $passwordBool = false;
         }
         if (!preg_match('#[A-Z]+#', $passwordCheck)) {
-            $pwordErr .= '- Votre mot de passe doit contenir au minimum une majuscule.\n';
+            $pwordErr .= '- Votre mot de passe doit contenir au minimum une majuscule.' . "\n";
             $passwordBool = false;
         }
         if (!preg_match('#[a-z]+#', $passwordCheck)) {
-            $pwordErr .= '- Votre mot de passe doit contenir au minimum une minuscule\n';
+            $pwordErr .= '- Votre mot de passe doit contenir au minimum une minuscule' . "\n";
             $passwordBool = false;
         }
     } else {
-        $pwordErr .= 'Entrer votre mot de passe et sa confirmation.\n';
+        $pwordErr .= 'Entrer votre mot de passe et sa confirmation.' . "\n";
     }
 }
 function test_input($data)
@@ -196,7 +196,7 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
             <div class='row'>
                 <p>Vous possédez un compte ? <a href='login.php'>Connectez-vous !</a></p>
                 <br><br>
-                <input type='submit' value='S'inscrire'>
+                <input type='submit' value="S'inscrire">
             </div>
         </form>
     </div>
