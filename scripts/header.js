@@ -1,5 +1,5 @@
 document.getElementById('PokeLogo').addEventListener('click',function(){
-  document.location.href = 'forum.php';
+  document.location.href = 'pokedex.php';
 });
 document.getElementById('pokedexPage').addEventListener('click',function(){
   document.location.href = 'pokedex.php';
