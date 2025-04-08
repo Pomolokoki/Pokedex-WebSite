@@ -3,7 +3,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
-// include_once 'configSQL.php';
 $MYSQL_HOST = $_ENV['DB_HOST'];
 $MYSQL_PORT = $_ENV['DB_PORT'];
 $MYSQL_NAME = $_ENV['DB_NAME'];
