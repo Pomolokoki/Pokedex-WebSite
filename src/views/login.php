@@ -1,11 +1,11 @@
 <!-- Inclusion du header -->
-<?php include_once 'database/connectSQL.php';
+<?php include_once '../database/connection/connectSQL.php';
 include_once 'header.php';
 ?>
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include 'css/login.css'; ?>
+    <?php include '../style/CSS/login.css'; ?>
 </style>
 
 <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
@@ -136,7 +136,7 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
             <?php endif; ?>
             <?php
         ?>
-        <script type='text/javascript' src='./scripts/login.js'></script>        
+        <script type='text/javascript' src='../scripts/JS/login.js'></script>
     </div>
     <footer>
         </footer>

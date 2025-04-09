@@ -10,13 +10,9 @@ include_once '../database/connection/connectSQL.php';
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href='../style/css/header.css'>
+    <link rel='stylesheet' href='../style/CSS/header.css'>
     <script src='../scripts/JS/header.js' defer></script>
     <script src='../scripts/JS/profile.js' defer></script>
-    <link rel='stylesheet' href='../style/css/header.css'>
-    <script src='../scripts/js/header.js' defer></script>
-
-    <script src='../scripts/js/profile.js' defer></script>
     <title>PokeKrazy</title>
 </head>
 

@@ -1,8 +1,9 @@
 <!-- Inclusion du header -->
 <?php
-include_once 'database/connectSQL.php';
-include_once './database/extractDataFromDb.php';
+include_once '../database/connection/connectSQL.php';
+include_once '../database/get/extractDataFromDb.php';
 include_once 'header.php';
+
 
 
 $dataItems = getDataFromDB('SELECT item.id,item.name,item.smallDescription,item.sprite,item.category,item.pocket,item.effect FROM item', null, null, true);
@@ -10,7 +11,7 @@ $dataItems = getDataFromDB('SELECT item.id,item.name,item.smallDescription,item.
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include 'css/items.css' ; ?>
+    <?php include '../style/CSS/items.css' ; ?>
 </style>
 <?php 
 function getItemNoDescOrEffect($str,$mot){        
@@ -73,4 +74,4 @@ function getItemNoDescOrEffect($str,$mot){
             </div>
             </div>
 
-<script type='text/javascript' src='scripts/items.js'></script>
+<script type='text/javascript' src='../scripts/JS/items.js'></script>
