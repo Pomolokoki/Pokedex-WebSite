@@ -1,5 +1,5 @@
 <?php
-include_once './database/extractDataFromDB.php';
+include_once '../database/get/extractDataFromDB.php';
 $pokemonData = executeQueryWReturn('SELECT spriteM, name, id FROM pokemon WHERE id < 10000', null);
 $regionData = executeQueryWReturn('SELECT * FROM region', null);
 $locationData = executeQueryWReturn('SELECT * FROM location WHERE regionId = 1', null);
@@ -10,8 +10,8 @@ $locationData = executeQueryWReturn('SELECT * FROM location WHERE regionId = 1',
 <head>
     <meta charset='utf-8'>
     <title>Pokedex</title>
-    <link rel='stylesheet' type='text/css' href='css/map.css'>
-    <link rel='stylesheet' type='text/css' href='css/customRadioButton.css'>
+    <link rel='stylesheet' type='text/css' href='../../src/style/css/map.css'>
+    <link rel='stylesheet' type='text/css' href='../../src/style/css/customRadioButton.css'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <?php
@@ -23,7 +23,7 @@ include_once 'header.php';
         <div id='smallMapFrame'>
 
             <span id='mapContainer'>
-                <image id='imgMap' draggable='false' src='./img/Kanto.png'></image>
+                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png'></image>
                 <svg viewBox='0 0 350 350' width='350' heigh='350' id='svgMap' draggable='false'
                     xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg' clip-rule='evenodd'
                     version='1.1'>
@@ -31,7 +31,7 @@ include_once 'header.php';
             </span>
 
             <div id='centered'>
-                <image id='refocus' draggable='fase' src='./img/refocusIcon.png'></image>
+                <image id='refocus' draggable='fase' src='../../public/img/refocusIcon.png'></image>
                 <label>Center map</label>
             </div>
 
@@ -107,8 +107,8 @@ include_once 'header.php';
 
     </div>
 
-    <script src='scripts/svg.js'></script>
-    <script src='scripts/map.js'></script>
+    <script src='../scripts/JS/svg.js'></script>
+    <script src='../scripts/JS/map.js'></script>
 </body>
 
 </html>

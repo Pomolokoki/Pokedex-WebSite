@@ -113,7 +113,7 @@ let imgMap = document.getElementById("imgMap");
 let svgMap = document.getElementById("svgMap");
 map.style.left = mapP.offsetWidth / 2 - parseFloat(map.offsetWidth) / 2 + "px";
 map.style.top = mapP.offsetHeight / 2 - parseFloat(map.offsetHeight) / 2 + "px";
-    
+
 // imgMap.style.left = "0px";
 // imgMap.style.top = "0px";
 // imgMap.style.width = "350px";
@@ -134,13 +134,13 @@ function updateMap(e) {
                 imgMap.style.display = "unset";
             }
             if (currentMode == "Realistic")
-                imgMap.src = "./img/" + currentRegion + "Realist.png";
+                imgMap.src = "../../public/img/" + currentRegion + "Realist.png";
             else
-                imgMap.src = "./img/" + currentRegion + ".png";
+                imgMap.src = "../../public/img/" + currentRegion + ".png";
             document.getElementById("pokedexContainer").style.display = "none"; // disbale pokedex (reserved Interactive map)
             document.getElementById("centered").style.display = "none";         // disbale center button (reserved Interactive map)
-            [...document.querySelectorAll(".location")].forEach(location => {location.style.cursor = "unset";})
-        }   
+            [...document.querySelectorAll(".location")].forEach(location => { location.style.cursor = "unset"; })
+        }
         else if (currentMode == "Interactive") {
             if (currentRegion != "Hoenn" && currentRegion != "Kanto") { // only those have svg ready
                 alert("Interactive map haven't been set yet for this region");
@@ -159,7 +159,7 @@ function updateMap(e) {
             bindInteractiveMap();
             document.getElementById("pokedexContainer").style.display = "block"; // enable pokedex (reserved Interactive map)
             document.getElementById("centered").style.display = "block";         // enable center button (reserved Interactive map)
-            [...document.querySelectorAll(".location")].forEach(location => {location.style.cursor = "pointer";})
+            [...document.querySelectorAll(".location")].forEach(location => { location.style.cursor = "pointer"; })
         }
         center(); // center the map
     }
@@ -193,27 +193,27 @@ document.getElementById("interactiveMap").addEventListener("click", (e) => {
 // the map region has been changed
 document.getElementById("mapList").addEventListener("change", async (e) => {
     currentRegion = e.target.options[e.target.selectedIndex].value;
-    const decodedJSON = await fetch("./ajax/getDBDataMaps.php?request=GetLocationFromRegion&1=" + currentRegion)
-    .then( res => res.json() );
+    const decodedJSON = await fetch("../database/get/ajax/getDBDataMaps.php?request=GetLocationFromRegion&1=" + currentRegion)
+        .then(res => res.json());
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.onreadystatechange = function () {
     //     if (this.readyState == 4 && this.status == 200) {
-            let dataLocation = decodedJSON;
-            // Info Location on DB
-            locationContainer.innerHTML = ""; // upd the list of map location
-            for (let i = 0; i < dataLocation.length; ++i) {
-                let location = document.createElement("div");
-                location.className = "location";
-                location.dataset.location = getText(dataLocation[i]["name"], "en");
-                location.innerHTML = getText(dataLocation[i]["name"], language);
-                locationContainer.appendChild(location);
-            }
-            if (currentMode == "Interactive" && (currentRegion != "Kanto" && currentRegion != "Hoenn")) {
-                alert("carte pas encore interactive");
-                return;
-            }
-            updateMap("regionChanged");
-            console.log(currentRegion);
+    let dataLocation = decodedJSON;
+    // Info Location on DB
+    locationContainer.innerHTML = ""; // upd the list of map location
+    for (let i = 0; i < dataLocation.length; ++i) {
+        let location = document.createElement("div");
+        location.className = "location";
+        location.dataset.location = getText(dataLocation[i]["name"], "en");
+        location.innerHTML = getText(dataLocation[i]["name"], language);
+        locationContainer.appendChild(location);
+    }
+    if (currentMode == "Interactive" && (currentRegion != "Kanto" && currentRegion != "Hoenn")) {
+        alert("carte pas encore interactive");
+        return;
+    }
+    updateMap("regionChanged");
+    console.log(currentRegion);
     //     }
     // }
     // xmlhttp.open("GET", `./ajax/getDBData.php?request=
@@ -420,7 +420,7 @@ function filter() {
     for (let i = 0; i < locationList.length; ++i) {
         if (typeof locationList[i] != "object") continue;
         if (locationList[i].innerHTML.toLowerCase().includes(searchBar))
-        locationList[i].style.display = "block";
+            locationList[i].style.display = "block";
     }
 }
 
@@ -434,53 +434,51 @@ let pokedex = document.getElementById("pokedex");
 // get location where pokemon clicked lives in
 async function pokemonClick(id) {
     let decodedJSON;
-    if (lastPokemonClickedId == id)
-    {
-        decodedJSON = await fetch( "./ajax/getDBDataMaps.php?request=GetLocationFromRegion&1=" + currentRegion)
-        .then( res => res.json() );
+    if (lastPokemonClickedId == id) {
+        decodedJSON = await fetch("../database/get/ajax/getDBDataMaps.php?request=GetLocationFromRegion&1=" + currentRegion)
+            .then(res => res.json());
         lastPokemonClickedId = -1;
     }
-    else
-    {
-        decodedJSON =  await fetch("./ajax/getDBDataMaps.php?request=GetLocationFromPokemon&1=" + currentRegion + "&2=" + id)
-        .then( res => res.json() );
+    else {
+        decodedJSON = await fetch("../database/get/ajax/getDBDataMaps.php?request=GetLocationFromPokemon&1=" + currentRegion + "&2=" + id)
+            .then(res => res.json());
         lastPokemonClickedId = id;
     }
 
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.onreadystatechange = function () {
     //     if (this.readyState == 4 && this.status == 200) {
-            const dataLocation = decodedJSON;
+    const dataLocation = decodedJSON;
 
-            console.log(dataLocation)
-            // Info Location in DB
-            let locationList = document.getElementsByClassName("location");
-            if (dataLocation == "No results found.") {
-                alert("pas de lieu trouvé")
-                for (let i = 0; i < locationList.length; ++i) {
-                    if (typeof locationList[i] != "object") continue;
-                    locationList[i].style.display = "block";
-                }
-                return;
-            }
+    console.log(dataLocation)
+    // Info Location in DB
+    let locationList = document.getElementsByClassName("location");
+    if (dataLocation == "No results found.") {
+        alert("pas de lieu trouvé")
+        for (let i = 0; i < locationList.length; ++i) {
+            if (typeof locationList[i] != "object") continue;
+            locationList[i].style.display = "block";
+        }
+        return;
+    }
 
-            //filter
-            for (let i = 0; i < locationList.length; ++i) {
-                if (typeof locationList[i] != "object") continue;
-                locationList[i].style.display = "none";
-            }
-            for (let i = 0; i < locationList.length; ++i) {
-                if (typeof locationList[i] != "object") continue;
-                let found = false;
-                for (let j = 0; j < dataLocation.length; ++j) {
-                    if (locationList[i].dataset.location == getText(dataLocation[j]["name"], "en"))
-                        found = true;
-                }
-                if (found)
-                    locationList[i].style.display = "block";
-                else
-                    locationList[i].style.display = "none";
-            }
+    //filter
+    for (let i = 0; i < locationList.length; ++i) {
+        if (typeof locationList[i] != "object") continue;
+        locationList[i].style.display = "none";
+    }
+    for (let i = 0; i < locationList.length; ++i) {
+        if (typeof locationList[i] != "object") continue;
+        let found = false;
+        for (let j = 0; j < dataLocation.length; ++j) {
+            if (locationList[i].dataset.location == getText(dataLocation[j]["name"], "en"))
+                found = true;
+        }
+        if (found)
+            locationList[i].style.display = "block";
+        else
+            locationList[i].style.display = "none";
+    }
     //     }
     // }
     // if (lastPokemonClickedId == id) { // unselect pokemon
@@ -508,50 +506,48 @@ async function pokemonClick(id) {
 // when click on location, show all pokemon living here
 async function showLocationPokemon(location) {
     let decodedJSON;
-    if (location == "")
-        {
-            decodedJSON = await fetch( "./ajax/getDBDataMaps.php?request=GetPokemonFromRegion&1=" + currentRegion)
-            .then( res => res.json() );
-        }
-        else
-        {
-            decodedJSON =  await fetch("./ajax/getDBDataMaps.php?request=GetPokemonFromLocation&1=" + currentRegion + "&2=" + location)
-            .then( res => res.json() );
-        }
+    if (location == "") {
+        decodedJSON = await fetch("../database/get/ajax/getDBDataMaps.php?request=GetPokemonFromRegion&1=" + currentRegion)
+            .then(res => res.json());
+    }
+    else {
+        decodedJSON = await fetch("../database/get/ajax/getDBDataMaps.php?request=GetPokemonFromLocation&1=" + currentRegion + "&2=" + location)
+            .then(res => res.json());
+    }
     // var xmlhttp = new XMLHttpRequest();
     // xmlhttp.onreadystatechange = function () {
     //     if (this.readyState == 4 && this.status == 200) {
-    
-            const dataPokemon = decodedJSON;
-            // Info pokemon live on this location in BD
-            
-            let pokemons = document.getElementsByClassName("pokemonn");
 
-            // if (dataPokemon == "No results found.") {
-            //     for (let i = 0; i < pokemons.length; ++i) {
-            //         if (typeof pokemons[i] != "object") continue;
-            //         pokemons[i].style.display = "block";
-            //     }
-            //     return;
-            // }
+    const dataPokemon = decodedJSON;
+    // Info pokemon live on this location in BD
 
-            //update pokedex
-            let found = false;
-            for (let i = 0 ; i < pokemons.length; ++i) {
-                if (typeof pokemons[i] != "object") continue;
-                pokemons[i].style.display = "none";
-                for (let j = 0; j < dataPokemon.length; ++j) {
-                    found = false;
-                    if (pokemons[i].firstElementChild.dataset.id == dataPokemon[j]["id"]) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found)
-                    pokemons[i].style.display = "flex";
-                else
-                    pokemons[i].style.display = "none";
+    let pokemons = document.getElementsByClassName("pokemonn");
+
+    // if (dataPokemon == "No results found.") {
+    //     for (let i = 0; i < pokemons.length; ++i) {
+    //         if (typeof pokemons[i] != "object") continue;
+    //         pokemons[i].style.display = "block";
+    //     }
+    //     return;
+    // }
+
+    //update pokedex
+    let found = false;
+    for (let i = 0; i < pokemons.length; ++i) {
+        if (typeof pokemons[i] != "object") continue;
+        pokemons[i].style.display = "none";
+        for (let j = 0; j < dataPokemon.length; ++j) {
+            found = false;
+            if (pokemons[i].firstElementChild.dataset.id == dataPokemon[j]["id"]) {
+                found = true;
+                break;
             }
+        }
+        if (found)
+            pokemons[i].style.display = "flex";
+        else
+            pokemons[i].style.display = "none";
+    }
     //     }
     // }
     // if (location == "") { // unselect location
