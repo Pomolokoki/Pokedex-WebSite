@@ -399,9 +399,9 @@ FodyWeavers.xsd
 Thumbs.db
 
 # My own files
-database/v2/*.*
-./database/v2/*.*
-**/database/v2/
+api/v2/*.*
+./api/v2/*.*
+**/api/v2/
 img/Thumbs.db
 uploads/
 uploads/*.*
