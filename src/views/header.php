@@ -88,7 +88,6 @@ if (isset($_FILES['image'])) {
             <?php endif; ?>
             <div id='Logo'>
                 <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
-                <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
             </div>
             <div id='Profile'>
                 <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>

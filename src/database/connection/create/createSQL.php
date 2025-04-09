@@ -5,15 +5,13 @@ $dotenv->load();
 
 $MYSQL_HOST = $_ENV['DB_HOST'];
 $MYSQL_PORT = $_ENV['DB_PORT'];
-$MYSQL_NAME = $_ENV['DB_NAME'];
 $MYSQL_USER = $_ENV['DB_USERNAME'];
 
 try {
     $db = new PDO(
         sprintf(
-            'mysql:host=%s;dbname=%s;port=%s;charset=utf8',
+            'mysql:host=%s;port=%s;charset=utf8',
             $MYSQL_HOST,
-            $MYSQL_NAME,
             $MYSQL_PORT
         ),
         $MYSQL_USER,
@@ -38,20 +36,20 @@ try {
 <html lang='fr'>
 
 <head>
-	<meta charset='UTF-8'>
-	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
-	<title>Pokedex</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
+    <title>Pokedex</title>
 </head>
 
 <?php //include_once '../header.php'; ?>
 
-	<body>
+    <body>
         <p>Merci d'attendre, la base de donnée est en cours de chargement</p>
-		<img src="../img/loadingPokeballGif.gif" height="100%" width="100%" aspect-ratio="1/1">
+        <img src="../img/loadingPokeballGif.gif" height="100%" width="100%" aspect-ratio="1/1">
         <form action="loadingDB.php">
             <input type="submit">
         </form>
-	</body>
+    </body>
 
 </html> -->
