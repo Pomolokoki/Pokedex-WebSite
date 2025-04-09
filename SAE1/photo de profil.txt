@@ -1,5 +1,0 @@
-afficher les Pokémons capturés et Pokémons fav
-responsive header
-
-theme du header avec truc de team dans profil ( si 1 : diff color etc...)
-
