@@ -3,10 +3,10 @@ include_once 'extractApi.php';
 
 $sqlInsertAbility = 'INSERT INTO ability (id, name, description, smallDescription, effect) VALUES ';
 $values = '';
-echo getDataFromfile('/ability')->count;
+
 echo '<br>';
 
-foreach(getDataFromFile('/ability')->results as $ability)
+foreach (getDataFromFile('/ability')->results as $ability)
 {
     //echo $i;
     //echo '<br>';

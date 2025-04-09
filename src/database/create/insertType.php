@@ -61,5 +61,5 @@ foreach(getDataFromFile('/type')->results as $type)
     //     break;
     // }
 }
-echo $values;
+
 saveToDb($sqlInsertType, 'type', $values);

@@ -1,6 +1,7 @@
 
 <?php
-include_once 'connectSQL.php';
+include_once '../connection/connectSQL.php';
+
 $language = 'fr';
 function getDataFromDB($table, $columns, $condition, $fullRequest = false)
 {
@@ -23,6 +24,7 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
         return 'No results found.';
     return $statement->fetchAll();
 }
+
 function executeQueryWReturn($query, $params)
 {
     global $db;
@@ -32,6 +34,7 @@ function executeQueryWReturn($query, $params)
         return 'No results found.';
     return $statement->fetchAll();
 }
+
 function executeQuery($query, $params)
 {
     global $db;

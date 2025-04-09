@@ -1,13 +1,15 @@
 <?php
 
-include_once '../database/extractDataFromDB.php';
-//var_dump($_GET);
+include_once '../extractDataFromDB.php';
+
 if (!isset($_GET['request']))
 {
     header("Location: unauthorized.php");
     return;
 }
+
 $req = $_GET['request'];
+
 switch ($req) {
     case 'GetLocationFromRegion':
         echo json_encode(executeQueryWReturn('SELECT location.name FROM location

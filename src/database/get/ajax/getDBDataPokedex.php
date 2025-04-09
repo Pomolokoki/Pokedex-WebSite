@@ -1,15 +1,13 @@
 <?php
-
-//var_dump($_GET);
 if (!isset($_GET['request']))
 {
 //    header("Location: unauthorized.php");
     return;
 }
+
+include_once '../extractDataFromDB.php';
+
 $req = $_GET['request'];
-include_once '../database/extractDataFromDB.php';
-
-
 switch ($req) {
     case 'GetPokemonData':
         echo json_encode(

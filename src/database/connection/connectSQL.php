@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+require __DIR__ . '/../../../../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../..');
 $dotenv->load();
 
 $MYSQL_HOST = $_ENV['DB_HOST'];
@@ -25,7 +25,7 @@ try {
 
 } catch (Exception $exception) {
     if (str_contains($exception->getMessage(), 'Unknown database')) {
-        include_once 'createSQL.php';
+        include_once './create/createSQL.php';
     } else
         die('Erreur : ' . $exception->getMessage());
 }

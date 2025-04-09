@@ -398,7 +398,7 @@ FodyWeavers.xsd
 *.sln.iml
 Thumbs.db
 
-#My own files
+# My own files
 database/v2/*.*
 ./database/v2/*.*
 **/database/v2/

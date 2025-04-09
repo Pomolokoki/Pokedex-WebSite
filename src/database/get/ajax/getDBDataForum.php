@@ -4,7 +4,8 @@ if (!isset($_GET['request'])) {
     return;
 }
 
-include_once '../database/extractDataFromDB.php';
+include_once '../extractDataFromDB.php';
+
 $req = $_GET['request'];
 switch ($req) {
 

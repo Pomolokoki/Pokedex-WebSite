@@ -1,4 +1,5 @@
 <?php
+
 function addDataUpdate($file, $table, $column)
 {
     if (file_exists($file))
@@ -14,5 +15,5 @@ function addDataUpdate($file, $table, $column)
         file_put_contents('addData.php', $content);
     }
 }
+
 include_once 'addData.php';
-?>

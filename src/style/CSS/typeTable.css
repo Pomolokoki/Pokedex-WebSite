@@ -133,6 +133,11 @@ button {
     cursor: pointer;
 }
 
+#warning > a:focus-visible {
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
 /*#endregion*/
 
 /*#region responsive*/

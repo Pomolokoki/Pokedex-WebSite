@@ -1,5 +1,6 @@
 <?php
 include_once 'extractApi.php';
+
 $sqlInsertEvolution = 'INSERT INTO evolution (id, basePokemonId, evoluedPokemonId, gender, heldItemId, itemId, knownMoveId, knownMoveTypeId, locationId, minAffection, minBeauty, minHappiness, minLevel, needsOverworldRain, partySpeciesId, partyTypeId, relativePhysicalStats, timeOfDay, tradeSpeciesId, evolutionTrigger, turnUpsideDown, evolutionStade) VALUES ';
 $values = '';
 function setEvolution($pokemonEvolutionData, $id, &$EPvalues, $stade)

@@ -1,6 +1,4 @@
 <?php
-//include_once 'createSQL.php';
-
 function loadSQL($file)
 {
     if (file_exists($file))
@@ -42,7 +40,7 @@ function loadSQL($file)
 
 function loadDB()
 {
-    loadSQL('./pokedexFromPhp.sql');
-    loadSQL('./database/pokedexFromPhp.sql');
+    loadSQL('../../create/pokedexFromPhp.sql');
+    loadSQL('../create/pokedexFromPhp.sql');
 }
 loadDB();

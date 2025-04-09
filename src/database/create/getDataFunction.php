@@ -1,6 +1,4 @@
 <?php
-include_once 'connectSQL.php';
-include_once 'sqlQuery.php';
 
 function getStringReplace($string, $addQuote = true)
 {
@@ -61,6 +59,7 @@ function IntValue($value)
 {
     return $value == null ? 'NULL' : $value;
 }
+
 function BooleanValue($value)
 {
     return $value == true ? 'TRUE' : 'FALSE';
@@ -114,6 +113,7 @@ function saveToDb($insert, $table, $values, $delete = true, $deleteOnly = false)
     $returnValue = $statement->fetchAll();
     //echo json_encode($returnValue);
 }
+
 function exists($base, $path)
 {
     if (count($path) == 0) {

@@ -1,20 +1,25 @@
 <?php
-include_once 'configSQL.php';
+require __DIR__ . '/../../../../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../..');
+$dotenv->load();
 
-const MYSQL_HOST = 'localhost';
-const MYSQL_PORT = 3306;
-const MYSQL_USER = 'root';
+$MYSQL_HOST = $_ENV['DB_HOST'];
+$MYSQL_PORT = $_ENV['DB_PORT'];
+$MYSQL_NAME = $_ENV['DB_NAME'];
+$MYSQL_USER = $_ENV['DB_USERNAME'];
 
 try {
     $db = new PDO(
         sprintf(
-            'mysql:host=%s;port=%s;charset=utf8',
-            MYSQL_HOST,
-            MYSQL_PORT
+            'mysql:host=%s;dbname=%s;port=%s;charset=utf8',
+            $MYSQL_HOST,
+            $MYSQL_NAME,
+            $MYSQL_PORT
         ),
-        MYSQL_USER,
-        getPassword()
+        $MYSQL_USER,
+        $_ENV['DB_PASSWORD']
     );
+
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sqlCreateBD =
         'DROP DATABASE IF EXISTS pokedex; CREATE DATABASE pokedex CHARACTER SET utf8; USE pokedex;';
@@ -22,7 +27,7 @@ try {
     $statement->execute();
     $statement->closeCursor();
 
-    include_once 'loadDataIntoWebsite.php';
+    include_once './loadDataIntoWebsite.php';
 
 } catch (Exception $exception) {
     die('Erreur : ' . $exception->getMessage());
