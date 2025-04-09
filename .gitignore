@@ -409,4 +409,4 @@ uploads/*.*
 /vendor/
 composer.lock
 package-lock.json
-database/TalentFR.txt
+src/database/create/TalentFR.txt
