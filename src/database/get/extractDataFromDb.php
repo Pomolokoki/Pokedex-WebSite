@@ -1,6 +1,6 @@
 
 <?php
-include_once '../connection/connectSQL.php';
+include_once '../database/connection/connectSQL.php';
 
 $language = 'fr';
 function getDataFromDB($table, $columns, $condition, $fullRequest = false)
