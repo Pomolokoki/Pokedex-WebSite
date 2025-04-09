@@ -1,6 +1,6 @@
 <?php
 
-include_once './database/extractDataFromDB.php';
+include_once '../database/get/extractDataFromDB.php';
 
 $type = ['Steel', 'Fighting', 'Dragon', 'Water', 'Electric', 'Fairy', 'Fire', 'Ice', 'Bug', 'Normal', 'Grass', 'Poison', 'Psychic', 'Rock', 'Ground', 'Ghost', 'Dark', 'Flying'];
 
@@ -21,9 +21,9 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 <head>
 	<meta charset='utf-8'>
 	<title>Pokedex</title>
-	<link rel='stylesheet' type='text/css' href='css/pokedex.css'>
-	<link rel='stylesheet' type='text/css' href='css/typeColor.php'>
-	<link rel='stylesheet' type='text/html' href='css/statName.php'>
+	<link rel='stylesheet' type='text/css' href='../style/CSS/Pokedex.css'>
+	<link rel='stylesheet' type='text/css' href='../style/PHP/typeColor.php'>
+	<link rel='stylesheet' type='text/html' href='../style/PHP/statName.php'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
@@ -180,7 +180,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					<div id='img'></div>
 					<div id='button'>
 						<button type='button' id='gender_button'>
-							<img id='symbole' src='./img/M.png'>
+							<img id='symbole' src='/public/img/M.png'>
 						</button>
 					</div>
 				</div>
@@ -263,7 +263,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 			<h2 class='name_section'>Statistique :</h2>
 			<div id='Stat'>
 				<div id='Name_stat'>
-					<?php include_once './css/statName.php'; ?>
+					<?php include_once '../style/PHP/statName.php'; ?>
 				</div>
 				<div id='Val_stat'>
 					<?php for ($i = 0; $i < 7; $i++) {
@@ -372,7 +372,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 
 	</div>
 	<script src='https://requirejs.org/docs/release/2.3.5/minified/require.js'></script>
-	<script src='./scripts/pokedex.js'></script>
+	<script src='../scripts/JS/pokedex.js'></script>
 
 </body>
 

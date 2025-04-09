@@ -1,8 +1,8 @@
 <!-- Inclusion du header -->
 <?php
 include_once 'header.php';
-include_once 'database/connectSQL.php';
-include_once './database/extractDataFromDb.php';
+include_once 'src/database/connection/connectSQL.php';
+include_once 'src/database/get/extractDataFromDb.php';
 
 $dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
 $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
@@ -15,7 +15,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
 <style>
-    <?php include('css/profile.css'); ?>
+    <?php include('src/style/CSS/profile.css'); ?>
 </style>
 
 <body>
@@ -200,7 +200,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                     data-bs-target='#editProfileModal'>
                                     <i class='fas fa-edit me-2'></i>Modifier le profil
                                 </button>
-                                <a href='logout.php' class='btn btn-danger'>
+                                <a href='/src/scripts/PHP/logout.php' class='btn btn-danger'>
                                     <i class='fas fa-sign-out-alt me-2'></i>Déconnexion
                                 </a>
                             </div>

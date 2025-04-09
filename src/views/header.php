@@ -9,10 +9,10 @@ include_once '../database/connection/connectSQL.php';
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href='../style/css/header.css'>
-    <script src='../scripts/js/header.js' defer></script>
+    <link rel='stylesheet' href='../style/CSS/header.css'>
+    <script src='../scripts/JS/header.js' defer></script>
     
-    <script src='../scripts/js/profile.js' defer></script>
+    <script src='../scripts/JS/profile.js' defer></script>
     <title>PokeKrazy</title>
 </head>
 
@@ -89,14 +89,14 @@ if(isset($_FILES['image'])){
                 </style>
                 <?php endif;?>
             <div id='Logo'>
-                <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
+                <img src='/public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
             </div>
             <div id='Profile'>
             <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
                 <button type='button' class='Connexion' id='Login'>Connexion</button>
             <?php else: ?>
                 <div id='myPage' style='cursor: pointer;'>
-                        <img src='../../public<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture' id='profilePicture'>
+                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture' id='profilePicture'>
                     </a>
                 </div>
             <?php endif; ?>
