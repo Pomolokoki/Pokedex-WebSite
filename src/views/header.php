@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'database/connectSQL.php';
+include_once '../database/connection/connectSQL.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,10 +9,10 @@ include_once 'database/connectSQL.php';
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <link rel='stylesheet' href='css/header.css'>
-    <script src='scripts/header.js' defer></script>
+    <link rel='stylesheet' href='../style/CSS/header.css'>
+    <script src='../scripts/JS/header.js' defer></script>
     
-    <script src='scripts/profile.js' defer></script>
+    <script src='../scripts/JS/profile.js' defer></script>
     <title>PokeKrazy</title>
 </head>
 
@@ -89,7 +89,7 @@ if(isset($_FILES['image'])){
                 </style>
                 <?php endif;?>
             <div id='Logo'>
-                <img src='img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
+                <img src='/public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
             </div>
             <div id='Profile'>
             <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
