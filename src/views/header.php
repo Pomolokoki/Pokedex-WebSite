@@ -99,15 +99,6 @@ if (isset($_FILES['image'])) {
                         </a>
                     </div>
                 <?php endif; ?>
-                <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
-                    <button type='button' class='Connexion' id='Login'>Connexion</button>
-                <?php else: ?>
-                    <div id='myPage' style='cursor: pointer;'>
-                        <img src='../../public<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture'
-                            id='profilePicture'>
-                        </a>
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
         <div id='Nav'>
