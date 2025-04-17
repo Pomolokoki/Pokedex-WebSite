@@ -48,7 +48,7 @@ $typeData = getDataFromDB('type', '*', null);
 					 . getTextLang($typeData[$i - 1]['name']) . '
 					 </button> ';
 				} else {
-					echo "<div id = $id class = 'gridElement x" . $typeEfficiency[$j] . '\' > x' . $typeEfficiency[$j] . '</div> ';
+					echo "<button id = $id class = 'gridElement x" . $typeEfficiency[$j] . '\' onclick = \'selectCell(' . $i . ', ' . $j . ')\'> x' . $typeEfficiency[$j] . '</button> ';
 				}
 			}
 		}
