@@ -1,5 +1,5 @@
 <?php
-include_once './database/extractDataFromDB.php';
+include_once '../database/get/extractDataFromDB.php';
 $typeData = getDataFromDB('type', '*', null);
 ?>
 <!DOCTYPE html>
@@ -8,10 +8,10 @@ $typeData = getDataFromDB('type', '*', null);
 <head>
 	<meta charset='utf-8'>
 	<title>Pokedex</title>
-	<link rel='stylesheet' type='text/css' href='css/typeTable.css'>
-	<link rel='stylesheet' type='text/css' href='css/customCheckbox.css'>
-	<link rel='stylesheet' type='text/css' href='css/typeColor.php'>
-	<link rel='stylesheet' type='text/css' href='css/SWColor.php'>
+	<link rel='stylesheet' type='text/css' href='../style/css/typeTable.css'>
+	<link rel='stylesheet' type='text/css' href='../style/css/customCheckbox.css'>
+	<link rel='stylesheet' type='text/css' href='../style/php/typeColor.php'>
+	<link rel='stylesheet' type='text/css' href='../style/php/SWColor.php'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 
 </head>

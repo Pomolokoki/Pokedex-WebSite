@@ -2,8 +2,7 @@
 
 include_once '../extractDataFromDB.php';
 
-if (!isset($_GET['request']))
-{
+if (!isset($_GET['request'])) {
     header("Location: unauthorized.php");
     return;
 }
@@ -14,7 +13,8 @@ switch ($req) {
     case 'GetLocationFromRegion':
         echo json_encode(executeQueryWReturn('SELECT location.name FROM location
             JOIN region ON location.regionId = region.id
-            WHERE region.name LIKE :regionName', [':regionName' => $_GET[1] . '%']
+            WHERE region.name LIKE :regionName',
+            [':regionName' => $_GET[1] . '%']
         ));
         break;
 
@@ -36,8 +36,9 @@ switch ($req) {
         echo json_encode(executeQueryWReturn('SELECT DISTINCT pokemon.id FROM pokemon 
             JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
             JOIN region ON lp.generation = region.id 
-            WHERE region.name LIKE :regionName', [':regionName' => $_GET[1] . '%']
-            ));
+            WHERE region.name LIKE :regionName',
+            [':regionName' => $_GET[1] . '%']
+        ));
         break;
 
     case 'GetPokemonFromLocation':

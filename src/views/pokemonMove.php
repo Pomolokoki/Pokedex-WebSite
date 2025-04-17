@@ -1,5 +1,5 @@
 <?php
-include_once 'database/extractDataFromDB.php';
+include_once '../database/get/extractDataFromDB.php';
 $pokemonMoveData = getDataFromDB('SELECT move.name, smallDescription, accuracy, pp, pc, type.name AS type, priority, criticity, effectType FROM move JOIN type ON type.id = move.type ORDER BY name', null, null, true);
 // not used but if pokedex -> link -> move
 $isSet = isset($_POST['moveId']);
@@ -15,8 +15,8 @@ $typeData = getDataFromDB('SELECT name FROM type', null, null, true);
 <head>
     <meta charset='utf-8'>
     <title>Pokedex</title>
-    <link rel='stylesheet' type='text/css' href='css/pokemonMove.css'>
-    <link rel='stylesheet' type='text/css' href='css/typeColor.php'>
+    <link rel='stylesheet' type='text/css' href='../style/css/pokemonMove.css'>
+    <link rel='stylesheet' type='text/css' href='../style/css/typeColor.php'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <?php
@@ -28,18 +28,18 @@ include 'header.php';
     <div id='moveContainer'>
 
         <table id='moveList'>
-            <?php // there is two header bcs I need one to be 'static'?>
+            <?php // there is two header bcs I need one to be 'static' ?>
             <thead id='thead'>
                 <tr>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='0'>Nom
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='nameFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='1'>Type
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <select class='filter' id='typeFilter'>
                             <option value=''>--Tout--</option>
@@ -49,8 +49,8 @@ include 'header.php';
                         </select>
                     </th>
                     <th class='headCells' scope='col'>
-                        <p class='headText' data-id='2'>Catégorie  
-                            <img class='sorter' src='./img/selector.png'>
+                        <p class='headText' data-id='2'>Catégorie
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <select class='filter' id='categoryFilter'>
                             <option value=''>--Tout--</option>
@@ -61,37 +61,37 @@ include 'header.php';
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='3'>Puissance
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='pcFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='4'>PP
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='ppFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='5'>Précision
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='accuracyFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='6'>Priority
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='priorityFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='7'>Description
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='descriptionFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='8'>Taux Critique
-                            <img class='sorter' src='./img/selector.png'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='criticityFilter'></input>
                     </th>
@@ -190,7 +190,7 @@ include 'header.php';
             </tbody>
         </table>
     </div>
-    <script src='scripts/pokemonMove.js'></script>
+    <script src='../scripts/JS/pokemonMove.js'></script>
 </body>
 
 </html>

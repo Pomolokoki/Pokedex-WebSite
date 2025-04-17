@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once __DIR__ . '/../database/connection/connectSQL.php';
 include_once '../database/connection/connectSQL.php';
 ?>
 
@@ -11,7 +12,6 @@ include_once '../database/connection/connectSQL.php';
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' href='../style/CSS/header.css'>
     <script src='../scripts/JS/header.js' defer></script>
-    
     <script src='../scripts/JS/profile.js' defer></script>
     <title>PokeKrazy</title>
 </head>
@@ -21,33 +21,31 @@ include_once '../database/connection/connectSQL.php';
     $user_id = $_SESSION['LOGGED_USER'][0]['id'];
 }
 
-if(isset($_FILES['image'])){
-    
+if (isset($_FILES['image'])) {
+
     $file_name = $_FILES['image']['name'];
     $file_tmpName = $_FILES['image']['tmp_name'];
     $file_error = $_FILES['image']['error'];
     //Créer un dossier pour stocker les images
     $upload_dir = 'uploads/';
-    if(!is_dir($upload_dir)){
+    if (!is_dir($upload_dir)) {
         mkdir($upload_dir);
     }
-    
+
     $file_destination = $upload_dir . $file_name;
-    if ($file_error === 0){
-        if(move_uploaded_file($file_tmpName, $file_destination)){
-        $updateSQL = 'UPDATE player SET picture = :picture WHERE id = :id';
-        $stmt = $db->prepare($updateSQL);
-        $stmt->execute([
-            ':picture' => $file_destination,
-            ':id' => $user_id
-        ]);
-        $_SESSION['LOGGED_USER'][0]['picture'] = $file_destination;
-    }
-    else{
-        echo 'Erreur lors de l\'upload';
-    }
-    }
-    else{
+    if ($file_error === 0) {
+        if (move_uploaded_file($file_tmpName, $file_destination)) {
+            $updateSQL = 'UPDATE player SET picture = :picture WHERE id = :id';
+            $stmt = $db->prepare($updateSQL);
+            $stmt->execute([
+                ':picture' => $file_destination,
+                ':id' => $user_id
+            ]);
+            $_SESSION['LOGGED_USER'][0]['picture'] = $file_destination;
+        } else {
+            echo 'Erreur lors de l\'upload';
+        }
+    } else {
         echo 'Erreur : ' . $file_error;
     }
 }
@@ -81,15 +79,15 @@ if(isset($_FILES['image'])){
                     </ul>
                 </div>
             </nav>
-            <?php if(!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])):?>
+            <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
                 <style>
-                    .account{
+                    .account {
                         display: none;
                     }
                 </style>
-                <?php endif;?>
+            <?php endif; ?>
             <div id='Logo'>
-                <img src='/public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
+                <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
             </div>
             <div id='Profile'>
             <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
@@ -144,4 +142,5 @@ if(isset($_FILES['image'])){
 
     </div>
 </header>
+
 </html>
