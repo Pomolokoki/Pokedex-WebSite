@@ -17,11 +17,15 @@ $typeData = getDataFromDB('type', '*', null);
 </head>
 
 
-	<?php
+<?php
 	include_once 'header.php';
 	?>
-	<div id="gridWrapper">
-		
+	<div id= 'main'>
+	<div id='defLabel'>Défenseur</div>
+	<div id='horizontalFlex'>
+		<div id='atckLabel'>Attaquant</div>
+	<div id='gridWrapper'>
+	<div class='info'>Clique sur une colonne pour la faire ressortir</div>
 <div id='grid'>
 			<?php
 		for ($i = 0; $i < 19; $i++) {
@@ -33,9 +37,16 @@ $typeData = getDataFromDB('type', '*', null);
 				if ($i == 0 && $j == 0) {
 					echo "<button id = $id class = 'gridElement gridElementButton' onclick = 'selectType(null , null)'>RESET</button>";
 				} else if ($i == 0) {
-					echo "<button id = $id class = 'gridElement " . getTextLang($typeData[$j - 1]['name'], 'en') . '\' onclick = \'selectType(' . $j . ', false)\'><img src=\'' . $typeData[$j - 1]['sprite'] . '\'/></button>';
+					echo "
+					<button id = $id class = 'gridElement " . getTextLang($typeData[$j - 1]['name'], 'en') . '\' onclick = \'selectType(' . $j . ', false)\'>
+						<img src=\'' . __DIR__ . '/../../public/img/' . $typeData[$j - 1]['sprite'] . '\'/>
+					</button>';
 				} else if ($j == 0) {
-					echo "<button id = $id class = 'gridElement gridElementButton " . getTextLang($typeData[$i - 1]['name'], 'en') . '\' onclick = \'selectType(' . $i . ', true)\'><img src =\'' . $typeData[$i - 1]['sprite'] . '\'/>' . getTextLang($typeData[$i - 1]['name']) . '</button> ';
+					echo "
+					<button id = $id class = 'gridElement gridElementButton " . getTextLang($typeData[$i - 1]['name'], 'en') . '\' onclick = \'selectType(' . $i . ', true)\'>
+					<img src =\'' . __DIR__ . '/../../public/img/' . $typeData[$i - 1]['sprite'] . '\'/>'
+					 . getTextLang($typeData[$i - 1]['name']) . '
+					 </button> ';
 				} else {
 					echo "<div id = $id class = 'gridElement x" . $typeEfficiency[$j] . '\' > x' . $typeEfficiency[$j] . '</div> ';
 				}
@@ -43,19 +54,16 @@ $typeData = getDataFromDB('type', '*', null);
 		}
 		?>
 	</div>
-	</div>
-	<script src='scripts/typeTable.js'></script>
-	<div id='defLabel'>Défenseur</div>
-	<div id='atckLabel'>Attaquant</div>
-	<div>
-
-		<div>Clique sur une colonne pour la faire ressortir</div>
-		
-</div>
-	
-	<div id='warning'>Les données peuvent varier selon les pokémons, merci de vous référer à <a
+	<div id='warning' class='info'>Les données peuvent varier selon les pokémons, merci de vous référer à <a
 			href='./pokedex.php'>pokedex</a> pour une meilleure précision</div>
 
+	</div>
+	</div>
+	<div>
+		<script src='../scripts/js/typeTable.js'></script>
+</div>
+	
+	
 </body>
 
 </html>
