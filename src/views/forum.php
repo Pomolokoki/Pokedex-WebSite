@@ -132,7 +132,7 @@ $messageData = executeQueryWReturn('SELECT message.id,
                 <?php
                 for ($i = 0; $i < count($messageData); ++$i) {
                     echo '<div class=profile>
-                        <img class=profilePicture src=../../public/img/\'' . $messageData[$i]['profilePicture'] . '\' alt=profilePicture>
+                        <img class=profilePicture src=\'../../public/img/' . $messageData[$i]['profilePicture'] . '\' alt=profilePicture>
                         <label>' . $messageData[$i]['nickname'] . '</label>
                     </div>';
                     if ($messageData[$i]['reply'] != null) {

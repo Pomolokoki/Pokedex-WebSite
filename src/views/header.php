@@ -96,7 +96,7 @@ if(isset($_FILES['image'])){
                 <button type='button' class='Connexion' id='Login'>Connexion</button>
             <?php else: ?>
                 <div id='myPage' style='cursor: pointer;'>
-                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture' id='profilePicture'>
+                        <img src='../../public/img/<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture' id='profilePicture'>
                     </a>
                 </div>
             <?php endif; ?>
