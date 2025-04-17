@@ -28,11 +28,11 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
 </head>
-<?php include_once 'header.php' ; ?>
+<?php include_once 'header.php'; ?>
 
 <body>
-	<div id='Data_User'><?php echo($_SESSION['LOGGED_USER'][0]['id']) ?></div>
-	<span id='pokemonSelected' data-pokemon='<?=$pokemonToShow?>'></span>
+	<div id='Data_User'><?php echo ($_SESSION['LOGGED_USER'][0]['id']) ?></div>
+	<span id='pokemonSelected' data-pokemon='<?= $pokemonToShow ?>'></span>
 	<div id='content'>
 		<div id='img_background'></div>
 		<div id='core'>
@@ -70,23 +70,22 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					</select>
 				</div>
 				<div id='searchBar'>
-					<input id='searchBarInput'type='text' name='text' class='search' placeholder='Rechercher' />
+					<input id='searchBarInput' type='text' name='text' class='search' placeholder='Rechercher' />
 				</div>
 			</div>
 			<div id='pokedexCore'>
 				<div id='pokedex'>
 					<?php
 					for ($i = 0; $i < 1025; $i++) {
-						?>
+					?>
 						<div class='pokemon' id='<?php echo $datapokemon[$i]['id'] ?>'
-						data-name='<?php if(getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette'){
-								echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
-							} 
-							else{
-								echo explode(' ',getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
-							}
-							?>'
-							data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2']?>'
+							data-name='<?php if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
+											echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
+										} else {
+											echo explode(' ', getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
+										}
+										?>'
+							data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2'] ?>'
 							data-category='<?php echo $datapokemon[$i]['category'] ?>'
 							data-gen='<?php echo $datapokemon[$i]['generation'] ?>'
 							data-id='<?php echo $datapokemon[$i]['id'] ?>'>
@@ -106,13 +105,12 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 										</div>
 										<div class='nom_pokemon'>
 											<?php
-											if (getTextLang($datapokemon[$i]['name']) == 'M. Mime' || getTextLang($datapokemon[$i]['name']) == 'Mime Jr.' || getTextLang($datapokemon[$i]['name']) == 'M. Glaquette'){
+											if (getTextLang($datapokemon[$i]['name']) == 'M. Mime' || getTextLang($datapokemon[$i]['name']) == 'Mime Jr.' || getTextLang($datapokemon[$i]['name']) == 'M. Glaquette') {
 												echo '<option value=\'' . getTextLang($datapokemon[$i]['name'], 'en') . '\'>' . getTextLang($datapokemon[$i]['name']) . '</option>';
+											} else {
+												echo '<option value=\'' . explode(' ', getTextLang($datapokemon[$i]['name'], 'en'))[0] . '\'>' . explode(' ', getTextLang($datapokemon[$i]['name']))[0] . '</option>';
 											}
-											else {
-												echo '<option value=\'' . explode(' ',getTextLang($datapokemon[$i]['name'], 'en'))[0] . '\'>' . explode(' ',getTextLang($datapokemon[$i]['name']))[0] . '</option>';
-											}
-											
+
 											?>
 										</div>
 										<div class='type'>
@@ -132,7 +130,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 													);
 													?>
 												</div>
-												<?php
+											<?php
 											endif;
 											?>
 
@@ -141,21 +139,17 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 									<div class='info_r'>
 										<div class='niveau'>
 											<?php
-											if($datapokemon[$i]['category'] == 0) {
+											if ($datapokemon[$i]['category'] == 0) {
 												echo 'commun';
-											}
-											elseif($datapokemon[$i]['category'] == 1) {
+											} elseif ($datapokemon[$i]['category'] == 1) {
 												echo 'légendaire';
-											}
-											elseif($datapokemon[$i]['category'] == 2) {
+											} elseif ($datapokemon[$i]['category'] == 2) {
 												echo 'fabuleux';
-											}
-											elseif($datapokemon[$i]['category'] == 3) {
+											} elseif ($datapokemon[$i]['category'] == 3) {
 												echo 'ultra-chimère';
-											}
-											else{
+											} else {
 												echo 'paradox';
-											} 
+											}
 											?>
 										</div>
 									</div>
@@ -163,7 +157,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 							</div>
 
 						</div>
-						<?php
+					<?php
 					}
 					?>
 				</div>
@@ -172,15 +166,16 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 
 		<div id='Pokemon'>
 			<div id='secteur1'>
-				<button id='pokedex_back'><</button>
-				<h2 class='name_section' id='name_section_1'>Information Pokemon :</h2>
+				<button id='pokedex_back'>
+					<< /button>
+						<h2 class='name_section' id='name_section_1'>Information Pokemon :</h2>
 			</div>
 			<div id='Info_Pokemon'>
 				<div id='sprit'>
 					<div id='img'></div>
 					<div id='button'>
 						<button type='button' id='gender_button'>
-							<img id='symbole' src='/public/img/M.png'>
+							<img id='symbole' src='../../public/img/M.png'>
 						</button>
 					</div>
 				</div>
@@ -239,13 +234,13 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 										d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z' />
 								</svg>
 							</label>
-							<?php if(!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])):?>
+							<?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
 								<style>
-									#button_user{
+									#button_user {
 										display: none;
 									}
 								</style>
-								<?php endif;?>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>
@@ -267,97 +262,97 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 				</div>
 				<div id='Val_stat'>
 					<?php for ($i = 0; $i < 7; $i++) {
-						?>
+					?>
 						<div id='val_Stat<?php echo ($i) ?>' class='Val_stat_case'>
 							<?php
 							if ($i == 0) {
-								?>
+							?>
 								<h3>Valeur</h3>
-								<?php
+							<?php
 							}
 							?>
 						</div>
-						<?php
+					<?php
 					}
 					?>
 				</div>
 				<div id='Graph_stat'>
 					<?php for ($i = 0; $i < 7; $i++) {
-						?>
+					?>
 						<div class='Graph_stat_case'>
 							<?php
 							if ($i == 0) {
-								?>
+							?>
 								<h3 id='titre_case'>Graphique</h3>
-								<?php
+							<?php
 							} else {
-								?>
+							?>
 								<div id='graph_Stat<?php echo ($i) ?>' class='graphique'></div>
-								<?php
+							<?php
 							}
 							?>
 						</div>
-						<?php
+					<?php
 					}
 					?>
 				</div>
 			</div>
 			<h2 class='name_section' id='section_5'>Faiblesses/Résistances :</h2>
 			<div id='Table_type'>
-				
-			<div id='Table_type1'>
-				<?php for ($i = 0; $i < count($dataType); $i++) {
-					if ($dataType[$i]['id'] > 9) {
-						continue;
-					}
+
+				<div id='Table_type1'>
+					<?php for ($i = 0; $i < count($dataType); $i++) {
+						if ($dataType[$i]['id'] > 9) {
+							continue;
+						}
 					?>
-					<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-						<img class='type_img' src='<?php echo $dataType[$i]['sprite'] ?>'>
-					</div>
-					
-					<?php
-				}
-				?>
-				<?php for ($j = 0; $j < 9; $j++) {
-					?>
-					<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
-						<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
-					</div>
-					<?php
-				}
-				?>
-			</div>
-			<div id='Table_type2'>
-				
-				<?php for ($i = 9; $i < count($dataType); $i++) {
-					if ($dataType[$i]['id'] > 18) {
-						continue;
-					}
-					?>
-					<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-						<img class='type_img' src='<?php echo $dataType[$i]['sprite'] ?>'>
-					</div>
+						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
+							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
+						</div>
 
 					<?php
-				}
-				?>
-				<?php for ($j = 9; $j < 18; $j++) {
+					}
 					?>
-					<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
-						<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
-					</div>
+					<?php for ($j = 0; $j < 9; $j++) {
+					?>
+						<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
+							<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
+						</div>
 					<?php
-				}
-				?>
-			</div>
+					}
+					?>
+				</div>
+				<div id='Table_type2'>
+
+					<?php for ($i = 9; $i < count($dataType); $i++) {
+						if ($dataType[$i]['id'] > 18) {
+							continue;
+						}
+					?>
+						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
+							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
+						</div>
+
+					<?php
+					}
+					?>
+					<?php for ($j = 9; $j < 18; $j++) {
+					?>
+						<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
+							<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
+						</div>
+					<?php
+					}
+					?>
+				</div>
 			</div>
 			<div id='atkTiltle'>
-			<h2 id='TitleAtk' class='name_section'>Attaque : ▲</h2>
-				<div id ='atkButtons'>
+				<h2 id='TitleAtk' class='name_section'>Attaque : ▲</h2>
+				<div id='atkButtons'>
 					<button class='moreLessButton' id='gen-'>
-						<label><-</label>
+						<label><-< /label>
 					</button>
-					<label id ='genAtk'>gen 1</label>
+					<label id='genAtk'>gen 1</label>
 					<button class='moreLessButton' id='gen+'>
 						<label>-></label>
 					</button>
@@ -366,13 +361,13 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 			<div id='Attaque'>
 
 			</div>
-			
+
 			<h2 class='name_section' id='evoSection'>Évolution :</h2>
 			<div id='Evo'>
 
-	</div>
-	<script src='https://requirejs.org/docs/release/2.3.5/minified/require.js'></script>
-	<script src='../scripts/JS/pokedex.js'></script>
+			</div>
+
+			<script src='../scripts/JS/pokedex.js'></script>
 
 </body>
 

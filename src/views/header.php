@@ -88,7 +88,6 @@ if (isset($_FILES['image'])) {
             <?php endif; ?>
             <div id='Logo'>
                 <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
-                <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
             </div>
             <div id='Profile'>
                 <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
@@ -96,15 +95,6 @@ if (isset($_FILES['image'])) {
                 <?php else: ?>
                     <div id='myPage' style='cursor: pointer;'>
                         <img src='<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture'
-                            id='profilePicture'>
-                        </a>
-                    </div>
-                <?php endif; ?>
-                <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
-                    <button type='button' class='Connexion' id='Login'>Connexion</button>
-                <?php else: ?>
-                    <div id='myPage' style='cursor: pointer;'>
-                        <img src='../../public<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture'
                             id='profilePicture'>
                         </a>
                     </div>

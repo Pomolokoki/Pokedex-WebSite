@@ -1,7 +1,6 @@
 <?php
-if (!isset($_GET['request']))
-{
-//    header("Location: unauthorized.php");
+if (!isset($_GET['request'])) {
+    //    header("Location: unauthorized.php");
     return;
 }
 
@@ -11,7 +10,8 @@ $req = $_GET['request'];
 switch ($req) {
     case 'GetPokemonData':
         echo json_encode(
-            executeQueryWReturn('SELECT pokemon.id,
+            executeQueryWReturn(
+                'SELECT pokemon.id,
             pokemon.name,
             pokemon.spriteM,
             pokemon.spriteF,
@@ -38,7 +38,8 @@ switch ($req) {
 
     case 'GetAbilityData':
         echo json_encode(
-            executeQueryWReturn('SELECT ability.name,  ability.smallDescription, ap.isHidden FROM ability_pokemon AS ap 
+            executeQueryWReturn(
+                'SELECT ability.name,  ability.smallDescription, ap.isHidden FROM ability_pokemon AS ap 
             INNER JOIN ability ON ap.abilityId = ability.id 
             WHERE ap.pokemonId=:pokemonId',
                 [':pokemonId' => $_GET[1]]
@@ -58,7 +59,8 @@ switch ($req) {
 
     case 'GetEvolutionData':
         echo json_encode(
-            executeQueryWReturn('SELECT DISTINCT
+            executeQueryWReturn(
+                'SELECT DISTINCT
                 ev.id,
                 ev.basePokemonId,
                 ev.evoluedPokemonId,
@@ -123,7 +125,7 @@ switch ($req) {
         return;
 }
 
-if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) ||!isset($_SESSION['LOGGED_USER'][0])) {
+if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['LOGGED_USER'][0])) {
     header("Location: unauthorized.php");
     return;
 }
