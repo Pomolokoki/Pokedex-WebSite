@@ -1,8 +1,8 @@
 <!-- Inclusion du header -->
 <?php
 include_once 'header.php';
-include_once 'src/database/connection/connectSQL.php';
-include_once 'src/database/get/extractDataFromDb.php';
+include_once __DIR__ . '/../database/connection/connectSQL.php';
+include_once __DIR__ . '/../database/get/extractDataFromDb.php';
 
 $dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
 $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
@@ -15,7 +15,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
 <style>
-    <?php include('src/style/CSS/profile.css'); ?>
+    <?php include('../style/CSS/profile.css'); ?>
 </style>
 
 <body>
@@ -149,7 +149,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                 <div class='profile-avatar mb-3'>
                                     <form action='profile.php' method='POST' enctype='multipart/form-data'>
                                         <label for='fileImage' class='position-relative' style='cursor: pointer;'>
-                                            <img src='<?php echo htmlspecialchars($profilePictureUser) ?>' alt=''
+                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt=''
                                                 id='output'>
                                             <i class='fas fa-edit me-2 profile-edit' aria-hidden='true'
                                                 id='profile-pic'></i>
