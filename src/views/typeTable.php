@@ -1,6 +1,6 @@
 <?php
-include_once '../database/get/extractDataFromDB.php';
-$typeData = executeQueryWReturn('SELECT * FROM type', null);
+include_once '../database/get/FromPHP/getDBDataGlobal.php.php';
+$typeData = GetTypes();
 ?>
 <!DOCTYPE html>
 <html lang='fr'>

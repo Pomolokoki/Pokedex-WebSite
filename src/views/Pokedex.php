@@ -1,12 +1,12 @@
 <?php
 
-include_once __DIR__ . '/../database/get/extractDataFromDB.php';
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 
 $type = ['Steel', 'Fighting', 'Dragon', 'Water', 'Electric', 'Fairy', 'Fire', 'Ice', 'Bug', 'Normal', 'Grass', 'Poison', 'Psychic', 'Rock', 'Ground', 'Ghost', 'Dark', 'Flying'];
 
 $Stat_name = ['Stat', 'PV', 'Attaque', 'Défense', 'Attaque Spéciale', 'Défense Spéciale', 'Vitesse'];
-$datapokemon = executeQueryWReturn('SELECT pokemon.id,pokemon.name,pokemon.spriteM,pokemon.generation,pokemon.category,pokemon.height,pokemon.weight,pokemon.catch_rate, t1.name AS type1, t2.name AS type2 FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id < 100000 ORDER BY pokemon.id', null);
-$dataType = executeQueryWReturn('SELECT * FROM type', null, );
+$datapokemon = GetPokemonsForPokedex();
+$dataType = GetTypes();
 
 $pokemonToShow = null;
 if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {

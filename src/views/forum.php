@@ -1,22 +1,7 @@
 <?php
 include_once '../database/get/extractDataFromDB.php';
-$channelData = executeQueryWReturn('SELECT * FROM channel ORDER BY creationDate', null);
-$messageData = executeQueryWReturn('SELECT message.id,
-    message.text,
-    message.reply,
-    player.id as playerId,
-    player.nickname AS nickname,
-    player.picture AS profilePicture,
-    reply.text AS replyText,
-    reply.id AS replyId,
-    reply.owner AS replyOwner,
-    replyPlayer.nickname AS replyNickname,
-    replyPlayer.picture AS replyProfilePicture FROM message
-    LEFT JOIN message AS reply ON message.reply = reply.id 
-    LEFT JOIN player ON message.owner = player.id 
-    LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
-    WHERE message.channelId = 1 
-    ORDER BY message.postDate LIMIT 25', null);
+$channelData = GetChannels();
+$messageData = GetMessages();
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +20,7 @@ $messageData = executeQueryWReturn('SELECT message.id,
     include_once 'header.php';
     ?>
     <?php
-    $playerFavChannelData = executeQueryWReturn('SELECT channelId, title FROM player_fav_channel JOIN channel ON channel.id = channelId WHERE playerId = ' . (isset($_SESSION['LOGGED_USER']) ? $_SESSION['LOGGED_USER'][0]['id'] : 'NULL') . ' LIMIT 15', null);
+    $playerFavChannelData = GetFavoritesChannel([isset($_SESSION['LOGGED_USER']) ? $_SESSION['LOGGED_USER'][0]['id'] : 'NULL']);
     if ($playerFavChannelData == 'No results found.')
         $playerFavChannelData = [];
     ?>
