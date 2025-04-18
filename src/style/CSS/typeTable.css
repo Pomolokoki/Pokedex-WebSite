@@ -34,7 +34,10 @@ button {
 
 #horizontalFlex {
     display: flex;
+    width: min-content;
+    margin: auto;
     margin-top: 75px;
+    position: relative;
 }
 
 #defLabel {
@@ -68,7 +71,6 @@ button {
     height: min-content; */
     display: flex;
     flex-direction: column;
-    margin: auto;
 }
 /*#endregion*/
 
