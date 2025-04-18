@@ -50,16 +50,16 @@ document.getElementById('check_fav').addEventListener('click', async function ()
   let id_pokemon = document.getElementById('id_Pokemon').textContent.match(/\d+/)[0];
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   if (document.getElementsByClassName("star-dotted")[0].style.display == "block") {
-    await fetch("../database/get/ajax/getDBDataPokedex.php?request=AddFav&1=" + id_player + "&2=" + id_pokemon)
+    await fetch("../database/get/FromJS/getDBDataPokedex.php?request=AddFav&1=" + id_player + "&2=" + id_pokemon)
     // let xmlhttp = new XMLHttpRequest();
-    // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
     //   INSERT INTO player_favorites VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
     // xmlhttp.send();
   }
   else {
-    await fetch("../database/get/ajax/getDBDataPokedex.php?request=RemoveFav&1=" + id_player + "&2=" + id_pokemon)
+    await fetch("../database/get/FromJS/getDBDataPokedex.php?request=RemoveFav&1=" + id_player + "&2=" + id_pokemon)
     // let xmlhttp = new XMLHttpRequest();
-    // xmlhttp.open("GET", `./ajax/getDBData.php?request= 
+    // xmlhttp.open("GET", `./FromJS/getDBData.php?request= 
     //   DELETE FROM player_favorites WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
     // xmlhttp.send();
   }
@@ -71,26 +71,26 @@ document.getElementById('check_capture').addEventListener('click', async functio
   let id_player = document.getElementById('Data_User').textContent.match(/\d+/)[0];
   if (document.getElementsByClassName("pokeball-empty")[0].style.display == "block") {
     // let xmlhttp = new XMLHttpRequest();
-    // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+    // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
     //   INSERT INTO player_pokemon VALUES (`+ id_player + `,` + id_pokemon + `);`, false)
     // xmlhttp.send();
-    await fetch("../database/get/ajax/getDBDataPokedex.php?request=AddPlayerPokemon&1=" + id_player + "&2=" + id_pokemon)
+    await fetch("../database/get/FromJS/getDBDataPokedex.php?request=AddPlayerPokemon&1=" + id_player + "&2=" + id_pokemon)
     // console.log('qwerty')
     // console.log(`INSERT INTO player_pokemon VALUES (` + id_player + `,` + id_pokemon + `);`)
     // console.log(dataCheck)
   }
   else {
     // let xmlhttp = new XMLHttpRequest();
-    // xmlhttp.open("GET", `./ajax/getDBData.php?request= 
+    // xmlhttp.open("GET", `./FromJS/getDBData.php?request= 
     //   DELETE FROM player_pokemon WHERE playerId =`+ id_player + ` AND pokemonId =` + id_pokemon + `;`, false)
     // xmlhttp.send();
-    await fetch("../database/get/ajax/getDBDataPokedex.php?request=RemovePlayerPokemon&1=" + id_player + "&2=" + id_pokemon)
+    await fetch("../database/get/FromJS/getDBDataPokedex.php?request=RemovePlayerPokemon&1=" + id_player + "&2=" + id_pokemon)
   }
   checkCapture(id_player, id_pokemon);
 });
 
 async function checkFav(playerId, id) {
-  const decodedJSON = await fetch("../database/get/ajax/getDBDataPokedex.php?request=GetFav&1=" + playerId + "&2=" + id)
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetFav&1=" + playerId + "&2=" + id)
     .then(res => res.json());
   // let xmlhttp = new XMLHttpRequest();
   // xmlhttp.onreadystatechange = function () {
@@ -108,7 +108,7 @@ async function checkFav(playerId, id) {
   }
   //  }
   //}
-  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
   //     SELECT 
   //     pf.pokemonId AS pokemonFav 
   //     FROM player_favorites AS pf 
@@ -117,7 +117,7 @@ async function checkFav(playerId, id) {
 }
 
 async function checkCapture(playerId, id) {
-  const decodedJSON = await fetch("../database/get/ajax/getDBDataPokedex.php?request=GetPlayerPokemon&1=" + playerId + "&2=" + id)
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetPlayerPokemon&1=" + playerId + "&2=" + id)
     .then(res => res.json());
   // let xmlhttp = new XMLHttpRequest();
   // xmlhttp.onreadystatechange = function () {
@@ -135,7 +135,7 @@ async function checkCapture(playerId, id) {
   }
   //   }
   // }
-  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
   //     SELECT 
   //     pp.pokemonId AS pokemonPlayer 
   //     FROM player_pokemon AS pp 
@@ -299,7 +299,7 @@ function setOrder(eltliste, order) {
 }
 
 var LoadDataPokemon = async function (id) {
-  const decodedJSON = await fetch("../database/get/ajax/getDBDataPokedex.php?request=GetPokemonData&1=" + id)
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetPokemonData&1=" + id)
     .then(res => res.json());
   // var xmlhttp = new XMLHttpRequest();
   // xmlhttp.onreadystatechange = function () {
@@ -394,7 +394,7 @@ var LoadDataPokemon = async function (id) {
   LoadAtkPokemon(id);
   //   }
   // }
-  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
   //   SELECT pokemon.id,
   //   pokemon.name,
   //   pokemon.spriteM,
@@ -423,7 +423,7 @@ var LoadDataPokemon = async function (id) {
 
 
 var LoadAbilityPokemon = async function (id) {
-  const decodedJSON = await fetch("../database/get/ajax/getDBDataPokedex.php?request=GetAbilityData&1=" + id)
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetAbilityData&1=" + id)
     .then(res => res.json());
   const dataAbility = decodedJSON;
   // let xmlhttp = new XMLHttpRequest();
@@ -448,7 +448,7 @@ var LoadAbilityPokemon = async function (id) {
   // console.log("ability Loaded !");
   //   }
   // }
-  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
   //     SELECT 
   //     ability.name,
   //     ability.smallDescription,
@@ -462,7 +462,7 @@ var LoadAbilityPokemon = async function (id) {
 
 var LoadAtkPokemon = async function (id, isGen = -1) {
   const genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
-  const decodedJSON = await fetch("../database/get/ajax/getDBDataPokedex.php?request=GetMoveData&1=" + id + "&2=" + genValue)
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetMoveData&1=" + id + "&2=" + genValue)
     .then(res => res.json());
   const dataMove = decodedJSON;
   // let xmlhttp = new XMLHttpRequest();
@@ -532,7 +532,7 @@ var LoadAtkPokemon = async function (id, isGen = -1) {
   //   }
   // }
   // let genValue = isGen == -1 ? document.getElementById("genAtk").innerHTML.match(/\d+/)[0] : isGen
-  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
   //     SELECT 
   //     move.name,
   //     type.name AS type,
@@ -672,7 +672,7 @@ function divStagePokemon(name) {
 
 
 var LoadEvoPokemon = async function (id) {
-  const decodedJSON = await fetch("../database/get/ajax/getDBDataPokedex.php?request=GetEvolutionData&1=" + id)
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetEvolutionData&1=" + id)
     .then(res => res.json());
   const dataEvol = decodedJSON;
   // let xmlhttp = new XMLHttpRequest();
@@ -809,7 +809,7 @@ var LoadEvoPokemon = async function (id) {
   }
   //   }
   // }
-  // xmlhttp.open("GET", `./ajax/getDBData.php?request=
+  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
   //     SELECT DISTINCT
   //     ev.id,
   //     ev.basePokemonId,
