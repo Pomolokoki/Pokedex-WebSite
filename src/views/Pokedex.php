@@ -6,7 +6,7 @@ $type = ['Steel', 'Fighting', 'Dragon', 'Water', 'Electric', 'Fairy', 'Fire', 'I
 
 $Stat_name = ['Stat', 'PV', 'Attaque', 'Défense', 'Attaque Spéciale', 'Défense Spéciale', 'Vitesse'];
 $datapokemon = GetPokemonsForPokedex();
-$dataType = GetTypes();
+$dataType = GetTypesForPokedex();
 
 $pokemonToShow = null;
 if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {

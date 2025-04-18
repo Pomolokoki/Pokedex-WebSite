@@ -1,11 +1,10 @@
 <!-- Inclusion du header -->
 <?php
 include_once 'header.php';
-include_once 'src/database/connection/connectSQL.php';
-include_once 'src/database/get/extractDataFromDb.php';
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 
-$dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
-$dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
+$dataPokemonFav = getFavoritePokemon([$user_id]);
+$dataPokemonCatch = getPokemonCaught([$user_id]);
 ?>
 <!DOCTYPE html>
 <html lang='fr'>

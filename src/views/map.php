@@ -1,5 +1,5 @@
 <?php
-include_once '../database/get/FromPHP/getDBDataGlobal.php.php';
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 $pokemonData = GetPokemonsForMap();
 $regionData = GetRegions();
 $locationData = GetLocations();

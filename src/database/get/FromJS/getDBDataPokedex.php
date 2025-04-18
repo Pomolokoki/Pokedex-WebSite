@@ -172,7 +172,7 @@ function GetPlayerPokemon($params)
 $req = $_GET['request'];
 switch ($req) {
     case 'GetPokemonData':
-        echo GetPokemonData([':pokemonId' => $params[1]]);
+        echo GetPokemonData([':pokemonId' => $_GET[1]]);
         return;
 
     case 'GetAbilityData':

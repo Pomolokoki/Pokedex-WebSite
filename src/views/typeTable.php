@@ -1,6 +1,6 @@
 <?php
-include_once '../database/get/FromPHP/getDBDataGlobal.php.php';
-$typeData = GetTypes();
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
+$typeData = GetTypesForTypeTable();
 ?>
 <!DOCTYPE html>
 <html lang='fr'>

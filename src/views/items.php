@@ -1,12 +1,11 @@
 <!-- Inclusion du header -->
 <?php
-include_once '../database/connection/connectSQL.php';
-include_once '../database/get/extractDataFromDb.php';
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 include_once 'header.php';
 
 
 
-$dataItems = getDataFromDB('SELECT item.id,item.name,item.smallDescription,item.sprite,item.category,item.pocket,item.effect FROM item', null, null, true);
+$dataItems = GetItems();
 ?>
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
@@ -15,7 +14,7 @@ $dataItems = getDataFromDB('SELECT item.id,item.name,item.smallDescription,item.
 </style>
 <?php 
 function getItemNoDescOrEffect($str,$mot){        
-    if($str == 'NULL'){
+    if ($str == 'NULL'){
         return 'Cet item n\'a pas de ' . $mot;
     }
     else{

@@ -21,17 +21,28 @@ function GetPokemonsForMap()
 {
     return executeQueryWReturn('SELECT pokemon.id,
         pokemon.name,
-        pokemon.spriteM,
+        pokemon.spriteM
         FROM pokemon 
         WHERE pokemon.id < 100000 ORDER BY pokemon.id',
         null
     );
 }
 
-function GetTypes()
+function GetTypesForPokedex()
 {
-    return executeQueryWReturn('SELECT name, sprite FROM type', null);
+    return executeQueryWReturn('SELECT id, name, sprite FROM type', null);
 }
+
+function GetTypesForTypeTable()
+{
+    return executeQueryWReturn('SELECT name, sprite, efficiency FROM type', null);
+}
+
+function GetTypesForPokemonMoves()
+{
+    return executeQueryWReturn('SELECT name FROM type', null);
+}
+
 
 function GetRegions()
 {
@@ -72,10 +83,84 @@ null
 
 function GetFavoritesChannel($params)
 {
+    // var_dump($params);
     return executeQueryWReturn('SELECT channelId, title 
         FROM player_fav_channel
         JOIN channel ON channel.id = channelId
         WHERE playerId = :playerId LIMIT 15',
         $params
+    );
+}
+
+function GetItems()
+{
+    return executeQueryWReturn('SELECT item.id,
+        item.name,
+        item.smallDescription,
+        item.sprite,
+        item.category,
+        item.pocket,
+        item.effect
+        FROM item',
+        null
+    );
+}
+
+function getPokemonMoves()
+{
+    return executeQueryWReturn('SELECT move.name,
+        smallDescription,
+        accuracy,
+        pp,
+        pc,
+        type.name AS type,
+        priority,
+        criticity,
+        effectType
+        FROM move
+        JOIN type ON type.id = move.type 
+        ORDER BY name',
+null
+    );
+}
+
+function getPokemonMove($params)
+{
+    return executeQueryWReturn('SELECT move.name,
+        smallDescription,
+        accuracy,
+        pp,
+        pc,
+        type.name AS type,
+        priority,
+        criticity,
+        effectType
+        FROM move
+        JOIN type ON type.id = move.type 
+        WHERE move.id = :id 
+        ORDER BY name',
+$params
+    );
+}
+
+function getFavoritePokemon($params)
+{
+    return executeQueryWReturn('SELECT pokemon.name as pokemonName,
+        pokemon.spriteM as pokemonSprite,
+        pokemon.id as pokemonId 
+        FROM pokemon
+        INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',
+$params
+    );
+}
+
+function getPokemonCaught($params)
+{
+    return executeQueryWReturn('SELECT pokemon.name as pokemonName,
+        pokemon.spriteM as pokemonSprite,
+        pokemon.id as pokemonId 
+        FROM pokemon
+        INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',
+$params
     );
 }

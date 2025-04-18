@@ -1,5 +1,5 @@
 <?php
-include_once '../database/get/extractDataFromDB.php';
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 $channelData = GetChannels();
 $messageData = GetMessages();
 ?>
