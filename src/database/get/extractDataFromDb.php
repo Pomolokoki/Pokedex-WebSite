@@ -18,6 +18,7 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
         return 'No results found.';
     return $statement->fetchAll();
 }
+
 function executeQueryWReturn($query, $params)
 {
     global $db;
@@ -27,16 +28,12 @@ function executeQueryWReturn($query, $params)
         return 'No results found.';
     return $statement->fetchAll();
 }
+
 function executeQuery($query, $params)
 {
     global $db;
-    //echo $query;
-    //print_r($params);
-    //echo $params[':replyId'];
-    //$params[':replyId'] = null;
     $statement = $db->prepare($query);
     $statement->execute($params);
-    //echo $statement->queryString;
 }
 
 function getTextLang($str, $language = 'fr')
