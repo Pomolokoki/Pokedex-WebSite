@@ -87,8 +87,9 @@ function GetFavoritesChannel($params)
     return executeQueryWReturn('SELECT channelId, title 
         FROM player_fav_channel
         JOIN channel ON channel.id = channelId
-        WHERE playerId = :playerId LIMIT 15',
-        $params
+        WHERE playerId = :playerId LIMIT 15',[
+            ':playerId' => $params[0]
+        ]
     );
 }
 
@@ -138,8 +139,9 @@ function getPokemonMove($params)
         FROM move
         JOIN type ON type.id = move.type 
         WHERE move.id = :id 
-        ORDER BY name',
-$params
+        ORDER BY name',[
+            ':id' => $params[0]
+        ]
     );
 }
 
@@ -149,8 +151,9 @@ function getFavoritePokemon($params)
         pokemon.spriteM as pokemonSprite,
         pokemon.id as pokemonId 
         FROM pokemon
-        INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',
-$params
+        INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',[
+            ':userId' => $params[0]
+        ]
     );
 }
 
@@ -160,7 +163,8 @@ function getPokemonCaught($params)
         pokemon.spriteM as pokemonSprite,
         pokemon.id as pokemonId 
         FROM pokemon
-        INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',
-$params
+        INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',[
+            ':userId' => $params[0]
+        ]
     );
 }
