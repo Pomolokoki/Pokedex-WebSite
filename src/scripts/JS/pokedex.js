@@ -288,6 +288,19 @@ function orderGrid() {
       setOrder(tmpTab, 102);
     }
   }
+  let orderArray = navigationOrder(array);
+  for (let i = 0; i < orderArray.length; i += 7) {
+    orderArray[i].tabIndex = i / 7;
+  }
+}
+
+function navigationOrder(gridContainer) {
+  const orderedChildren = Array.from(gridContainer).sort((a, b) => {
+    const orderA = a.style.order;
+    const orderB = b.style.order;
+    return orderA - orderB;
+  });
+  return orderedChildren;
 }
 
 function setOrder(eltliste, order) {
@@ -727,6 +740,7 @@ var LoadEvoPokemon = async function (id) {
       tabEvo.push(dataEvol[i].n1)
       let img = document.createElement("img")
       img.classList.add("img_evo")
+      img.tabIndex = 301;
       img.src = dataEvol[i].s1
       divElementPokemon.appendChild(img)
       divElementPokemon.addEventListener('click', function () {
@@ -798,7 +812,8 @@ var LoadEvoPokemon = async function (id) {
       }
       tabEvo.push(dataEvol[i].n2);
       let img = document.createElement("img");
-      img.classList.add("img_evo")
+      img.classList.add("img_evo");
+      img.tabIndex = 301;
       divElementPokemon.appendChild(img);
       img.src = dataEvol[i].s2;
       divElementPokemon.addEventListener('click', function () {
@@ -937,6 +952,21 @@ let sb = document.getElementById("searchBarInput");
 document.addEventListener("keydown", (e) => {
   if (sb != null && e.key.length === 1 && e.target.id != "searchBarInput") {
     sb.focus();
+  }
+  if (e.key == "Enter") {
+    if (e.target.className == "pokemon") {
+      e.target.click();
+      document.getElementById("name_section_1").focus();
+    }
+    if (e.target.id == "TitleAtk") {
+      e.target.click();
+    }
+    if (e.target.className == "img_evo") {
+      e.target.click();
+    }
+  }
+  if (e.key == "Escape") {
+    document.getElementById(last_id).click();
   }
 })
 
