@@ -48,7 +48,7 @@ include_once 'header.php';
 									. getTextLang($typeData[$i - 1]['name']) . '
 					 			</button> ';
 						} else {
-							echo "<button id = $id class = 'gridElement x" . $typeEfficiency[$j] . '\' onclick = \'selectCell(' . $i . ', ' . $j . ')\'> x' . $typeEfficiency[$j] . '</button> ';
+							echo "<button id = $id class = 'gridElement x" . $typeEfficiency[$j] . '\' tabindex=-1 onclick = \'selectCell(' . $i . ', ' . $j . ')\'> x' . $typeEfficiency[$j] . '</button> ';
 						}
 					}
 				}
