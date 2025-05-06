@@ -148,7 +148,6 @@ var check_pokemonUser = function (id) {
   if (document.getElementById('Data_User') == undefined)
     return;
   let id_player = document.getElementById('Data_User').textContent;
-  console.log("idp" + id_player)
   if (id_player != null && id_player != undefined) {
     checkFav(id_player, id);
     checkCapture(id_player, id);
@@ -195,11 +194,13 @@ document.getElementById('TitleAtk').addEventListener('click', function () {
   } else {
     atk.classList.add('open');
     atkTitle.innerHTML = "Attaque : ▼";
+    LoadAtkPokemon(last_id);
     atkButton.style.display = 'block';
   }
 });
 
 function getText(str, lang = "fr") {
+  console.log(str);
   if (lang === "fr") {
     if (str.split('///')[1] == "NULL")
       return str.split('///')[0];
@@ -391,7 +392,7 @@ var LoadDataPokemon = async function (id) {
 
   }
   document.getElementById("genAtk").innerText = document.getElementById("gen_Pokemon").innerText;
-  LoadAtkPokemon(id);
+  //LoadAtkPokemon(id);
   //   }
   // }
   // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
@@ -873,11 +874,20 @@ var LoadEvoPokemon = async function (id) {
 };
 
 function LoadPokemon(id) {
+  document.getElementById('name_section_1').scrollIntoView({ behavior: 'smooth' });
   document.getElementById('searchBarInput').value = "";
   document.getElementById('rarete').value = "all";
   document.getElementById('type').value = "all";
   document.getElementById('gen').value = "all";
   filtre();
+
+  let atk = document.getElementById('Attaque');
+  let atkTitle = document.getElementById('TitleAtk');
+  let atkButton = document.getElementById('atkButtons');
+  atk.classList.remove('open');
+  atkTitle.innerHTML = "Attaque : ▲";
+  atkButton.style.display = 'none';
+
   LoadDataPokemon(id)
   LoadAbilityPokemon(id)
   LoadEvoPokemon(id)
