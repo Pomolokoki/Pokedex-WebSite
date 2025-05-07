@@ -219,18 +219,27 @@ select {
 /* #region location select */
 /* container */
 #phoneContainer2 {
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
+/* label */
+#locationLabel {
+    margin-top: 6%;
+    width: 100%;
+    height: auto;
+    color: white;
+    font-size: auto;
+}
+
 /* search bar */
 #searchBarContainer {
+    margin-top: 3%;
     position: relative;
     width: 80%;
-    left: 8%;
-    margin-top: 6%;
-    padding-left: 5%;
+    left: 10%;
 }
 
 #searchBar {
@@ -254,7 +263,7 @@ select {
     clip: auto;
     border: 2px solid;
     vertical-align: middle;
-    margin-top: 5%;
+    margin-top: 1%;
     margin-bottom: 5%;
     padding-bottom: 2%;
     overflow-y: scroll;

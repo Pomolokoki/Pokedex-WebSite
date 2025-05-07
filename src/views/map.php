@@ -86,6 +86,7 @@ include_once 'header.php';
         </div>
 
         <div id='phoneContainer2'>
+            <div id='locationLabel'> Liste des lieux :</div>
             <div id='searchBarContainer'>
                 <input type='searchbar' id='searchBar' placeholder='Search...'></input>
             </div>
