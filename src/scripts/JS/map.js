@@ -312,12 +312,13 @@ function setLocation(location) {
 }
 
 // unselect location
-function removeLocation(location) {
+function removeLocation(location, updPokemon = true) {
     removeBubble(true);
     currentLocation = undefined;
     if (location != null)
         location.style.background = "";
-    showLocationPokemon("");
+    if (updPokemon)
+        showLocationPokemon("");
 }
 
 // user click on location
@@ -332,7 +333,7 @@ function selectLocation(name) {
         removeLocation(locationListItem);
     }
     else { // if another location selected
-        removeLocation(getListElement(currentLocation.id));
+        removeLocation(getListElement(currentLocation.id), false);
         setLocation(locationListItem);
     }
 }
