@@ -133,10 +133,14 @@ function updateMap(e) {
                 svgMap.style.display = "none";
                 imgMap.style.display = "unset";
             }
-            if (currentMode == "Realistic")
+            if (currentMode == "Realistic") {
                 imgMap.src = "../../public/img/" + currentRegion + "Realist.png";
-            else
+                imgMap.alt = "image carte" + currentregion + "realiste"
+            }
+            else {
                 imgMap.src = "../../public/img/" + currentRegion + ".png";
+                imgMap.alt = "image carte" + currentregion
+            }
             document.getElementById("pokedexContainer").style.display = "none"; // disbale pokedex (reserved Interactive map)
             document.getElementById("centered").style.display = "none";         // disbale center button (reserved Interactive map)
             [...document.querySelectorAll(".location")].forEach(location => { location.style.cursor = "unset"; })

@@ -23,7 +23,7 @@ include_once 'header.php';
         <div id='smallMapFrame'>
 
             <span id='mapContainer'>
-                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png'></image>
+                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png' alt='image carte Kanto'></image>
                 <svg viewBox='0 0 350 350' width='350' heigh='350' id='svgMap' draggable='false'
                     xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg' clip-rule='evenodd'
                     version='1.1'>
@@ -31,16 +31,16 @@ include_once 'header.php';
             </span>
 
             <div id='centered'>
-                <image id='refocus' draggable='fase' src='../../public/img/refocusIcon.png'></image>
-                <label>Center map</label>
+                <image id='refocus' draggable='fase' src='../../public/img/refocusIcon.png' alt='recentrer'></image>
+                <label>Recentrer la carte</label>
             </div>
 
             <div id='pokedexContainer'>
-                <textarea id='pokemonSearch' rows='1' placeholder='search for...'></textarea>
+                <textarea id='pokemonSearch' rows='1' placeholder='rechercher ...'></textarea>
                 <div id='pokedex'>
                     <?php for ($i = 0; $i < count($pokemonData); ++$i) { ?>
                         <div class='pokemonn'>
-                            <image class='pokemonImage' draggable='fase' src='<?= $pokemonData[$i]['spriteM'] ?>'
+                            <image class='pokemonImage' draggable='false' src='<?= $pokemonData[$i]['spriteM'] ?>' alt='Image <?=$pokemonData[$i]['name']?>'
                                 data-id='<?= $pokemonData[$i]['id'] ?>'></image>
                             <p><?= getTextLang($pokemonData[$i]['name'], $language) ?></p>
                         </div>
