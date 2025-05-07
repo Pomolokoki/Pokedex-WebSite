@@ -23,8 +23,11 @@ function PlayerInfo($params)
     ));
 }
 
-function GetMessages($params)
+function GetMessages($params, $offset)
 {
+    //$params[":offset"] = (int)$params[":offset"];
+    // $params[":offsett"] = 2;
+    //var_dump($params);
     return json_encode(
         executeQueryWReturn('SELECT
             channel.title,
@@ -44,9 +47,32 @@ function GetMessages($params)
             LEFT JOIN player ON message.owner = player.id 
             LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
             LEFT JOIN channel ON message.channelId = channel.id 
-            WHERE message.channelId = :channelId ORDER BY message.postDate, LIMIT :offset, 25',
+            WHERE message.channelId = :channelId ORDER BY message.postDate LIMIT 25 OFFSET ' . (int)$offset,
             $params
         )
+    );
+}
+
+function GetChannels($offset)
+{
+    return json_encode(
+        executeQueryWReturn('SELECT id, title, keyWords, owner
+        FROM channel
+        ORDER BY creationDate
+        LIMIT 25 OFFSET ' . (int)$offset,
+        null)
+    );
+}
+
+function SearchChannel($params, $offset)
+{
+    return json_encode(
+        executeQueryWReturn('SELECT id, title, keyWords, owner
+        FROM channel
+        WHERE title LIKE :search OR keywords LIKE :search 
+        ORDER BY creationDate
+        LIMIT 25 OFFSET ' . (int)$offset,
+        $params)
     );
 }
 
@@ -66,10 +92,10 @@ function NewChannel($params)
     );
 }
 
-function GetFavs($params)
+function GetFavs($params, $offset)
 {
     return json_encode(executeQueryWReturn(
-        'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId',
+        'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId LIMIT 25 OFFSET ' . (int)$offset,
         $params
     ));
 }
@@ -121,16 +147,26 @@ switch ($req) {
         return;
 
     case 'PlayerInfo':
-        echo PlayerInfo([':id' => $id]);
+        echo PlayerInfo([':id' => $_GET[1]]);
         return;
 
     case 'GetMessages':
-        echo GetMessages([':channelId' => $_GET[1]]);
+        echo GetMessages([
+            ':channelId' => $_GET[1],
+        ], $_GET[2]);
+        return;
+    
+    case 'GetChannels':
+        echo GetChannels($_GET[1]);
+        return;
+    
+    case 'SearchChannel':
+        echo SearchChannel([':search' => '%' . $_GET[1] . '%'], $_GET[2]);
         return;
 }
-
+var_dump($_SESSION);
 if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['LOGGED_USER'][0])) {
-    header("Location: unauthorized.php");
+header("Location: unauthorized.php");
     return;
 }
 
@@ -172,7 +208,7 @@ switch ($req) {
         }
         echo GetFavs([
             ':playerId' => $_GET[1]
-        ]);
+        ], $_GET[2]);
         break;
 
     case 'GetFav':

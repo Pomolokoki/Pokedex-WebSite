@@ -87,7 +87,7 @@ function GetFavoritesChannel($params)
     return executeQueryWReturn('SELECT channelId, title 
         FROM player_fav_channel
         JOIN channel ON channel.id = channelId
-        WHERE playerId = :playerId LIMIT 15',[
+        WHERE playerId = :playerId LIMIT 25',[
             ':playerId' => $params[0]
         ]
     );
