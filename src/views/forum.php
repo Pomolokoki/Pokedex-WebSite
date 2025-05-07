@@ -113,7 +113,7 @@ $messageData = GetMessages();
                 <div id=messageArea>
                     <p id=typing></p>
                     <textarea id=messageTextBox type=text rows=1 placeholder=Appuyer sur un touche pour commencer à écrire></textarea>
-                    <input id=submitMessage type=image src=../../public/img/sendMessageIcon.png alt =Submit></input>
+                    <input id=submitMessage type=image src=../../public/img/sendMessageIcon.png alt=Envoyer></input>
                 </div>';
             } ?>
             <div id='optionsTrigger'>...

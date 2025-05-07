@@ -121,7 +121,7 @@ function AddMessage(
     reply.innerHTML =
       "::: replying to <img class=profilePicture src = " +
       replyPicture +
-      " alt=profilePicture>" +
+      " alt=photo de profil>" +
       replyNickname.substr(0, 10) +
       "... : " +
       replyText.substr(0, 20) +
