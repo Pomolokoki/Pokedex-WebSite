@@ -1,6 +1,5 @@
 <?php
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
-$pokemonData = GetPokemonsForMap();
 $regionData = GetRegions();
 $locationData = GetLocations();
 ?>
@@ -38,13 +37,7 @@ include_once 'header.php';
             <div id='pokedexContainer'>
                 <textarea id='pokemonSearch' rows='1' placeholder='rechercher ...'></textarea>
                 <div id='pokedex'>
-                    <?php for ($i = 0; $i < count($pokemonData); ++$i) { ?>
-                        <div class='pokemonn'>
-                            <image class='pokemonImage' draggable='false' src='<?= $pokemonData[$i]['spriteM'] ?>' alt='Image <?=$pokemonData[$i]['name']?>'
-                                data-id='<?= $pokemonData[$i]['id'] ?>'></image>
-                            <p><?= getTextLang($pokemonData[$i]['name'], $language) ?></p>
-                        </div>
-                    <?php } ?>
+
                 </div>
             </div>
 
