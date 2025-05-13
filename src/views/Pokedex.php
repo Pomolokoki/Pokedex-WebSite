@@ -41,7 +41,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 		<div id='core'>
 			<div id='headerPokedex'>
 				<div class='filter'>
-					<select id='gen'>
+					<select id='gen' tabindex="1">
 						<option value='all'>All</option>
 						<option value='1'>Gen 1</option>
 						<option value='2'>Gen 2</option>
@@ -54,7 +54,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						<option value='9'>Gen 9</option>
 					</select>
 
-					<select id='type'>
+					<select id='type' tabindex="1">
 						<option value='all'>All</option>
 						<?php
 						for ($i = 0; $i < 18; $i++) {
@@ -63,7 +63,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						?>
 					</select>
 
-					<select id='rarete'>
+					<select id='rarete' tabindex="1">
 						<option value='all'>All</option>
 						<option value='0'>Commun</option>
 						<option value='2'>Fabuleux</option>

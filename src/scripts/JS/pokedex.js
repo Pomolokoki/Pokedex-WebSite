@@ -291,6 +291,7 @@ function orderGrid() {
   let orderArray = navigationOrder(array);
   for (let i = 0; i < orderArray.length; i += 7) {
     orderArray[i].tabIndex = i / 7;
+    orderArray[i].classList.add("atkValue");
   }
 }
 
@@ -961,12 +962,21 @@ document.addEventListener("keydown", (e) => {
     if (e.target.id == "TitleAtk") {
       e.target.click();
     }
+    if (e.target.className == document.querySelector(".atkValue")) {
+      console.log("azerty");
+    }
     if (e.target.className == "img_evo") {
       e.target.click();
     }
   }
   if (e.key == "Escape") {
     document.getElementById(last_id).click();
+  }
+  if (e.key == "ArrowLeft") {
+    document.getElementById("gen-").click();
+  }
+  if (e.key == "ArrowRight") {
+    document.getElementById("gen+").click();
   }
 })
 
