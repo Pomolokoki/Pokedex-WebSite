@@ -130,11 +130,12 @@ function updateMap(e) {
       }
       if (currentMode == "Realistic") {
         imgMap.src = "../../public/img/" + currentRegion + "Realist.png";
-        imgMap.alt = "image carte" + currentregion + "realiste";
+        imgMap.alt = "image carte" + currentRegion + "realiste";
       } else {
         imgMap.src = "../../public/img/" + currentRegion + ".png";
-        imgMap.alt = "image carte" + currentregion;
+        imgMap.alt = "image carte" + currentRegion;
       }
+
       document.getElementById("pokedexContainer").style.display = "none"; // disbale pokedex (reserved Interactive map)
       document.getElementById("centered").style.display = "none"; // disbale center button (reserved Interactive map)
       [...document.querySelectorAll(".location")].forEach((location) => {
@@ -459,6 +460,7 @@ async function createPokedex() {
   for (let i = 0; i < dataPokemon.length; ++i) {
     let pokemon = document.createElement("div");
     pokemon.className = "pokemonn";
+    pokemon.tabIndex = "11";
     let image = document.createElement("img");
     image.className = "pokemonImage";
     image.draggable = false;
@@ -673,18 +675,29 @@ document
   .addEventListener("input", pokemonSearch);
 
 document.addEventListener("keydown", (e) => {
-  if ((document.activeElement.className == "radio" || document.activeElement.className == "location" || document.activeElement.id == "centered") && e.key == "Enter") {
+  if (
+    (document.activeElement.className == "radio" ||
+      document.activeElement.className == "location" ||
+      document.activeElement.id == "centered") &&
+    e.key == "Enter"
+  ) {
     let active = document.activeElement;
     active.click();
-    active.focus()
-  }
-  else if (document.activeElement.className == "location" && e.key == "Escape") {
+    active.focus();
+  } else if (
+    document.activeElement.className == "location" &&
+    e.key == "Escape"
+  ) {
     if (currentMode == "Interactive") {
-      document.getElementById("centered").focus()
+      document.getElementById("centered").focus();
+    } else {
+      document.getElementById("looseFocus").focus();
     }
-    else {
-      document.getElementById("looseFocus").focus()
-    }
+  } else if (
+    document.activeElement.className == "location" &&
+    e.key == "Escape"
+  ) {
+    document.getElementById("looseFocus").focus();
   }
 });
 

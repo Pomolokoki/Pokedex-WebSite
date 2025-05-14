@@ -351,6 +351,10 @@ select {
     color: white;
 }
 
+.pokemonn:focus {
+    border: solid 1px white;
+}
+
 .pokemonImage {
     height: 50px;
     width: 50px;

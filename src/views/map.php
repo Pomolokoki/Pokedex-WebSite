@@ -35,8 +35,8 @@ include_once 'header.php';
             </div>
 
             <div id='pokedexContainer'>
-                <textarea id='pokemonSearch' rows='1' placeholder='rechercher ...'></textarea>
-                <div id='pokedex'>
+                <textarea id='pokemonSearch' rows='1' placeholder='rechercher ...' tabindex='9'></textarea>
+                <div id='pokedex' tabindex='10'>
 
                 </div>
             </div>
@@ -97,7 +97,7 @@ include_once 'header.php';
                 }
                 ?>
             </div>
-            <div id='looseFocus' tabindex='10'></div>
+            <div id='looseFocus' tabindex='12'></div>
         </div>
 
     </div>
