@@ -35,7 +35,7 @@ try {
     $statement->closeCursor();
 
     // Create the tables into the DB
-    echo "Creating the tables.\n";
+    echo "Creating the tables and inserting data.\n";
     $file = __DIR__ . '/../../src/database/create/pokedexFromPhp.sql';
     if (file_exists($file)) {
         $sql = explode('INSERT INTO', file_get_contents($file));
@@ -50,25 +50,7 @@ try {
             $statemnt->execute();
         }
     } else {
-        throw new Exception("Can't create tables in DB : SQL file not found");
-    }
-
-    echo "Inserting start test data.\n";
-    $file = __DIR__ . '/startTestData.sql';
-    if (file_exists($file)) {
-        $sql = explode('INSERT INTO', file_get_contents($file));
-        global $db;
-        for ($i = 0; $i < count($sql); $i++) {
-            if ($i == 0) {
-                $statemnt = $db->prepare($sql[$i]);
-                $statemnt->execute();
-                continue;
-            }
-            $statemnt = $db->prepare('INSERT INTO ' . $sql[$i]);
-            $statemnt->execute();
-        }
-    } else {
-        throw new Exception("Can't insert data in DB : SQL file not found");
+        throw new Exception("Can't create tables and insert data in DB : SQL file not found");
     }
 
 } catch (Exception $exception) {
