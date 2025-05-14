@@ -1,5 +1,5 @@
 <?php
-
+// TODO Tester toutes les fonctions du database/get/*
 use PHPUnit\Framework\TestCase;
 
 class GetDBDataPokedexTest extends TestCase
