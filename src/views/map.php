@@ -29,7 +29,7 @@ include_once 'header.php';
                 </svg>
             </span>
 
-            <div id='centered'>
+            <div id='centered' tabindex='8'>
                 <image id='refocus' draggable='fase' src='../../public/img/refocusIcon.png' alt='recentrer'></image>
                 <label>Recentrer la carte</label>
             </div>
@@ -53,7 +53,7 @@ include_once 'header.php';
     <div id='info'>
         <div id='phoneContainer1'>
             <div id='currentgen'> Génération actuelle : </div>
-            <select id='mapList'>
+            <select id='mapList' tabindex='1'>
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
                     if ($i == 1) {
@@ -68,17 +68,17 @@ include_once 'header.php';
             <div id='radioButtonsHolder'>
                 <label class='radioBut'>
                     <input checked='checked' name='mapType' type='radio' class='checkboxInput' id='gameMap'>
-                    <span class='radio'></span>
+                    <span class='radio' tabindex='2'></span>
                 </label>
                 <label for='gameMap' id='gameMapLabel' class='radioLabel'> - Carte de jeu </label>
                 <label class='radioBut'>
                     <input name='mapType' type='radio' id='realMap' class='checkboxInput'>
-                    <span class='radio'></span>
+                    <span class='radio' tabindex='3'></span>
                 </label>
                 <label for='realMap' id='realMapLabel' class='radioLabel'> - Carte réaliste </label>
                 <label class='radioBut'>
                     <input name='mapType' type='radio' id='interactiveMap' class='checkboxInput'>
-                    <span class='radio'></span>
+                    <span class='radio' tabindex='4'></span>
                 </label>
                 <label for='interactiveMap' id='interactiveMapLabel' class='radioLabel'> - Carte interactive </label>
             </div>
@@ -88,15 +88,16 @@ include_once 'header.php';
         <div id='phoneContainer2'>
             <div id='locationLabel'> Liste des lieux :</div>
             <div id='searchBarContainer'>
-                <input type='searchbar' id='searchBar' placeholder='Search...'></input>
+                <input type='searchbar' id='searchBar' placeholder='Search...' tabindex='5'></input>
             </div>
-            <div id='mapLocation'>
+            <div id='mapLocation' tabindex='6'>
                 <?php
                 for ($i = 0; $i < count($locationData); $i++) {
-                    echo '<div class=location data-location=\'' . GetTextLang($locationData[$i]['name'], 'en') . '\'>' . GetTextLang($locationData[$i]['name'], $language) . '</div>';
+                    echo '<div class=location tabindex=6 data-location=\'' . GetTextLang($locationData[$i]['name'], 'en') . '\'>' . GetTextLang($locationData[$i]['name'], $language) . '</div>';
                 }
                 ?>
             </div>
+            <div id='looseFocus' tabindex='10'></div>
         </div>
 
     </div>

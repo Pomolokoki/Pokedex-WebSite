@@ -672,4 +672,20 @@ document
   .getElementById("pokemonSearch")
   .addEventListener("input", pokemonSearch);
 
+document.addEventListener("keydown", (e) => {
+  if ((document.activeElement.className == "radio" || document.activeElement.className == "location" || document.activeElement.id == "centered") && e.key == "Enter") {
+    let active = document.activeElement;
+    active.click();
+    active.focus()
+  }
+  else if (document.activeElement.className == "location" && e.key == "Escape") {
+    if (currentMode == "Interactive") {
+      document.getElementById("centered").focus()
+    }
+    else {
+      document.getElementById("looseFocus").focus()
+    }
+  }
+});
+
 center();

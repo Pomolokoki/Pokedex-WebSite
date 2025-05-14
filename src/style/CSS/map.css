@@ -80,15 +80,21 @@ body {
 /* center map */
 #centered {
     position: absolute;
-    height: 2.5vh;
+    height: max-content;
     width: max-content;
     bottom: 1em;
     right: 1em;
     color: white;
     text-align: right;
     font-size: 2vh;
-    align-content: center;
     display: none;
+    cursor: pointer;
+    align-content: center;
+    padding-top: 0;
+}
+
+#centered:focus {
+    border: solid 1px white;
 }
 
 #refocus {
@@ -98,10 +104,10 @@ body {
     left: 0;
     color: white;
     text-align: right;
-    font-size: 2vh;
     right: 100%;
-    top: 20%;
+    height: 2.5vh;
 }
+
 
 /*#endregion*/
 
@@ -270,6 +276,16 @@ select {
     overflow-x: hidden;
 }
 
+#mapLocation:focus {
+    border: solid 1px white;
+}
+
+#looseFocus {
+    width: 0;
+    height: 0;
+}
+
+
 /* scroll list option */
 .location {
     border: double;
@@ -284,6 +300,10 @@ select {
     max-width: 90%;
     margin-left: 5%;
     /* cursor: pointer; */
+}
+
+.location:focus {
+    border-color: black;
 }
 
 /* #endregion */
