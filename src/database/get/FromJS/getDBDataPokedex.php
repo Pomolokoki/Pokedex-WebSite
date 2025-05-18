@@ -126,42 +126,48 @@ function GetEvolutionData($params)
 
 function AddFav($params)
 {
-    return executeQuery('INSERT INTO player_favorites VALUES (:playerId, :pokemonId)', 
+    return executeQuery(
+        'INSERT INTO player_favorites VALUES (:playerId, :pokemonId)',
         $params
     );
 }
 
 function RemoveFav($params)
 {
-    return executeQuery('DELETE FROM player_favorites WHERE playerId=:playerId AND pokemonId=:pokemonId', 
+    return executeQuery(
+        'DELETE FROM player_favorites WHERE playerId=:playerId AND pokemonId=:pokemonId',
         $params
     );
 }
 
 function AddPlayerPokemon($params)
 {
-    return executeQuery('INSERT INTO player_pokemon VALUES (:playerId, :pokemonId)', 
+    return executeQuery(
+        'INSERT INTO player_pokemon VALUES (:playerId, :pokemonId)',
         $params
     );
 }
 
 function RemovePlayerPokemon($params)
 {
-    return executeQuery('DELETE FROM player_pokemon WHERE playerId=:playerId AND pokemonId=:pokemonId', 
+    return executeQuery(
+        'DELETE FROM player_pokemon WHERE playerId=:playerId AND pokemonId=:pokemonId',
         $params
     );
 }
 
 function GetFav($params)
 {
-    return json_encode(executeQueryWReturn('SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId', 
+    return json_encode(executeQueryWReturn(
+        'SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId',
         $params
     ));
 }
 
 function GetPlayerPokemon($params)
 {
-    return json_encode(executeQueryWReturn('SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId',
+    return json_encode(executeQueryWReturn(
+        'SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId',
         $params
     ));
 }
@@ -214,7 +220,7 @@ switch ($req) {
         break;
 
     case 'AddPlayerPokemon':
-        echo AddPlayerPokemon( [
+        echo AddPlayerPokemon([
             ':playerId' => $_GET[1],
             ':pokemonId' => $_GET[2]
         ]);
