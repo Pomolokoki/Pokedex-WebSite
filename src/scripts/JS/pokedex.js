@@ -191,11 +191,13 @@ document.getElementById('TitleAtk').addEventListener('click', function () {
     atk.classList.remove('open');
     atkTitle.innerHTML = "Attaque : ▲";
     atkButton.style.display = 'none';
+    atk.style.display = 'none';
   } else {
     atk.classList.add('open');
     atkTitle.innerHTML = "Attaque : ▼";
     LoadAtkPokemon(last_id);
     atkButton.style.display = 'block';
+    atk.style.display = '';
   }
 });
 

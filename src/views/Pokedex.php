@@ -173,8 +173,8 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 			<div id='Info_Pokemon'>
 				<div id='sprit'>
 					<div id='img'></div>
-					<div id='button' tabindex="1">
-						<button type='button' id='gender_button'>
+					<div id='button'>
+						<button type='button' id='gender_button' tabindex="1">
 							<img id='symbole' src='../../public/img/M.png'>
 						</button>
 					</div>

@@ -25,7 +25,7 @@ try {
     $statement->execute();
     $statement->closeCursor();
 
-    include_once './loadDataIntoWebsite.php';
+    include_once __DIR__ . '/loadDataIntoWebsite.php';
 
 } catch (Exception $exception) {
     die('Erreur : ' . $exception->getMessage());

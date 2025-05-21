@@ -25,7 +25,7 @@ try {
 
 } catch (Exception $exception) {
     if (str_contains($exception->getMessage(), 'Unknown database')) {
-        include_once './create/createSQL.php';
+        include_once __DIR__ . '/create/createSQL.php';
     } else
         die('Erreur : ' . $exception->getMessage());
 }
