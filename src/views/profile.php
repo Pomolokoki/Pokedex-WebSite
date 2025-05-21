@@ -1,7 +1,8 @@
 <!-- Inclusion du header -->
 <?php
 include_once 'header.php';
-include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
+include_once __DIR__ . '/../database/connection/connectSQL.php';
+include_once __DIR__ . '/../database/get/extractDataFromDb.php';
 
 $dataPokemonFav = getFavoritePokemon([$user_id]);
 $dataPokemonCatch = getPokemonCaught([$user_id]);
@@ -13,10 +14,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
 <title>Profil Utilisateur</title>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
-<style>
-    <?php include('src/style/CSS/profile.css'); ?>
-</style>
-
+<link rel='stylesheet' href='../style/CSS/profile.css'>
 <body>
     <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
     <div id='ID_User'><?php $_SESSION['LOGGED_USER'][0]['id'] ?></div>
@@ -148,7 +146,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                 <div class='profile-avatar mb-3'>
                                     <form action='profile.php' method='POST' enctype='multipart/form-data'>
                                         <label for='fileImage' class='position-relative' style='cursor: pointer;'>
-                                            <img src='<?php echo htmlspecialchars($profilePictureUser) ?>' alt=''
+                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt=''
                                                 id='output'>
                                             <i class='fas fa-edit me-2 profile-edit' aria-hidden='true'
                                                 id='profile-pic'></i>

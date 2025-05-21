@@ -27,7 +27,7 @@ if (isset($_FILES['image'])) {
     $file_tmpName = $_FILES['image']['tmp_name'];
     $file_error = $_FILES['image']['error'];
     //Créer un dossier pour stocker les images
-    $upload_dir = 'uploads/';
+    $upload_dir = '../../uploads/';
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir);
     }
@@ -94,7 +94,8 @@ if (isset($_FILES['image'])) {
                     <button type='button' class='Connexion' id='Login'>Connexion</button>
                 <?php else: ?>
                     <div id='myPage' style='cursor: pointer;'>
-                        <img src='../../public/img/<?php echo htmlspecialchars($profilePictureUser); ?>'
+                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>'
+
                             alt='Profile Picture' id='profilePicture'>
                         </a>
                     </div>
