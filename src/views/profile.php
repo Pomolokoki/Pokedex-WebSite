@@ -14,10 +14,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
 <title>Profil Utilisateur</title>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
-<style>
-    <?php include('../style/CSS/profile.css'); ?>
-</style>
-
+<link rel='stylesheet' href='../style/CSS/profile.css'>
 <body>
     <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
     <div id='ID_User'><?php $_SESSION['LOGGED_USER'][0]['id'] ?></div>
