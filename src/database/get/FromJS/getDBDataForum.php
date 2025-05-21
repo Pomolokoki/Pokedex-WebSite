@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 if (!isset($_GET['request'])) {
     header("Location: unauthorized.php");
     return;
@@ -9,18 +11,22 @@ include_once '../extractDataFromDB.php';
 
 function UUID($params)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT UUID() AS uuid',
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT UUID() AS uuid',
+            $params
+        )
+    );
 }
 
 function PlayerInfo($params)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT picture, nickname FROM player WHERE id=:id',
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT picture, nickname FROM player WHERE id=:id',
+            $params
+        )
+    );
 }
 
 function GetMessages($params, $offset)
@@ -47,7 +53,7 @@ function GetMessages($params, $offset)
             LEFT JOIN player ON message.owner = player.id 
             LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
             LEFT JOIN channel ON message.channelId = channel.id 
-            WHERE message.channelId = :channelId ORDER BY message.postDate LIMIT 25 OFFSET ' . (int)$offset,
+            WHERE message.channelId = :channelId ORDER BY message.postDate LIMIT 25 OFFSET ' . (int) $offset,
             $params
         )
     );
@@ -59,8 +65,9 @@ function GetChannels($offset)
         executeQueryWReturn('SELECT id, title, keyWords, owner
         FROM channel
         ORDER BY creationDate
-        LIMIT 25 OFFSET ' . (int)$offset,
-        null)
+        LIMIT 25 OFFSET ' . (int) $offset,
+            null
+        )
     );
 }
 
@@ -71,8 +78,9 @@ function SearchChannel($params, $offset)
         FROM channel
         WHERE title LIKE :search OR keywords LIKE :search 
         ORDER BY creationDate
-        LIMIT 25 OFFSET ' . (int)$offset,
-        $params)
+        LIMIT 25 OFFSET ' . (int) $offset,
+            $params
+        )
     );
 }
 
@@ -94,18 +102,22 @@ function NewChannel($params)
 
 function GetFavs($params, $offset)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId LIMIT 25 OFFSET ' . (int)$offset,
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId LIMIT 25 OFFSET ' . (int) $offset,
+            $params
+        )
+    );
 }
 
 function GetFav($params)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId AND channelId=:themeId',
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId AND channelId=:themeId',
+            $params
+        )
+    );
 }
 
 function AddFav($params)
@@ -155,25 +167,25 @@ switch ($req) {
             ':channelId' => $_GET[1],
         ], $_GET[2]);
         return;
-    
+
     case 'GetChannels':
         echo GetChannels($_GET[1]);
         return;
-    
+
     case 'SearchChannel':
         echo SearchChannel([':search' => '%' . $_GET[1] . '%'], $_GET[2]);
         return;
 }
 var_dump($_SESSION);
 if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['LOGGED_USER'][0])) {
-header("Location: unauthorized.php");
+    header("Location: unauthorized.php");
     return;
 }
 
 
 switch ($req) {
     case 'NewMessage':
-        if ($_GET[4] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[4] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }
@@ -188,7 +200,7 @@ switch ($req) {
         break;
 
     case 'NewChannel':
-        if ($_GET[2] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[2] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }
@@ -202,7 +214,7 @@ switch ($req) {
         break;
 
     case 'GetFavs':
-        if ($_GET[1] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[1] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }
@@ -212,7 +224,7 @@ switch ($req) {
         break;
 
     case 'GetFav':
-        if ($_GET[1] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[1] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }
@@ -223,7 +235,7 @@ switch ($req) {
         break;
 
     case 'AddFav':
-        if ($_GET[1] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[1] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }
@@ -234,7 +246,7 @@ switch ($req) {
         break;
 
     case 'RemoveFav':
-        if ($_GET[1] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[1] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }
@@ -245,7 +257,7 @@ switch ($req) {
         break;
 
     case 'RemoveMessage':
-        if ($_GET[2] != $_SESSION['LOGGED_USED'][0]['id'] && $_SESSION['LOGGED_USED'][0]['forumRank'] != 8) {
+        if ($_GET[2] != $_SESSION['LOGGED_USER'][0]['id'] && $_SESSION['LOGGED_USER'][0]['forumRank'] != 8) {
             header("Location: unauthorized.php");
             return;
         }
@@ -253,7 +265,7 @@ switch ($req) {
         break;
 
     case 'UpdateMessage':
-        if ($_GET[3] != $_SESSION['LOGGED_USED'][0]['id']) {
+        if ($_GET[3] != $_SESSION['LOGGED_USER'][0]['id']) {
             header("Location: unauthorized.php");
             return;
         }

@@ -106,7 +106,7 @@ function AddMessage(
   messageContainer.appendChild(profile);
 
   let profilePicture = document.createElement("img");
-  profilePicture.className = "profilePicture";
+  profilePicture.className =  "../../public/img" + "profilePicture";
   profilePicture.src = picture;
   profilePicture.alt = "photo de profil";
   profile.appendChild(profilePicture);
