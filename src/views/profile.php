@@ -1,8 +1,6 @@
 <!-- Inclusion du header -->
 <?php
 include_once 'header.php';
-include_once __DIR__ . '/../database/connection/connectSQL.php';
-include_once __DIR__ . '/../database/get/extractDataFromDb.php';
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 $dataPokemonFav = getFavoritePokemon([$user_id]);
 $dataPokemonCatch = getPokemonCaught([$user_id]);
