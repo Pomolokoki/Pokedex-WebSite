@@ -7,7 +7,9 @@
         "phpunit/phpunit": "^12.1"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit tests",
+        "test": "composer unit_test && composer e2e_test",
+        "unit_test": "./vendor/bin/phpunit tests",
+        "e2e_test": "npx playwright test && npx playwright show-report",
         "create_test_database": "php ./tests/scripts/createTestDatabase.php"
     }
 }
