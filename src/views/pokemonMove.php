@@ -9,6 +9,7 @@ $selectedMoveData = $isSet ? getPokemonMove([$_POST['moveId']]) : null;
 $typeData = GetTypesForPokemonMoves();
 
 ?>
+
 <!DOCTYPE html>
 <html lang='fr'>
 
@@ -16,13 +17,13 @@ $typeData = GetTypesForPokemonMoves();
     <meta charset='utf-8'>
     <title>Pokedex</title>
     <link rel='stylesheet' type='text/css' href='../style/css/pokemonMove.css'>
-    <link rel='stylesheet' type='text/css' href='../style/css/typeColor.php'>
+    <link rel='stylesheet' type='text/css' href='../style/php/typeColor.php'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
+
 <?php
 include 'header.php';
 ?>
-
 
 <body>
     <div id='moveContainer'>
@@ -144,7 +145,6 @@ include 'header.php';
                     ?>
                     <tr>
                         <td class='AtkCell AtkName'><?= getTextLang($pokemonMoveData[$i]['name'], $language) ?>
-                            <div class='separator'></div>
                         </td>
                         <td class='AtkCell AtkType'>
                             <p class='AtkTypeLabel <?= getTextLang($pokemonMoveData[$i]['type'], 'en') ?>'>
