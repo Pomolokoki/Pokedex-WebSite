@@ -17,17 +17,6 @@ function GetPokemonsForPokedex()
     );
 }
 
-function GetPokemonsForMap()
-{
-    return executeQueryWReturn('SELECT pokemon.id,
-        pokemon.name,
-        pokemon.spriteM
-        FROM pokemon 
-        WHERE pokemon.id < 100000 ORDER BY pokemon.id',
-        null
-    );
-}
-
 function GetTypesForPokedex()
 {
     return executeQueryWReturn('SELECT id, name, sprite FROM type', null);
