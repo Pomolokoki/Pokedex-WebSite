@@ -62,7 +62,7 @@ document.addEventListener("mouseup", function () {
   drag = false; // stop dragging
 });
 
-// event for phones (not working)
+// event for phones (not working until installing a special thingy)
 /*document.addEventListener('touchstart', function (e) {
     drag = true
 })
@@ -107,10 +107,6 @@ let svgMap = document.getElementById("svgMap");
 map.style.left = mapP.offsetWidth / 2 - parseFloat(map.offsetWidth) / 2 + "px";
 map.style.top = mapP.offsetHeight / 2 - parseFloat(map.offsetHeight) / 2 + "px";
 
-// imgMap.style.left = "0px";
-// imgMap.style.top = "0px";
-// imgMap.style.width = "350px";
-// imgMap.style.height = "350px";
 imgMap.style.margin = "auto";
 svgMap.style.left = "0px";
 svgMap.style.top = "0px";
@@ -221,14 +217,6 @@ document.getElementById("mapList").addEventListener("change", async (e) => {
   }
   updateMap("regionChanged");
   console.log(currentRegion);
-  //     }
-  // }
-  // xmlhttp.open("GET", `./FromJS/getDBData.php?request=
-  //   SELECT location.name
-  //   FROM location
-  //   JOIN region ON location.regionId = region.id
-  //   WHERE region.name LIKE '` + currentRegion + "%'", true);
-  // xmlhttp.send();
 });
 // endregion
 
@@ -276,25 +264,6 @@ function replaceBubble(target, force = false) {
 // svg element hovered
 function onOver(e) {
   replaceBubble(e.target);
-  // has been used to clone an element on Kanto Map (svg not accurate)
-  //
-  // if (e.target.id == cloned)
-  //     return;
-  // let clone = document.getElementById("cloned")
-  // if (clone != null)
-  // {
-  //     cloned = undefined;
-  //     clone.remove()
-  // }
-  // if (currentRegion == "Kanto" && (e.target.id == "Route 17" || e.target.id == "Route 18" || e.target.id == "Route 12" ||  e.target.id == "Sea Route 19"))
-  // {
-  //     cloned = e.target.id;
-  //     let clone =  e.target.cloneNode();
-  //     clone.id = "cloned";
-  //     clone.addEventListener("mouseleave", onLeave);
-  //     svgMap.appendChild(clone);
-  //     clone.style.filter = "brightness(70%)";
-  // }
 }
 
 // remove the bubble form where it was
@@ -313,17 +282,6 @@ function setLocation(location) {
   currentLocation.style.filter = "brightness(70%)";
   location.style.background = "#ffffff";
   showLocationPokemon(location.dataset.location);
-
-  // Kanto clone stuff (l.230)
-  //
-  // if (currentRegion == "Kanto" && (currentLocation.id == "Route 17" || currentLocation.id == "Route 18" || currentLocation.id == "Route 12" || currentLocation.id == "Sea Route 19"))
-  // {
-  //     console.log("currentLocation", currentLocation, location)
-  //     let clone =  currentLocation.cloneNode();
-  //     clone.id = "cloned";
-  //     clone.addEventListener("mouseleave", onLeave);
-  //     svgMap.appendChild(clone);
-  // }
 }
 
 // unselect location
@@ -354,17 +312,7 @@ function selectLocation(name) {
 
 // mouse leaving map element
 function onLeave(e) {
-  // clone stuff (l.230)
-  //
-  // if (e.target.id != cloned)
   removeBubble();
-
-  // let clone = document.getElementById("cloned")
-  // if (clone && e.target.id != cloned)
-  // {
-  //     clone.remove();
-  //     cloned = undefined;
-  // }
 }
 
 // mouse clicking on map element
@@ -517,9 +465,6 @@ async function pokemonClick(id) {
     lastPokemonClickedId = id;
   }
 
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
   const dataLocation = decodedJSON;
 
   console.log(dataLocation);
@@ -552,28 +497,6 @@ async function pokemonClick(id) {
     if (found) locationList[i].style.display = "block";
     else locationList[i].style.display = "none";
   }
-  //     }
-  // }
-  // if (lastPokemonClickedId == id) { // unselect pokemon
-  //     xmlhttp.open("GET", `./FromJS/getDBData.php?request=
-  //         SELECT location.name
-  //         FROM location
-  //         JOIN region ON location.regionId = region.id
-  //         WHERE region.name LIKE '` + currentRegion + "%'"
-  //     );
-  //     lastPokemonClickedId = -1;
-  // }
-  // else { // select pokemon
-  //     xmlhttp.open("GET", `./FromJS/getDBData.php?request=
-  //         SELECT DISTINCT location.name
-  //         FROM location
-  //         INNER JOIN location_pokemon AS lp ON location.id = lp.locationId
-  //         INNER JOIN region ON location.regionId = region.id
-  //         WHERE region.name LIKE '` + currentRegion + "%' AND lp.pokemonId=" + id
-  //     );
-  //     lastPokemonClickedId = id;
-  // }
-  // xmlhttp.send();
 }
 
 // when click on location, show all pokemon living here
@@ -592,22 +515,11 @@ async function showLocationPokemon(location) {
         location
     ).then((res) => res.json());
   }
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
 
   const dataPokemon = decodedJSON;
   // Info pokemon live on this location in BD
 
   let pokemons = document.getElementsByClassName("pokemonn");
-
-  // if (dataPokemon == "No results found.") {
-  //     for (let i = 0; i < pokemons.length; ++i) {
-  //         if (typeof pokemons[i] != "object") continue;
-  //         pokemons[i].style.display = "block";
-  //     }
-  //     return;
-  // }
 
   //update pokedex
   let found = false;
@@ -624,33 +536,10 @@ async function showLocationPokemon(location) {
     if (found) pokemons[i].style.display = "flex";
     else pokemons[i].style.display = "none";
   }
-  //     }
-  // }
-  // if (location == "") { // unselect location
-  //     xmlhttp.open("GET", `./FromJS/getDBData.php?request=
-  //         SELECT DISTINCT pokemon.id
-  //         FROM pokemon
-  //         JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId
-  //         JOIN region ON lp.generation = region.id
-  //         WHERE region.name LIKE '` + currentRegion + "%'");
-  // }
-  // else { // select location
-  //     xmlhttp.open("GET", `./FromJS/getDBData.php?request=
-  //         SELECT DISTINCT pokemon.id
-  //         FROM pokemon
-  //         JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId
-  //         JOIN location ON location.id = lp.locationId
-  //         JOIN region ON lp.generation = region.id
-  //         WHERE region.name LIKE '` + currentRegion + "%' AND location.name LIKE'" + location + "%'");
-  // }
-  // xmlhttp.send();
 }
 
 // pokemon searchBar
 function pokemonSearch() {
-  // [...document.querySelectorAll(".pokemon")].forEach(pokemon => {
-  //     pokemon.style.display = "none";
-  // });
   let searchBar = document.getElementById("pokemonSearch");
   searchBar = searchBar.value.toLowerCase();
   let pokemonList = document.getElementsByClassName("pokemonn");
