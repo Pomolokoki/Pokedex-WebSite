@@ -195,7 +195,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                     data-bs-target='#editProfileModal'>
                                     <i class='fas fa-edit me-2'></i>Modifier le profil
                                 </button>
-                                <a href='/src/scripts/PHP/logout.php' class='btn btn-danger'>
+                                <a href='../scripts/PHP/logout.php' class='btn btn-danger'>
                                     <i class='fas fa-sign-out-alt me-2'></i>Déconnexion
                                 </a>
                             </div>
