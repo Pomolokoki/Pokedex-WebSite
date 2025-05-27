@@ -106,8 +106,8 @@ function AddMessage(
   messageContainer.appendChild(profile);
 
   let profilePicture = document.createElement("img");
-  profilePicture.className =  "../../public/img" + "profilePicture";
-  profilePicture.src = picture;
+  profilePicture.className = "profilePicture";
+  profilePicture.src = picture == "emptyPicture.png" ? "../../public/img/" + picture : picture;
   profilePicture.alt = "photo de profil";
   profile.appendChild(profilePicture);
 
@@ -120,7 +120,7 @@ function AddMessage(
     reply.className = "reply";
     reply.innerHTML =
       "::: replying to <img class=profilePicture src = " +
-      replyPicture +
+      replyPicture == "emptyPicture.png" ? "../../public/img/" + replyPicture : replyPicture +
       " alt=photo de profil>" +
       replyNickname.substr(0, 10) +
       "... : " +
