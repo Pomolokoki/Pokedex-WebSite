@@ -37,16 +37,6 @@ async function getUUID() {
   const id = decodedJSON[0]["uuid"];
   console.log("uuid : ", id, id.length);
   return id;
-  //let id;
-  //var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //         id = JSON.parse(this.responseText)[0]["uuid"];
-  //     }
-  // }
-  // xmlhttp.open("GET", "../database/get/FromJS/getDBDataForum.php?request=UUID", false);
-  // xmlhttp.send();
-  // return id;
 }
 
 async function getPlayerInfo(id) {
@@ -58,17 +48,6 @@ async function getPlayerInfo(id) {
   const datas = [decodedJSON[0][0], decodedJSON[0][1]];
   console.log(datas);
   return datas;
-  // var datas;
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //         let data = JSON.parse(this.responseText)[0];
-  //         datas = [data[0], data[1]];
-  //     }
-  // }
-  // xmlhttp.open("GET", "../database/get/FromJS/getDBDataForum.php?request=PlayerInfo&1=" + id, false);
-  // xmlhttp.send();
-  // return datas;
 }
 
 // region message
@@ -154,7 +133,6 @@ function AddMessage(
 // add a new message into the DataBase
 async function AddMessageToDB(
   id,
-  postDate,
   text,
   replyId,
   playerId,
@@ -172,17 +150,11 @@ async function AddMessageToDB(
       "&5=" +
       channelId
   );
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  // }
-
-  // xmlhttp.open("GET", "../database/get/FromJS/getDBDataForum.php?request=NewMessage&1=" + id + "&2=" + text + "&3=" + replyId + "&4=" + playerId + "&5=" + postDate + "&6=" + channelId);
-  // xmlhttp.send();
 }
 
 // region theme
 // add a new channel into the DataBase
-async function AddChannelToDB(id, owner, title, keyWords, creationDate) {
+async function AddChannelToDB(id, owner, title, keyWords) {
   fetch(
     "../database/get/FromJS/getDBDataForum.php?request=NewChannel&1=" +
       id +
@@ -193,20 +165,6 @@ async function AddChannelToDB(id, owner, title, keyWords, creationDate) {
       "&4=" +
       keyWords
   );
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  // }
-
-  // xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=
-  //   INSERT INTO channel (id, owner, title, keyWords, creationDate)
-  // VALUES (
-  //     '` + id + "', "
-  //     + owner + ", '"
-  //     + title + "', '"
-  //     + keyWords + "', '"
-  //     + creationDate
-  //     + "');");
-  // xmlhttp.send();
 }
 
 //get favorite themes
@@ -222,21 +180,6 @@ async function getFavorites(playerId) {
 
   const data = decodedJSON[0];
   if (data == "No results found.") return [];
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //         // console.log(this.response, JSON.stringify("No results found."))
-  //         // console.log(JSON.parse(this.response));
-
-  //         if (JSON.parse(this.response) == "No results found.")
-  //             bool = [];
-  //         else
-  //             data = JSON.parse(this.response);
-  //     }
-  // }
-  // xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=
-  //     SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
-  // xmlhttp.send();
   return data;
 }
 
@@ -250,24 +193,6 @@ async function getFavorite(playerId, themeId) {
   const bool = decodedJSON[0] == "No results found.";
 
   return bool;
-  // let bool;
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //         // console.log(this.response, JSON.stringify("No results found."))
-  //         // console.log(JSON.parse(this.response));
-
-  //         if (JSON.parse(this.response) == "No results found.")
-  //             bool = false;
-  //         else
-  //             bool = true;
-  //     }
-  // }
-  // xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=
-  //     SELECT * FROM player_fav_channel WHERE playerId=` + playerId + " AND channelId ='" + themeId + "'", false);
-  // xmlhttp.send();
-  // console.log("bool", bool);
-  // return bool;
 }
 
 // is it fovrited theme (set svg star)
@@ -297,11 +222,6 @@ async function getMessages(channelId, offset) {
   const messageData = decodedJSON;
   if (offset == 0) {
     messageContainer.innerHTML = "";
-    // var xmlhttp = new XMLHttpRequest();
-    // xmlhttp.onreadystatechange = function () {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         messageData = JSON.parse(this.responseText);
-    //         console.log(messageData);
 
     const title = document.createElement("h2");
     title.innerHTML = messageData[0]["title"];
@@ -327,30 +247,6 @@ async function getMessages(channelId, offset) {
       messageData[i]["replyText"]
     );
   }
-
-  //     }
-  // }
-  // xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=
-  //   SELECT
-  //   channel.title,
-  //   message.id,
-  //   message.text,
-  //   message.reply,
-  //   player.id AS owner,
-  //   player.nickname,
-  //   player.picture,
-  //   reply.id AS replyId,
-  //   reply.owner AS replyOwner,
-  //   reply.text AS replyText,
-  //   replyPlayer.nickname AS replyNickname,
-  //   replyPlayer.picture AS replyPicture
-  //   FROM message
-  //   LEFT JOIN message AS reply ON message.reply = reply.id
-  //   LEFT JOIN player ON message.owner = player.id
-  //   LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id
-  //   LEFT JOIN channel ON message.channelId = channel.id
-  //   WHERE message.channelId = '` + channelId + "' ORDER BY message.postDate", true);
-  // xmlhttp.send();
 }
 
 // change theme
@@ -393,9 +289,7 @@ function addThemeInList(id, keywords, favorite, title, parent) {
 
 // filter for search bar
 async function filter() {
-  themeList.forEach((theme) => {
-    // theme.style.display = "none";
-  });
+
 
   let searchBar = document.getElementById("themeSearchbar").value.toLowerCase();
   if (selectFav && selectFav.dataset.selected == "true") {
@@ -404,11 +298,6 @@ async function filter() {
     themeList.forEach((theme) => {
         addThemeInList(theme.id, theme.keywords, getFavorite(theme.id), theme.title, document.getElementById("themeResults"))
     });
-    // let newTheme = document.createElement("div")
-    // newTheme.className = "theme"
-    // newTheme.innerHTML = "+"
-    // newTheme.id = "createTheme"
-    // document.getElementById("themeResults").appendChild(newTheme)
 
   } else if (searchBar == "") {
     let themeList = await fetch("../database/get/FromJS/getDBDataForum.php?request=GetChannels&1=" + currentOffsetChannel).then((res) => res.json());
@@ -417,11 +306,6 @@ async function filter() {
     themeList.forEach((theme) => {
         addThemeInList(theme.id, theme.keywords, getFavorite(theme.id), theme.title, document.getElementById("themeResults"))
     });
-    // let newTheme = document.createElement("div")
-    // newTheme.className = "theme"
-    // newTheme.innerHTML = "+"
-    // newTheme.id = "createTheme"
-    // document.getElementById("themeResults").appendChild(newTheme)
 
   } else {
     let themeList = await fetch("../database/get/FromJS/getDBDataForum.php?request=SearchChannel&1=" + searchBar + "&2=" + currentOffsetChannel).then((res) => res.json());
@@ -430,11 +314,6 @@ async function filter() {
     themeList.forEach((theme) => {
         addThemeInList(theme.id, theme.keywords, getFavorite(theme.id), theme.title, document.getElementById("themeResults"))
     });
-    // let newTheme = document.createElement("div")
-    // newTheme.className = "theme"
-    // newTheme.innerHTML = "+"
-    // newTheme.id = "createTheme"
-    // document.getElementById("themes").appendChild(newTheme)
   }
 }
 document.getElementById("themeSearchbar").addEventListener("input", filter);
@@ -479,10 +358,6 @@ async function setFavoriteTheme(bool) {
     ? "AddFav&1=" + playerValues.dataset.id + "&2=" + currentChannel
     : "RemoveFav&1=" + playerValues.dataset.id + "&2=" + currentChannel;
   fetch("../database/get/FromJS/getDBDataForum.php?request=" + query);
-
-  //var xmlhttp = new XMLHttpRequest();
-  //xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=` + query);
-  //xmlhttp.send();
 }
 
 let setFav = document.getElementById("setFavorite");
@@ -644,13 +519,7 @@ async function removeMessage(message) {
   for (let i = 0; i < currentOffsetMessage; i += 25) {
         getMessages(currentChannel, i);
     }
-    document.getElementById("channel").scrollHeight = scroll
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=
-  //     DELETE FROM message WHERE id='` + message.id + "'");
-  // xmlhttp.send();
-  // message.previousElementSibling.remove();
-  // message.remove();
+    document.getElementById("channel").scrollHeight = scroll;
 }
 
 // update message on DB
@@ -664,10 +533,6 @@ function updateMessage(message) {
       "&3=" +
       playerValues.dataset.id
   );
-  // var xmlhttp = new XMLHttpRequest();
-  // xmlhttp.open("GET", `../database/get/FromJS/getDBDataForum.php?request=
-  //     UPDATE message SET text = '` + message.innerHTML.substr(0, message.innerHTML.length) + `' WHERE id='` + message.id + "'");
-  // xmlhttp.send();
 }
 
 // press enter to send message
