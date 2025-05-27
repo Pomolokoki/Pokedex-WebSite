@@ -88,6 +88,8 @@ function AddMessage(
   profilePicture.className = "profilePicture";
   profilePicture.src = picture == "emptyPicture.png" ? "../../public/img/" + picture : picture;
   profilePicture.alt = "photo de profil";
+  profilePicture.loadding = lazy
+  profilePicture.decoding = async
   profile.appendChild(profilePicture);
 
   let name = document.createElement("label");
@@ -100,7 +102,7 @@ function AddMessage(
     reply.innerHTML =
       "::: replying to <img class=profilePicture src = " +
       replyPicture == "emptyPicture.png" ? "../../public/img/" + replyPicture : replyPicture +
-      " alt=photo de profil>" +
+      " alt=photo de profil loading=lazy decoding=async>" +
       replyNickname.substr(0, 10) +
       "... : " +
       replyText.substr(0, 20) +
