@@ -467,6 +467,8 @@ async function createPokedex() {
     image.src = dataPokemon[i].spriteM;
     image.alt = "Image " + getText(dataPokemon[i].name, language);
     image.dataset.id = dataPokemon[i].id;
+    image.loading = "lazy"
+    image.decoding =  "async"
     let name = document.createElement("p");
     name.innerHTML = getText(dataPokemon[i].name, language);
     pokemon.appendChild(image);

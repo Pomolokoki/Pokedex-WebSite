@@ -22,7 +22,7 @@ include_once 'header.php';
         <div id='smallMapFrame'>
 
             <span id='mapContainer'>
-                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png' alt='image carte Kanto'></image>
+                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png' alt='image carte Kanto' loading='lazy' decoding='async'></image>
                 <svg viewBox='0 0 350 350' width='350' heigh='350' id='svgMap' draggable='false'
                     xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg' clip-rule='evenodd'
                     version='1.1'>
@@ -30,7 +30,7 @@ include_once 'header.php';
             </span>
 
             <div id='centered' tabindex='8'>
-                <image id='refocus' draggable='fase' src='../../public/img/refocusIcon.png' alt='recentrer'></image>
+                <image id='refocus' draggable='false' src='../../public/img/refocusIcon.png' alt='recentrer' loading='lazy' decoding='async'></image>
                 <label>Recentrer la carte</label>
             </div>
 
