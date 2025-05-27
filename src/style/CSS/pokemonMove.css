@@ -8,7 +8,7 @@ body {
     margin: 0;
     height: 100%;
     width: 100%;
-    background-color: black;
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
     text-align: center;
 }
 
@@ -29,9 +29,10 @@ body {
 
 .headCells {
     font-size: larger;
-    color: aliceblue;
+    color: white;
     padding: 10px;
-    position: relative;
+    padding-right: 20px;
+    /* position: relative; */
 }
 
 .AtkDescription {
@@ -48,23 +49,41 @@ body {
 }
 
 #thead {
-    position: fixed;
+    position: sticky;
+    top: 0;
     z-index: 1;
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
-    margin-top: -90px;
-    width: calc(100% - 19px);
+    width: calc(100% - 14px);
+    left: 0;
     overflow-x: hidden;
 }
 
+#thead > tr > .headCells {
+    padding-right: 10px;
+}
+
+#thead > tr > .headCells > p {
+    position: relative;
+    padding-right: 20px;
+}
+#thead > tr > .headCells > p > img {
+    position: absolute;
+    right: 0;
+}
+
 th {
-    width: max-content;
+    width: min-content;
+}
+
+th > input {
+    width: -webkit-fill-available;
 }
 
 /* sorter buttons */
 .sorter {
     width: 15px;
     height: 30px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     margin-bottom: 10px;
     position: relative;
     float: right;

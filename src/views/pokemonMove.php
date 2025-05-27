@@ -64,25 +64,25 @@ include 'header.php';
                         <p class='headText' data-id='3'>Puissance
                             <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='pcFilter'></input>
+                        <input type='text' class='filter' id='pcFilter' size='4'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='4'>PP
                             <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='ppFilter'></input>
+                        <input type='text' class='filter' id='ppFilter' size='4'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='5'>Précision
                             <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='accuracyFilter'></input>
+                        <input type='text' class='filter' id='accuracyFilter' size='4'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='6'>Priority
                             <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='priorityFilter'></input>
+                        <input type='text' class='filter' id='priorityFilter' size='4'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='7'>Description
@@ -91,14 +91,14 @@ include 'header.php';
                         <input type='text' class='filter' id='descriptionFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
-                        <p class='headText' data-id='8'>Taux Critique
+                        <p class='headText' data-id='8'>TauxCritique
                             <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='criticityFilter'></input>
+                        <input type='text' class='filter' id='criticityFilter' size='4'></input>
                     </th>
                 </tr>
             </thead>
-            <thead>
+            <!-- <thead>
                 <tr>
                     <th class='headCells'>Nom<br>
                         <input type='text' class='filter'></input>
@@ -120,25 +120,25 @@ include 'header.php';
                         </select>
                     </th>
                     <th class='headCells'>Puissance<br>
-                        <input type='text' class='filter'></input>
+                        <input type='text' class='filter' size='4'></input>
                     </th>
                     <th class='headCells'>PP<br>
-                        <input type='text' class='filter'></input>
+                        <input type='text' class='filter' size='4'></input>
                     </th>
                     <th class='headCells'>Précision<br>
-                        <input type='text' class='filter'></input>
+                        <input type='text' class='filter' size='4'></input>
                     </th>
                     <th class='headCells'>Priority<br>
-                        <input type='text' class='filter'></input>
+                        <input type='text' class='filter' size='4'></input>
                     </th>
                     <th class='headCells'>Description<br>
                         <input type='text' class='filter'></input>
                     </th>
                     <th class='headCells'>TauxCritique<br>
-                        <input type='text' class='filter'></input>
+                        <input type='text' class='filter' size='4'></input>
                     </th>
                 </tr>
-            </thead>
+            </thead> -->
             <tbody id='tbody'>
                 <?php
                 for ($i = 0; $i < count($pokemonMoveData); ++$i) {
