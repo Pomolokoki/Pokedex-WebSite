@@ -176,7 +176,7 @@ switch ($req) {
         echo SearchChannel([':search' => '%' . $_GET[1] . '%'], $_GET[2]);
         return;
 }
-var_dump($_SESSION);
+
 if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['LOGGED_USER'][0])) {
     header("Location: unauthorized.php");
     return;
@@ -189,6 +189,8 @@ switch ($req) {
             header("Location: unauthorized.php");
             return;
         }
+        if ($_GET[3] == "null" )
+            $_GET[3] = null;
         echo NewMessage([
             ':id' => $_GET[1],
             ':text' => $_GET[2],
