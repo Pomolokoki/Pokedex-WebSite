@@ -728,6 +728,9 @@ var LoadEvoPokemon = async function (id) {
       let img = document.createElement("img")
       img.classList.add("img_evo")
       img.src = dataEvol[i].s1
+      img.decoding = "async"
+      img.loading = "lazy"
+      img.alt = "Image pokemon " + dataEvol[i].n1
       divElementPokemon.appendChild(img)
       divElementPokemon.addEventListener('click', function () {
         LoadPokemon(dataEvol[i].id1);
@@ -799,8 +802,11 @@ var LoadEvoPokemon = async function (id) {
       tabEvo.push(dataEvol[i].n2);
       let img = document.createElement("img");
       img.classList.add("img_evo")
-      divElementPokemon.appendChild(img);
       img.src = dataEvol[i].s2;
+      img.decoding = "async"
+      img.loading = "lazy"
+      img.alt = "Image pokemon " + dataEvol[i].n2
+      divElementPokemon.appendChild(img);
       divElementPokemon.addEventListener('click', function () {
         LoadPokemon(dataEvol[i].id2);
         document.getElementById(dataEvol[i].id2).scrollIntoView({ behavior: "smooth" });

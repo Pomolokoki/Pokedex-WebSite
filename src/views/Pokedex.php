@@ -94,7 +94,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 							<div class='info'>
 								<div class='img_pokemon'>
 									<?php
-									echo '<img src=\'' . $datapokemon[$i]['spriteM'] . '\'/>';
+									echo '<img src=\'' . $datapokemon[$i]['spriteM'] . '\' loading=\'lazy\' decoding=\'async\'  alt=\'Image ' . $dataPokemonFav[$i]['name'] . '\'';
 									?>
 								</div>
 								<div class='info_pokemon'>
@@ -176,7 +176,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					<div id='img'></div>
 					<div id='button'>
 						<button type='button' id='gender_button'>
-							<img id='symbole' src='../../public/img/M.png'>
+							<img id='symbole' loading='lazy' decoding='async' alt='Changer de sexe' src='../../public/img/M.png'>
 						</button>
 					</div>
 				</div>
@@ -308,7 +308,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						}
 					?>
 						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
+							<img class='type_img' loading='lazy' decoding='async' alt='Image type <?=getTextLang($dataType[$i]['name'], 'fr')?>' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
 						</div>
 
 					<?php
@@ -331,7 +331,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						}
 					?>
 						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
+							<img class='type_img' loading='lazy' decoding='async' alt='Image type <?=getTextLang($dataType[$i]['name'], 'fr')?>' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
 						</div>
 
 					<?php
