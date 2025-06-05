@@ -33,13 +33,13 @@ include 'header.php';
                 <tr>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='0'>Nom
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='nameFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='1'>Type
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <select class='filter' id='typeFilter'>
                             <option value=''>--Tout--</option>
@@ -50,7 +50,7 @@ include 'header.php';
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='2'>Catégorie
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <select class='filter' id='categoryFilter'>
                             <option value=''>--Tout--</option>
@@ -61,37 +61,37 @@ include 'header.php';
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='3'>Puissance
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='pcFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='4'>PP
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='ppFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='5'>Précision
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='accuracyFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='6'>Priority
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='priorityFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='7'>Description
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='descriptionFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='8'>Taux Critique
-                            <img class='sorter' src='../../public/img/selector.png'>
+                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
                         </p>
                         <input type='text' class='filter' id='criticityFilter'></input>
                     </th>
