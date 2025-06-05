@@ -96,45 +96,55 @@ function filter()
             }
         }
     }
-    sort();
+    callback(sort, 800);
+}
+
+function debounce(callback, delay) {
+  let timer
+  return function() {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      callback();
+    }, delay)
+  }
 }
 
 // filter inputs
 nameFilter.addEventListener('input', () => {
     inputs.nameInput = nameFilter.value;
-    filter();
+    callback(filter, 300);
 })
 typeFilter.addEventListener('change', () => {
     inputs.typeInput = typeFilter.value;
-    filter();
+    callback(filter, 300);
 })
 categoryFilter.addEventListener('change', () => {
     inputs.categoryInput = categoryFilter.value;
-    filter();
+    callback(filter, 300);
 })
 pcFilter.addEventListener('input', () => {
     inputs.pcInput= pcFilter.value;
-    filter();
+    callback(filter, 300);
 })
 ppFilter.addEventListener('input', () => {
     inputs.ppInput = ppFilter.value;
-    filter();
+    callback(filter, 300);
 })
 accuracyFilter.addEventListener('input', () => {
     inputs.accuracyInput = accuracyFilter.value;
-    filter();
+    callback(filter, 300);
 })
 priorityFilter.addEventListener('input', () => {
     inputs.priorityInput = priorityFilter.value;
-    filter();
+    callback(filter, 300);
 })
 descriptionFilter.addEventListener('input', () => {
     inputs.descriptionInput = descriptionFilter.value;
-    filter();
+    callback(filter, 300);
 })
 criticityFilter.addEventListener('input', () => {
     inputs.criticityInput = criticityFilter.value;
-    filter();
+    callback(filter, 300);
 })
 
 
@@ -144,8 +154,6 @@ for (let i = 0; i < listHeads.length; ++i)
 {
     listHeads[i].addEventListener('click', () => {
         column = listHeads[i].dataset.id;
-        sort();
+        callback(sort, 800);
     })
 }
-
-//TODO debounce on search 
