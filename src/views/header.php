@@ -87,16 +87,15 @@ if (isset($_FILES['image'])) {
                 </style>
             <?php endif; ?>
             <div id='Logo'>
-                <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' />
+                <img src='../../public/img/PokeLogov2.png' alt='Logo' id='PokeLogo' loading="lazy" decoding="async" />
             </div>
             <div id='Profile'>
                 <?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
                     <button type='button' class='Connexion' id='Login'>Connexion</button>
                 <?php else: ?>
                     <div id='myPage' style='cursor: pointer;'>
-                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>'
-
-                            alt='Profile Picture' id='profilePicture'>
+                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Photo de profil'
+                            id='profilePicture' loading="lazy" decoding="async">
                         </a>
                     </div>
                 <?php endif; ?>

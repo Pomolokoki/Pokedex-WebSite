@@ -144,7 +144,8 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                 <div class='profile-avatar mb-3'>
                                     <form action='profile.php' method='POST' enctype='multipart/form-data'>
                                         <label for='fileImage' class='position-relative' style='cursor: pointer;'>
-                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt=''
+                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt='Photo de profil'
+                                                loading='lazy' decoding='async'
                                                 id='output'>
                                             <i class='fas fa-edit me-2 profile-edit' aria-hidden='true'
                                                 id='profile-pic'></i>
@@ -216,7 +217,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                                 <div class='card h-100'>
                                                     <div class='card-body pokemonLike-Owned'>
                                                         <p class='card-text'>
-                                                            <img class='pokemon' data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>' alt=''>
+                                                            <img class='pokemon' loading='lazy' decoding='async' data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>' alt='Image <?=$dataPokemonCatch[$i]['name']?>'>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -244,7 +245,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                             <div class='card h-100'>
                                                 <div class='card-body pokemonLike-Owned'>
                                                     <p class='card-text'>
-                                                        <img class='pokemon' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>
+                                                        <img class='pokemon' loading='lazy' decoding='async' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt='Image <?=$dataPokemonFav[$i]['name']?>'>
                                                     </p>
                                                 </div>
                                             </div>

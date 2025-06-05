@@ -138,6 +138,7 @@ function getFavoritePokemon($params)
 {
     return executeQueryWReturn('SELECT pokemon.name as pokemonName,
         pokemon.spriteM as pokemonSprite,
+        pokemon.name
         pokemon.id as pokemonId 
         FROM pokemon
         INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',[
@@ -150,6 +151,7 @@ function getPokemonCaught($params)
 {
     return executeQueryWReturn('SELECT pokemon.name as pokemonName,
         pokemon.spriteM as pokemonSprite,
+        porkenmon.name
         pokemon.id as pokemonId 
         FROM pokemon
         INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',[
