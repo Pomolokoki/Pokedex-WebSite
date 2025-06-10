@@ -42,7 +42,6 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    // TODO décommenter pour tests finaux
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
