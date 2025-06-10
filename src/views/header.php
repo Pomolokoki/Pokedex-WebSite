@@ -13,7 +13,7 @@ include_once __DIR__ . '/../database/connection/connectSQL.php';
     <link rel='stylesheet' href='../style/CSS/header.css'>
     <script src='../scripts/JS/header.js' defer></script>
     <script src='../scripts/JS/profile.js' defer></script>
-    <title>PokeKrazy</title>
+    <title>Pokedex</title>
 </head>
 
 <?php if (isset($_SESSION['LOGGED_USER'][0]['picture'])) {
