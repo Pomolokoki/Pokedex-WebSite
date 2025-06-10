@@ -24,7 +24,6 @@ test('attaques page has navbar', async ({ page }) => {
     await expect(headerConnectButton).toBeVisible();
 });
 
-// TODO affichage de tout
 test('attaques page has moves infos', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
