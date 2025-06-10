@@ -14,14 +14,14 @@ test('types page has navbar', async ({ page }) => {
     const headerForumButton = page.locator('#forumPage');
     const headerConnectButton = page.getByRole('button', { name: 'Connexion' });
 
-    await expect(headerLogo).toBeVisible;
-    await expect(headerPokedexButton).toBeVisible;
-    await expect(headerTypesButton).toBeVisible;
-    await expect(headerMapsButton).toBeVisible;
-    await expect(headerAttacksButton).toBeVisible;
-    await expect(headerObjectsButton).toBeVisible;
-    await expect(headerForumButton).toBeVisible;
-    await expect(headerConnectButton).toBeVisible;
+    await expect(headerLogo).toBeVisible();
+    await expect(headerPokedexButton).toBeVisible();
+    await expect(headerTypesButton).toBeVisible();
+    await expect(headerMapsButton).toBeVisible();
+    await expect(headerAttacksButton).toBeVisible();
+    await expect(headerObjectsButton).toBeVisible();
+    await expect(headerForumButton).toBeVisible();
+    await expect(headerConnectButton).toBeVisible();
 });
 
 test('types can be selected', async ({ page }) => {
@@ -34,18 +34,18 @@ test('types can be selected', async ({ page }) => {
     const defendFairyBtn = page.locator('[id="0;18"]');
     const fireAgainstWaterBtn = page.locator('[id="10;11"]');
     const psyAgainstFairyBtn = page.locator('[id="14;18"]');
-    await expect(resetBtn).toBeVisible;
-    await expect(attackFireBtn).toBeVisible;
+    await expect(resetBtn).toBeVisible();
+    await expect(attackFireBtn).toBeVisible();
     await expect(attackFireBtn).toHaveCSS('opacity', '1');
-    await expect(attackPsyBtn).toBeVisible;
+    await expect(attackPsyBtn).toBeVisible();
     await expect(attackPsyBtn).toHaveCSS('opacity', '1');
-    await expect(defendWaterBtn).toBeVisible;
+    await expect(defendWaterBtn).toBeVisible();
     await expect(defendWaterBtn).toHaveCSS('opacity', '1');
-    await expect(defendFairyBtn).toBeVisible;
+    await expect(defendFairyBtn).toBeVisible();
     await expect(defendFairyBtn).toHaveCSS('opacity', '1');
-    await expect(fireAgainstWaterBtn).toBeVisible;
+    await expect(fireAgainstWaterBtn).toBeVisible();
     await expect(fireAgainstWaterBtn).toHaveCSS('opacity', '1');
-    await expect(psyAgainstFairyBtn).toBeVisible;
+    await expect(psyAgainstFairyBtn).toBeVisible();
     await expect(psyAgainstFairyBtn).toHaveCSS('opacity', '1');
 
     await attackFireBtn.click();
