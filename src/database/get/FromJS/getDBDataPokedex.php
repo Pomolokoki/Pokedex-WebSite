@@ -5,6 +5,27 @@ if (!isset($_GET['request'])) {
 }
 
 include_once '../extractDataFromDB.php';
+
+function GetPokemon($params)
+{
+    return  json_encode(
+        executeQueryWReturn(
+            'SELECT pokemon.id,
+        pokemon.name,
+        pokemon.spriteM,
+        pokemon.category,
+        pokemon.generation,
+        t1.name AS type1,
+        t2.name AS type2
+        FROM pokemon 
+        JOIN type AS t1 ON pokemon.type1 = t1.id 
+        LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
+        WHERE pokemon.id < 100000 ORDER BY pokemon.id LIMIT 25,70000',
+            $params
+        )
+    );
+}
+
 function GetPokemonData($params)
 {
     return json_encode(
@@ -49,7 +70,8 @@ function GetAbilityData($params)
 function GetMoveData($params)
 {
     return json_encode(
-        executeQueryWReturn('SELECT move.name, type.name AS type, move.effectType, move.pc,  move.accuracy, mp.learnMethod, mp.learnAtLevel, move.pp 
+        executeQueryWReturn(
+            'SELECT move.name, type.name AS type, move.effectType, move.pc,  move.accuracy, mp.learnMethod, mp.learnAtLevel, move.pp 
         FROM move_pokemon AS mp INNER JOIN move ON mp.moveId = move.id JOIN type ON move.type = type.id WHERE mp.pokemonId=:pokemonId AND mp.generation=:gen',
             $params
         )
@@ -126,42 +148,48 @@ function GetEvolutionData($params)
 
 function AddFav($params)
 {
-    return executeQuery('INSERT INTO player_favorites VALUES (:playerId, :pokemonId)', 
+    return executeQuery(
+        'INSERT INTO player_favorites VALUES (:playerId, :pokemonId)',
         $params
     );
 }
 
 function RemoveFav($params)
 {
-    return executeQuery('DELETE FROM player_favorites WHERE playerId=:playerId AND pokemonId=:pokemonId', 
+    return executeQuery(
+        'DELETE FROM player_favorites WHERE playerId=:playerId AND pokemonId=:pokemonId',
         $params
     );
 }
 
 function AddPlayerPokemon($params)
 {
-    return executeQuery('INSERT INTO player_pokemon VALUES (:playerId, :pokemonId)', 
+    return executeQuery(
+        'INSERT INTO player_pokemon VALUES (:playerId, :pokemonId)',
         $params
     );
 }
 
 function RemovePlayerPokemon($params)
 {
-    return executeQuery('DELETE FROM player_pokemon WHERE playerId=:playerId AND pokemonId=:pokemonId', 
+    return executeQuery(
+        'DELETE FROM player_pokemon WHERE playerId=:playerId AND pokemonId=:pokemonId',
         $params
     );
 }
 
 function GetFav($params)
 {
-    return json_encode(executeQueryWReturn('SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId', 
+    return json_encode(executeQueryWReturn(
+        'SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId',
         $params
     ));
 }
 
 function GetPlayerPokemon($params)
 {
-    return json_encode(executeQueryWReturn('SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId',
+    return json_encode(executeQueryWReturn(
+        'SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId',
         $params
     ));
 }
@@ -171,6 +199,10 @@ function GetPlayerPokemon($params)
 
 $req = $_GET['request'];
 switch ($req) {
+    case 'GetPokemon':
+        echo GetPokemon([]);
+        return;
+
     case 'GetPokemonData':
         echo GetPokemonData([':pokemonId' => $_GET[1]]);
         return;
@@ -214,7 +246,7 @@ switch ($req) {
         break;
 
     case 'AddPlayerPokemon':
-        echo AddPlayerPokemon( [
+        echo AddPlayerPokemon([
             ':playerId' => $_GET[1],
             ':pokemonId' => $_GET[2]
         ]);

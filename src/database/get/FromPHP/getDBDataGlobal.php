@@ -3,23 +3,26 @@ include_once __DIR__ . '/../extractDataFromDB.php';
 
 function GetPokemonsForPokedex()
 {
-    return executeQueryWReturn('SELECT pokemon.id,
+    return executeQueryWReturn(
+        'SELECT pokemon.id,
         pokemon.name,
         pokemon.spriteM,
         pokemon.category,
+        pokemon.generation,
         t1.name AS type1,
         t2.name AS type2
         FROM pokemon 
         JOIN type AS t1 ON pokemon.type1 = t1.id 
         LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
-        WHERE pokemon.id < 100000 ORDER BY pokemon.id',
+        WHERE pokemon.id < 100000 ORDER BY pokemon.id LIMIT 25',
         null
     );
 }
 
 function GetPokemonsForMap()
 {
-    return executeQueryWReturn('SELECT pokemon.id,
+    return executeQueryWReturn(
+        'SELECT pokemon.id,
         pokemon.name,
         pokemon.spriteM
         FROM pokemon 
@@ -61,7 +64,8 @@ function GetChannels()
 
 function GetMessages()
 {
-    return executeQueryWReturn('SELECT message.id,
+    return executeQueryWReturn(
+        'SELECT message.id,
         message.text,
         message.reply,
         player.id as playerId,
@@ -76,18 +80,20 @@ function GetMessages()
         LEFT JOIN player ON message.owner = player.id 
         LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
         WHERE message.channelId = 1 
-        ORDER BY message.postDate LIMIT 25', 
-null
+        ORDER BY message.postDate LIMIT 25',
+        null
     );
 }
 
 function GetFavoritesChannel($params)
 {
     // var_dump($params);
-    return executeQueryWReturn('SELECT channelId, title 
+    return executeQueryWReturn(
+        'SELECT channelId, title 
         FROM player_fav_channel
         JOIN channel ON channel.id = channelId
-        WHERE playerId = :playerId LIMIT 15',[
+        WHERE playerId = :playerId LIMIT 15',
+        [
             ':playerId' => $params[0]
         ]
     );
@@ -95,7 +101,8 @@ function GetFavoritesChannel($params)
 
 function GetItems()
 {
-    return executeQueryWReturn('SELECT item.id,
+    return executeQueryWReturn(
+        'SELECT item.id,
         item.name,
         item.smallDescription,
         item.sprite,
@@ -109,7 +116,8 @@ function GetItems()
 
 function getPokemonMoves()
 {
-    return executeQueryWReturn('SELECT move.name,
+    return executeQueryWReturn(
+        'SELECT move.name,
         smallDescription,
         accuracy,
         pp,
@@ -121,13 +129,14 @@ function getPokemonMoves()
         FROM move
         JOIN type ON type.id = move.type 
         ORDER BY name',
-null
+        null
     );
 }
 
 function getPokemonMove($params)
 {
-    return executeQueryWReturn('SELECT move.name,
+    return executeQueryWReturn(
+        'SELECT move.name,
         smallDescription,
         accuracy,
         pp,
@@ -139,7 +148,8 @@ function getPokemonMove($params)
         FROM move
         JOIN type ON type.id = move.type 
         WHERE move.id = :id 
-        ORDER BY name',[
+        ORDER BY name',
+        [
             ':id' => $params[0]
         ]
     );
@@ -147,11 +157,13 @@ function getPokemonMove($params)
 
 function getFavoritePokemon($params)
 {
-    return executeQueryWReturn('SELECT pokemon.name as pokemonName,
+    return executeQueryWReturn(
+        'SELECT pokemon.name as pokemonName,
         pokemon.spriteM as pokemonSprite,
         pokemon.id as pokemonId 
         FROM pokemon
-        INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',[
+        INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',
+        [
             ':userId' => $params[0]
         ]
     );
@@ -159,11 +171,13 @@ function getFavoritePokemon($params)
 
 function getPokemonCaught($params)
 {
-    return executeQueryWReturn('SELECT pokemon.name as pokemonName,
+    return executeQueryWReturn(
+        'SELECT pokemon.name as pokemonName,
         pokemon.spriteM as pokemonSprite,
         pokemon.id as pokemonId 
         FROM pokemon
-        INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',[
+        INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',
+        [
             ':userId' => $params[0]
         ]
     );

@@ -79,21 +79,23 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 			<div id='pokedexCore'>
 				<div id='pokedex'>
 					<?php
-					for ($i = -0; $i < 1025; $i++) {
+					for ($i = 0; $i < count($datapokemon); $i++) {
 					?>
-						<div class='pokemon' tabindex="1" id='<?php echo $datapokemon[$i]['id'] ?>' data-name='<?php if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
-																													echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
-																												} else {
-																													echo explode(' ', getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
-																												}
-																												?>' data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2'] ?>'
+						<div class='pokemon' tabindex="1" id='<?php echo $datapokemon[$i]['id'] ?>' data-name='
+						<?php
+						if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
+							echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
+						} else {
+							echo explode(' ', getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
+						}
+						?>' data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2'] ?>'
 							data-category='<?php echo $datapokemon[$i]['category'] ?>'
 							data-gen='<?php echo $datapokemon[$i]['generation'] ?>'
 							data-id='<?php echo $datapokemon[$i]['id'] ?>'>
 							<div class='info'>
 								<div class='img_pokemon'>
 									<?php
-									echo '<img src=\'' . $datapokemon[$i]['spriteM'] . '\'/>';
+									echo '<img id="img_pokemon' .$datapokemon[$i]['id'].'" src=\'' . $datapokemon[$i]['spriteM'] . '\'/>';
 									?>
 								</div>
 								<div class='info_pokemon'>
