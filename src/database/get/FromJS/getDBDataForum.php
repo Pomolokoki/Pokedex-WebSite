@@ -14,7 +14,8 @@ function UUID($params)
     return json_encode(
         executeQueryWReturn(
             'SELECT UUID() AS uuid',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -24,7 +25,8 @@ function PlayerInfo($params)
     return json_encode(
         executeQueryWReturn(
             'SELECT picture, nickname FROM player WHERE id=:id',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -54,7 +56,8 @@ function GetMessages($params, $offset)
             LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
             LEFT JOIN channel ON message.channelId = channel.id 
             WHERE message.channelId = :channelId ORDER BY message.postDate LIMIT 25 OFFSET ' . (int) $offset,
-            $params
+            $params,
+            null
         )
     );
 }
@@ -66,6 +69,7 @@ function GetChannels($offset)
         FROM channel
         ORDER BY creationDate
         LIMIT 25 OFFSET ' . (int) $offset,
+            null,
             null
         )
     );
@@ -79,7 +83,8 @@ function SearchChannel($params, $offset)
         WHERE title LIKE :search OR keywords LIKE :search 
         ORDER BY creationDate
         LIMIT 25 OFFSET ' . (int) $offset,
-            $params
+            $params,
+            null
         )
     );
 }
@@ -105,7 +110,8 @@ function GetFavs($params, $offset)
     return json_encode(
         executeQueryWReturn(
             'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId LIMIT 25 OFFSET ' . (int) $offset,
-            $params
+            $params,
+            null
         )
     );
 }
@@ -115,7 +121,8 @@ function GetFav($params)
     return json_encode(
         executeQueryWReturn(
             'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId AND channelId=:themeId',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -189,7 +196,7 @@ switch ($req) {
             header("Location: unauthorized.php");
             return;
         }
-        if ($_GET[3] == "null" )
+        if ($_GET[3] == "null")
             $_GET[3] = null;
         echo NewMessage([
             ':id' => $_GET[1],

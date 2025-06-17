@@ -19,14 +19,22 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
     return $statement->fetchAll();
 }
 
-function executeQueryWReturn($query, $params)
+function executeQueryWReturn($query, $params, $database)
 {
-    global $db;
-    $statement = $db->prepare($query);
-    $statement->execute($params);
-    if ($statement->rowCount() == 0)
-        return 'No results found.';
-    return $statement->fetchAll();
+    if ($database === null) {
+        global $db;
+        $statement = $db->prepare($query);
+        $statement->execute($params);
+        if ($statement->rowCount() == 0)
+            return 'No results found.';
+        return $statement->fetchAll();
+    } else {
+        $statement = $database->prepare($query);
+        $statement->execute($params);
+        if ($statement->rowCount() == 0)
+            return 'No results found.';
+        return $statement->fetchAll();
+    }
 }
 
 function executeQuery($query, $params)
