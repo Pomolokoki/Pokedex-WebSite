@@ -27,17 +27,6 @@ let inputsKeys = Object.keys(inputs);
 let listAtk = document.getElementsByTagName('tr');
 var column = "0";
 
-// let the fake header be at sameplace at old one
-container.addEventListener('scroll', () => {
-    header.scrollLeft = container.scrollLeft; 
-})
-// let the fake header where the real one should be
-header.addEventListener('mousewheel', (e) => {
-    if (!e.shiftKey) return;
-    header.scrollLeft += e.deltaY;
-    container.scrollLeft += e.deltaY; 
-})
-
 // sort all moves
 var lastColumn = "0";
 function sort()
@@ -82,27 +71,6 @@ function sort()
             return td1.innerHTML.localeCompare(td2.innerHTML);
         }
     })
-    // old way of sorting taking way to much time
-    //
-    // while (sorting) {
-    //     listAtk = document.getElementsByTagName('tr')
-        
-    //     sorting = false;
-    //     for (i = 1; i < listAtk.length - 1; i++) {
-    //         toReplace = false;
-    //         let td1 = listAtk[i].getElementsByTagName('td')[parseInt(column)];
-    //         let td2 = listAtk[i + 1].getElementsByTagName('td')[parseInt(column)];
-    //         if (td1 == undefined || td2 == undefined) continue;
-    //         if (td1.innerHTML.toLowerCase() > td2.innerHTML.toLowerCase()) {                shouldSwitch = true;
-    //             toReplace = true;
-    //             break;
-    //         }
-    //     }
-    //     if (toReplace) {
-    //         listAtk[i].parentNode.insertBefore(listAtk[i + 1], listAtk[i]);
-    //         sorting = true;
-    //     }
-    // }
 
     // actualise the table
     let body = document.getElementById("tbody")
@@ -128,45 +96,55 @@ function filter()
             }
         }
     }
-    sort();
+    callback(sort, 800);
+}
+
+function debounce(callback, delay) {
+  let timer
+  return function() {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      callback();
+    }, delay)
+  }
 }
 
 // filter inputs
 nameFilter.addEventListener('input', () => {
     inputs.nameInput = nameFilter.value;
-    filter();
+    callback(filter, 300);
 })
 typeFilter.addEventListener('change', () => {
     inputs.typeInput = typeFilter.value;
-    filter();
+    callback(filter, 300);
 })
 categoryFilter.addEventListener('change', () => {
     inputs.categoryInput = categoryFilter.value;
-    filter();
+    callback(filter, 300);
 })
 pcFilter.addEventListener('input', () => {
     inputs.pcInput= pcFilter.value;
-    filter();
+    callback(filter, 300);
 })
 ppFilter.addEventListener('input', () => {
     inputs.ppInput = ppFilter.value;
-    filter();
+    callback(filter, 300);
 })
 accuracyFilter.addEventListener('input', () => {
     inputs.accuracyInput = accuracyFilter.value;
-    filter();
+    callback(filter, 300);
 })
 priorityFilter.addEventListener('input', () => {
     inputs.priorityInput = priorityFilter.value;
-    filter();
+    callback(filter, 300);
 })
 descriptionFilter.addEventListener('input', () => {
     inputs.descriptionInput = descriptionFilter.value;
-    filter();
+    callback(filter, 300);
 })
 criticityFilter.addEventListener('input', () => {
     inputs.criticityInput = criticityFilter.value;
-    filter();
+    callback(filter, 300);
 })
 
 
@@ -176,6 +154,6 @@ for (let i = 0; i < listHeads.length; ++i)
 {
     listHeads[i].addEventListener('click', () => {
         column = listHeads[i].dataset.id;
-        sort();
+        callback(sort, 800);
     })
 }
