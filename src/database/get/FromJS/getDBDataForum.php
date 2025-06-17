@@ -9,18 +9,24 @@ include_once '../extractDataFromDB.php';
 
 function UUID($params)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT UUID() AS uuid',
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT UUID() AS uuid',
+            $params,
+            null
+        )
+    );
 }
 
 function PlayerInfo($params)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT picture, nickname FROM player WHERE id=:id',
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT picture, nickname FROM player WHERE id=:id',
+            $params,
+            null
+        )
+    );
 }
 
 function GetMessages($params)
@@ -45,7 +51,8 @@ function GetMessages($params)
             LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
             LEFT JOIN channel ON message.channelId = channel.id 
             WHERE message.channelId = :channelId ORDER BY message.postDate, LIMIT :offset, 25',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -70,16 +77,20 @@ function GetFavs($params)
 {
     return json_encode(executeQueryWReturn(
         'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId',
-        $params
+        $params,
+        null
     ));
 }
 
 function GetFav($params)
 {
-    return json_encode(executeQueryWReturn(
-        'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId AND channelId=:themeId',
-        $params
-    ));
+    return json_encode(
+        executeQueryWReturn(
+            'SELECT channelId FROM player_fav_channel WHERE playerId=:playerId AND channelId=:themeId',
+            $params,
+            null
+        )
+    );
 }
 
 function AddFav($params)

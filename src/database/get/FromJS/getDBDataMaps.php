@@ -12,17 +12,19 @@ function GetLocationFromRegion($params)
     return json_encode(executeQueryWReturn('SELECT location.name FROM location
         JOIN region ON location.regionId = region.id
         WHERE region.name LIKE :regionName',
-        $params
+        $params,
+        null
     ));
 }
 
 function GetLocationFromPokemon($params)
 {
-    return json_encode(executeQueryWReturn('SELECT DISTINCT pokemon.id FROM pokemon 
-        JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
-        JOIN region ON lp.generation = region.id 
-        WHERE region.name LIKE :regionName',
-        $params
+    return json_encode(executeQueryWReturn('SELECT DISTINCT location.name FROM location 
+        INNER JOIN location_pokemon AS lp ON location.id = lp.locationId 
+        INNER JOIN region ON location.regionId = region.id 
+        WHERE region.name LIKE :regionName AND lp.pokemonId=:pokemonId',
+        $params,
+        null
     ));
 }
 
@@ -32,7 +34,8 @@ function GetPokemonFromRegion($params)
         JOIN location_pokemon AS lp ON pokemon.id = lp.pokemonId 
         JOIN region ON lp.generation = region.id 
         WHERE region.name LIKE :regionName',
-        $params
+        $params,
+        null
     ));
 }
 
@@ -43,7 +46,8 @@ function GetPokemonFromLocation($params)
         JOIN location ON location.id = lp.locationId 
         JOIN region ON lp.generation = region.id 
         WHERE region.name LIKE :regionName AND location.name LIKE :location',
-        $params
+        $params,
+        null
     ));
 }
 
@@ -62,8 +66,10 @@ switch ($req) {
         break;
 
     case 'GetPokemonFromRegion':
-        echo GetPokemonFromRegion([
-            ':regionName' => $_GET[1] . '%']
+        echo GetPokemonFromRegion(
+            [
+                ':regionName' => $_GET[1] . '%'
+            ]
         );
         break;
 
