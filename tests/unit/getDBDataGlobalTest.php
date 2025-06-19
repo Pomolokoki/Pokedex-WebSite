@@ -53,4 +53,8 @@ class getDBDataGlobalTest extends TestCase
         $this->assertEquals($pokemons[178]["species"], "Wool Pokémon///Pokémon Laine");
         $this->assertEquals($pokemons[178]["generation"], 2);
     }
+
+    //TODO test get attaques
+
+    //TODO test get objets
 }
