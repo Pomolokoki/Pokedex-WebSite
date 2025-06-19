@@ -309,6 +309,7 @@ var LoadDataPokemon = async function (id) {
   // console.log(dataPokemon)
 
   dataPokemon = decodedJSON[0];
+  
   // Info pokemon
   document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
   if (getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette") {
@@ -365,10 +366,13 @@ var LoadDataPokemon = async function (id) {
     document.getElementById('graph_Stat' + i).style.backgroundColor = colorStat[i - 1];
   }
   // Faiblesse/Resistance
-  if (dataPokemon[15] != null) {
-    let Resistance_Value = dataPokemon[15].split("/");
-    for (let i = 0; i < 18; i++) {
-      document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i + 1];
+if (dataPokemon["typeEfficiency"] != null) {
+  const Resistance_Value = dataPokemon["typeEfficiency"].split("/");
+
+  for (let i = 0; i < 18; i++) {
+    const elem = document.getElementById('Faibless_Resistance_Value' + dataPokemon["id"] + "_" + i);
+    if (!elem) continue;
+    elem.innerText = "x" + Resistance_Value[i + 1];
       if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25") {
         document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
         document.getElementById('Faibless_Resistance_Value' + i).style.fontSize = 7 + "px";
@@ -945,3 +949,4 @@ if (pokemonSelectedOnLoad && pokemonSelectedOnLoad.dataset.pokemon != "") {
   // console.log(pokemonSelectedOnLoad)
   document.getElementById(pokemonSelectedOnLoad.dataset.pokemon).click();
 }
+

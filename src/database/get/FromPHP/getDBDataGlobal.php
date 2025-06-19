@@ -3,19 +3,36 @@ include_once __DIR__ . '/../extractDataFromDB.php';
 
 function GetPokemonsForPokedex()
 {
-    return executeQueryWReturn('SELECT pokemon.id,
+    return executeQueryWReturn('SELECT 
+        pokemon.id,
         pokemon.name,
         pokemon.spriteM,
+        pokemon.spriteF,
         pokemon.category,
+        pokemon.generation,
+        pokemon.description,
+        pokemon.height,
+        pokemon.weight,
+        pokemon.catch_rate,
+        pokemon.hp ,
+        pokemon.attack ,
+        pokemon.defense ,
+        pokemon.atackspe ,
+        pokemon.defensespe ,
+        pokemon.speed ,
+        pokemon.typeEfficiency,
         t1.name AS type1,
         t2.name AS type2
         FROM pokemon 
         JOIN type AS t1 ON pokemon.type1 = t1.id 
         LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
-        WHERE pokemon.id < 100000 ORDER BY pokemon.id',
+        WHERE pokemon.id < 100000 
+        ORDER BY pokemon.id',
         null
     );
 }
+
+
 
 function GetPokemonsForMap()
 {

@@ -24,6 +24,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 	<link rel='stylesheet' type='text/css' href='../style/CSS/Pokedex.css'>
 	<link rel='stylesheet' type='text/css' href='../style/PHP/typeColor.php'>
 	<link rel='stylesheet' type='text/html' href='../style/PHP/statName.php'>
+
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
@@ -31,6 +32,8 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 <?php include_once 'header.php'; ?>
 
 <body>
+
+	
 	<div id='Data_User'>
 		<?php if (isset($_SESSION['LOGGED_USER'][0]['id'])) {
 			echo ($_SESSION['LOGGED_USER'][0]['id']);
@@ -39,23 +42,29 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 	<div id='content'>
 		<div id='img_background'></div>
 		<div id='core'>
-			<div id='headerPokedex'>
-				<div class='filter'>
-					<select id='gen'>
-						<option value='all'>All</option>
-						<option value='1'>Gen 1</option>
-						<option value='2'>Gen 2</option>
-						<option value='3'>Gen 3</option>
-						<option value='4'>Gen 4</option>
-						<option value='5'>Gen 5</option>
-						<option value='6'>Gen 6</option>
-						<option value='7'>Gen 7</option>
-						<option value='8'>Gen 8</option>
-						<option value='9'>Gen 9</option>
-					</select>
+			<div id="headerPokedex">
+  <div class="headerBar">
+    <div id="searchBar">
+      <input id="searchBarInput" type="text" placeholder="Rechercher" />
+      
+    </div>
 
-					<select id='type'>
-						<option value='all'>All</option>
+    <div class="filter">
+      <select id="gen">
+        <option value="all">Gen</option>
+        <option value="1">Gen 1</option>
+        <option value="2">Gen 2</option>
+        <option value="3">Gen 3</option>
+        <option value="4">Gen 4</option>
+        <option value="5">Gen 5</option>
+        <option value="6">Gen 6</option>
+        <option value="7">Gen 7</option>
+        <option value="8">Gen 8</option>
+        <option value="9">Gen 9</option>
+      </select>
+
+      <select id='type'>
+						<option value='all'>Type</option>
 						<?php
 						for ($i = 0; $i < 18; $i++) {
 							echo '<option value=\'' . getTextLang($dataType[$i]['name'], 'en') . '\'>' . getTextLang($dataType[$i]['name']) . '</option>';
@@ -63,313 +72,461 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						?>
 					</select>
 
-					<select id='rarete'>
-						<option value='all'>All</option>
-						<option value='0'>Commun</option>
-						<option value='2'>Fabuleux</option>
-						<option value='1'>Légendaire</option>
-						<option value='3'>Ultra-Chimère</option>
-						<option value='4'>Paradox</option>
-					</select>
-				</div>
-				<div id='searchBar'>
-					<input id='searchBarInput' type='text' name='text' class='search' placeholder='Rechercher' />
-				</div>
-			</div>
+      <select id="rarete">
+        <option value="all">Rareté</option>
+        <option value="0">Commun</option>
+        <option value="2">Fabuleux</option>
+        <option value="1">Légendaire</option>
+        <option value="3">Ultra-Chimère</option>
+        <option value="4">Paradox</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 			<div id='pokedexCore'>
-				<div id='pokedex'>
-					<?php
-					for ($i = 0; $i < 1025; $i++) {
-					?>
-						<div class='pokemon' id='<?php echo $datapokemon[$i]['id'] ?>' data-name='<?php if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
-																										echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
-																									} else {
-																										echo explode(' ', getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
-																									}
-																									?>' data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2'] ?>'
-							data-category='<?php echo $datapokemon[$i]['category'] ?>'
-							data-gen='<?php echo $datapokemon[$i]['generation'] ?>'
-							data-id='<?php echo $datapokemon[$i]['id'] ?>'>
-							<div class='colors'></div>
-							<div class='info'>
-								<div class='img_pokemon'>
-									<?php
-									echo '<img src=\'' . $datapokemon[$i]['spriteM'] . '\'/>';
-									?>
-								</div>
-								<div class='info_pokemon'>
-									<div class='info_l'>
-										<div class='id_pokemon'>
-											<?php
-											echo $datapokemon[$i]['id'];
-											?>
-										</div>
-										<div class='nom_pokemon'>
-											<?php
-											if (getTextLang($datapokemon[$i]['name']) == 'M. Mime' || getTextLang($datapokemon[$i]['name']) == 'Mime Jr.' || getTextLang($datapokemon[$i]['name']) == 'M. Glaquette') {
-												echo '<option value=\'' . getTextLang($datapokemon[$i]['name'], 'en') . '\'>' . getTextLang($datapokemon[$i]['name']) . '</option>';
-											} else {
-												echo '<option value=\'' . explode(' ', getTextLang($datapokemon[$i]['name'], 'en'))[0] . '\'>' . explode(' ', getTextLang($datapokemon[$i]['name']))[0] . '</option>';
-											}
+			    <div class="pokedex-wrapper">
+			        <ol id='pokedex'>
+						<?php for ($i = 0; $i < count($datapokemon); $i++) { ?>
+							<li class="pokemon <?= strtolower(getTextLang($datapokemon[$i]['type1'], 'en')) ?>"
+    							data-name="<?= getTextLang(mb_strtolower($datapokemon[$i]['name'])) ?>"
+    							data-type="<?= getTextLang($datapokemon[$i]['type1'], 'en') . ' ' . getTextLang($datapokemon[$i]['type2'] ?? '', 'en') ?>"
+    							data-category="<?= $datapokemon[$i]['category'] ?>"
+    							data-gen="<?= $datapokemon[$i]['generation'] ?>"
+    							data-id="<?= $datapokemon[$i]['id'] ?>"
+                  data-typeefficiency="<?= $datapokemon[$i]['typeEfficiency'] ?>">
 
-											?>
-										</div>
-										<div class='type'>
-											<div
-												class='typeDisplay type_1 textcolor <?php echo getTextLang($datapokemon[$i]['type1'], 'en'); ?>'>
-												<?php
-												echo getTextLang($datapokemon[$i]['type1']);
-												?>
-											</div>
-											<?php
-											if ($datapokemon[$i]['type2'] != null): ?>
-												<div
-													class='typeDisplay type_2 textcolor <?php echo getTextLang($datapokemon[$i]['type2'], 'en'); ?>'>
-													<?php
-													echo getTextLang(
-														$datapokemon[$i]['type2']
-													);
-													?>
-												</div>
-											<?php
-											endif;
-											?>
+							  <div class="pokeinfos">
+							    <span class="number">#<?= str_pad($datapokemon[$i]['id'], 3, '0', STR_PAD_LEFT) ?></span>
+							    <h3 class="<?= (strlen(getTextLang($datapokemon[$i]['name'])) > 15 ? 'small-font' : '') ?>">
+								    <?= getTextLang($datapokemon[$i]['name']) ?>
+								</h3>
 
-										</div>
-									</div>
-									<div class='info_r'>
-										<div class='niveau'>
-											<?php
+							    <ul class="types">
+							      <li class="type"><?= getTextLang($datapokemon[$i]['type1']) ?></li>
+							      <?php if ($datapokemon[$i]['type2']) : ?>
+							        <li class="type"><?= getTextLang($datapokemon[$i]['type2']) ?></li>
+							      <?php endif; ?>
+							    </ul>
+							    <p class="rarete">
+							      <?php
 											if ($datapokemon[$i]['category'] == 0) {
-												echo 'commun';
+												echo 'Commun';
 											} elseif ($datapokemon[$i]['category'] == 1) {
-												echo 'légendaire';
+												echo 'Légendaire';
 											} elseif ($datapokemon[$i]['category'] == 2) {
-												echo 'fabuleux';
+												echo 'Fabuleux';
 											} elseif ($datapokemon[$i]['category'] == 3) {
-												echo 'ultra-chimère';
+												echo 'Ultra-Chimère';
 											} else {
-												echo 'paradox';
+												echo 'Paradox';
 											}
 											?>
-										</div>
-									</div>
-								</div>
-							</div>
+							    </p>
+							  </div>
+							  <div class="pokeimg">
+							    <img class="imgbackground" src="https://pokemoncalc.web.app/en/assets/pokeball.svg" alt="pokeball">
+							    <img class="sprite" src="<?= $datapokemon[$i]['spriteM'] ?>" alt="<?= getTextLang($datapokemon[$i]['name']) ?>">
+							  </div>
+							</li>
+							  <?php } ?>
+</ol>
 
-						</div>
-					<?php
-					}
-					?>
-				</div>
-			</div>
-		</div>
+							
 
-		<div id='Pokemon'>
-			<div id='secteur1'>
-				<button id='pokedex_back'>
-					< </button>
-						<h2 class='name_section' id='name_section_1'>Information Pokemon :</h2>
-			</div>
-			<div id='Info_Pokemon'>
-				<div id='sprit'>
-					<div id='img'></div>
-					<div id='button'>
-						<button type='button' id='gender_button'>
-							<img id='symbole' src='../../public/img/M.png'>
-						</button>
-					</div>
-				</div>
-				<div id='Info'>
-					<div id='Info_Pok_l'>
-						<div id='id_Pokemon'></div>
-						<div id='nom_Pokemon'></div>
-						<div id='categorie_Pokemon'></div>
-						<div id='type_Pokemon' class='textcolor'></div>
-					</div>
-					<div id='Info_Pok_r'>
-						<div id='data_pokemon'>
-							<div id='gen_Pokemon'></div>
-							<div id='taille_Pokemon'></div>
-							<div id='poids_Pokemon'></div>
-							<div id='catch_rate_Pokemon'></div>
-						</div>
-						<div id='button_user'>
 
-							<input type='checkbox' id='check_fav'>
-							<label for='check_fav' id='fav'>
-								<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
-									class='star star-dotted' viewBox='0 0 16 16'>
-									<path
-										d='M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z' />
-								</svg>
-								<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
-									class='star star-fill' viewBox='0 0 16 16'>
-									<path
-										d='M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z' />
-								</svg>
-							</label>
-							<input type='checkbox' id='check_capture'>
-							<label for='check_capture' id='capture'>
-								<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='-16 -0.5 16 16'
-									fill='currentColor' class='pokeball pokeball-empty'>
-									<path
-										d='M -15 8 A 1 0.95 0 0 0 -1 8 M -1 7 A 1 0.95 0 0 0 -15 7 Z m -15 0.5 A 8 8 90 1 1 0 7.5 A 8 8 90 0 1 -16 7.5 M -7 7.5 A 1 1 0 0 1 -9 7.5 A 1 1 0 0 1 -7 7.5 M -10 7.5 A 1 1 0 0 1 -6 7.5 A 1 1 0 0 1 -10 7.5 M -5 7.5 A 1 1 0 0 0 -11 7.5 A 1 1 0 0 0 -5 7.5 M -10.956 7 A 0.32 1 0 0 0 -10.958 8.001 L -5.042 8 A 0.32 1 0 0 0 -5.042 7' />
-								</svg>
-								<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='-16 0 16 16'
-									fill='currentColor' class='pokeball pokeball-fill'>
-									<path
-										d='M -15 8 A 7 7 90 0 0 -1 8 H -5 a 1 1 90 0 1 -6 0 h 5 a 1 1 90 0 0 -4 0 a 1 1 90 0 0 4 0 h -9 m 0 0 h 6 A 1 1 0 0 0 -8 9 A 1 1 0 0 0 -7 8 A 1 1 0 0 0 -9 8 Z m -1 0 A 8 8 90 1 1 0 8 A 8 8 90 0 1 -16 8' />
-								</svg>
-							</label>
-							<input type='checkbox' id='check_equipe'>
-							<label for='check_equipe' id='equipe'>
-								<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
-									class='circle circle-dotted' viewBox='0 0 16 16'>
-									<path
-										d='M8 0q-.264 0-.523.017l.064.998a7 7 0 0 1 .918 0l.064-.998A8 8 0 0 0 8 0M6.44.152q-.52.104-1.012.27l.321.948q.43-.147.884-.237L6.44.153zm4.132.271a8 8 0 0 0-1.011-.27l-.194.98q.453.09.884.237zm1.873.925a8 8 0 0 0-.906-.524l-.443.896q.413.205.793.459zM4.46.824q-.471.233-.905.524l.556.83a7 7 0 0 1 .793-.458zM2.725 1.985q-.394.346-.74.74l.752.66q.303-.345.648-.648zm11.29.74a8 8 0 0 0-.74-.74l-.66.752q.346.303.648.648zm1.161 1.735a8 8 0 0 0-.524-.905l-.83.556q.254.38.458.793l.896-.443zM1.348 3.555q-.292.433-.524.906l.896.443q.205-.413.459-.793zM.423 5.428a8 8 0 0 0-.27 1.011l.98.194q.09-.453.237-.884zM15.848 6.44a8 8 0 0 0-.27-1.012l-.948.321q.147.43.237.884zM.017 7.477a8 8 0 0 0 0 1.046l.998-.064a7 7 0 0 1 0-.918zM16 8a8 8 0 0 0-.017-.523l-.998.064a7 7 0 0 1 0 .918l.998.064A8 8 0 0 0 16 8M.152 9.56q.104.52.27 1.012l.948-.321a7 7 0 0 1-.237-.884l-.98.194zm15.425 1.012q.168-.493.27-1.011l-.98-.194q-.09.453-.237.884zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a7 7 0 0 1-.458-.793zm13.828.905q.292-.434.524-.906l-.896-.443q-.205.413-.459.793zm-12.667.83q.346.394.74.74l.66-.752a7 7 0 0 1-.648-.648zm11.29.74q.394-.346.74-.74l-.752-.66q-.302.346-.648.648zm-1.735 1.161q.471-.233.905-.524l-.556-.83a7 7 0 0 1-.793.458zm-7.985-.524q.434.292.906.524l.443-.896a7 7 0 0 1-.793-.459zm1.873.925q.493.168 1.011.27l.194-.98a7 7 0 0 1-.884-.237zm4.132.271a8 8 0 0 0 1.012-.27l-.321-.948a7 7 0 0 1-.884.237l.194.98zm-2.083.135a8 8 0 0 0 1.046 0l-.064-.998a7 7 0 0 1-.918 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z' />
-								</svg>
-								<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
-									class='circle circle-fill' viewBox='0 0 16 16'>
-									<path
-										d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z' />
-								</svg>
-							</label>
-							<?php if (!isset($_SESSION['LOGGED_USER']) && empty($_SESSION['LOGGED_USER'])): ?>
-								<style>
-									#button_user {
-										display: none;
-									}
-								</style>
-							<?php endif; ?>
-						</div>
-					</div>
-				</div>
-			</div>
+<?php for ($i = 0; $i < count($datapokemon); $i++) : ?>
+<div class="overlay-poke hidden" id="overlay-poke-<?= $datapokemon[$i]['id'] ?>">
+  <div class="overlay-content type-<?= strtolower(getTextLang($datapokemon[$i]['type1'], 'en')) ?>">
 
-			<h2 class='name_section'>Talent :</h2>
-			<div id='Talent'>
-			</div>
+    <div class="overlay-left">
+      <img class="overlay-pokemon-img" src="<?= $datapokemon[$i]['spriteM'] ?>" alt="<?= getTextLang($datapokemon[$i]['name']) ?>">
+	  <img class="overlay-bg-pokeball" src="https://pokemoncalc.web.app/en/assets/pokeball.svg" alt="pokeball">
 
-			<h2 class='name_section'>Description :</h2>
-			<div id='Description'>
-				<h4 id='textDescription'></h4>
-			</div>
+      <div class="overlay-weak">
+  <h3>Faiblesses / Résistances</h3>
+  <div id="Table_type_<?= $datapokemon[$i]['id'] ?>" class="weakness-grid">
 
-			<h2 class='name_section'>Statistique :</h2>
-			<div id='Stat'>
-				<div id='Name_stat'>
-					<?php include_once '../style/PHP/statName.php'; ?>
-				</div>
-				<div id='Val_stat'>
-					<?php for ($i = 0; $i < 7; $i++) {
-					?>
-						<div id='val_Stat<?php echo ($i) ?>' class='Val_stat_case'>
-							<?php
-							if ($i == 0) {
-							?>
-								<h3>Valeur</h3>
-							<?php
-							}
-							?>
-						</div>
-					<?php
-					}
-					?>
-				</div>
-				<div id='Graph_stat'>
-					<?php for ($i = 0; $i < 7; $i++) {
-					?>
-						<div class='Graph_stat_case'>
-							<?php
-							if ($i == 0) {
-							?>
-								<h3 id='titre_case'>Graphique</h3>
-							<?php
-							} else {
-							?>
-								<div id='graph_Stat<?php echo ($i) ?>' class='graphique'></div>
-							<?php
-							}
-							?>
-						</div>
-					<?php
-					}
-					?>
-				</div>
-			</div>
-			<h2 class='name_section' id='section_5'>Faiblesses/Résistances :</h2>
-			<div id='Table_type'>
+    <div id="Table_type1">
+      <?php for ($t = 0; $t < count($dataType); $t++) {
+        if ($dataType[$t]['id'] > 9) continue; ?>
+        <div class="tab_Type <?= getTextLang($dataType[$t]['name'], 'en') ?>">
+          <img class="type_img" src="../../public/img/<?= $dataType[$t]['sprite'] ?>">
+        </div>
+      <?php } ?>
+      <?php for ($j = 0; $j < 9; $j++) { ?>
+        <div class="Faibless_Resistance">
+          <h2 class="Faibless_Resistance_Value" id="Faibless_Resistance_Value<?= $datapokemon[$i]['id'] ?>_<?= $j ?>"></h2>
+        </div>
+      <?php } ?>
+    </div>
 
-				<div id='Table_type1'>
-					<?php for ($i = 0; $i < count($dataType); $i++) {
-						if ($dataType[$i]['id'] > 9) {
-							continue;
-						}
-					?>
-						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
-						</div>
+    <div id="Table_type2">
+      <?php for ($t = 9; $t < count($dataType); $t++) {
+        if ($dataType[$t]['id'] > 18) continue; ?>
+        <div class="tab_Type <?= getTextLang($dataType[$t]['name'], 'en') ?>">
+          <img class="type_img" src="../../public/img/<?= $dataType[$t]['sprite'] ?>">
+        </div>
+      <?php } ?>
+      <?php for ($j = 9; $j < 18; $j++) { ?>
+        <div class="Faibless_Resistance">
+          <h2 class="Faibless_Resistance_Value" id="Faibless_Resistance_Value<?= $datapokemon[$i]['id'] ?>_<?= $j ?>"></h2>
+        </div>
+      <?php } ?>
+    </div>
 
-					<?php
-					}
-					?>
-					<?php for ($j = 0; $j < 9; $j++) {
-					?>
-						<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
-							<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
-						</div>
-					<?php
-					}
-					?>
-				</div>
-				<div id='Table_type2'>
+  </div>
+</div>
 
-					<?php for ($i = 9; $i < count($dataType); $i++) {
-						if ($dataType[$i]['id'] > 18) {
-							continue;
-						}
-					?>
-						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'>
-						</div>
+    </div>
 
-					<?php
-					}
-					?>
-					<?php for ($j = 9; $j < 18; $j++) {
-					?>
-						<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
-							<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
-						</div>
-					<?php
-					}
-					?>
-				</div>
-			</div>
-			<div id='atkTiltle'>
-				<h2 id='TitleAtk' class='name_section'>Attaque : ▲</h2>
-				<div id='atkButtons'>
-					<button class='moreLessButton' id='gen-'>
-						<label><- </label>
-					</button>
-					<label id='genAtk'>gen 1</label>
-					<button class='moreLessButton' id='gen+'>
-						<label>-></label>
-					</button>
-				</div>
-			</div>
-			<div id='Attaque'>
+    <div class="overlay-right">
+      <div class="overlay-header-line">
+        <span class="overlay-id">#<?= str_pad($datapokemon[$i]['id'], 3, '0', STR_PAD_LEFT) ?></span>
+        <span class="overlay-name"><?= getTextLang($datapokemon[$i]['name']) ?></span>
+		
+        <img class="overlay-gender" 
+     id="symbole-<?= $datapokemon[$i]['id'] ?>"
+     src="../../public/img/M.png"
+     data-sprite-m="<?= $datapokemon[$i]['spriteM'] ?>"
+     data-sprite-f="<?= $datapokemon[$i]['spriteF'] ?>" />
 
-			</div>
+      </div>
 
-			<h2 class='name_section' id='evoSection'>Évolution :</h2>
-			<div id='Evo'>
+      <div class="overlay-types-meta">
+        <span class="type-tag"><?= getTextLang($datapokemon[$i]['type1']) ?></span>
+        <?php if (!empty($datapokemon[$i]['type2'])) : ?>
+        <span class="type-tag"><?= getTextLang($datapokemon[$i]['type2']) ?></span>
+        <?php endif; ?>
+        <span class="overlay-category">
+          <?php
+            switch ($datapokemon[$i]['category']) {
+              case 0: echo 'Commun'; break;
+              case 1: echo 'Légendaire'; break;
+              case 2: echo 'Fabuleux'; break;
+              case 3: echo 'Ultra-Chimère'; break;
+              case 4: echo 'Paradox'; break;
+            }
+          ?>
+        </span>
+        <span class="overlay-gen">Gen <?= $datapokemon[$i]['generation'] ?></span>
+      </div>
 
-			</div>
+      <div class="overlay-description"><?= getTextLang($datapokemon[$i]['description']) ?></div>
 
-			<script src='../scripts/JS/pokedex.js'></script>
+      <div class="overlay-physique">
+        <div class="box-info">Taille<br><span><?= number_format($datapokemon[$i]['height'] / 10, 1, ',', ' ') ?> m</span></div>
+        <div class="box-info">Poids<br><span><?= number_format($datapokemon[$i]['weight'] / 10, 1, ',', ' ') ?> kg</span></div>
+      </div>
+
+      <h3 class="section-title">Statistiques</h3>
+      <div class="overlay-stats">
+        <div class="stat-box stat-red"><span>PV</span><span><?= $datapokemon[$i]['hp'] ?></span></div>
+        <div class="stat-box stat-orange"><span>Attaque</span><span><?= $datapokemon[$i]['attack'] ?></span></div>
+        <div class="stat-box stat-yellow"><span>Défense</span><span><?= $datapokemon[$i]['defense'] ?></span></div>
+        <div class="stat-box stat-blue"><span>Attaque Spé</span><span><?= $datapokemon[$i]['atackspe'] ?></span></div>
+        <div class="stat-box stat-green"><span>Défense Spé</span><span><?= $datapokemon[$i]['defensespe'] ?></span></div>
+        <div class="stat-box stat-pink"><span>Vitesse</span><span><?= $datapokemon[$i]['speed'] ?></span></div>
+      </div>
+
+      <h3 class="section-title">Talent</h3>
+	  <div class="overlay-talents" id="talents-<?= $datapokemon[$i]['id'] ?>">
+	    <!-- Talents injectés -->
+	  </div>
+			  
+    </div>
+
+    <div class="overlay-evo" id="evo-overlay-<?= $datapokemon[$i]['id'] ?>"></div>
+
+  </div>
+</div>
+<?php endfor; ?>
+
+<style>
+  body {
+    background: url('../public/img/fond.png') no-repeat center center fixed;
+    background-size: cover;
+  }
+</style>
+
+
+<script>
+
+// --- 1. Animation de zoom lors de l'apparition des Pokémon 
+document.addEventListener("DOMContentLoaded", () => {
+  const pokemons = document.querySelectorAll(".pokemon");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.classList.remove("visible");
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  pokemons.forEach(p => observer.observe(p));
+});
+
+// --- 2. Recherche et filtres
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("searchBarInput");
+  const filterGen = document.getElementById("gen");
+  const filterType = document.getElementById("type");
+  const filterRarete = document.getElementById("rarete");
+
+  function applyFilters() {
+    const search = searchInput.value.toLowerCase();
+    const gen = filterGen.value;
+    const type = filterType.value;
+    const rarete = filterRarete.value;
+
+    document.querySelectorAll(".pokemon").forEach(poke => {
+      const name = poke.dataset.name.toLowerCase();
+      const pokeGen = poke.dataset.gen;
+      const pokeType = poke.dataset.type.toLowerCase();
+      const pokeCat = poke.dataset.category;
+
+      const matchName = name.includes(search);
+      const matchGen = (gen === "all" || pokeGen === gen);
+      const matchType = (type === "all" || pokeType.includes(type.toLowerCase()));
+      const matchRarete = (rarete === "all" || pokeCat === rarete);
+
+      poke.style.display = (matchName && matchGen && matchType && matchRarete) ? "" : "none";
+    });
+  }
+// Événements sur les filtres
+  searchInput.addEventListener("input", applyFilters);
+  filterGen.addEventListener("change", applyFilters);
+  filterType.addEventListener("change", applyFilters);
+  filterRarete.addEventListener("change", applyFilters);
+});
+
+
+// --- 3. Affichage de l'overlay au clic sur un Pokémon
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM chargé");
+  const pokemons = document.querySelectorAll(".pokemon");
+  console.log("Nb de .pokemon trouvés :", pokemons.length);
+  
+  
+  pokemons.forEach(pokemon => {
+    pokemon.addEventListener("click", () => {
+      const id = pokemon.dataset.id;
+      console.log("Clic sur Pokémon ID =", id);
+      // Cache tous les overlays
+      document.querySelectorAll(".overlay-poke").forEach(o => o.classList.add("hidden"));
+      const overlay = document.getElementById("overlay-poke-" + id);
+      console.log("Overlay trouvé ?", overlay !== null);
+      
+      if (overlay) {
+  overlay.classList.remove("hidden");
+   // Charge les données dynamiques
+  LoadAbilityPokemon(id); 
+  LoadEvoOverlay(id);
+    const typeEfficiency = pokemon.dataset.typeefficiency;
+  if (typeEfficiency && typeEfficiency !== "null") {
+    LoadWeaknesses(id, typeEfficiency);
+  }
+
+
+// Ferme l'overlay si clic en dehors
+
+  overlay.addEventListener("click", function handler(e) {
+    if (!e.target.closest(".overlay-content")) {
+      overlay.classList.add("hidden");
+      overlay.removeEventListener("click", handler);
+    }
+  });
+}
+
+    });
+  });
+});
+
+
+// --- 4. Fonction multilangue
+function getTextLang(jsText) {
+  const parts = jsText.split("///");
+  return parts.length > 1 ? parts[1] : parts[0];
+}
+
+
+// --- 5. Chargement des talents du Pokémon
+async function LoadAbilityPokemon(id) {
+  const container = document.getElementById("talents-" + id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const res = await fetch(`../database/get/FromJS/getDBDataPokedex.php?request=GetAbilityData&1=${id}`);
+  const talents = await res.json();
+
+  talents.forEach(t => {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("box-info");
+
+    const name = document.createElement("span");
+    name.textContent = getTextLang(t.name);
+
+    const infoWrapper = document.createElement("div");
+    infoWrapper.classList.add("info-wrapper");
+
+    const info = document.createElement("span");
+    info.classList.add("info-icon");
+    info.textContent = "i";
+
+    const tooltip = document.createElement("div");
+    tooltip.classList.add("tooltip");
+    tooltip.textContent = getTextLang(t.smallDescription);
+
+    infoWrapper.appendChild(info);
+    infoWrapper.appendChild(tooltip);
+
+    wrapper.appendChild(name);
+    wrapper.appendChild(infoWrapper);
+
+    container.appendChild(wrapper);
+  });
+}
+
+
+// --- 6. Chargement de l'évolution 
+async function LoadEvoOverlay(id) {
+  const container = document.getElementById("evo-overlay-" + id);
+  const overlay = document.getElementById("overlay-poke-" + id); // ✅ cette ligne était manquante
+
+  if (!container) return;
+
+  const res = await fetch(`../database/get/FromJS/getDBDataPokedex.php?request=GetEvolutionData&1=${id}`);
+  const dataEvol = await res.json();
+  if (!Array.isArray(dataEvol)) {
+    container.style.display = "none";
+    return;
+  }
+
+  container.innerHTML = "";
+  dataEvol.sort((a, b) => a.evolutionStade - b.evolutionStade);
+
+  const stageMap = {};
+  const added = new Set();
+
+   // Fonction pour afficher un Pokémon dans la chaîne évolution
+  const addPokemon = (id, name, sprite, stage, level) => {
+    const stageKey = "stage-" + stage;
+    if (!stageMap[stageKey]) {
+      const stageDiv = document.createElement("div");
+      stageDiv.className = "evo-step";
+      stageDiv.id = stageKey;
+      container.appendChild(stageDiv);
+      stageMap[stageKey] = stageDiv;
+    }
+
+    const pokeWrapper = document.createElement("div");
+    pokeWrapper.className = "evo-box";
+
+    const img = document.createElement("img");
+    img.src = sprite;
+    img.classList.add("img_evo");
+    pokeWrapper.appendChild(img);
+
+    pokeWrapper.title = name;
+
+    pokeWrapper.addEventListener("click", () => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    });
+
+    stageMap[stageKey].appendChild(pokeWrapper);
+
+    const levelLabel = document.createElement("div");
+    levelLabel.className = "lvl";
+    levelLabel.textContent = (level && level > 0) ? `Nv ${level}` : '';
+    stageMap[stageKey].appendChild(levelLabel);
+  };
+
+  // Ajout des pokémon à l'affichage
+  dataEvol.forEach(evo => {
+    if (!added.has(evo.id1)) {
+      addPokemon(evo.id1, evo.n1, evo.s1, evo.evolutionStade, null);
+      added.add(evo.id1);
+    }
+    if (!added.has(evo.id2)) {
+      addPokemon(evo.id2, evo.n2, evo.s2, evo.evolutionStade + 1, evo.minLevel);
+      added.add(evo.id2);
+    }
+  });
+// Flèches entre les stades d'évolution
+  const keys = Object.keys(stageMap).sort((a, b) =>
+    parseInt(a.split("-")[1]) - parseInt(b.split("-")[1])
+  );
+
+  for (let i = 0; i < keys.length - 1; i++) {
+    const arrow = document.createElement("span");
+    arrow.className = "arrow";
+    arrow.textContent = "→";
+    container.insertBefore(arrow, stageMap[keys[i + 1]]);
+  }
+
+  // Partie genre
+  const genderIcon = document.getElementById("symbole-" + id);
+if (genderIcon) {
+  const spriteF = genderIcon.dataset.spriteF;
+  const spriteM = genderIcon.dataset.spriteM;
+
+  if (spriteF && spriteF.toLowerCase() !== "null") {
+    genderIcon.src = "../../public/img/F.png";
+    const imgDiv = document.getElementById("img");
+    if (imgDiv) imgDiv.style.backgroundImage = "url('" + spriteF + "')";
+  } else {
+    genderIcon.src = "../../public/img/M.png";
+    const imgDiv = document.getElementById("img");
+    if (imgDiv) imgDiv.style.backgroundImage = "url('" + spriteM + "')";
+  }
+}
+
+}
+
+// --- 7. Faiblesses / Résistances
+function LoadWeaknesses(id, typeEfficiencyString) {
+  const values = typeEfficiencyString?.split("/")?.slice(1) ?? [];
+  for (let i = 0; i < 18; i++) {
+    const elem = document.getElementById(`Faibless_Resistance_Value${id}_${i}`);
+    if (!elem || !values[i]) continue;
+
+    const val = `x${values[i]}`;
+    elem.innerText = val;
+
+    switch (val) {
+      case "x0.25":
+        elem.style.background = 'radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
+        elem.style.fontSize = "7px";
+        break;
+      case "x0.5":
+        elem.style.background = 'radial-gradient(circle, rgba(157,252,142,1) 7%, rgba(138,231,132,1) 21%, rgba(115,194,99,1) 48%, rgba(129,237,101,1) 64%, rgba(125,196,121,1) 90%)';
+        break;
+      case "x0":
+        elem.style.background = 'radial-gradient(circle, rgba(142,142,142,1) 7%, rgba(184,184,184,1) 21%, rgba(133,128,128,1) 48%, rgba(181,178,178,1) 64%, rgba(94,94,94,1) 90%)';
+        break;
+      case "x1":
+        elem.style.background = 'radial-gradient(circle, rgba(255,218,89,1) 7%, rgba(210,160,82,1) 21%, rgba(246,208,64,1) 48%, rgba(213,172,70,1) 64%, rgba(255,198,51,1) 90%)';
+        break;
+      case "x2":
+        elem.style.background = 'radial-gradient(circle, rgba(255,119,119,1) 7%, rgba(193,88,88,1) 21%, rgba(232,106,106,1) 48%, rgba(207,69,69,1) 64%, rgba(255,93,93,1) 90%)';
+        break;
+      case "x4":
+        elem.style.background = 'radial-gradient(circle, rgba(193,31,31,1) 7%, rgba(207,81,81,1) 21%, rgba(193,16,16,1) 48%, rgba(237,12,12,1) 64%, rgba(157,2,2,1) 90%)';
+        break;
+    }
+  }
+}
+
+
+
+</script>
+
 
 </body>
-
 </html>

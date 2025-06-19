@@ -110,12 +110,12 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 }
 
 #Login {
-    background-color: dodgerblue;
-    border: 0.25em solid black;
-    min-height: 20px;
-    max-height: 100%;
-    max-width: 100%;
-    padding: 2px;
+background-color: #f33a2f;
+
+  min-height: 18px;
+  max-height: 100%;
+  max-width: 100%;
+  padding: 8px;
 }
 
 #Login:hover {
@@ -439,6 +439,68 @@ nav a:hover::after {
     #profile {
         width: 85%;
     }
+}
+/* Container global */
+#header {
+  font-family: 'Press Start 2P', cursive;
+  width: 100%;
+}
+
+/* Ligne du haut */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+
+}
+
+/* Logo + titre */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo img {
+width: 240px;
+  height: 80px;
+}
+
+.header-title {
+  font-size: 24px;
+  color: #ff2e2e;
+}
+
+/* Bouton Connexion */
+.header-login .connexion-btn {
+  background-color: #ff2e2e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Bande rouge en bas */
+.header-nav {
+background-color: #f33a2f;
+  display: flex;
+  justify-content: center;
+  gap: 128px;
+  padding: 10px 0;
+}
+
+/* Boutons de navigation */
+.nav-btn {
+background-color: #4a9bdc;
+  color: #f5f5c6;
+  padding: 8px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
 }
 
 /*#endregion */
