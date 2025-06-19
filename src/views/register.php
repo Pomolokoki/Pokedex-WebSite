@@ -1,5 +1,5 @@
 <?php
-include_once 'database/connectSQL.php';
+include_once '../database/connection/connectSQL.php';
 
 ?>
 <!-- Inclusion du header -->
@@ -7,7 +7,7 @@ include_once 'database/connectSQL.php';
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include 'css/register.css' ; ?>
+    <?php include '../style/CSS/register.css' ; ?>
 </style>
 
 <!-- #region Sécurisation et Gestion des exceptions-->

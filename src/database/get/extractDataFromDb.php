@@ -1,20 +1,14 @@
-
 <?php
-include_once '../connection/connectSQL.php';
-
+include_once __DIR__ . '/../connection/connectSQL.php';
 $language = 'fr';
+
 function getDataFromDB($table, $columns, $condition, $fullRequest = false)
 {
-    if ($fullRequest)
-    {
+    if ($fullRequest) {
         $sqlQuery = $table;
-    }
-    else if ($condition == null)
-    {
+    } else if ($condition == null) {
         $sqlQuery = 'SELECT ' . $columns . ' FROM ' . $table;
-    }
-    else
-    {
+    } else {
         $sqlQuery = 'SELECT ' . $columns . ' FROM ' . $table . ' ' . $condition;
     }
     global $db;
@@ -24,7 +18,6 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
         return 'No results found.';
     return $statement->fetchAll();
 }
-
 function executeQueryWReturn($query, $params)
 {
     global $db;
@@ -34,7 +27,6 @@ function executeQueryWReturn($query, $params)
         return 'No results found.';
     return $statement->fetchAll();
 }
-
 function executeQuery($query, $params)
 {
     global $db;
@@ -46,18 +38,15 @@ function executeQuery($query, $params)
     $statement->execute($params);
     //echo $statement->queryString;
 }
- 
+
 function getTextLang($str, $language = 'fr')
 {
     $split = explode('///', $str);
-    if ($language == 'fr')
-    {
+    if ($language == 'fr') {
         if ($split[1] == 'NULL')
-          return $split[0];
+            return $split[0];
         return $split[1];
-    }
-    else
-    {
+    } else {
         return $split[0];
     }
 }

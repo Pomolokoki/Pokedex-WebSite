@@ -53,7 +53,7 @@ foreach(getDataFromFile('/type')->results as $type)
     {
         $value = $value . '/' . $types[$j];
     }
-    $value = $value . '","' . './img/' . getTextLang(getTextFromData($typeData->names, 'name'));
+    $value = $value . '","' . getTextLang(getTextFromData($typeData->names, 'name'));
     $value = rtrim($value, '"');
     $values = $values . $value . '.png"),,';
     // if ($i == 20)
