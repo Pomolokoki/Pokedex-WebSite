@@ -71,7 +71,7 @@ body {
 position: sticky;
   top: 0;
   z-index: 100;
-  background: white;
+  background: transparent;
   padding: 10px 20px;
   border-bottom: 4px solid white; 
 }
