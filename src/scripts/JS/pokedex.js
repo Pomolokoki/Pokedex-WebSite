@@ -278,7 +278,6 @@ var LoadDataPokemon = async function (id) {
   // console.log(dataPokemon)
 
   dataPokemon = decodedJSON[0];
-  
   // Info pokemon
   document.getElementById("id_Pokemon").innerHTML = "Id : " + dataPokemon["id"];
   if (getText(dataPokemon["name"]) == "M. Mime" || getText(dataPokemon["name"]) == "Mime Jr." || getText(dataPokemon["name"]) == "M. Glaquette") {
@@ -335,13 +334,10 @@ var LoadDataPokemon = async function (id) {
     document.getElementById('graph_Stat' + i).style.backgroundColor = colorStat[i - 1];
   }
   // Faiblesse/Resistance
-if (dataPokemon["typeEfficiency"] != null) {
-  const Resistance_Value = dataPokemon["typeEfficiency"].split("/");
-
-  for (let i = 0; i < 18; i++) {
-    const elem = document.getElementById('Faibless_Resistance_Value' + dataPokemon["id"] + "_" + i);
-    if (!elem) continue;
-    elem.innerText = "x" + Resistance_Value[i + 1];
+  if (dataPokemon[15] != null) {
+    let Resistance_Value = dataPokemon[15].split("/");
+    for (let i = 0; i < 18; i++) {
+      document.getElementById('Faibless_Resistance_Value' + i).innerText = "x" + Resistance_Value[i + 1];
       if (document.getElementById('Faibless_Resistance_Value' + i).innerText === "x0.25") {
         document.getElementById('Faibless_Resistance_Value' + i).style.background = 'radial-gradient(circle, rgba(34,255,0,1) 7%, rgba(50,200,41,1) 21%, rgba(53,201,24,1) 48%, rgba(67,240,23,1) 64%, rgba(13,200,3,1) 90%)';
         document.getElementById('Faibless_Resistance_Value' + i).style.fontSize = 7 + "px";
@@ -813,94 +809,3 @@ if (pokemonSelectedOnLoad && pokemonSelectedOnLoad.dataset.pokemon != "") {
   // console.log(pokemonSelectedOnLoad)
   document.getElementById(pokemonSelectedOnLoad.dataset.pokemon).click();
 }
-
-async function loadPokemonAsync(ID_Pokemon) {
-  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetPokemon")
-    .then(res => res.json());
-  const dataP = decodedJSON;
-  if (dataP == "No results found.") {
-    return;
-  }
-
-  let model = document.getElementById("1");
-  const patron = model.cloneNode(true);
-
-  //dataset value
-  patron.id = dataP[ID_Pokemon].id;
-  patron.dataset.id = dataP[ID_Pokemon].id;
-  patron.dataset.name = dataP[ID_Pokemon].name;
-  patron.dataset.type = dataP[ID_Pokemon].type1 + " " + dataP[ID_Pokemon].type2;
-  patron.dataset.category = dataP[ID_Pokemon].category;
-  patron.dataset.gen = dataP[ID_Pokemon].generation;
-
-  //value
-  const nomPokemon = patron.querySelector("option");
-  const idP = patron.querySelector(".id_pokemon");
-  const cat = patron.querySelector(".niveau");
-  nomPokemon.value = getText(dataP[ID_Pokemon].name);
-  nomPokemon.innerHTML = getText(dataP[ID_Pokemon].name);
-  idP.innerText = dataP[ID_Pokemon].id;
-
-
-  if (dataP[ID_Pokemon].category == 0) {
-    cat.innerHTML = 'commun';
-  }
-  else if (dataP[ID_Pokemon].category == "1") {
-    cat.innerText = 'légendaire';
-  }
-  else if (dataP[ID_Pokemon].category == 2) {
-    cat.innerHTML = 'fabuleux';
-  }
-  else if (dataP[ID_Pokemon].category == 3) {
-    cat.innerHTML = 'ultra-chimère';
-  }
-  else {
-    console.log(dataP[ID_Pokemon].category);
-    cat.innerHTML = 'paradox';
-  }
-  //image pokemon
-  const img = patron.querySelector("img");
-  patron.addEventListener('click', () => {
-    addEventClickPokemon(patron)
-
-  }, false);
-  img.src = dataP[ID_Pokemon].spriteM;
-  img.decoding = "async";
-  img.loading = "lazy";
-  img.alt = "image" + ataP[ID_Pokemon].name;
-
-  //type
-  const typeDiv = patron.querySelectorAll(".typeDisplay");
-  typeDiv[0].classList.forEach(cls => {
-    if (!["typeDisplay", "type_1", "textcolor"].includes(cls)) {
-      typeDiv[0].classList.remove(cls);
-    }
-  });
-  const t1 = patron.getElementsByClassName("type_1");
-  t1[0].innerHTML = getText(dataP[ID_Pokemon].type1);
-  typeDiv[0].classList.add(getText(dataP[ID_Pokemon].type1, 'en'));
-
-  if (dataP[ID_Pokemon].type2 != null) {
-    typeDiv[1].classList.forEach(cls => {
-      if (!["typeDisplay", "type_2", "textcolor"].includes(cls)) {
-        typeDiv[1].classList.remove(cls);
-      }
-    });
-    const t2 = patron.getElementsByClassName("type_2");
-    t2[0].innerHTML = getText(dataP[ID_Pokemon].type2);
-    typeDiv[1].classList.add(getText(dataP[ID_Pokemon].type2, 'en'));
-  }
-  else {
-    typeDiv[1].remove();
-  }
-
-  document.getElementById("pokedex").appendChild(patron);
-}
-
-async function LoadAsync() {
-  for (let i = 0; i < 1000; i++) {
-    await loadPokemonAsync(i);
-  }
-}
-
-LoadAsync();
