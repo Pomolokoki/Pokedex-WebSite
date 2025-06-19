@@ -1413,6 +1413,9 @@ svg {
     cursor: pointer;
 }
 
+.img_evo {
+    border: 1.5px solid;
+}
 
 .img_evo:focus {
     border-color: aliceblue;
