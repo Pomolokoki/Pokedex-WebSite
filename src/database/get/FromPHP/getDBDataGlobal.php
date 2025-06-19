@@ -7,8 +7,20 @@ function GetPokemonsForPokedex()
         'SELECT pokemon.id,
         pokemon.name,
         pokemon.spriteM,
+        pokemon.spriteF,
         pokemon.category,
         pokemon.generation,
+        pokemon.description,
+        pokemon.height,
+        pokemon.weight,
+        pokemon.catch_rate,
+        pokemon.hp ,
+        pokemon.attack ,
+        pokemon.defense ,
+        pokemon.atackspe ,
+        pokemon.defensespe ,
+        pokemon.speed ,
+        pokemon.typeEfficiency,
         t1.name AS type1,
         t2.name AS type2
         FROM pokemon 
@@ -18,6 +30,8 @@ function GetPokemonsForPokedex()
         null
     );
 }
+
+
 
 function GetPokemonsForMap()
 {

@@ -45,7 +45,7 @@ function GetPokemonData($params)
         pokemon.atackspe,
         pokemon.defensespe,
         pokemon.speed,
-        typeEfficiency, 
+        pokemon.typeEfficiency, 
         pokemon.description, 
         t1.name AS type1, 
         t2.name AS type2 
@@ -65,6 +65,7 @@ function GetAbilityData($params)
             $params
         )
     );
+    
 }
 
 function GetMoveData($params)
