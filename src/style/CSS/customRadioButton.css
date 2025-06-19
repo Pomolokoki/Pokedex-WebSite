@@ -48,12 +48,6 @@
   display: none;
 }
 
-.radio:focus {
-  border: solid 1px white;
-  height: 28px;
-  width: 28px;
-}
-
 /* Show the indicator (dot/circle) when checked */
 .radioBut input:checked ~ .radio:after {
   display: block;

@@ -80,21 +80,15 @@ body {
 /* center map */
 #centered {
     position: absolute;
-    height: max-content;
+    height: 2.5vh;
     width: max-content;
     bottom: 1em;
     right: 1em;
     color: white;
     text-align: right;
     font-size: 2vh;
-    display: none;
-    cursor: pointer;
     align-content: center;
-    padding-top: 0;
-}
-
-#centered:focus {
-    border: solid 1px white;
+    display: none;
 }
 
 #refocus {
@@ -104,10 +98,10 @@ body {
     left: 0;
     color: white;
     text-align: right;
+    font-size: 2vh;
     right: 100%;
-    height: 2.5vh;
+    top: 20%;
 }
-
 
 /*#endregion*/
 
@@ -225,27 +219,18 @@ select {
 /* #region location select */
 /* container */
 #phoneContainer2 {
-    margin-left: 10px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-/* label */
-#locationLabel {
-    margin-top: 6%;
-    width: 100%;
-    height: auto;
-    color: white;
-    font-size: auto;
-}
-
 /* search bar */
 #searchBarContainer {
-    margin-top: 3%;
     position: relative;
     width: 80%;
-    left: 10%;
+    left: 8%;
+    margin-top: 6%;
+    padding-left: 5%;
 }
 
 #searchBar {
@@ -269,22 +254,12 @@ select {
     clip: auto;
     border: 2px solid;
     vertical-align: middle;
-    margin-top: 1%;
+    margin-top: 5%;
     margin-bottom: 5%;
     padding-bottom: 2%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
-#mapLocation:focus {
-    border: solid 1px white;
-}
-
-#looseFocus {
-    width: 0;
-    height: 0;
-}
-
 
 /* scroll list option */
 .location {
@@ -300,10 +275,6 @@ select {
     max-width: 90%;
     margin-left: 5%;
     /* cursor: pointer; */
-}
-
-.location:focus {
-    border-color: black;
 }
 
 /* #endregion */
@@ -349,10 +320,6 @@ select {
     display: flex;
     cursor: pointer;
     color: white;
-}
-
-.pokemonn:focus {
-    border: solid 1px white;
 }
 
 .pokemonImage {

@@ -1,7 +1,9 @@
 <!-- Inclusion du header -->
 <?php
 include_once 'header.php';
-include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
+include_once __DIR__ . '/../database/connection/connectSQL.php';
+include_once __DIR__ . '/../database/get/extractDataFromDb.php';
+
 $dataPokemonFav = getFavoritePokemon([$user_id]);
 $dataPokemonCatch = getPokemonCaught([$user_id]);
 ?>
@@ -144,8 +146,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                 <div class='profile-avatar mb-3'>
                                     <form action='profile.php' method='POST' enctype='multipart/form-data'>
                                         <label for='fileImage' class='position-relative' style='cursor: pointer;'>
-                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt='Photo de profil'
-                                                loading='lazy' decoding='async'
+                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt=''
                                                 id='output'>
                                             <i class='fas fa-edit me-2 profile-edit' aria-hidden='true'
                                                 id='profile-pic'></i>
@@ -196,7 +197,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                     data-bs-target='#editProfileModal'>
                                     <i class='fas fa-edit me-2'></i>Modifier le profil
                                 </button>
-                                <a href='../scripts/PHP/logout.php' class='btn btn-danger'>
+                                <a href='/src/scripts/PHP/logout.php' class='btn btn-danger'>
                                     <i class='fas fa-sign-out-alt me-2'></i>Déconnexion
                                 </a>
                             </div>
@@ -217,7 +218,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                                 <div class='card h-100'>
                                                     <div class='card-body pokemonLike-Owned'>
                                                         <p class='card-text'>
-                                                            <img class='pokemon' loading='lazy' decoding='async' data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>' alt='Image <?=$dataPokemonCatch[$i]['name']?>'>
+                                                            <img class='pokemon' data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>' alt=''>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -245,7 +246,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                             <div class='card h-100'>
                                                 <div class='card-body pokemonLike-Owned'>
                                                     <p class='card-text'>
-                                                        <img class='pokemon' loading='lazy' decoding='async' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt='Image <?=$dataPokemonFav[$i]['name']?>'>
+                                                        <img class='pokemon' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>
                                                     </p>
                                                 </div>
                                             </div>
