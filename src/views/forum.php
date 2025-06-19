@@ -65,7 +65,8 @@ $messageData = GetMessages();
         </div>
 
         <div id='channel'>
-            <img id='mobileBackArrow' src='../../public/img/backIcon.png' alt='retourAuxThemes'>
+            <img id='mobileBackArrow' src='../../public/img/backIcon.png' alt='retourAuxThemes' loading="lazy"
+                decoding="async">
             <?php
             if (isset($_SESSION['LOGGED_USER'])) {
                 $isFav = false;
@@ -96,11 +97,11 @@ $messageData = GetMessages();
                 <?php
                 for ($i = 0; $i < count($messageData); ++$i) {
                     echo '<div class=profile>
-                        <img class=profilePicture src=\'../../public/img/' . $messageData[$i]['profilePicture'] . '\' alt=\'photo de profil\' loadding=lazy decoding=async>
+                        <img class=profilePicture src=\'' . ($messageData[$i]['profilePicture'] == "emptyPicture.png" ? '../../public/img/emptyPicture.phg' : $messageData[$i]['profilePicture']) . '\' alt=\'photo de profil\' loading=lazy decoding=async>
                         <label>' . $messageData[$i]['nickname'] . '</label>
                     </div>';
                     if ($messageData[$i]['reply'] != null) {
-                        echo '<div data-id=\'' . $messageData[$i]['replyId'] . '\' data-owner=\'' . $messageData[$i]['replyOwner'] . '\'class=reply > :::repying to <img class=replyProfilePicture loadding=lazy decoding=async src=../../public/img/' . $messageData[$i]['replyProfilePicture'] . ' alt=\'photo de profil\'>' . substr($messageData[$i]['replyNickname'], 0, 10) . '... : ' . substr($messageData[$i]['replyText'], 0, 20) . '...</div>';
+                        echo '<div data-id=\'' . $messageData[$i]['replyId'] . '\' data-owner=\'' . $messageData[$i]['replyOwner'] . '\'class=reply > :::repying to <img class=replyProfilePicture loading=lazy decoding=async src=\'' . ($messageData[$i]['replyProfilePicture'] == "emptyPicture.png" ? '../../public/img/emptyPicture.phg' : $messageData[$i]['replyProfilePicture']) . ' alt=\'photo de profil\'>' . substr($messageData[$i]['replyNickname'], 0, 10) . '... : ' . substr($messageData[$i]['replyText'], 0, 20) . '...</div>';
                     }
                     echo '<div id=\'' . $messageData[$i]['id'] . '\' class=message data-reply=\'' . $messageData[$i]['replyId'] . '\' data-owner=\'' . $messageData[$i]['playerId'] . '\'>' . $messageData[$i]['text'] . '</div><br><br>';
                 }
@@ -113,7 +114,7 @@ $messageData = GetMessages();
                 <div id=messageArea>
                     <p id=typing></p>
                     <textarea id=messageTextBox type=text rows=1 placeholder=Appuyer sur un touche pour commencer à écrire></textarea>
-                    <input id=submitMessage type=image src=../../public/img/sendMessageIcon.png alt =Submit></input>
+                    <input id=submitMessage type=image src=../../public/img/sendMessageIcon.png alt=Envoyer></input>
                 </div>';
             } ?>
             <div id='optionsTrigger'>...

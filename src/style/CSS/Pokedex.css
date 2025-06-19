@@ -35,6 +35,10 @@ body {
   background: transparent;
 }
 
+.name_section:focus {
+    text-decoration: underline;
+}
+
 #content {
     height: calc(100% - 140px);
     width: 100%;
@@ -787,24 +791,14 @@ h3 {
     height: 30px;
 }
 
-
-
-
-
-
-
-.colors {
-    position: relative;
-    background: linear-gradient(35deg, black, #8d0000);
-    width: 100%;
-    height: 100%;
+.pokemon:focus {
+    background: linear-gradient(35deg, rgb(51, 0, 0), #cf1313);
 }
 
 .info {
     position: relative;
     width: 100%;
     height: 100%;
-    top: -100%;
     display: flex;
     margin-bottom: 0.3%;
     align-content: center;
@@ -826,24 +820,6 @@ h3 {
     width: auto;
     height: 100%;
     width: 100%;
-}
-
-.selectAnimation {
-    animation: colooooooooorchange 5s 1;
-}
-
-@keyframes colooooooooorchange {
-    5% {
-        filter: brightness(180%);
-    }
-
-    20% {
-        filter: brightness(350%);
-    }
-
-    100% {
-        filter: brightness(100%);
-    }
 }
 
 /*#endregion */
@@ -1276,6 +1252,10 @@ svg {
     text-align: center;
 }
 
+.Name_stat_case:focus {
+    color: aliceblue;
+}
+
 #Val_stat {
     width: 15%;
     height: 100%;
@@ -1374,6 +1354,10 @@ svg {
     background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
+.Val_atk_case:focus {
+    color: aliceblue;
+}
+
 .divElementTypeAtk {
     border-radius: 150px;
     padding-left: 7px;
@@ -1426,8 +1410,15 @@ svg {
     width: 99px;
     height: 99px;
     background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
-    border: 1.5px solid;
     cursor: pointer;
+}
+
+.img_evo {
+    border: 1.5px solid;
+}
+
+.img_evo:focus {
+    border-color: aliceblue;
 }
 
 .Evo_case {

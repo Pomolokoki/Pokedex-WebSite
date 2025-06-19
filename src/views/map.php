@@ -1,6 +1,5 @@
 <?php
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
-$pokemonData = GetPokemonsForMap();
 $regionData = GetRegions();
 $locationData = GetLocations();
 ?>
@@ -23,28 +22,22 @@ include_once 'header.php';
         <div id='smallMapFrame'>
 
             <span id='mapContainer'>
-                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png'></image>
+                <image id='imgMap' draggable='false' src='../../public/img/Kanto.png' alt='image carte Kanto' loading='lazy' decoding='async'></image>
                 <svg viewBox='0 0 350 350' width='350' heigh='350' id='svgMap' draggable='false'
                     xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg' clip-rule='evenodd'
                     version='1.1'>
                 </svg>
             </span>
 
-            <div id='centered'>
-                <image id='refocus' draggable='fase' src='../../public/img/refocusIcon.png'></image>
-                <label>Center map</label>
+            <div id='centered' tabindex='8'>
+                <image id='refocus' draggable='false' src='../../public/img/refocusIcon.png' alt='recentrer' loading='lazy' decoding='async'></image>
+                <label>Recentrer la carte</label>
             </div>
 
             <div id='pokedexContainer'>
-                <textarea id='pokemonSearch' rows='1' placeholder='search for...'></textarea>
-                <div id='pokedex'>
-                    <?php for ($i = 0; $i < count($pokemonData); ++$i) { ?>
-                        <div class='pokemonn'>
-                            <image class='pokemonImage' draggable='fase' src='<?= $pokemonData[$i]['spriteM'] ?>'
-                                data-id='<?= $pokemonData[$i]['id'] ?>'></image>
-                            <p><?= getTextLang($pokemonData[$i]['name'], $language) ?></p>
-                        </div>
-                    <?php } ?>
+                <textarea id='pokemonSearch' rows='1' placeholder='rechercher ...' tabindex='9'></textarea>
+                <div id='pokedex' tabindex='10'>
+
                 </div>
             </div>
 
@@ -60,7 +53,7 @@ include_once 'header.php';
     <div id='info'>
         <div id='phoneContainer1'>
             <div id='currentgen'> Génération actuelle : </div>
-            <select id='mapList'>
+            <select id='mapList' tabindex='1'>
                 <?php
                 for ($i = 1; $i <= count($regionData); $i++) {
                     if ($i == 1) {
@@ -75,17 +68,17 @@ include_once 'header.php';
             <div id='radioButtonsHolder'>
                 <label class='radioBut'>
                     <input checked='checked' name='mapType' type='radio' class='checkboxInput' id='gameMap'>
-                    <span class='radio'></span>
+                    <span class='radio' tabindex='2'></span>
                 </label>
                 <label for='gameMap' id='gameMapLabel' class='radioLabel'> - Carte de jeu </label>
                 <label class='radioBut'>
                     <input name='mapType' type='radio' id='realMap' class='checkboxInput'>
-                    <span class='radio'></span>
+                    <span class='radio' tabindex='3'></span>
                 </label>
                 <label for='realMap' id='realMapLabel' class='radioLabel'> - Carte réaliste </label>
                 <label class='radioBut'>
                     <input name='mapType' type='radio' id='interactiveMap' class='checkboxInput'>
-                    <span class='radio'></span>
+                    <span class='radio' tabindex='4'></span>
                 </label>
                 <label for='interactiveMap' id='interactiveMapLabel' class='radioLabel'> - Carte interactive </label>
             </div>
@@ -93,16 +86,18 @@ include_once 'header.php';
         </div>
 
         <div id='phoneContainer2'>
+            <div id='locationLabel'> Liste des lieux :</div>
             <div id='searchBarContainer'>
-                <input type='searchbar' id='searchBar' placeholder='Search...'></input>
+                <input type='searchbar' id='searchBar' placeholder='Search...' tabindex='5'></input>
             </div>
-            <div id='mapLocation'>
+            <div id='mapLocation' tabindex='6'>
                 <?php
                 for ($i = 0; $i < count($locationData); $i++) {
-                    echo '<div class=location data-location=\'' . GetTextLang($locationData[$i]['name'], 'en') . '\'>' . GetTextLang($locationData[$i]['name'], $language) . '</div>';
+                    echo '<div class=location tabindex=6 data-location=\'' . GetTextLang($locationData[$i]['name'], 'en') . '\'>' . GetTextLang($locationData[$i]['name'], $language) . '</div>';
                 }
                 ?>
             </div>
+            <div id='looseFocus' tabindex='12'></div>
         </div>
 
     </div>
