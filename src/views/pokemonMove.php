@@ -9,7 +9,6 @@ $selectedMoveData = $isSet ? getPokemonMove([$_POST['moveId']]) : null;
 $typeData = GetTypesForPokemonMoves();
 
 ?>
-
 <!DOCTYPE html>
 <html lang='fr'>
 
@@ -17,13 +16,13 @@ $typeData = GetTypesForPokemonMoves();
     <meta charset='utf-8'>
     <title>Pokedex</title>
     <link rel='stylesheet' type='text/css' href='../style/css/pokemonMove.css'>
-    <link rel='stylesheet' type='text/css' href='../style/php/typeColor.php'>
+    <link rel='stylesheet' type='text/css' href='../style/css/typeColor.php'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
-
 <?php
 include 'header.php';
 ?>
+
 
 <body>
     <div id='moveContainer'>
@@ -34,13 +33,13 @@ include 'header.php';
                 <tr>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='0'>Nom
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='nameFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='1'>Type
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <select class='filter' id='typeFilter'>
                             <option value=''>--Tout--</option>
@@ -51,7 +50,7 @@ include 'header.php';
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='2'>Catégorie
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <select class='filter' id='categoryFilter'>
                             <option value=''>--Tout--</option>
@@ -62,43 +61,43 @@ include 'header.php';
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='3'>Puissance
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='pcFilter' size='4'></input>
+                        <input type='text' class='filter' id='pcFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='4'>PP
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='ppFilter' size='4'></input>
+                        <input type='text' class='filter' id='ppFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='5'>Précision
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='accuracyFilter' size='4'></input>
+                        <input type='text' class='filter' id='accuracyFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='6'>Priority
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='priorityFilter' size='4'></input>
+                        <input type='text' class='filter' id='priorityFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
                         <p class='headText' data-id='7'>Description
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <input type='text' class='filter' id='descriptionFilter'></input>
                     </th>
                     <th class='headCells' scope='col'>
-                        <p class='headText' data-id='8'>TauxCritique
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                        <p class='headText' data-id='8'>Taux Critique
+                            <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='criticityFilter' size='4'></input>
+                        <input type='text' class='filter' id='criticityFilter'></input>
                     </th>
                 </tr>
             </thead>
-            <!-- <thead>
+            <thead>
                 <tr>
                     <th class='headCells'>Nom<br>
                         <input type='text' class='filter'></input>
@@ -120,31 +119,32 @@ include 'header.php';
                         </select>
                     </th>
                     <th class='headCells'>Puissance<br>
-                        <input type='text' class='filter' size='4'></input>
+                        <input type='text' class='filter'></input>
                     </th>
                     <th class='headCells'>PP<br>
-                        <input type='text' class='filter' size='4'></input>
+                        <input type='text' class='filter'></input>
                     </th>
                     <th class='headCells'>Précision<br>
-                        <input type='text' class='filter' size='4'></input>
+                        <input type='text' class='filter'></input>
                     </th>
                     <th class='headCells'>Priority<br>
-                        <input type='text' class='filter' size='4'></input>
+                        <input type='text' class='filter'></input>
                     </th>
                     <th class='headCells'>Description<br>
                         <input type='text' class='filter'></input>
                     </th>
                     <th class='headCells'>TauxCritique<br>
-                        <input type='text' class='filter' size='4'></input>
+                        <input type='text' class='filter'></input>
                     </th>
                 </tr>
-            </thead> -->
+            </thead>
             <tbody id='tbody'>
                 <?php
                 for ($i = 0; $i < count($pokemonMoveData); ++$i) {
                     ?>
                     <tr>
                         <td class='AtkCell AtkName'><?= getTextLang($pokemonMoveData[$i]['name'], $language) ?>
+                            <div class='separator'></div>
                         </td>
                         <td class='AtkCell AtkType'>
                             <p class='AtkTypeLabel <?= getTextLang($pokemonMoveData[$i]['type'], 'en') ?>'>

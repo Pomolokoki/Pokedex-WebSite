@@ -39,12 +39,12 @@ include_once 'header.php';
 						} else if ($i == 0) {
 							echo "
 								<button id = $id class = 'gridElement " . getTextLang($typeData[$j - 1]['name'], 'en') . '\' onclick = \'selectType(' . $j . ', false)\'>
-									<img src=\'../../public/img/' . $typeData[$j - 1]['sprite'] . '\' alt=\'' . getTextLang($typeData[$j - 1]['name']) .'\' loading=lazy decoding=async/>
+									<img src=\'../../public/img/' . $typeData[$j - 1]['sprite'] . '\' alt=\'' . getTextLang($typeData[$j - 1]['name']) .'\'/>
 								</button>';
 						} else if ($j == 0) {
 							echo "
 								<button id = $id class = 'gridElement gridElementButton " . getTextLang($typeData[$i - 1]['name'], 'en') . '\' onclick = \'selectType(' . $i . ', true)\'>
-									<img src =\'../../public/img/' . $typeData[$i - 1]['sprite'] . '\' alt=\'image Type ' . getTextLang($typeData[$i - 1]['name']) .'\' loading=lazy decoding=async/>'
+									<img src =\'../../public/img/' . $typeData[$i - 1]['sprite'] . '\' alt=\'image Type ' . getTextLang($typeData[$i - 1]['name']) .'\'/>'
 									. getTextLang($typeData[$i - 1]['name']) . '
 					 			</button> ';
 						} else {

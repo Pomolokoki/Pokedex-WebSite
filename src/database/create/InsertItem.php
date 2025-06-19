@@ -54,7 +54,7 @@ foreach(getDataFromFile('/item')->results as $item)
     // }
 }
 saveToDb($sqlInsertItem, 'item', $values);
-saveToDb('INSERT INTO item (id, name, description, smallDescription, sprite, category, pocket, effect, throwEffect, throwValue, machineName, machineId) VALUES (60000, \'Metal alloy///Métal Composite\', \'NULL///NULL\',\'NULL///NULL\', \'https://www.pokepedia.fr/images/d/d5/Miniature_M%C3%A9tal_Composite_EV.png\',\'evolution\',\'misc\',\'"NULL///NULL"\',NULL,NULL,NULL,NULL)', '', '', false, true);
+saveToDb('INSERT INTO item (id, name, description, smallDescription, sprite, category, pocket, effect, throwEffect, throwValue, machineName, machineId) VALUES (60000, \'Metal alloy///Métal Composite\', \'"NULL///NULL"\',\'"NULL///NULL"\', \'https://www.pokepedia.fr/images/d/d5/Miniature_M%C3%A9tal_Composite_EV.png\',\'evolution\',\'misc\',\'"NULL///NULL"\',NULL,NULL,NULL,NULL)', '', '', false, true);
 saveToDb('UPDATE item SET name=\'Black-Augurite///Obsidienne\', sprite=\'https://www.pokepedia.fr/images/c/c4/Miniature_Obsidienne_LPA.png\' WHERE id=10001', null, null, false, true);
 saveToDb('UPDATE item SET name=\'Peat-Block\///Bloc de Tourbe\', sprite=\'https://www.pokepedia.fr/images/0/09/Miniature_Bloc_de_Tourbe_LPA.png\' WHERE id=10002', null, null, false, true);
 saveToDb('UPDATE item SET sprite=\'https://archives.bulbagarden.net/media/upload/d/dc/Bag_Auspicious_Armor_SV_Sprite.png\' WHERE id=2045', null, null, false, true);

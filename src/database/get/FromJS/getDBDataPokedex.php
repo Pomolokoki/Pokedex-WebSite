@@ -5,27 +5,6 @@ if (!isset($_GET['request'])) {
 }
 
 include_once '../extractDataFromDB.php';
-
-function GetPokemon($params)
-{
-    return  json_encode(
-        executeQueryWReturn(
-            'SELECT pokemon.id,
-        pokemon.name,
-        pokemon.spriteM,
-        pokemon.category,
-        pokemon.generation,
-        t1.name AS type1,
-        t2.name AS type2
-        FROM pokemon 
-        JOIN type AS t1 ON pokemon.type1 = t1.id 
-        LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
-        WHERE pokemon.id < 100000 ORDER BY pokemon.id LIMIT 25,70000',
-            $params
-        )
-    );
-}
-
 function GetPokemonData($params)
 {
     return json_encode(
@@ -71,8 +50,7 @@ function GetAbilityData($params)
 function GetMoveData($params)
 {
     return json_encode(
-        executeQueryWReturn(
-            'SELECT move.name, type.name AS type, move.effectType, move.pc,  move.accuracy, mp.learnMethod, mp.learnAtLevel, move.pp 
+        executeQueryWReturn('SELECT move.name, type.name AS type, move.effectType, move.pc,  move.accuracy, mp.learnMethod, mp.learnAtLevel, move.pp 
         FROM move_pokemon AS mp INNER JOIN move ON mp.moveId = move.id JOIN type ON move.type = type.id WHERE mp.pokemonId=:pokemonId AND mp.generation=:gen',
             $params
         )
@@ -200,10 +178,6 @@ function GetPlayerPokemon($params)
 
 $req = $_GET['request'];
 switch ($req) {
-    case 'GetPokemon':
-        echo GetPokemon([]);
-        return;
-
     case 'GetPokemonData':
         echo GetPokemonData([':pokemonId' => $_GET[1]]);
         return;

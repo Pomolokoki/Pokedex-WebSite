@@ -131,7 +131,9 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 							</li>
 							  <?php } ?>
 </ol>
+
 							
+
 
 <?php for ($i = 0; $i < count($datapokemon); $i++) : ?>
 <div class="overlay-poke hidden" id="overlay-poke-<?= $datapokemon[$i]['id'] ?>">
