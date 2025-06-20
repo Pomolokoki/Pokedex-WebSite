@@ -61,16 +61,7 @@ function getItemNoDescOrEffect($str, $mot)
                     </th>
             </thead>
             <tbody id='itemListBody'>
-                <!-- <?php for ($i = 0; $i < 15; $i++):
-                ?>
-                    <tr data-id='<?php echo $dataItems[$i]['id'] ?>' data-name='<?php echo $dataItems[$i]['name'] ?>'
-                        data-category='<?php $dataItems[$i]['category'] ?>' scope='row'>
-                        <td id='itemNameData'><?php echo getTextLang($dataItems[$i]['name'], 'fr') ?></td>
-                        <td><?php echo $dataItems[$i]['pocket'] ?></td>
-                        <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]['effect'], 'fr'), 'effet') ?></td>
-                        <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]['smallDescription'], 'fr'), 'description') ?></td>
-                    </tr>
-                <?php endfor; ?> -->
+                
             </tbody>
     </div>
 </div>

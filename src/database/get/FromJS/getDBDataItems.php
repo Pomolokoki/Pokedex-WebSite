@@ -3,10 +3,10 @@
 include_once '../extractDataFromDB.php';
 
 
-// if (!isset($_GET['request'])) {
-//     header("Location: unauthorized.php");
-//     return;
-// }
+if (!isset($_GET['request'])) {
+    header("Location: unauthorized.php");
+    return;
+}
 
 function GetItems($page = 1, $pageSize = 15)
 {
@@ -24,7 +24,9 @@ function GetItems($page = 1, $pageSize = 15)
             item.effect
        FROM item
         LIMIT $pageSize OFFSET $offset",
+        null,
         null
+
     );
 }
 
@@ -52,7 +54,7 @@ function rechercheItems($name = '', $category = '', $page = 1, $pageSize = 15)
             $whereClause
             LIMIT $pageSize OFFSET $offset";
 
-    return executeQueryWReturn($sql, $params);
+    return executeQueryWReturn($sql, $params,null);
 }
 
 switch ($_GET['request']) {
@@ -64,11 +66,3 @@ switch ($_GET['request']) {
         echo json_encode(rechercheItems($name, $category, $page, $pageSize));
         return;
 }
-
-// switch ($_GET['request']) {
-//     case 'GetItems':
-//         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-//         $pageSize = isset($_GET['pageSize']) ? intval($_GET['pageSize']) : 15;
-//         echo json_encode(GetItems($page, $pageSize));
-//         return;    
-// }
