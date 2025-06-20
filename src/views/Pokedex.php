@@ -41,7 +41,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 		<div id='core'>
 			<div id='headerPokedex'>
 				<div class='filter'>
-					<select id='gen'>
+					<select id='gen' tabindex="1">
 						<option value='all'>All</option>
 						<option value='1'>Gen 1</option>
 						<option value='2'>Gen 2</option>
@@ -54,7 +54,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						<option value='9'>Gen 9</option>
 					</select>
 
-					<select id='type'>
+					<select id='type' tabindex="1">
 						<option value='all'>All</option>
 						<?php
 						for ($i = 0; $i < 18; $i++) {
@@ -63,7 +63,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						?>
 					</select>
 
-					<select id='rarete'>
+					<select id='rarete' tabindex="1">
 						<option value='all'>All</option>
 						<option value='0'>Commun</option>
 						<option value='2'>Fabuleux</option>
@@ -73,28 +73,29 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					</select>
 				</div>
 				<div id='searchBar'>
-					<input id='searchBarInput' type='text' name='text' class='search' placeholder='Rechercher' />
+					<input id='searchBarInput' type='text' name='text' class='search' placeholder='Rechercher' tabindex="1" />
 				</div>
 			</div>
 			<div id='pokedexCore'>
 				<div id='pokedex'>
 					<?php
-					for ($i = 0; $i < 1025; $i++) {
+					for ($i = 0; $i < count($datapokemon); $i++) {
 					?>
-						<div class='pokemon' id='<?php echo $datapokemon[$i]['id'] ?>' data-name='<?php if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
-																										echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
-																									} else {
-																										echo explode(' ', getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
-																									}
-																									?>' data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2'] ?>'
+						<div class='pokemon' tabindex="1" id='<?php echo $datapokemon[$i]['id'] ?>' data-name='
+						<?php
+						if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
+							echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
+						} else {
+							echo explode(' ', getTextLang(mb_strtolower($datapokemon[$i]['name'])))[0];
+						}
+						?>' data-type='<?php echo $datapokemon[$i]['type1'] . ' ' . $datapokemon[$i]['type2'] ?>'
 							data-category='<?php echo $datapokemon[$i]['category'] ?>'
 							data-gen='<?php echo $datapokemon[$i]['generation'] ?>'
 							data-id='<?php echo $datapokemon[$i]['id'] ?>'>
-							<div class='colors'></div>
 							<div class='info'>
 								<div class='img_pokemon'>
 									<?php
-									echo '<img src=\'' . $datapokemon[$i]['spriteM'] . '\'/>';
+									echo '<img id="img_pokemon' . $datapokemon[$i]['id'] . '" src=\'' . $datapokemon[$i]['spriteM'] . '\'/>';
 									?>
 								</div>
 								<div class='info_pokemon'>
@@ -169,7 +170,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 			<div id='secteur1'>
 				<button id='pokedex_back'>
 					< </button>
-						<h2 class='name_section' id='name_section_1'>Information Pokemon :</h2>
+						<h2 class='name_section' id='name_section_1' tabindex="1">Information Pokemon :</h2>
 			</div>
 			<div id='Info_Pokemon'>
 				<div id='sprit'>
@@ -247,16 +248,16 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 				</div>
 			</div>
 
-			<h2 class='name_section'>Talent :</h2>
+			<h2 class='name_section' tabindex="1">Talent :</h2>
 			<div id='Talent'>
 			</div>
 
-			<h2 class='name_section'>Description :</h2>
+			<h2 class='name_section' tabindex="1">Description :</h2>
 			<div id='Description'>
 				<h4 id='textDescription'></h4>
 			</div>
 
-			<h2 class='name_section'>Statistique :</h2>
+			<h2 class='name_section' tabindex="1">Statistique :</h2>
 			<div id='Stat'>
 				<div id='Name_stat'>
 					<?php include_once '../style/PHP/statName.php'; ?>
@@ -298,7 +299,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					?>
 				</div>
 			</div>
-			<h2 class='name_section' id='section_5'>Faiblesses/Résistances :</h2>
+			<h2 class='name_section' id='section_5' tabindex="1">Faiblesses/Résistances :</h2>
 			<div id='Table_type'>
 
 				<div id='Table_type1'>
@@ -348,13 +349,13 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 				</div>
 			</div>
 			<div id='atkTiltle'>
-				<h2 id='TitleAtk' class='name_section'>Attaque : ▲</h2>
+				<h2 id='TitleAtk' class='name_section' tabindex="1">Attaque : ▲</h2>
 				<div id='atkButtons'>
-					<button class='moreLessButton' id='gen-'>
+					<button class='moreLessButton' id='gen-' tabindex="1">
 						<label><- </label>
 					</button>
 					<label id='genAtk'>gen 1</label>
-					<button class='moreLessButton' id='gen+'>
+					<button class='moreLessButton' id='gen+' tabindex="1">
 						<label>-></label>
 					</button>
 				</div>
@@ -363,7 +364,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 
 			</div>
 
-			<h2 class='name_section' id='evoSection'>Évolution :</h2>
+			<h2 class='name_section' id='evoSection' tabindex="150">Évolution :</h2>
 			<div id='Evo'>
 
 			</div>
