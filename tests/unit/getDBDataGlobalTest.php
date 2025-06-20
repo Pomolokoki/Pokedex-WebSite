@@ -37,7 +37,7 @@ class getDBDataGlobalTest extends TestCase
             throw new Exception('Erreur : ' . $exception->getMessage());
         }
 
-        include(__DIR__ . "/../../src/database/get/extractDataFromDb.php");
+        include_once(__DIR__ . "/../../src/database/get/extractDataFromDb.php");
     }
     public function test_get_pokemons()
     {
@@ -54,7 +54,34 @@ class getDBDataGlobalTest extends TestCase
         $this->assertEquals($pokemons[178]["generation"], 2);
     }
 
-    //TODO test get attaques
+    public function test_get_attaques()
+    {
+        $attacks = executeQueryWReturn("SELECT * FROM ability", null, $this->database);
+
+        $this->assertEquals($attacks[0]["name"], "Stench///Puanteur");
+        $this->assertEquals($attacks[0]["smallDescription"], "Has a 10% chance of making target Pokémon flinch with each hit.///Les capacités physiques du Pokémon ont 10 % de chances d'apeurer la cible.");
+        $this->assertEquals($attacks[0]["effect"], "By releasing a stench when attacking, the Pokémon may cause the target to flinch.///Le Pokémon émet une odeur si nauséabonde qu'il peut effrayer sa cible en l'attaquant.");
+
+        $this->assertEquals($attacks[158]["name"], "Sand Force///Force Sable");
+        $this->assertEquals($attacks[158]["smallDescription"], "Strengthens rock, ground, and steel moves to 1.3× their power during a sandstorm.  Protects against sandstorm damage.///Sous le climat tempête de sable, la puissance des capacités de type Acier, Roche et Sol du Pokémon augmente de 30 %.\r\nImmunité contre les dégâts de la tempête de sable.");
+        $this->assertEquals($attacks[158]["effect"], "Boosts the power of Rock-, Ground-, and Steel-type moves in a sandstorm. ///Augmente la puissance des capacités de types Roche,\nSol et Acier en cas de tempête de sable.");
+    }
 
     //TODO test get objets
+    public function test_get_items()
+    {
+        $items = executeQueryWReturn("SELECT * FROM item", null, $this->database);
+
+        $this->assertEquals($items[0]["name"], "Master Ball///Master Ball");
+        $this->assertEquals($items[0]["smallDescription"], "Catches a wild Pokémon every time.///NULL");
+        $this->assertEquals($items[0]["category"], "standard-balls");
+        $this->assertEquals($items[0]["pocket"], "pokeballs");
+        $this->assertEquals($items[0]["effect"], "The best Poké Ball with the ultimate level of\r\nperformance. With it, you will catch any wild\r\nPokémon without fail.///Assurément la Poké Ball la plus performante.\r\nElle permet de capturer à coup sûr un Pokémon\r\nsauvage.");
+
+        $this->assertEquals($items[190]["name"], "White Herb///Herbe Blanche");
+        $this->assertEquals($items[190]["smallDescription"], "Held: Resets all lowered stats to normal at end of turn. Consumed after use.///NULL");
+        $this->assertEquals($items[190]["category"], "held-items");
+        $this->assertEquals($items[190]["pocket"], "misc");
+        $this->assertEquals($items[190]["effect"], "An item to be held by a Pokémon. It will restore any\r\nlowered stat in battle. It can be used only once.///Objet à tenir. Restaure les stats qui ont subi une baisse.\r\nNe peut être utilisé qu’une fois.");
+    }
 }
