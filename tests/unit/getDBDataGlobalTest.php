@@ -67,7 +67,6 @@ class getDBDataGlobalTest extends TestCase
         $this->assertEquals($attacks[158]["effect"], "Boosts the power of Rock-, Ground-, and Steel-type moves in a sandstorm. ///Augmente la puissance des capacités de types Roche,\nSol et Acier en cas de tempête de sable.");
     }
 
-    //TODO test get objets
     public function test_get_items()
     {
         $items = executeQueryWReturn("SELECT * FROM item", null, $this->database);
