@@ -945,3 +945,91 @@ if (pokemonSelectedOnLoad && pokemonSelectedOnLoad.dataset.pokemon != "") {
   // console.log(pokemonSelectedOnLoad)
   document.getElementById(pokemonSelectedOnLoad.dataset.pokemon).click();
 }
+
+async function loadPokemonAsync(ID_Pokemon) {
+  const decodedJSON = await fetch("../database/get/FromJS/getDBDataPokedex.php?request=GetPokemon")
+    .then(res => res.json());
+  const dataP = decodedJSON;
+  if (dataP == "No results found.") {
+    return;
+  }
+
+  let model = document.getElementById("1");
+  const patron = model.cloneNode(true);
+
+  //dataset value
+  patron.id = dataP[ID_Pokemon].id;
+  patron.dataset.id = dataP[ID_Pokemon].id;
+  patron.dataset.name = dataP[ID_Pokemon].name;
+  patron.dataset.type = dataP[ID_Pokemon].type1 + " " + dataP[ID_Pokemon].type2;
+  patron.dataset.category = dataP[ID_Pokemon].category;
+  patron.dataset.gen = dataP[ID_Pokemon].generation;
+
+  //value
+  const nomPokemon = patron.querySelector("option");
+  const idP = patron.querySelector(".id_pokemon");
+  const cat = patron.querySelector(".niveau");
+  nomPokemon.value = getText(dataP[ID_Pokemon].name);
+  nomPokemon.innerHTML = getText(dataP[ID_Pokemon].name);
+  idP.innerText = dataP[ID_Pokemon].id;
+
+
+  if (dataP[ID_Pokemon].category == 0) {
+    cat.innerHTML = 'commun';
+  }
+  else if (dataP[ID_Pokemon].category == "1") {
+    cat.innerText = 'légendaire';
+  }
+  else if (dataP[ID_Pokemon].category == 2) {
+    cat.innerHTML = 'fabuleux';
+  }
+  else if (dataP[ID_Pokemon].category == 3) {
+    cat.innerHTML = 'ultra-chimère';
+  }
+  else {
+    console.log(dataP[ID_Pokemon].category);
+    cat.innerHTML = 'paradox';
+  }
+  //image pokemon
+  const img = patron.querySelector("img");
+  patron.addEventListener('click', () => {
+    addEventClickPokemon(patron)
+
+  }, false);
+  img.src = dataP[ID_Pokemon].spriteM;
+
+  //type
+  const typeDiv = patron.querySelectorAll(".typeDisplay");
+  typeDiv[0].classList.forEach(cls => {
+    if (!["typeDisplay", "type_1", "textcolor"].includes(cls)) {
+      typeDiv[0].classList.remove(cls);
+    }
+  });
+  const t1 = patron.getElementsByClassName("type_1");
+  t1[0].innerHTML = getText(dataP[ID_Pokemon].type1);
+  typeDiv[0].classList.add(getText(dataP[ID_Pokemon].type1, 'en'));
+
+  if (dataP[ID_Pokemon].type2 != null) {
+    typeDiv[1].classList.forEach(cls => {
+      if (!["typeDisplay", "type_2", "textcolor"].includes(cls)) {
+        typeDiv[1].classList.remove(cls);
+      }
+    });
+    const t2 = patron.getElementsByClassName("type_2");
+    t2[0].innerHTML = getText(dataP[ID_Pokemon].type2);
+    typeDiv[1].classList.add(getText(dataP[ID_Pokemon].type2, 'en'));
+  }
+  else {
+    typeDiv[1].remove();
+  }
+
+  document.getElementById("pokedex").appendChild(patron);
+}
+
+async function LoadAsync() {
+  for (let i = 0; i < 1000; i++) {
+    await loadPokemonAsync(i); 
+  }
+}
+
+LoadAsync();
