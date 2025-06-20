@@ -1,9 +1,11 @@
-document.getElementById('myPage').addEventListener('click', function () {
-  document.location.href = 'profile.php';
-});
+const profile = document.querySelector("#myPage");
+if (profile) {
+  document.getElementById("myPage").addEventListener("click", function () {
+    document.location.href = "profile.php";
+  });
+}
 
-let changePP = document.getElementById('fileImage');
-
+let changePP = document.getElementById("fileImage");
 
 if (changePP) {
   changePP.addEventListener("change", function (event) {
@@ -24,31 +26,26 @@ if (changePP) {
     document.getElementById("submitButton").click();
   });
 
-
-  changePP.addEventListener('change', function (event) {
-    const output = document.getElementById('output');
+  changePP.addEventListener("change", function (event) {
+    const output = document.getElementById("output");
     output.src = URL.createObjectURL(event.target.files[0]);
-    document.getElementById('submitButton').click();
+    document.getElementById("submitButton").click();
   });
 }
 
-
-
-[...document.querySelectorAll(".pokemon")].forEach(pokemon => {
+[...document.querySelectorAll(".pokemon")].forEach((pokemon) => {
   pokemon.addEventListener("dblclick", () => {
-    let form = document.createElement('form');
-    form.setAttribute('method', 'POST');
-    form.setAttribute('action', "./pokedex.php");
+    let form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "./pokedex.php");
 
-    let data = document.createElement('input');
-    data.setAttribute('type', 'hidden');
-    data.setAttribute('name', 'pokemonId');
-    data.setAttribute('value', pokemon.dataset.id);
+    let data = document.createElement("input");
+    data.setAttribute("type", "hidden");
+    data.setAttribute("name", "pokemonId");
+    data.setAttribute("value", pokemon.dataset.id);
     form.appendChild(data);
 
     document.body.appendChild(form);
     form.submit();
-  }
-  );
+  });
 });
-

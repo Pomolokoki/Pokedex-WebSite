@@ -10,19 +10,21 @@ $dataItems = GetItems();
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include '../style/CSS/items.css' ; ?>
+    <?php include '../style/CSS/items.css'; ?>
 </style>
-<?php 
-function getItemNoDescOrEffect($str,$mot){        
-    if ($str == 'NULL'){
+<?php
+function getItemNoDescOrEffect($str, $mot)
+{
+    if ($str == 'NULL') {
         return 'Cet item n\'a pas de ' . $mot;
-    }
-    else{
+    } else {
         return $str;
     }
 }
 
 ?>
+
+
 <div id='itemTable'>
     <div id='itemFilter'>
         <label for='inputName'>Nom de l'item:</label>
@@ -59,8 +61,8 @@ function getItemNoDescOrEffect($str,$mot){
                     </th>
             </thead>
             <tbody id='itemListBody'>
-                <?php for ($i = 0; $i < count($dataItems); $i++):
-                    ?>
+                <!-- <?php for ($i = 0; $i < 15; $i++):
+                ?>
                     <tr data-id='<?php echo $dataItems[$i]['id'] ?>' data-name='<?php echo $dataItems[$i]['name'] ?>'
                         data-category='<?php $dataItems[$i]['category'] ?>' scope='row'>
                         <td id='itemNameData'><?php echo getTextLang($dataItems[$i]['name'], 'fr') ?></td>
@@ -68,9 +70,10 @@ function getItemNoDescOrEffect($str,$mot){
                         <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]['effect'], 'fr'), 'effet') ?></td>
                         <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]['smallDescription'], 'fr'), 'description') ?></td>
                     </tr>
-                <?php endfor; ?>
+                <?php endfor; ?> -->
             </tbody>
-            </div>
-            </div>
+    </div>
+</div>
+
 
 <script type='text/javascript' src='../scripts/JS/items.js'></script>
