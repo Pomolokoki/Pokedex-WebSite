@@ -27,39 +27,40 @@ function GetPokemonsForMap()
         pokemon.spriteM
         FROM pokemon 
         WHERE pokemon.id < 100000 ORDER BY pokemon.id',
+        null,
         null
     );
 }
 
 function GetTypesForPokedex()
 {
-    return executeQueryWReturn('SELECT id, name, sprite FROM type', null);
+    return executeQueryWReturn('SELECT id, name, sprite FROM type', null, null);
 }
 
 function GetTypesForTypeTable()
 {
-    return executeQueryWReturn('SELECT name, sprite, efficiency FROM type', null);
+    return executeQueryWReturn('SELECT name, sprite, efficiency FROM type', null, null);
 }
 
 function GetTypesForPokemonMoves()
 {
-    return executeQueryWReturn('SELECT name FROM type', null);
+    return executeQueryWReturn('SELECT name FROM type', null, null);
 }
 
 
 function GetRegions()
 {
-    return executeQueryWReturn('SELECT id, name FROM region', null);
+    return executeQueryWReturn('SELECT id, name FROM region', null, null);
 }
 
 function GetLocations()
 {
-    return executeQueryWReturn('SELECT id, name FROM location WHERE regionId = 1', null);
+    return executeQueryWReturn('SELECT id, name FROM location WHERE regionId = 1', null, null);
 }
 
 function GetChannels()
 {
-    return executeQueryWReturn('SELECT id, title, keyWords, owner FROM channel ORDER BY creationDate LIMIT 25', null);
+    return executeQueryWReturn('SELECT id, title, keyWords, owner FROM channel ORDER BY creationDate LIMIT 25', null, null);
 }
 
 function GetMessages()
@@ -81,6 +82,7 @@ function GetMessages()
         LEFT JOIN player AS replyPlayer ON reply.owner = replyPlayer.id 
         WHERE message.channelId = 1 
         ORDER BY message.postDate LIMIT 25',
+        null,
         null
     );
 }
@@ -95,7 +97,8 @@ function GetFavoritesChannel($params)
         WHERE playerId = :playerId LIMIT 15',
         [
             ':playerId' => $params[0]
-        ]
+        ],
+        null
     );
 }
 
@@ -110,6 +113,7 @@ function GetItems()
         item.pocket,
         item.effect
         FROM item',
+        null,
         null
     );
 }
@@ -129,6 +133,7 @@ function getPokemonMoves()
         FROM move
         JOIN type ON type.id = move.type 
         ORDER BY name',
+        null,
         null
     );
 }
@@ -151,7 +156,8 @@ function getPokemonMove($params)
         ORDER BY name',
         [
             ':id' => $params[0]
-        ]
+        ],
+        null
     );
 }
 
@@ -165,7 +171,8 @@ function getFavoritePokemon($params)
         INNER JOIN player_favorites ON pokemon.id = pokemonId AND playerId = :userId',
         [
             ':userId' => $params[0]
-        ]
+        ],
+        null
     );
 }
 
@@ -179,6 +186,7 @@ function getPokemonCaught($params)
         INNER JOIN player_pokemon ON pokemon.id = pokemonId AND playerId = :userId',
         [
             ':userId' => $params[0]
-        ]
+        ],
+        null
     );
 }

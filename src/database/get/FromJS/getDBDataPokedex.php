@@ -50,7 +50,8 @@ function GetPokemonData($params)
         t1.name AS type1, 
         t2.name AS type2 
         FROM pokemon JOIN type AS t1 ON pokemon.type1 = t1.id LEFT JOIN type AS t2 ON pokemon.type2 = t2.id WHERE pokemon.id=:pokemonId',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -62,7 +63,8 @@ function GetAbilityData($params)
             'SELECT ability.name,  ability.smallDescription, ap.isHidden FROM ability_pokemon AS ap 
         INNER JOIN ability ON ap.abilityId = ability.id 
         WHERE ap.pokemonId=:pokemonId',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -73,7 +75,8 @@ function GetMoveData($params)
         executeQueryWReturn(
             'SELECT move.name, type.name AS type, move.effectType, move.pc,  move.accuracy, mp.learnMethod, mp.learnAtLevel, move.pp 
         FROM move_pokemon AS mp INNER JOIN move ON mp.moveId = move.id JOIN type ON move.type = type.id WHERE mp.pokemonId=:pokemonId AND mp.generation=:gen',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -141,7 +144,8 @@ function GetEvolutionData($params)
             LEFT JOIN evolution_pokemon ON ev.id = evolutionFamilyId 
 
             WHERE evolutionFamilyId = (SELECT evolutionFamilyId FROM evolution_pokemon WHERE pokemonId=:pokemonId)',
-            $params
+            $params,
+            null
         )
     );
 }
@@ -182,7 +186,8 @@ function GetFav($params)
 {
     return json_encode(executeQueryWReturn(
         'SELECT pf.pokemonId AS pokemonFav FROM player_favorites AS pf WHERE pf.playerId=:playerId AND pf.pokemonId=:pokemonId',
-        $params
+        $params,
+        null
     ));
 }
 
@@ -190,7 +195,8 @@ function GetPlayerPokemon($params)
 {
     return json_encode(executeQueryWReturn(
         'SELECT pp.pokemonId AS pokemonPlayer FROM player_pokemon AS pp WHERE pp.playerId=:playerId AND pp.pokemonId=:pokemonId',
-        $params
+        $params,
+        null
     ));
 }
 
