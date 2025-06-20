@@ -15,6 +15,7 @@ function GetPokemonsForPokedex()
         JOIN type AS t1 ON pokemon.type1 = t1.id 
         LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
         WHERE pokemon.id < 100000 ORDER BY pokemon.id LIMIT 25',
+        null,
         null
     );
 }
