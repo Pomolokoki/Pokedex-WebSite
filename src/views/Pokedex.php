@@ -83,9 +83,8 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 				<div id='pokedex'>
 					<?php
 					for ($i = 0; $i < count($datapokemon); $i++) {
-						?>
-						<div class='pokemon' tabindex="1" id='<?php echo $datapokemon[$i]['id'] ?>' data-name='
-						<?php
+					?>
+						<div class='pokemon' tabindex="1" id='<?php echo $datapokemon[$i]['id'] ?>' data-name='<?php
 						if (getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. mime' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'mime jr.' || getTextLang(mb_strtolower($datapokemon[$i]['name'])) == 'm. glaquette') {
 							echo getTextLang(mb_strtolower($datapokemon[$i]['name']));
 						} else {
