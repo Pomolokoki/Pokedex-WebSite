@@ -1,5 +1,6 @@
 <!-- Inclusion du header -->
 <?php
+session_start();
 include_once 'header.php';
 include_once __DIR__ . '/../database/connection/connectSQL.php';
 include_once __DIR__ . '/../database/get/extractDataFromDb.php';
@@ -15,6 +16,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
 <link rel='stylesheet' href='../style/CSS/profile.css'>
+
 <body>
     <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
     <div id='ID_User'><?php $_SESSION['LOGGED_USER'][0]['id'] ?></div>
@@ -146,7 +148,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                 <div class='profile-avatar mb-3'>
                                     <form action='profile.php' method='POST' enctype='multipart/form-data'>
                                         <label for='fileImage' class='position-relative' style='cursor: pointer;'>
-                                            <img src='<?php echo htmlspecialchars($profilePictureUser)?>' alt=''
+                                            <img src='<?php echo htmlspecialchars($profilePictureUser) ?>' alt=''
                                                 id='output'>
                                             <i class='fas fa-edit me-2 profile-edit' aria-hidden='true'
                                                 id='profile-pic'></i>
@@ -183,9 +185,13 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                         <div class='card-body profil-data'>
                                             <h6 class='card-subtitle mb-2'>Thème du header : </h6>
                                             <p class='list-group' id='list-tab' role='tablist'>
-                                                <a class='list-group-item list-group-item-action' id='list-magma-list'  data-bs-toggle='list' aria-controls='list-magma' href='#magma'>Team Magma</a>
-                                                <a class='list-group-item list-group-item-action' id='list-aqua-list' data-bs-toggle='list' aria-controls='list-aqua'>Team Aqua</a>
-                                                <a class='list-group-item list-group-item-action' id='list-plasma-list' data-bs-toggle='list'  aria-controls='list-plasma'>Team Plasma</a>
+                                                <a class='list-group-item list-group-item-action' id='list-magma-list'
+                                                    data-bs-toggle='list' aria-controls='list-magma' href='#magma'>Team
+                                                    Magma</a>
+                                                <a class='list-group-item list-group-item-action' id='list-aqua-list'
+                                                    data-bs-toggle='list' aria-controls='list-aqua'>Team Aqua</a>
+                                                <a class='list-group-item list-group-item-action' id='list-plasma-list'
+                                                    data-bs-toggle='list' aria-controls='list-plasma'>Team Plasma</a>
                                             </p>
                                         </div>
                                     </div>
@@ -212,13 +218,16 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                             <div class='card-body profil-bloc'>
                                 <h5 class='card-title text-center'>Pokémon capturés</h5>
                                 <div class='row g-3'>
-                                    <?php if (isset($dataPokemonCatch)  && $dataPokemonCatch != 'No results found.'): ?>
+                                    <?php if (isset($dataPokemonCatch) && $dataPokemonCatch != 'No results found.'): ?>
                                         <?php for ($i = 0; $i < count($dataPokemonCatch); $i++): ?>
                                             <div class='col-auto col-xs-auto col-md-auto col-lg-auto'>
                                                 <div class='card h-100'>
                                                     <div class='card-body pokemonLike-Owned'>
                                                         <p class='card-text'>
-                                                            <img class='pokemon' data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>' alt=''>
+                                                            <img class='pokemon'
+                                                                data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>'
+                                                                src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>'
+                                                                alt=''>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -240,13 +249,15 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                         <div class='card-body profil-bloc'>
                             <h5 class='card-title text-center'>Pokémon favoris</h5>
                             <div class='row g-3'>
-                                <?php if (isset($dataPokemonFav)  && $dataPokemonFav != 'No results found.'): ?>
+                                <?php if (isset($dataPokemonFav) && $dataPokemonFav != 'No results found.'): ?>
                                     <?php for ($i = 0; $i < count($dataPokemonFav); $i++): ?>
                                         <div class='col-auto col-xs-auto col-sm-auto col-md-auto col-lg-auto'>
                                             <div class='card h-100'>
                                                 <div class='card-body pokemonLike-Owned'>
                                                     <p class='card-text'>
-                                                        <img class='pokemon' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>
+                                                        <img class='pokemon'
+                                                            data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>'
+                                                            src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>
                                                     </p>
                                                 </div>
                                             </div>
@@ -318,14 +329,15 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
     </div>
     <!--#endregion -->
 
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'></script>    
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'></script>
     <script>
         // Affiche la modif du profil en cas d'erreur
         <?php if ($error_message): ?>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 new bootstrap.Modal(document.getElementById('editProfileModal')).show();
             });
         <?php endif; ?>
     </script>
 </body>
+
 </html>

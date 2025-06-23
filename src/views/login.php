@@ -1,5 +1,7 @@
 <!-- Inclusion du header -->
-<?php include_once '../database/connection/connectSQL.php';
+<?php
+session_start();
+include_once '../database/connection/connectSQL.php';
 include_once 'header.php';
 ?>
 
@@ -17,13 +19,13 @@ $_SESSION['identifier'] = $_SESSION['pword'] = '';
 $identifierErr = $emailErr = $pwordErr = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
+
     if (empty($_POST['id'])) {
         $identifierErr = 'Veuillez entrer un identifiant correct';
     } else {
         $_SESSION['identifier'] = test_input($_POST['id']);
     }
-    
+
     if (empty($_POST['password'])) {
         $pwordErr = 'Veuillez entrer un mot de passe';
     } else {
@@ -42,12 +44,12 @@ function test_input($data)
 #region Validation du formulaire -->
 
 if (!empty($_POST['id']) && !empty($_POST['password'])) {
-    
+
     $parcoursPlayerTable = $db->prepare('SELECT id,nickname,email,password FROM player');
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
     $checkDB = 0;
-    while ($row = $parcoursPlayerTable->fetch()) {                
+    while ($row = $parcoursPlayerTable->fetch()) {
         if ($row['nickname'] === $_POST['id'] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
                 $findEmailPlayer = $db->prepare('SELECT id,email,nickname,forumRank,picture FROM player WHERE email=:identifier OR nickname=:identifier');
@@ -61,10 +63,10 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
             $errorMessage = sprintf('L\'identifiant ou le mot de passe est invalide.');
         }
         $checkDB += 1;
-              
-    }   
-    if($checkDB === 0) {
-        $errorMessage = sprintf('L\'identifiant ou le mot de passe est invalide.');        
+
+    }
+    if ($checkDB === 0) {
+        $errorMessage = sprintf('L\'identifiant ou le mot de passe est invalide.');
     }
 }
 #endregion
@@ -74,7 +76,7 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
 
 <body>
     <div class='container'>
-        
+
         <?php if (!isset($_SESSION['accountCreated'])): ?>
         <?php else: ?>
             <?php if ((isset($_SESSION['accountCreated'])) && $_SESSION['accountCreated'] === true): ?>
@@ -133,13 +135,13 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
                 echo "<script>window.location.replace('$new_url');</script>";
                 ?>
             </div>
-            <?php endif; ?>
-            <?php
+        <?php endif; ?>
+        <?php
         ?>
         <script type='text/javascript' src='../scripts/JS/login.js'></script>
     </div>
     <footer>
-        </footer>
-    </body>
-    
-    </html>
+    </footer>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include_once __DIR__ . '/../database/connection/connectSQL.php';
 include_once __DIR__ . '/../database/connection/connectSQL.php';
 ?>
@@ -94,9 +94,8 @@ if (isset($_FILES['image'])) {
                     <button type='button' class='Connexion' id='Login'>Connexion</button>
                 <?php else: ?>
                     <div id='myPage' style='cursor: pointer;'>
-                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>'
-
-                            alt='Profile Picture' id='profilePicture'>
+                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture'
+                            id='profilePicture'>
                         </a>
                     </div>
                 <?php endif; ?>
