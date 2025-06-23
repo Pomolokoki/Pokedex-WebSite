@@ -833,17 +833,22 @@ async function loadPokemonAsync(ID_Pokemon) {
   //dataset value
   patron.id = dataP[ID_Pokemon].id;
   patron.dataset.id = dataP[ID_Pokemon].id;
-  patron.dataset.name = dataP[ID_Pokemon].name;
   patron.dataset.type = dataP[ID_Pokemon].type1 + " " + dataP[ID_Pokemon].type2;
   patron.dataset.category = dataP[ID_Pokemon].category;
   patron.dataset.gen = dataP[ID_Pokemon].generation;
 
   //value
+  const nameP = getText(dataP[ID_Pokemon].name);
   const nomPokemon = patron.querySelector("option");
   const idP = patron.querySelector(".id_pokemon");
   const cat = patron.querySelector(".niveau");
-  nomPokemon.value = getText(dataP[ID_Pokemon].name);
-  nomPokemon.innerHTML = getText(dataP[ID_Pokemon].name);
+  if (nameP == 'M. Mime' || nameP == 'Mime Jr.' || nameP == 'M. Glaquette') {
+    nomPokemon.innerHTML = nameP;
+    patron.dataset.name = nameP.toLowerCase();
+  } else {
+    nomPokemon.innerHTML =  nameP.split(" ")[0];
+    patron.dataset.name = nameP.split(" ")[0].toLowerCase();
+  }
   idP.innerText = dataP[ID_Pokemon].id;
 
 
