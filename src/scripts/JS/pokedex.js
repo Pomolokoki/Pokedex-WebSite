@@ -479,10 +479,10 @@ function divEvoCase(stage, data) {
     }
   }
   if (data.it1name != null) {
-    divElementEvoCase.innerHTML += "<img src='" + data.it1sprite + "'> <br>";
+    divElementEvoCase.innerHTML += "<img src='" + data.it1sprite + "' loading=lazy decoding=async alt='Image" + data.it1name + "'> <br>";
   }
   if (data.it2name != null) {
-    divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "'> <br>";
+    divElementEvoCase.innerHTML += "<img src='" + data.it2sprite + "' loading=lazy decoding=async alt='Image" + data.it2name + "'> <br>";
   }
   if (data.moveName != null) {
     divElementEvoCase.innerHTML += "doit maitriser " + getText(data.moveName) + "<br>";
@@ -870,6 +870,7 @@ async function loadPokemonAsync(ID_Pokemon) {
 
   }, false);
   img.src = dataP[ID_Pokemon].spriteM;
+  img.alt = "Image" + dataP[ID_Pokemon].name
 
   //type
   const typeDiv = patron.querySelectorAll(".typeDisplay");
