@@ -1,5 +1,6 @@
 <!-- Inclusion du header -->
 <?php
+session_start();
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 include_once 'header.php';
 
@@ -61,7 +62,7 @@ function getItemNoDescOrEffect($str, $mot)
                     </th>
             </thead>
             <tbody id='itemListBody'>
-                
+
             </tbody>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 $pokemonData = GetPokemonsForMap();
 $regionData = GetRegions();

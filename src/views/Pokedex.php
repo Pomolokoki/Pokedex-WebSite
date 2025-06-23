@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 
@@ -34,7 +35,8 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 	<div id='Data_User'>
 		<?php if (isset($_SESSION['LOGGED_USER'][0]['id'])) {
 			echo ($_SESSION['LOGGED_USER'][0]['id']);
-		} ?></div>
+		} ?>
+	</div>
 	<span id='pokemonSelected' data-pokemon='<?= $pokemonToShow ?>'></span>
 	<div id='content'>
 		<div id='img_background'></div>
@@ -73,7 +75,8 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					</select>
 				</div>
 				<div id='searchBar'>
-					<input id='searchBarInput' type='text' name='text' class='search' placeholder='Rechercher' tabindex="1" />
+					<input id='searchBarInput' type='text' name='text' class='search' placeholder='Rechercher'
+						tabindex="1" />
 				</div>
 			</div>
 			<div id='pokedexCore'>
@@ -131,7 +134,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 													);
 													?>
 												</div>
-											<?php
+												<?php
 											endif;
 											?>
 
@@ -158,7 +161,7 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 							</div>
 
 						</div>
-					<?php
+						<?php
 					}
 					?>
 				</div>
@@ -176,7 +179,8 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 					<div id='img'></div>
 					<div id='button'>
 						<button type='button' id='gender_button'>
-							<img id='symbole' src='../../public/img/M.png' alt="changer le sexe" loading="lazy" decoding="async">
+							<img id='symbole' src='../../public/img/M.png' alt="changer le sexe" loading="lazy"
+								decoding="async">
 						</button>
 					</div>
 				</div>
@@ -263,37 +267,37 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 				</div>
 				<div id='Val_stat'>
 					<?php for ($i = 0; $i < 7; $i++) {
-					?>
+						?>
 						<div id='val_Stat<?php echo ($i) ?>' class='Val_stat_case'>
 							<?php
 							if ($i == 0) {
-							?>
+								?>
 								<h3>Valeur</h3>
-							<?php
+								<?php
 							}
 							?>
 						</div>
-					<?php
+						<?php
 					}
 					?>
 				</div>
 				<div id='Graph_stat'>
 					<?php for ($i = 0; $i < 7; $i++) {
-					?>
+						?>
 						<div class='Graph_stat_case'>
 							<?php
 							if ($i == 0) {
-							?>
+								?>
 								<h3 id='titre_case'>Graphique</h3>
-							<?php
+								<?php
 							} else {
-							?>
+								?>
 								<div id='graph_Stat<?php echo ($i) ?>' class='graphique'></div>
-							<?php
+								<?php
 							}
 							?>
 						</div>
-					<?php
+						<?php
 					}
 					?>
 				</div>
@@ -306,20 +310,21 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						if ($dataType[$i]['id'] > 9) {
 							continue;
 						}
-					?>
+						?>
 						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>' loading="lazy" decoding="async" alt="Image<?= getTextLang($dataType[$i]['name']) ?>">
+							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'
+								loading="lazy" decoding="async" alt="Image<?= getTextLang($dataType[$i]['name']) ?>">
 						</div>
 
-					<?php
+						<?php
 					}
 					?>
 					<?php for ($j = 0; $j < 9; $j++) {
-					?>
+						?>
 						<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
 							<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
 						</div>
-					<?php
+						<?php
 					}
 					?>
 				</div>
@@ -329,20 +334,21 @@ if (isset($_POST['pokemonId']) && $_POST['pokemonId'] != '') {
 						if ($dataType[$i]['id'] > 18) {
 							continue;
 						}
-					?>
+						?>
 						<div class='tab_Type <?php echo getTextLang($dataType[$i]['name'], 'en') ?>'>
-							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>' loading="lazy" decoding="async" alt="Image<?= getTextLang($dataType[$i]['name']) ?>">
+							<img class='type_img' src=' ../../public/img/<?php echo $dataType[$i]['sprite'] ?>'
+								loading="lazy" decoding="async" alt="Image<?= getTextLang($dataType[$i]['name']) ?>">
 						</div>
 
-					<?php
+						<?php
 					}
 					?>
 					<?php for ($j = 9; $j < 18; $j++) {
-					?>
+						?>
 						<div class='Faibless_Resistance' id='Faibless_Resistance<?php echo ($j) ?>'>
 							<h2 class='Faibless_Resistance_Value' id='Faibless_Resistance_Value<?php echo ($j) ?>'></h2>
 						</div>
-					<?php
+						<?php
 					}
 					?>
 				</div>

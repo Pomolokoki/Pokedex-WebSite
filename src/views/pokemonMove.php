@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 $pokemonMoveData = getPokemonMoves();
 // not used but if pokedex -> link -> move
