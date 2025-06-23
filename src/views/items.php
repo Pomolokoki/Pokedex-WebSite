@@ -1,4 +1,3 @@
-<!-- Inclusion du header -->
 <?php
 session_start();
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
