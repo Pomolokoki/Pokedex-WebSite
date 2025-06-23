@@ -410,3 +410,9 @@ uploads/*.*
 composer.lock
 package-lock.json
 .idea
+
+# Playwright
+tests/test-results/
+tests/playwright-report/
+/blob-report/
+/playwright/.cache/
