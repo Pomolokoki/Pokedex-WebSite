@@ -1,0 +1,38 @@
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: ./_docker/nginx.Dockerfile
+        ports:
+            - '80:80'
+        volumes:
+            - ./:/var/www/html
+            - ./_docker/.env.docker:/var/www/html/.env
+
+    php-fpm:
+        build:
+            context: .
+            dockerfile: _docker/php-fpm.Dockerfile
+        ports:
+        - '9000:9000'
+        volumes:
+            - ./:/var/www/html
+            - ./_docker/.env.docker:/var/www/html/.env
+        environment:
+            - DB_HOST=db
+        
+    db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: pokedex
+            MYSQL_USER: user
+            MYSQL_PASSWORD: user
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./src/database/create/pokedexFromPhp.sql:/pokedex.sql
+            - mysql_data:/var/lib/mysql
+
+volumes:
+    mysql_data:
