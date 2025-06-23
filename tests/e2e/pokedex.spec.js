@@ -30,7 +30,7 @@ test('pokedex has pokemon list', async ({ page }) => {
     const pokemonsDiv = page.locator('[id="pokedex"]');
     await expect(pokemonsDiv).not.toBeEmpty();
 
-    await page.waitForTimeout(7500);
+    await page.waitForTimeout(5000);
 
     const bulbizarreDiv = page.locator('[id="1"]');
     const herbizarreDiv = page.locator('[id="2"]');
@@ -120,7 +120,7 @@ test('pokedex has pokemon infomations', async ({ page }) => {
 test('pokedex has filter search', async ({ page }) => {
     await page.goto('http://localhost:3000');
 
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(5000);
 
     const genSelect = page.locator('[id="gen"]');
     const typeSelect = page.locator('[id="type"]');
@@ -141,7 +141,7 @@ test('pokedex has filter search', async ({ page }) => {
 test('pokedex has type search', async ({ page }) => {
     await page.goto('http://localhost:3000');
 
-    await page.waitForTimeout(7500);
+    await page.waitForTimeout(5000);
 
     const searchInput = page.locator('[id="searchBarInput"]')
     await searchInput.fill('Grodoudou');
