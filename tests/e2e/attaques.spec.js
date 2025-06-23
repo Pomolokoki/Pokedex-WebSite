@@ -44,7 +44,7 @@ test('attaques page has moves infos', async ({ page }) => {
     await expect(queueDeFerLine).toHaveText('Queue de Fer Acier Physique 100 15 75 - - Has a 30% chance to lower the target\'s Defense by one stage. - - ');
 });
 
-test('attaques page has type name search', async ({ page }) => {
+test('attaques page has text name search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });
@@ -89,7 +89,7 @@ test('attaques page has filter categorie search', async ({ page }) => {
     await expect(voeuSoinLine).toBeVisible();
 });
 
-test('attaques page has type power search', async ({ page }) => {
+test('attaques page has text power search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });
@@ -104,7 +104,7 @@ test('attaques page has type power search', async ({ page }) => {
     await expect(ultralaserLine).toBeVisible();
 });
 
-test('attaques page has type pp search', async ({ page }) => {
+test('attaques page has text pp search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });
@@ -119,7 +119,7 @@ test('attaques page has type pp search', async ({ page }) => {
     await expect(airVeinardLine).toBeVisible();
 });
 
-test('attaques page has type précision search', async ({ page }) => {
+test('attaques page has text précision search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });
@@ -134,7 +134,7 @@ test('attaques page has type précision search', async ({ page }) => {
     await expect(dynamoPoingLine).toBeVisible();
 });
 
-test('attaques page has type priority search', async ({ page }) => {
+test('attaques page has text priority search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });
@@ -149,7 +149,7 @@ test('attaques page has type priority search', async ({ page }) => {
     await expect(riposteLine).toBeVisible();
 });
 
-test('attaques page has type description search', async ({ page }) => {
+test('attaques page has text description search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });
@@ -164,7 +164,7 @@ test('attaques page has type description search', async ({ page }) => {
     await expect(voleVieLine).toBeVisible();
 });
 
-test('attaques page has type critique search', async ({ page }) => {
+test('attaques page has text critique search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/pokemonMove.php');
 
     const gigaTonnerreLine = page.locator('[id="tbody"] tr').filter({ hasText: 'Giga-Tonnerre' });

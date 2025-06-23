@@ -39,7 +39,7 @@ test('objets page has items infos', async ({ page }) => {
     await expect(moduleCryoLine).toContainText('Grants Genesect a white, Ice-type Techno Blast.');
 });
 
-test('objects page has type search', async ({ page }) => {
+test('objects page has text search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/items.php');
 
     const masterBallLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Master Ball' });

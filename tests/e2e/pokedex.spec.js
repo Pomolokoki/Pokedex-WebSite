@@ -30,10 +30,12 @@ test('pokedex has pokemon list', async ({ page }) => {
     const pokemonsDiv = page.locator('[id="pokedex"]');
     await expect(pokemonsDiv).not.toBeEmpty();
 
+    await page.waitForTimeout(7500);
+
     const bulbizarreDiv = page.locator('[id="1"]');
     const herbizarreDiv = page.locator('[id="2"]');
     const florizarreDiv = page.locator('[id="3"]');
-    const wattouatDiv = page.locator('[id="179"]');
+    const feunardDiv = page.locator('[id="38"]');
 
     await expect(bulbizarreDiv).toBeVisible();
     await expect(bulbizarreDiv).toHaveClass('pokemon');
@@ -47,9 +49,9 @@ test('pokedex has pokemon list', async ({ page }) => {
     await expect(florizarreDiv).toHaveClass('pokemon');
     await expect(florizarreDiv).toHaveText('3 Florizarre Plante Poison commun');
 
-    await expect(wattouatDiv).toBeVisible();
-    await expect(wattouatDiv).toHaveClass('pokemon');
-    await expect(wattouatDiv).toHaveText('179 Wattouat Électrik commun');
+    await expect(feunardDiv).toBeVisible();
+    await expect(feunardDiv).toHaveClass('pokemon');
+    await expect(feunardDiv).toHaveText('38 Feunard Feu commun');
 });
 
 test('pokedex has pokemon infomations', async ({ page }) => {
@@ -115,28 +117,37 @@ test('pokedex has pokemon infomations', async ({ page }) => {
     await expect(pokemonEvolutionsStage3Img).toHaveAttribute('src', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png');
 });
 
-// TODO recherche par filtre
 test('pokedex has filter search', async ({ page }) => {
     await page.goto('http://localhost:3000');
 
-    const genSelect = page.locator('[id="gen"]'); //TODO gen filter pour finir ce test
+    await page.waitForTimeout(10000);
+
+    const genSelect = page.locator('[id="gen"]');
     const typeSelect = page.locator('[id="type"]');
     const rareteSelect = page.locator('[id="rarete"]');
-    await genSelect.selectOption('2');
-    await typeSelect.selectOption('Flying');
-    await rareteSelect.selectOption('1');
+    await genSelect.selectOption('1');
+    await typeSelect.selectOption('Ground');
+    await rareteSelect.selectOption('0');
 
-    // await page.pause();
+    const bulbizarreDiv = page.locator('[id="1"]');
+    const taupiqueurDiv = page.locator('[id="50"]');
+
+    await page.pause();
+
+    await expect(bulbizarreDiv).not.toBeVisible();
+    await expect(taupiqueurDiv).toBeVisible();
 });
 
 test('pokedex has type search', async ({ page }) => {
     await page.goto('http://localhost:3000');
 
+    await page.waitForTimeout(7500);
+
     const searchInput = page.locator('[id="searchBarInput"]')
-    await searchInput.fill('Nanméouïe');
+    await searchInput.fill('Grodoudou');
 
     const bulbizarreDiv = page.locator('[id="1"]');
-    const nanmeouieDiv = page.locator('[id="531"]');
+    const grodoudouDiv = page.locator('[id="40"]');
     await expect(bulbizarreDiv).not.toBeVisible();
-    await expect(nanmeouieDiv).toBeVisible();
+    await expect(grodoudouDiv).toBeVisible();
 });
