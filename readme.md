@@ -1,6 +1,14 @@
 # Pokedex Website
 
-Ce projet est un site web permettant de naviguer et rechercher à travers un pokedex du célèbre jeu Pokémon !
+Ce projet est un site web permettant de naviguer et de rechercher à travers un pokedex du célèbre jeu Pokémon !
+
+## Développeurs
+
+- Pomolokoki   => HUBERT Tom\
+- Natisrt      => LESPLINGUIES Tristan\
+- JusDeFruits1 => CHANFI MARI Yram\
+- Eloups       => TISSIER Elouan\
+- Cherifaaa    => SAFI Cherifa
 
 ## Installation
 
@@ -46,7 +54,7 @@ Voici les codes pour se connecter à un compte de test:
 
 ### Volume Docker
 
-La base de donnée mysql dans Docker possède un volume du nom `mysql_data`.\
+La base de données mysql dans Docker possède un volume du nom `mysql_data`.\
 Pensez à le supprimer si vous souhaitez remonter les machines de zéro.
 
 ### Fichier .env pour lancer sans Docker
