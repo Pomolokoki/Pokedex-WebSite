@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($_GET['request'])) {
     header("Location: unauthorized.php");
     return;

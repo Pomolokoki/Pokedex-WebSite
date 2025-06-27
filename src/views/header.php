@@ -21,6 +21,12 @@ include_once __DIR__ . '/../database/connection/connectSQL.php';
     $user_id = $_SESSION['LOGGED_USER'][0]['id'];
 }
 
+if(isset($profilePictureUser)){
+    if($profilePictureUser === "emptyPicture.png"){
+        $profilePictureUser ="../../public/img/emptyPicture.png";
+    }
+}
+
 if (isset($_FILES['image'])) {
 
     $file_name = $_FILES['image']['name'];
