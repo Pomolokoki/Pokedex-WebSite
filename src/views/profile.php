@@ -1,11 +1,12 @@
 <!-- Inclusion du header -->
 <?php
+session_start();
 include_once 'header.php';
-include_once 'src/database/connection/connectSQL.php';
-include_once 'src/database/get/extractDataFromDb.php';
-
-$dataPokemonFav = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_favorites ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
-$dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.spriteM as pokemonSprite, pokemon.id as pokemonId FROM pokemon INNER JOIN player_pokemon ON pokemon.id = pokemonId and playerId = $user_id", null, null, true);
+include_once __DIR__ . '/../database/connection/connectSQL.php';
+include_once __DIR__ . '/../database/get/extractDataFromDb.php';
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
+$dataPokemonFav = getFavoritePokemon([$user_id]);
+$dataPokemonCatch = getPokemonCaught([$user_id]);
 ?>
 <!DOCTYPE html>
 <html lang='fr'>
@@ -14,9 +15,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
 <title>Profil Utilisateur</title>
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'>
-<style>
-    <?php include('src/style/CSS/profile.css'); ?>
-</style>
+<link rel='stylesheet' href='../style/CSS/profile.css'>
 
 <body>
     <!-- #region Validation du formulaire et Sécurisation et Gestion des exceptions-->
@@ -186,9 +185,13 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                         <div class='card-body profil-data'>
                                             <h6 class='card-subtitle mb-2'>Thème du header : </h6>
                                             <p class='list-group' id='list-tab' role='tablist'>
-                                                <a class='list-group-item list-group-item-action' id='list-magma-list'  data-bs-toggle='list' aria-controls='list-magma' href='#magma'>Team Magma</a>
-                                                <a class='list-group-item list-group-item-action' id='list-aqua-list' data-bs-toggle='list' aria-controls='list-aqua'>Team Aqua</a>
-                                                <a class='list-group-item list-group-item-action' id='list-plasma-list' data-bs-toggle='list'  aria-controls='list-plasma'>Team Plasma</a>
+                                                <a class='list-group-item list-group-item-action' id='list-magma-list'
+                                                    data-bs-toggle='list' aria-controls='list-magma' href='#magma'>Team
+                                                    Magma</a>
+                                                <a class='list-group-item list-group-item-action' id='list-aqua-list'
+                                                    data-bs-toggle='list' aria-controls='list-aqua'>Team Aqua</a>
+                                                <a class='list-group-item list-group-item-action' id='list-plasma-list'
+                                                    data-bs-toggle='list' aria-controls='list-plasma'>Team Plasma</a>
                                             </p>
                                         </div>
                                     </div>
@@ -200,7 +203,7 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                                     data-bs-target='#editProfileModal'>
                                     <i class='fas fa-edit me-2'></i>Modifier le profil
                                 </button>
-                                <a href='/src/scripts/PHP/logout.php' class='btn btn-danger'>
+                                <a href='../scripts//PHP/logout.php' class='btn btn-danger'>
                                     <i class='fas fa-sign-out-alt me-2'></i>Déconnexion
                                 </a>
                             </div>
@@ -215,13 +218,16 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                             <div class='card-body profil-bloc'>
                                 <h5 class='card-title text-center'>Pokémon capturés</h5>
                                 <div class='row g-3'>
-                                    <?php if (isset($dataPokemonCatch)  && $dataPokemonCatch != 'No results found.'): ?>
+                                    <?php if (isset($dataPokemonCatch) && $dataPokemonCatch != 'No results found.'): ?>
                                         <?php for ($i = 0; $i < count($dataPokemonCatch); $i++): ?>
                                             <div class='col-auto col-xs-auto col-md-auto col-lg-auto'>
                                                 <div class='card h-100'>
                                                     <div class='card-body pokemonLike-Owned'>
                                                         <p class='card-text'>
-                                                            <img class='pokemon' data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>' alt=''>
+                                                            <img class='pokemon'
+                                                                data-id='<?php echo $dataPokemonCatch[$i]['pokemonId'] ?>'
+                                                                src='<?php echo $dataPokemonCatch[$i]['pokemonSprite'] ?>'
+                                                                alt=''>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -243,13 +249,13 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
                         <div class='card-body profil-bloc'>
                             <h5 class='card-title text-center'>Pokémon favoris</h5>
                             <div class='row g-3'>
-                                <?php if (isset($dataPokemonFav)  && $dataPokemonFav != 'No results found.'): ?>
+                                <?php if (isset($dataPokemonFav) && $dataPokemonFav != 'No results found.'): ?>
                                     <?php for ($i = 0; $i < count($dataPokemonFav); $i++): ?>
                                         <div class='col-auto col-xs-auto col-sm-auto col-md-auto col-lg-auto'>
                                             <div class='card h-100'>
                                                 <div class='card-body pokemonLike-Owned'>
                                                     <p class='card-text'>
-                                                        <img class='pokemon' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>
+                                                        <img class='pokemon' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>                                                        
                                                     </p>
                                                 </div>
                                             </div>
@@ -321,14 +327,15 @@ $dataPokemonCatch = getDataFromDB("SELECT pokemon.name as pokemonName, pokemon.s
     </div>
     <!--#endregion -->
 
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'></script>    
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'></script>
     <script>
         // Affiche la modif du profil en cas d'erreur
         <?php if ($error_message): ?>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 new bootstrap.Modal(document.getElementById('editProfileModal')).show();
             });
         <?php endif; ?>
     </script>
 </body>
+
 </html>

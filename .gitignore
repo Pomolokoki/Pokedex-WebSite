@@ -409,4 +409,10 @@ uploads/*.*
 /vendor/
 composer.lock
 package-lock.json
-src/database/create/TalentFR.txt
+.idea
+
+# Playwright
+tests/test-results/
+tests/playwright-report/
+/blob-report/
+/playwright/.cache/

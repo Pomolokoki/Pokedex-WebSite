@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include_once __DIR__ . '/../database/connection/connectSQL.php';
 include_once __DIR__ . '/../database/connection/connectSQL.php';
 ?>
@@ -13,12 +13,18 @@ include_once __DIR__ . '/../database/connection/connectSQL.php';
     <link rel='stylesheet' href='../style/CSS/header.css'>
     <script src='../scripts/JS/header.js' defer></script>
     <script src='../scripts/JS/profile.js' defer></script>
-    <title>PokeKrazy</title>
+    <title>Pokedex</title>
 </head>
 
 <?php if (isset($_SESSION['LOGGED_USER'][0]['picture'])) {
     $profilePictureUser = $_SESSION['LOGGED_USER'][0]['picture'];
     $user_id = $_SESSION['LOGGED_USER'][0]['id'];
+}
+
+if(isset($profilePictureUser)){
+    if($profilePictureUser === "emptyPicture.png"){
+        $profilePictureUser ="../../public/img/emptyPicture.png";
+    }
 }
 
 if (isset($_FILES['image'])) {
@@ -27,7 +33,7 @@ if (isset($_FILES['image'])) {
     $file_tmpName = $_FILES['image']['tmp_name'];
     $file_error = $_FILES['image']['error'];
     //Créer un dossier pour stocker les images
-    $upload_dir = 'uploads/';
+    $upload_dir = '../../uploads/';
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir);
     }
@@ -94,8 +100,8 @@ if (isset($_FILES['image'])) {
                     <button type='button' class='Connexion' id='Login'>Connexion</button>
                 <?php else: ?>
                     <div id='myPage' style='cursor: pointer;'>
-                        <img src='../../public/img/<?php echo htmlspecialchars($profilePictureUser); ?>'
-                            alt='Profile Picture' id='profilePicture'>
+                        <img src='<?php echo htmlspecialchars($profilePictureUser); ?>' alt='Profile Picture'
+                            id='profilePicture'>
                         </a>
                     </div>
                 <?php endif; ?>

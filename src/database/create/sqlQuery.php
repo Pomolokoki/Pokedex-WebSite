@@ -1,12 +1,7 @@
 <?php
 
-$sqlCreateDB =
-'DROP DATABASE IF EXISTS pokedex;
-CREATE DATABASE pokedex CHARACTER SET utf8;
-USE pokedex;';
-
 $sqlCreateAbility =
-'CREATE TABLE ability(
+    'CREATE TABLE ability(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(70),
 description TEXT,
@@ -20,7 +15,7 @@ moment TINYINT
 );';
 
 $sqlCreateType =
-'CREATE TABLE type(
+    'CREATE TABLE type(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(30),
 sprite TEXT,
@@ -29,7 +24,7 @@ efficiency VARCHAR(75)
 
 
 $sqlCreateMove =
-'CREATE TABLE move(
+    'CREATE TABLE move(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(70),
 description TEXT,
@@ -54,13 +49,13 @@ CONSTRAINT move_type_FK FOREIGN KEY (type) REFERENCES type(id)
 );';
 
 $sqlCreateRegion =
-'CREATE TABLE region(
+    'CREATE TABLE region(
 id TINYINT UNSIGNED PRIMARY KEY,
 name VARCHAR(75)
 );';
 
 $sqlCreateLocation =
-'CREATE TABLE location(
+    'CREATE TABLE location(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(100),
 regionId TINYINT UNSIGNED,
@@ -69,7 +64,7 @@ CONSTRAINT location_regionId_FK FOREIGN KEY (regionId) REFERENCES region(id)
 
 
 $sqlCreatePokemon =
-'CREATE TABLE pokemon(
+    'CREATE TABLE pokemon(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(100),
 description TEXT,
@@ -107,7 +102,7 @@ CONSTRAINT pokemeon_type2_FK FOREIGN KEY (type2) REFERENCES type(id)-- ,
 );';
 
 $sqlCreateAbilityPokemonLink =
-'CREATE TABLE ability_pokemon(
+    'CREATE TABLE ability_pokemon(
 abilityId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 isHidden BOOLEAN,
@@ -116,8 +111,8 @@ CONSTRAINT ability_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokem
 CONSTRAINT ability_pokemon_PKU UNIQUE (abilityId, pokemonId)
 );';
 
-$sqlCreateMovePokemonLink = 
-'CREATE TABLE move_pokemon(
+$sqlCreateMovePokemonLink =
+    'CREATE TABLE move_pokemon(
 moveId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 learnMethod VARCHAR(100),
@@ -129,8 +124,8 @@ CONSTRAINT move_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES region
 -- CONSTRAINT move_pokemon_PKU UNIQUE (moveId, pokemonId)
 );';
 
-$sqlCreateLocationPokemonLink = 
-'CREATE TABLE location_pokemon(
+$sqlCreateLocationPokemonLink =
+    'CREATE TABLE location_pokemon(
 locationId SMALLINT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 generation TINYINT UNSIGNED,
@@ -142,7 +137,7 @@ CONSTRAINT location_pokemon_generation_FK FOREIGN KEY (generation) REFERENCES re
 
 
 $sqlCreateItem =
-'CREATE TABLE item(
+    'CREATE TABLE item(
 id SMALLINT UNSIGNED PRIMARY KEY,
 name VARCHAR(60),
 description TEXT,
@@ -171,8 +166,8 @@ soilDryness TINYINT UNSIGNED,
 );';
 */
 
-$sqlCreateEvolution = 
-'CREATE TABLE evolution(
+$sqlCreateEvolution =
+    'CREATE TABLE evolution(
 id SMALLINT UNSIGNED,
 basePokemonId SMALLINT UNSIGNED,
 evoluedPokemonId SMALLINT UNSIGNED,
@@ -209,7 +204,7 @@ CONSTRAINT evolution_tradeSpeciesId_FK FOREIGN KEY (tradeSpeciesId) REFERENCES p
 );';
 
 $sqlCreateEvolutionPokemonLink =
-'CREATE TABLE evolution_pokemon(
+    'CREATE TABLE evolution_pokemon(
 pokemonId SMALLINT UNSIGNED,
 evolutionFamilyId SMALLINT UNSIGNED,
 CONSTRAINT evolution_pokemon_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
@@ -219,7 +214,7 @@ CONSTRAINT evolution_pokemon_PKU UNIQUE (pokemonId, evolutionFamilyId)
 
 
 $sqlCreateFormPokemon =
-'CREATE TABLE form_pokemon(
+    'CREATE TABLE form_pokemon(
 pokemonId SMALLINT UNSIGNED,
 formId SMALLINT UNSIGNED,
 CONSTRAINT move_form_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES pokemon(id),
@@ -228,7 +223,7 @@ CONSTRAINT form_pokemon_PKU UNIQUE (pokemonId, formId)
 );';
 
 $sqlCreateTeam =
-'CREATE TABLE team(
+    'CREATE TABLE team(
 id TINYINT UNSIGNED PRIMARY KEY,
 name VARCHAR(25),
 spriteBg TEXT,
@@ -239,7 +234,7 @@ spriteBonus TEXT
 );';
 
 $sqlCreateCombatTeam =
-'CREATE TABLE combatTeam(
+    'CREATE TABLE combatTeam(
 id INT UNSIGNED PRIMARY KEY,
 name VARCHAR(25),
 pokemon1Id SMALLINT UNSIGNED,
@@ -257,7 +252,7 @@ CONSTRAINT move_form_pokemon6Id_FK FOREIGN KEY (pokemon6Id) REFERENCES pokemon(i
 );';
 
 $sqlCreatePlayer =
-'CREATE TABLE player(
+    'CREATE TABLE player(
 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 nickname VARCHAR(50) UNIQUE,
 email VARCHAR(100) UNIQUE,
@@ -280,7 +275,7 @@ CONSTRAINT player_selectedCombatTeamId_FK FOREIGN KEY (selectedCombatTeamId) REF
 );';
 
 $sqlCreateFollowedPlayer =
-'CREATE TABLE followed_player(
+    'CREATE TABLE followed_player(
 playerId INT UNSIGNED,
 followedPlayerId INT UNSIGNED,
 CONSTRAINT followed_player_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
@@ -288,7 +283,7 @@ CONSTRAINT followed_player_followedPlayerId_FK FOREIGN KEY (followedPlayerId) RE
 );';
 
 $sqlCreatePlayerPokedexLink =
-'CREATE TABLE player_pokemon(
+    'CREATE TABLE player_pokemon(
 playerId INT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 CONSTRAINT player_pokemon_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
@@ -297,7 +292,7 @@ CONSTRAINT player_pokemon_PKU UNIQUE (playerId, pokemonId)
 );';
 
 $sqlCreatePlayerFavoriteLink =
-'CREATE TABLE player_favorites(
+    'CREATE TABLE player_favorites(
 playerId INT UNSIGNED,
 pokemonId SMALLINT UNSIGNED,
 CONSTRAINT player_favorites_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
@@ -305,8 +300,8 @@ CONSTRAINT player_favorites_pokemonId_FK FOREIGN KEY (pokemonId) REFERENCES poke
 CONSTRAINT player_favorites_PKU UNIQUE (playerId, pokemonId)
 );';
 
-$sqlCreateForumChannel = 
-'CREATE TABLE channel(
+$sqlCreateForumChannel =
+    'CREATE TABLE channel(
 id CHAR(36) PRIMARY KEY,
 owner INT UNSIGNED,
 title VARCHAR(100),
@@ -325,8 +320,8 @@ END IF;
 END ;
 ';
 
-$sqlCreateForumMessage = 
-'CREATE TABLE message(
+$sqlCreateForumMessage =
+    'CREATE TABLE message(
 id CHAR(36) PRIMARY KEY,
 owner INT UNSIGNED,
 text TEXT,
@@ -351,8 +346,8 @@ END ;
 
 ';
 
-$sqlCreateForumFavoritePlayerChanel = 
-'CREATE TABLE player_fav_channel(
+$sqlCreateForumFavoritePlayerChanel =
+    'CREATE TABLE player_fav_channel(
 playerId INT UNSIGNED,
 channelId CHAR(36),
 CONSTRAINT player_fav_channel_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
@@ -363,26 +358,25 @@ CONSTRAINT player_fav_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES ch
 
 
 $sqlCreateAll =
-$sqlCreateDB . "\n\n" .
-$sqlCreateAbility . "\n\n" .
-$sqlCreateType . "\n\n" .
-$sqlCreateMove . "\n\n" .
-$sqlCreateRegion . "\n\n" .
-$sqlCreateLocation . "\n\n" .
-$sqlCreatePokemon . "\n\n" .
-$sqlCreateAbilityPokemonLink . "\n\n" .
-$sqlCreateMovePokemonLink . "\n\n" .
-$sqlCreateLocationPokemonLink . "\n\n" .
-$sqlCreateItem . "\n\n" .
-$sqlCreateEvolution . "\n\n" .
-$sqlCreateEvolutionPokemonLink . "\n\n" .
-$sqlCreateFormPokemon . "\n\n" .
-$sqlCreateTeam . "\n\n" .
-$sqlCreateCombatTeam . "\n\n" .
-$sqlCreatePlayer . "\n\n" .
-$sqlCreateFollowedPlayer . "\n\n" .
-$sqlCreatePlayerPokedexLink . "\n\n" .
-$sqlCreatePlayerFavoriteLink . "\n\n" .
-$sqlCreateForumChannel . "\n\n" .
-$sqlCreateForumMessage . "\n\n" .
-$sqlCreateForumFavoritePlayerChanel . "\n\n";
+    $sqlCreateAbility . "\n\n" .
+    $sqlCreateType . "\n\n" .
+    $sqlCreateMove . "\n\n" .
+    $sqlCreateRegion . "\n\n" .
+    $sqlCreateLocation . "\n\n" .
+    $sqlCreatePokemon . "\n\n" .
+    $sqlCreateAbilityPokemonLink . "\n\n" .
+    $sqlCreateMovePokemonLink . "\n\n" .
+    $sqlCreateLocationPokemonLink . "\n\n" .
+    $sqlCreateItem . "\n\n" .
+    $sqlCreateEvolution . "\n\n" .
+    $sqlCreateEvolutionPokemonLink . "\n\n" .
+    $sqlCreateFormPokemon . "\n\n" .
+    $sqlCreateTeam . "\n\n" .
+    $sqlCreateCombatTeam . "\n\n" .
+    $sqlCreatePlayer . "\n\n" .
+    $sqlCreateFollowedPlayer . "\n\n" .
+    $sqlCreatePlayerPokedexLink . "\n\n" .
+    $sqlCreatePlayerFavoriteLink . "\n\n" .
+    $sqlCreateForumChannel . "\n\n" .
+    $sqlCreateForumMessage . "\n\n" .
+    $sqlCreateForumFavoritePlayerChanel . "\n\n";

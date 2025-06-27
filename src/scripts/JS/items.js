@@ -1,118 +1,91 @@
-function isNumber(value) {
-  let reg = new RegExp("^[0-9]+$");
-  return reg.test(value);
-}
+let currentPage = 1;
+const pageSize = 15;
+let isLoading = false;
 
-function rechercheInput() {
-  console.log("marche po");
-  var input, filter, tr, tbody,td
-  input = document.getElementById("inputName");
-  filter = input.value.toUpperCase();
-  tbody = document.getElementById("itemListBody");
-  tr = document.getElementsByTagName("tr");
-
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (!td) {
-      continue;
-    }
-    txtValue = td.innerHTML || td.innerText || td.textContent;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      tr[i].style.display = "";
-      //recherche2();
-    } else {
-      tr[i].style.display = "none";
-      //recherche2();
-    }
+function getTextLang(str, language = "fr") {
+  const split = str.split("///");
+  if (language === "fr") {
+    if (split[1] === "NULL") return split[0];
+    return split[1];
+  } else {
+    return split[0];
   }
 }
 
-function rechercheBoth() {
-    console.log("marche po3");
-    var inputName,inputCategory, filterName,filterCategory, tr, tbody,td
-    inputName = document.getElementById("inputName");
-    inputCategory = document.getElementById("inputCategory");
-    filterName = inputName.value.toUpperCase();
-    filterCategory = inputCategory.value.toUpperCase();
-    tbody = document.getElementById("itemListBody");
-    tr = document.getElementsByTagName("tr");
-  
-    for (i = 0; i < tr.length; i++) {
-      tdName = tr[i].getElementsByTagName("td")[0];
-      tdCategory = tr[i].getElementsByTagName("td")[1];
-      if (!tdName || !tdCategory) {
-        continue;
-      }
-      txtValueName = tdName.innerHTML || tdName.innerText || tdName.textContent;
-      txtValueCategory = tdCategory.innerHTML || tdCategory.innerText || tdCategory.textContent;
-      if (txtValueName.toUpperCase().indexOf(filterName) > -1 && txtValueCategory.toUpperCase().indexOf(filterCategory) > -1) {
-        tr[i].style.display = "";
-        if(filterCategory == "ALL"){
-            tr[i].style.display = "";
-          }
-      } else {
-        tr[i].style.display = "none";
-        if(filterCategory == "ALL"){
-            tr[i].style.display = "";
-          }
-      }
-      if(filterCategory == "ALL" && txtValueName.toUpperCase().indexOf(filterName) > -1 && txtValueCategory.toUpperCase().indexOf(filterCategory) > -1){
-        tr[i].style.display = "";
-      }
-    }
+function getItemNoDescOrEffect($str, $mot) {
+  if ($str == "NULL") {
+    return "Cet item n'a pas de ".$mot;
+  } else {
+    return $str;
   }
+}
 
-function rechercheCategory() {
-    console.log("marche po category");
-    var input, filter, tr, tbody,td
-    input = document.getElementById("inputCategory");
-    filter = input.value.toUpperCase();
-    tbody = document.getElementById("itemListBody");
-    tr = document.getElementsByTagName("tr");
-  
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[1];
-      if (!td) {
-        continue;
-      }
-      txtValue = td.innerHTML || td.innerText || td.textContent;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-        //recherche();
-      } else {
-        tr[i].style.display = "none";
-        //recherche();
-      }
-      if(filter == "ALL"){
-        tr[i].style.display = "";
-        //recherche();
-      }
-    }
-  }
+async function fetchEtAffichageItem({ page = 1, append = false } = {}) {
+  const name = document.getElementById("inputName").value;
+  const category = document.getElementById("inputCategory").value;
+  if (isLoading) return;
+  isLoading = true;
 
-
-  function rechercheCategItem() {
-    const nameInput = document.getElementById("inputName").value.toUpperCase();
-    const categorySelect = document.getElementById("inputCategory").value.toUpperCase();
+  try {
+    const response = await fetch(
+      `../database/get/FromJS/getDBDataItems.php?request=SearchItems&name=${encodeURIComponent(name)}&category=${encodeURIComponent(category)}&page=${page}&pageSize=${pageSize}`
+    );
+    const data = await response.json();
     const tbody = document.getElementById("itemListBody");
-    const rows = tbody.getElementsByTagName("tr");
-    
-    Array.from(rows).forEach(row => {
-        const nameCell = row.getElementsByTagName("td")[0];
-        const categoryCell = row.getElementsByTagName("td")[1];
-        
-        if (nameCell && categoryCell) {
-            const name = nameCell.textContent || nameCell.innerText;
-            const category = categoryCell.textContent || categoryCell.innerText;
-            
-            const nameMatch = name.toUpperCase().includes(nameInput);
-            const categoryMatch = categorySelect === "ALL" || category.toUpperCase().includes(categorySelect);
-            
-            
-            row.style.display = nameMatch && categoryMatch ? "" : "none";
-        }
-    });
+    if (!append) tbody.innerHTML = "";
+    if (Array.isArray(data)) {
+      data.forEach((item) => {
+        const tr = document.createElement("tr");
+        tr.setAttribute("data-id", item.id);
+        tr.setAttribute("data-name", item.name);
+        tr.setAttribute("data-category", item.category);
+
+        tr.innerHTML = `
+          <td id='itemNameData'>${getTextLang(item.name, 'fr')}</td>
+          <td>${item.pocket}</td>
+          <td>${getItemNoDescOrEffect(getTextLang(item.effect, 'fr'), 'effet') ?? "Cet item n'a pas de description"}</td>
+          <td>${getItemNoDescOrEffect(getTextLang(item.smallDescription, 'fr'), 'description') ?? "Cet item n'a pas d'effet"}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    if (append && data.length > 0) currentPage++;
+  } catch (e) {
+    console.error(e);
+  } finally {
+    isLoading = false;
+  }
 }
 
-document.getElementById("inputCategory").addEventListener("change", rechercheCategItem);
-document.getElementById("inputName").addEventListener("input", rechercheCategItem);
+// Pour la recherche (reset page et tableau)
+document.getElementById("inputCategory").addEventListener("change", () => {
+  currentPage = 1;
+  fetchEtAffichageItem({ page: 1, append: false });
+});
+document.getElementById("inputName").addEventListener("input", () => {
+  currentPage = 1;
+  fetchEtAffichageItem({ page: 1, append: false });
+});
+
+// Pour le scroll infini
+document.addEventListener("DOMContentLoaded", () => {
+  const itemListDiv = document.querySelector(".itemList");
+  if (itemListDiv) {
+    itemListDiv.addEventListener("scroll", () => {
+      if (
+        itemListDiv.scrollTop + itemListDiv.clientHeight >= itemListDiv.scrollHeight - 10
+      ) {
+        fetchEtAffichageItem({ page: currentPage + 1, append: true });
+      }
+    });
+  }
+  // Chargement initial
+  fetchEtAffichageItem({ page: 1, append: false });
+});
+
+document
+  .getElementById("inputCategory")
+  .addEventListener("change", fetchEtAffichageItem);
+document
+  .getElementById("inputName")
+  .addEventListener("input", fetchEtAffichageItem);

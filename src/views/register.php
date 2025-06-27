@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../database/connection/connectSQL.php';
 
 ?>
@@ -7,11 +8,11 @@ include_once '../database/connection/connectSQL.php';
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
 <style>
-    <?php include '../style/CSS/register.css' ; ?>
+    <?php include '../style/CSS/register.css'; ?>
 </style>
 
 <!-- #region Sécurisation et Gestion des exceptions-->
-<?php 
+<?php
 #region Sécurisation et Gestion des exceptions
 $_SESSION['accountCreated'] = false;
 $unameErr = $emailErr = $pwordErr = $confirm_passwordErr = '';
@@ -21,7 +22,7 @@ $donneeForm = array(
     'username' => '',
     'email' => '',
     'password' => '',
-    'confirm_password' => ''    
+    'confirm_password' => ''
 );
 $passwordCheck = '';
 $confirm_passwordCheck = '';
@@ -53,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!empty($_POST['password']) && !empty($_POST['confirm_password'])) {
-        echo $passwordBool;
         $passwordCheck = test_input($_POST['password']);
         $confirm_passwordCheck = test_input($_POST['confirm_password']);
         if (empty($confirm_passwordCheck)) {
@@ -101,7 +101,7 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email'])) {
         ':nickname' => $donneeForm['username'],
         ':email' => $donneeForm['email']
     ]);
-    
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         if ($row['nickname'] === $donneeForm['username']) {
             $unameErr = 'Pseudo déjà pris';
@@ -123,7 +123,7 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
         $inscription->bindParam(':nickname', $username);
         $inscription->bindParam(':email', $email);
         $inscription->bindParam(':password', $password);
-        
+
         $username = $donneeForm['username'];
         $email = $donneeForm['email'];
         $password = password_hash($donneeForm['password'], PASSWORD_DEFAULT);
@@ -159,7 +159,8 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
                     <br><br>
                 </div>
                 <div class='col-75'>
-                    <input type='text' id='uname' name='username' placeholder='Votre pseudo...' value='<?php echo htmlspecialchars($donneeForm['username']); ?>'>
+                    <input type='text' id='uname' name='username' placeholder='Votre pseudo...'
+                        value='<?php echo htmlspecialchars($donneeForm['username']); ?>'>
                     <span class='error'>* <?php echo $unameErr; ?></span>
                     <br><br>
                 </div>
@@ -169,7 +170,8 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
                     <label for='email'>Votre Email</label>
                 </div>
                 <div class='col-75'>
-                    <input type='email' id='email' name='email' placeholder='sacha.dubourgpalette@pokemon.com' value='<?php echo htmlspecialchars($donneeForm['email']); ?>'>
+                    <input type='email' id='email' name='email' placeholder='sacha.dubourgpalette@pokemon.com'
+                        value='<?php echo htmlspecialchars($donneeForm['email']); ?>'>
                     <span class='error'>* <?php echo $emailErr; ?></span>
                     <br><br>
                 </div>
@@ -179,7 +181,8 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
                     <label for='pword'>Votre mot de passe</label>
                 </div>
                 <div class='col-75'>
-                    <input type='password' id='pword' name='password' value='<?php echo htmlspecialchars($donneeForm['password']); ?>'>
+                    <input type='password' id='pword' name='password'
+                        value='<?php echo htmlspecialchars($donneeForm['password']); ?>'>
                     <span class='error'>* <br><?php echo nl2br($pwordErr); ?></span>
                     <br><br>
                 </div>
@@ -190,7 +193,7 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
                 </div>
                 <div class='col-75'>
                     <input type='password' id='pword2' name='confirm_password' value='<?php echo htmlspecialchars($donneeForm['confirm_password']); ?>'>
-                    <span class='error'>* <?php echo nl2br($confirm_passwordErr); ?></span>
+                    <span class='error'>* <?php echo nl2br(htmlspecialchars($confirm_passwordErr)); ?></span>
                     <br><br>
                 </div>
             </div>

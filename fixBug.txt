@@ -1,1 +1,0 @@
-- diseable clear filter when click on left pokemon

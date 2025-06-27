@@ -18,25 +18,30 @@ function getDataFromDB($table, $columns, $condition, $fullRequest = false)
         return 'No results found.';
     return $statement->fetchAll();
 }
-function executeQueryWReturn($query, $params)
+
+function executeQueryWReturn($query, $params, $database)
 {
-    global $db;
-    $statement = $db->prepare($query);
-    $statement->execute($params);
-    if ($statement->rowCount() == 0)
-        return 'No results found.';
-    return $statement->fetchAll();
+    if ($database === null) {
+        global $db;
+        $statement = $db->prepare($query);
+        $statement->execute($params);
+        if ($statement->rowCount() == 0)
+            return 'No results found.';
+        return $statement->fetchAll();
+    } else {
+        $statement = $database->prepare($query);
+        $statement->execute($params);
+        if ($statement->rowCount() == 0)
+            return 'No results found.';
+        return $statement->fetchAll();
+    }
 }
+
 function executeQuery($query, $params)
 {
     global $db;
-    //echo $query;
-    //print_r($params);
-    //echo $params[':replyId'];
-    //$params[':replyId'] = null;
     $statement = $db->prepare($query);
     $statement->execute($params);
-    //echo $statement->queryString;
 }
 
 function getTextLang($str, $language = 'fr')

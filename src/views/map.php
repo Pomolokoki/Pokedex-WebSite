@@ -1,8 +1,9 @@
 <?php
-include_once '../database/get/extractDataFromDB.php';
-$pokemonData = executeQueryWReturn('SELECT spriteM, name, id FROM pokemon WHERE id < 10000', null);
-$regionData = executeQueryWReturn('SELECT * FROM region', null);
-$locationData = executeQueryWReturn('SELECT * FROM location WHERE regionId = 1', null);
+session_start();
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
+$pokemonData = GetPokemonsForMap();
+$regionData = GetRegions();
+$locationData = GetLocations();
 ?>
 <!DOCTYPE html>
 <html lang='fr'>

@@ -1,12 +1,13 @@
 <?php
-include_once '../database/get/extractDataFromDB.php';
-$pokemonMoveData = getDataFromDB('SELECT move.name, smallDescription, accuracy, pp, pc, type.name AS type, priority, criticity, effectType FROM move JOIN type ON type.id = move.type ORDER BY name', null, null, true);
+session_start();
+include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
+$pokemonMoveData = getPokemonMoves();
 // not used but if pokedex -> link -> move
 $isSet = isset($_POST['moveId']);
 $columnList = ['Nom', 'Type', 'Catégorie', 'Puissance', 'PP', 'Précision', 'Priorité', 'Description', 'Taux_Crit'];
 $idForColumList = ['nameFilter', 'typeFilter', 'categoryFilter', 'pcFilter', 'ppFilter', 'accuracyFilter', 'priorityFilter', 'descriptionFilter', 'criticityFilter'];
-$selectedMoveData = $isSet ? getDataFromDB('SELECT name, smallDescription, accuracy, pp, pc, type.name, priority, criticity FROM move JOIN type ON type.id = move.type WHERE move.id = ' . $_POST['moveId'], '', '', true) : null;
-$typeData = getDataFromDB('SELECT name FROM type', null, null, true);
+$selectedMoveData = $isSet ? getPokemonMove([$_POST['moveId']]) : null;
+$typeData = GetTypesForPokemonMoves();
 
 ?>
 <!DOCTYPE html>

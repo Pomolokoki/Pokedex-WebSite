@@ -5,6 +5,7 @@ $dotenv->load();
 
 $MYSQL_HOST = $_ENV['DB_HOST'];
 $MYSQL_PORT = $_ENV['DB_PORT'];
+$MYSQL_NAME = $_ENV['DB_NAME'];
 $MYSQL_USER = $_ENV['DB_USERNAME'];
 
 try {
@@ -20,12 +21,12 @@ try {
 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sqlCreateBD =
-        'DROP DATABASE IF EXISTS pokedex; CREATE DATABASE pokedex CHARACTER SET utf8; USE pokedex;';
+        'DROP DATABASE IF EXISTS ' . $MYSQL_NAME . '; CREATE DATABASE ' . $MYSQL_NAME . ' CHARACTER SET utf8; USE ' . $MYSQL_NAME . ';';
     $statement = $db->prepare($sqlCreateBD);
     $statement->execute();
     $statement->closeCursor();
 
-    include_once './loadDataIntoWebsite.php';
+    include_once __DIR__ . '/loadDataIntoWebsite.php';
 
 } catch (Exception $exception) {
     die('Erreur : ' . $exception->getMessage());
