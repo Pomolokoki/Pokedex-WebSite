@@ -60,3 +60,10 @@ Pensez à le supprimer si vous souhaitez remonter les machines de zéro.
 ### Fichier .env pour lancer sans Docker
 
 Si vous souhaitez lancer le projet sans Docker, vous devez créer le fichier `.env` à partir de l'exemple [`.env.exemple`](./.env.exemple).
+
+### lancer les tests
+
+Pour lancer les tests utilisez la commande suivante :
+```bash
+composer test
+```
