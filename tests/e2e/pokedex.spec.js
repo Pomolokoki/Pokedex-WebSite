@@ -132,8 +132,6 @@ test('pokedex has filter search', async ({ page }) => {
     const bulbizarreDiv = page.locator('[id="1"]');
     const taupiqueurDiv = page.locator('[id="50"]');
 
-    await page.pause();
-
     await expect(bulbizarreDiv).not.toBeVisible();
     await expect(taupiqueurDiv).toBeVisible();
 });

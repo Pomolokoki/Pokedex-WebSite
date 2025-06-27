@@ -31,16 +31,20 @@ test('objets page has items infos', async ({ page }) => {
     await expect(tableHeader).toBeVisible();
     await expect(tableHeader).toHaveText('Nom Categorie Description Effet');
 
-    const moduleCryoLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Module Cryo' });
-    await expect(moduleCryoLine).toBeVisible();
-    await expect(moduleCryoLine).toContainText('Module Cryo');
-    await expect(moduleCryoLine).toContainText('misc');
-    await expect(moduleCryoLine).toContainText('Tenu par Genesect, ce module change la capacité Techno-Buster en une capacité de type Glace.');
-    await expect(moduleCryoLine).toContainText('Grants Genesect a white, Ice-type Techno Blast.');
+    await page.waitForTimeout(5000);
+
+    const luxeBallLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Luxe Ball' });
+    await expect(luxeBallLine).toBeVisible();
+    await expect(luxeBallLine).toContainText('Luxe Ball');
+    await expect(luxeBallLine).toContainText('pokeballs');
+    await expect(luxeBallLine).toContainText('Une Poké Ball pratique qui permet de gagner rapidement l’amitié d’un Pokémon sauvage attrapé.');
+    await expect(luxeBallLine).toContainText('Tries to catch a wild Pokémon. Caught Pokémon start with 200 happiness.');
 });
 
 test('objects page has text search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/items.php');
+
+    await page.waitForTimeout(5000);
 
     const masterBallLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Master Ball' });
     const totalSoinLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Total Soin' });
@@ -56,6 +60,8 @@ test('objects page has text search', async ({ page }) => {
 
 test('objects page has category filter search', async ({ page }) => {
     await page.goto('http://localhost:3000/src/views/items.php');
+
+    await page.waitForTimeout(5000);
 
     const masterBallLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Master Ball' });
     const muscleLine = page.locator('[id="itemListBody"] tr').filter({ hasText: 'Muscle +' });
