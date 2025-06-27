@@ -158,7 +158,7 @@ document.getElementById('TitleAtk').addEventListener('click', function () {
 });
 
 function getText(str, lang = "fr") {
-  console.log(str);
+  // console.log(str);
   if (lang === "fr") {
     if (str.split('///')[1] == "NULL")
       return str.split('///')[0];

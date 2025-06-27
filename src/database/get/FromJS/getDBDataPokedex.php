@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (!isset($_GET['request'])) {
     header("Location: unauthorized.php");
     return;
@@ -231,9 +232,8 @@ switch ($req) {
 }
 
 
-
 if (!isset($_SESSION) || !isset($_SESSION['LOGGED_USER']) || !isset($_SESSION['LOGGED_USER'][0])) {
-    header("Location: unauthorized.php");
+    // header("Location: unauthorized.php");
     return;
 }
 

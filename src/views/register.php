@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (!empty($_POST['password']) && !empty($_POST['confirm_password'])) {
-        echo $passwordBool;
         $passwordCheck = test_input($_POST['password']);
         $confirm_passwordCheck = test_input($_POST['confirm_password']);
         if (empty($confirm_passwordCheck)) {
@@ -193,9 +192,8 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
                     <label for='pword2'>Confirmer votre mot de passe</label>
                 </div>
                 <div class='col-75'>
-                    <input type='password' id='pword2' name='confirm_password'
-                        value='<?php echo htmlspecialchars($donneeForm['confirm_password']); ?>'>
-                    <span class='error'>* <?php echo nl2br($confirm_passwordErr); ?></span>
+                    <input type='password' id='pword2' name='confirm_password' value='<?php echo htmlspecialchars($donneeForm['confirm_password']); ?>'>
+                    <span class='error'>* <?php echo nl2br(htmlspecialchars($confirm_passwordErr)); ?></span>
                     <br><br>
                 </div>
             </div>

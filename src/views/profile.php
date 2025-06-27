@@ -203,7 +203,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                     data-bs-target='#editProfileModal'>
                                     <i class='fas fa-edit me-2'></i>Modifier le profil
                                 </button>
-                                <a href='/src/scripts/PHP/logout.php' class='btn btn-danger'>
+                                <a href='../scripts//PHP/logout.php' class='btn btn-danger'>
                                     <i class='fas fa-sign-out-alt me-2'></i>Déconnexion
                                 </a>
                             </div>
@@ -255,9 +255,7 @@ $dataPokemonCatch = getPokemonCaught([$user_id]);
                                             <div class='card h-100'>
                                                 <div class='card-body pokemonLike-Owned'>
                                                     <p class='card-text'>
-                                                        <img class='pokemon'
-                                                            data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>'
-                                                            src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>
+                                                        <img class='pokemon' data-id='<?php echo $dataPokemonFav[$i]['pokemonId'] ?>' src='<?php echo $dataPokemonFav[$i]['pokemonSprite'] ?>' alt=''>                                                        
                                                     </p>
                                                 </div>
                                             </div>
