@@ -273,11 +273,14 @@ combatTeam3Id INT UNSIGNED,
 selectedCombatTeamId INT UNSIGNED,
 friends TEXT,
 forumRank TINYINT UNSIGNED DEFAULT 0,
+reset_token_hash varchar(64) NULL DEFAULT NULL,
+reset_token_expires_at DATETIME NULL DEFAULT NULL,
 CONSTRAINT player_team_FK FOREIGN KEY (team) REFERENCES team(id),
 CONSTRAINT player_combatTeam1Id_FK FOREIGN KEY (combatTeam1Id) REFERENCES combatTeam(id),
 CONSTRAINT player_combatTeam2Id_FK FOREIGN KEY (combatTeam2Id) REFERENCES combatTeam(id),
 CONSTRAINT player_combatTeam3Id_FK FOREIGN KEY (combatTeam3Id) REFERENCES combatTeam(id),
-CONSTRAINT player_selectedCombatTeamId_FK FOREIGN KEY (selectedCombatTeamId) REFERENCES combatTeam(id)
+CONSTRAINT player_selectedCombatTeamId_FK FOREIGN KEY (selectedCombatTeamId) REFERENCES combatTeam(id),
+UNIQUE (reset_token_hash)
 );';
 
 $sqlCreateFollowedPlayer =
@@ -359,7 +362,6 @@ channelId CHAR(36),
 CONSTRAINT player_fav_channel_playerId_FK FOREIGN KEY (playerId) REFERENCES player(id),
 CONSTRAINT player_fav_channel_channelId_FK FOREIGN KEY (channelId) REFERENCES channel(id)
 );';
-
 
 
 

@@ -1,8 +1,13 @@
 <!-- Inclusion du header -->
-<?php
-session_start();
-include_once '../database/connection/connectSQL.php';
+<?php include_once '../database/connection/connectSQL.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 include_once 'header.php';
+// require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+// require '../vendor/phpmailer/phpmailer/src/SMTP.php';
+// require '../vendor/phpmailer/phpmailer/src/Exception.php';
 ?>
 
 <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'>
@@ -18,13 +23,14 @@ include_once 'header.php';
 $_SESSION['identifier'] = $_SESSION['pword'] = '';
 $identifierErr = $emailErr = $pwordErr = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["email"]) && (!empty($_POST["email"])) && isset($_POST["password"]) && (!empty($_POST["password"]))) {
 
     if (empty($_POST['id'])) {
         $identifierErr = 'Veuillez entrer un identifiant correct';
     } else {
         $_SESSION['identifier'] = test_input($_POST['id']);
     }
+
 
     if (empty($_POST['password'])) {
         $pwordErr = 'Veuillez entrer un mot de passe';
@@ -45,10 +51,12 @@ function test_input($data)
 
 if (!empty($_POST['id']) && !empty($_POST['password'])) {
 
+
     $parcoursPlayerTable = $db->prepare('SELECT id,nickname,email,password FROM player');
     $parcoursPlayerTable->execute();
     $parcoursPlayerTable->setFetchMode(PDO::FETCH_ASSOC);
     $checkDB = 0;
+    while ($row = $parcoursPlayerTable->fetch()) {
     while ($row = $parcoursPlayerTable->fetch()) {
         if ($row['nickname'] === $_POST['id'] || $row['email'] === $_POST['id']) {
             if (password_verify($_POST['password'], $row['password'])) {
@@ -63,20 +71,41 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
             $errorMessage = sprintf('L\'identifiant ou le mot de passe est invalide.');
         }
         $checkDB += 1;
-
     }
     if ($checkDB === 0) {
         $errorMessage = sprintf('L\'identifiant ou le mot de passe est invalide.');
     }
 }
+}
 #endregion
+
 ?>
 
 <!--#endregion -->
 
+<!-- Modal de réinitialisation -->
+<div id="resetModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Réinitialiser le mot de passe</h2>
+            <p>Entrez votre adresse email pour recevoir un lien de réinitialisation.</p>
+            
+            <form method="POST" action="../scripts/PHP/send-password-reset.php">
+                <div class="form-group">
+                    <label for="resetEmail">Adresse email :</label>
+                    <input type="email" id="resetEmail" name="email" required class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer le lien</button>
+            </form>
+        </div>
+    </div>
 <body>
     <div class='container'>
-
+        <?php if (isset($_GET['reset']) && $_GET['reset'] === 'success'): ?>
+            <div class="alert alert-success" role="alert">
+                Un email de réinitialisation a été envoyé à votre adresse. Veuillez vérifier votre boîte de réception.
+            </div>
+        <?php endif; ?>    
         <?php if (!isset($_SESSION['accountCreated'])): ?>
         <?php else: ?>
             <?php if ((isset($_SESSION['accountCreated'])) && $_SESSION['accountCreated'] === true): ?>
@@ -123,12 +152,14 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
                     <p>Pas de compte ? <a href='register.php'>Inscrivez-vous !</a></p>
                     <input type='submit' id='submitButton' value='Connectez-vous !'>
                 </div>
+                <div class='row'>
+                    <p>Mot de passe oublié ? <a href="#" id="showResetModal">Réinitialisez-le !</a></p>
+                </div>
             </form>
         <?php else: ?>
             <div class='alert alert-success' role='alert'>
                 <?php foreach ($_SESSION['LOGGED_USER'] as $id): ?>
                     Bonjour <?php echo $id['nickname'] ?> et bienvenue notre PokeSite !
-
                 <?php endforeach; ?>
                 <?php
                 $new_url = 'pokedex.php';
@@ -136,12 +167,8 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
                 ?>
             </div>
         <?php endif; ?>
-        <?php
-        ?>
-        <script type='text/javascript' src='../scripts/JS/login.js'></script>
     </div>
     <footer>
     </footer>
+    <script type='text/javascript' src='../scripts/JS/login.js'></script>
 </body>
-
-</html>
