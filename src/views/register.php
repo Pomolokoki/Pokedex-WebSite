@@ -140,68 +140,69 @@ if (!empty($donneeForm['username']) && !empty($donneeForm['email']) && !empty($d
 <!--#endregion -->
 
 <body>
-    <div class='container'>
-        <h2>Formulaire d'inscription:</h2>
-        <br>
+<body>
+  <!-- Pokéballs de fond -->
+  <div class="pokeball-bg">
+    <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball1">
+    <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball2">
+    <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball3">
+    <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball4">
+    <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball5">
+  </div>
 
-        <span class='error'><strong>* champ obligatoire</strong></span>
-        <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='POST'>
-            <!-- Affiche l'erreur dans le cas où il y en a une -->
-            <?php if (isset($errorMessage)): ?>
-                <div class='alert alert-danger' role='alert'>
-                    <?php echo $errorMessage ?>
-                    <br><br>
-                </div>
-            <?php endif; ?>
-            <div class='row'>
-                <div class='col-25'>
-                    <label for='uname'>Votre nom d'utilisateur</label>
-                    <br><br>
-                </div>
-                <div class='col-75'>
-                    <input type='text' id='uname' name='username' placeholder='Votre pseudo...' value='<?php echo htmlspecialchars($donneeForm['username']); ?>'>
-                    <span class='error'>* <?php echo $unameErr; ?></span>
-                    <br><br>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col-25'>
-                    <label for='email'>Votre Email</label>
-                </div>
-                <div class='col-75'>
-                    <input type='email' id='email' name='email' placeholder='sacha.dubourgpalette@pokemon.com' value='<?php echo htmlspecialchars($donneeForm['email']); ?>'>
-                    <span class='error'>* <?php echo $emailErr; ?></span>
-                    <br><br>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col-25'>
-                    <label for='pword'>Votre mot de passe</label>
-                </div>
-                <div class='col-75'>
-                    <input type='password' id='pword' name='password' value='<?php echo htmlspecialchars($donneeForm['password']); ?>'>
-                    <span class='error'>* <br><?php echo nl2br($pwordErr); ?></span>
-                    <br><br>
-                </div>
-            </div>
-            <div class='row'>
-                <div class='col-25'>
-                    <label for='pword2'>Confirmer votre mot de passe</label>
-                </div>
-                <div class='col-75'>
-                    <input type='password' id='pword2' name='confirm_password' value='<?php echo htmlspecialchars($donneeForm['confirm_password']); ?>'>
-                    <span class='error'>* <?php echo nl2br($confirm_passwordErr); ?></span>
-                    <br><br>
-                </div>
-            </div>
-            <br>
-            <div class='row'>
-                <p>Vous possédez un compte ? <a href='login.php'>Connectez-vous !</a></p>
-                <br><br>
-                <input type='submit' value="S'inscrire">
-            </div>
-        </form>
-    </div>
-    <footer>
-    </footer>
+  <div class='container'>
+    <h2 class="login-title">Inscription</h2>
+    <br>
+          <!--<span class='error'><strong>* champ obligatoire</strong></span>-->
+
+    <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='POST' autocomplete="off">
+      <?php if (isset($errorMessage)): ?>
+        <div class='alert alert-danger' role='alert'>
+          <?= $errorMessage ?><br><br>
+        </div>
+      <?php endif; ?>
+
+      <input type='text' id='uname' name='username' placeholder='Pseudo' value='<?= htmlspecialchars($donneeForm['username']); ?>'>
+      <!--<span class='error'>* <?= $unameErr; ?></span>-->
+
+      <input type='email' id='email' name='email' placeholder='Email' value='<?= htmlspecialchars($donneeForm['email']); ?>'>
+      <!--<span class='error'>* <?= $emailErr; ?></span>-->
+
+      <!-- Mot de passe -->
+      <div class="password-wrapper">
+        <input type='password' id='pword' name='password' placeholder="Mot de passe" value='<?= htmlspecialchars($donneeForm['password']); ?>'>
+        <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" alt="toggle password" id="togglePassword1">
+      </div>
+      <!--<span class='error'>* <br><?= nl2br($pwordErr); ?></span>-->
+
+      <!-- Confirmation -->
+      <div class="password-wrapper">
+        <input type='password' id='pword2' name='confirm_password' placeholder="Confirmation Mot de passe" value='<?= htmlspecialchars($donneeForm['confirm_password']); ?>'>
+        <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" alt="toggle password" id="togglePassword2">
+      </div>
+      <!--<span class='error'>* <?= nl2br($confirm_passwordErr); ?></span>-->
+
+      <p class="register-msg">Vous possédez un compte ? <a href='login.php'>Connectez-vous !</a></p>
+      <input type='submit' value="S'inscrire">
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function addToggle(pwdId, toggleId) {
+        const pwd = document.getElementById(pwdId);
+        const toggle = document.getElementById(toggleId);
+        if (pwd && toggle) {
+          toggle.addEventListener("click", function () {
+            pwd.type = pwd.type === "password" ? "text" : "password";
+          });
+        }
+      }
+      addToggle("pword", "togglePassword1");
+      addToggle("pword2", "togglePassword2");
+    });
+  </script>
+</body>
+</html>
+
 </body>

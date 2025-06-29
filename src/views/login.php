@@ -73,6 +73,15 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
 <!--#endregion -->
 
 <body>
+<div class="pokeball-bg">
+  <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball1">
+  <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball2">
+  <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball3">
+  <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball4">
+  <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" class="ball ball5">
+</div>
+
+
     <div class='container'>
         
         <?php if (!isset($_SESSION['accountCreated'])): ?>
@@ -85,43 +94,33 @@ if (!empty($_POST['id']) && !empty($_POST['password'])) {
             <?php endif; ?>
         <?php endif; ?>
         <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
-            <h1>Connexion a votre compte:</h1>
+            <h1 class="login-title">Connexion</h1>
             <br>
-            <span class='error'><strong>* champ obligatoire</strong></span>
-            <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='POST' autocomplete='off'>
-                <!-- Affiche l'erreur dans le cas où il y en a une -->
-                <?php if (isset($errorMessage)): ?>
-                    <div class='alert alert-danger' role='alert'>
-                        <?php echo $errorMessage ?>
-                        <br><br>
-                    </div>
-                <?php endif; ?>
-                <div class='row'>
-                    <div class='col-25'>
-                        <label for='identifier'>Votre Email ou nom d'utilisateur</label>
-                    </div>
-                    <div class='col-75'>
-                        <input type='text' id='identifier' name='id' placeholder='sacha.dubourgpalette@pokemon.com'>
-                        <span class='error'>* <?php echo $identifierErr; ?></span>
-                        <br><br>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='col-25'>
-                        <label for='pword'>Votre mot de passe</label>
-                    </div>
-                    <div class='col-75'>
-                        <input type='password' id='pword' name='password'>
-                        <span class='error'>* <?php echo $pwordErr ?></span>
-                        <br><br>
-                    </div>
-                </div>
-                <br>
-                <div class='row'>
-                    <p>Pas de compte ? <a href='register.php'>Inscrivez-vous !</a></p>
-                    <input type='submit' id='submitButton' value='Connectez-vous !'>
-                </div>
-            </form>
+            
+
+
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" autocomplete="off">
+  <?php if (isset($errorMessage)): ?>
+    <div class="alert alert-danger" role="alert"><?= $errorMessage ?></div>
+  <?php endif; ?>
+
+  <input type="text" name="id" placeholder="Email / Pseudo" value="<?= htmlspecialchars($_SESSION['identifier']) ?>">
+  <span class="error"><?= $identifierErr ?></span>
+
+
+<div class="password-wrapper">
+  <input type="password" id="pword" placeholder="Mot de passe">
+  <img src="https://pokemoncalc.web.app/en/assets/pokeball.svg" alt="toggle password" id="togglePassword">
+</div>
+
+
+  <span class="error"><?= $pwordErr ?></span>
+
+  <input type="submit" value="Valider">
+</form>
+
+<p class="register-msg">Pas de compte ? <a href="register.php">Inscrivez-vous !</a></p>
+
         <?php else: ?>
             <div class='alert alert-success' role='alert'>
                 <?php foreach ($_SESSION['LOGGED_USER'] as $id): ?>
