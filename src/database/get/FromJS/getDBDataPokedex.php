@@ -4,6 +4,7 @@ if (!isset($_GET['request'])) {
     return;
 }
 
+
 include_once '../extractDataFromDB.php';
 
 function GetPokemon($params)
@@ -13,9 +14,11 @@ function GetPokemon($params)
             'SELECT pokemon.id,
         pokemon.name,
         pokemon.spriteM,
+        pokemon.sprite,
         pokemon.category,
         pokemon.generation,
         t1.name AS type1,
+        
         t2.name AS type2
         FROM pokemon 
         JOIN type AS t1 ON pokemon.type1 = t1.id 
@@ -70,14 +73,57 @@ function GetAbilityData($params)
 
 function GetMoveData($params)
 {
-    return json_encode(
-        executeQueryWReturn(
-            'SELECT move.name, type.name AS type, move.effectType, move.pc,  move.accuracy, mp.learnMethod, mp.learnAtLevel, move.pp 
-        FROM move_pokemon AS mp INNER JOIN move ON mp.moveId = move.id JOIN type ON move.type = type.id WHERE mp.pokemonId=:pokemonId AND mp.generation=:gen',
-            $params
-        )
+    global $pdo;
+
+    // Requête normale
+    $results = executeQueryWReturn(
+        'SELECT 
+            move.name,
+            type.name AS type,
+            move.effectType,
+            move.pc,
+            move.accuracy,
+            move.pp,
+            mp.learnMethod,
+            mp.learnAtLevel
+        FROM move_pokemon AS mp
+        INNER JOIN move ON mp.moveId = move.id
+        INNER JOIN type ON move.type = type.id
+        WHERE mp.pokemonId = :pokemonId AND mp.generation = :gen',
+        $params
     );
+
+    // Si aucun résultat, on récupère la génération maximale disponible
+    if (empty($results)) {
+        $stmt = $pdo->prepare("SELECT MAX(generation) FROM move_pokemon WHERE pokemonId = ?");
+        $stmt->execute([$params[":pokemonId"]]);
+        $maxGen = $stmt->fetchColumn();
+
+        if ($maxGen && $maxGen != $params[":gen"]) {
+            // Refaire la requête avec la génération max
+            $params[":gen"] = $maxGen;
+            $results = executeQueryWReturn(
+                'SELECT 
+                    move.name,
+                    type.name AS type,
+                    move.effectType,
+                    move.pc,
+                    move.accuracy,
+                    move.pp,
+                    mp.learnMethod,
+                    mp.learnAtLevel
+                FROM move_pokemon AS mp
+                INNER JOIN move ON mp.moveId = move.id
+                INNER JOIN type ON move.type = type.id
+                WHERE mp.pokemonId = :pokemonId AND mp.generation = :gen',
+                $params
+            );
+        }
+    }
+
+    return json_encode($results);
 }
+
 
 function GetEvolutionData($params)
 {
@@ -200,6 +246,10 @@ function GetPlayerPokemon($params)
 
 $req = $_GET['request'];
 switch ($req) {
+    case 'GetAttackData':
+        echo json_encode(GetAttacksForPokemon($_GET['1'], $_GET['2']));
+        break;
+
     case 'GetPokemon':
         echo GetPokemon([]);
         return;
@@ -222,6 +272,7 @@ switch ($req) {
     case 'GetEvolutionData':
         echo GetEvolutionData([':pokemonId' => $_GET[1]]);
         return;
+ 
 }
 
 

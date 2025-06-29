@@ -1,6 +1,18 @@
 <?php
 include_once __DIR__ . '/../extractDataFromDB.php';
 
+function GetAttacksForPokemon($pokemonId, $gen = 1) {
+    global $db;
+    $sql = "SELECT name, type, power, accuracy, pp, category
+            FROM attack a
+            INNER JOIN learnattack l ON a.id = l.idAttack
+            WHERE l.idPokemon = :id AND l.gen = :gen";
+    $stmt = $db->prepare($sql);
+    $stmt->execute(['id' => $pokemonId, 'gen' => $gen]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 function GetPokemonsForPokedex()
 {
     return executeQueryWReturn(
@@ -26,7 +38,7 @@ function GetPokemonsForPokedex()
         FROM pokemon 
         JOIN type AS t1 ON pokemon.type1 = t1.id 
         LEFT JOIN type AS t2 ON pokemon.type2 = t2.id 
-        WHERE pokemon.id < 100000 ORDER BY pokemon.id LIMIT 25',
+        WHERE pokemon.id < 100000 ORDER BY pokemon.id LIMIT 10000',
         null
     );
 }
