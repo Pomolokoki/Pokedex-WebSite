@@ -62,7 +62,7 @@ function getItemNoDescOrEffect($str,$mot){
                 <?php for ($i = 0; $i < count($dataItems); $i++):
                     ?>
                     <tr data-id='<?php echo $dataItems[$i]['id'] ?>' data-name='<?php echo $dataItems[$i]['name'] ?>'
-                        data-category='<?php $dataItems[$i]['category'] ?>' scope='row'>
+                        data-category='<?php echo $dataItems[$i]['category'] ?>' scope='row'>
                         <td id='itemNameData'><?php echo getTextLang($dataItems[$i]['name'], 'fr') ?></td>
                         <td><?php echo $dataItems[$i]['pocket'] ?></td>
                         <td><?php echo getItemNoDescOrEffect(getTextLang($dataItems[$i]['effect'], 'fr'), 'effet') ?></td>

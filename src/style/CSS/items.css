@@ -1,118 +1,156 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-html, body{
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100%;
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  color: #f5f5f5;
+  min-height: 100vh;
 }
 
 #itemTable {
-    height: 100%;
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    flex-grow: 1;
-    overflow:hidden;
-}
-
-input[type=text] {
-    width: 50%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
-    color: aliceblue;
-}
-
-select {
-    background: #6f6f6f;
-    color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 15px;
+  gap: 20px;
 }
 
 #itemFilter {
-    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
-    color: aliceblue;
-    width: 80%;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 4px;
+  width: 100%;
+  max-width: 950px;
+  background: linear-gradient(135deg, #b30000, #4c0000);
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-td,
-th {
-    border: 1px solid rgb(104, 102, 102);
-    text-align: left;
-    padding: 8px;
-    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
-    color: aliceblue;
+#itemFilter label {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 2px solid gray;
+#itemFilter input[type='text'],
+#itemFilter select {
+  margin: 8px 10px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  font-size: 1rem;
+  width: 550px;
+  max-width: 90%;
+  transition: 0.3s ease-in-out;
 }
 
-/* Cache la scroll bar sur Chrome, Safari et Opera*/
+#itemFilter input[type='text']:focus,
+#itemFilter select:focus {
+  background-color: #444;
+  outline: none;
+}
+
+.itemList {
+  width: 100%;
+  max-width: 950px;
+  background-color: #1c1c1c;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 70vh;
+  overflow-y: auto;
+background-color: #1c1c1c;
+position: relative;
+
+}
+
+/* Scrollbar stylée */
 .itemList::-webkit-scrollbar {
-    display:none;
+  width: 8px;
+}
+.itemList::-webkit-scrollbar-thumb {
+  background: #b30000;
+  border-radius: 4px;
+}
+
+.itemListTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.itemListTable th,
+.itemListTable td {
+  padding: 12px 15px;
+  border: 1px solid #333;
+}
+
+.itemListTable thead th {
+  background-color: #8d0000;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 
-.itemList{
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #af0000;
-    overflow-x: auto;
-    overflow-y:auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-
+.itemListTable td {
+  background-color: #242424;
+  color: #eaeaea;
+  font-size: 0.95rem;
+  vertical-align: top;
 }
 
-.itemListTable{
-    width: 100%;
-
+.itemListTable tr:hover td {
+  background-color: #2f2f2f;
+  transition: 0.2s ease-in-out;
 }
 
 @media (max-width: 768px) {
-    input[type=text] {
-        width: 80%;
-    }
+  #itemFilter {
+    padding: 15px;
+  }
 
-    #itemFilter {
-        width: 100%;
-    }
+  #itemFilter input[type='text'],
+  #itemFilter select {
+    width: 100%;
+    margin: 8px 0;
+  }
 
-    table {
-        width: 100%;
-        overflow-x: auto;
-        display: block;
-    }
+  .itemList {
+    padding: 10px;
+    max-height: 60vh;
+  }
 
-    .itemList {
-        width: 100%;
-    }
+  .itemListTable th,
+  .itemListTable td {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-    input[type=text] {
-        width: 100%;
-    }
+  #itemFilter {
+    font-size: 0.95rem;
+  }
 
-    #itemFilter {
-        width: 100%;
-        padding: 5px;
-    }
+  .itemListTable th,
+  .itemListTable td {
+    font-size: 0.8rem;
+  }
 }
