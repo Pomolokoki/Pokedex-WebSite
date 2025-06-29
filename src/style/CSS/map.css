@@ -1,128 +1,103 @@
 /*#region global*/
-html {
+html, body {
     margin: 0;
     height: 100%;
-}
-
-body {
-    margin: 0;
-    height: 100%;
-    background-color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #440000 0%, #880000 60%, #330000 100%);
+    color: #e0e0e0;
     overflow-x: hidden;
 }
-
-/*#endregion*/
-
-/*#region header*/
-.textButton {
-    padding-bottom: 14px;
-}
-
 /*#endregion*/
 
 /*#region map*/
-
-/* map container */
 #mapFrame {
     position: absolute;
-    right: 0%;
+    right: 0;
     width: 70%;
-    height: calc(100% - 140px);
-    background-color: blueviolet;
-    align-content: center;
+    height: calc(100% - 160px);
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    border-radius: 15px 0 0 15px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 0;
 }
 
 #smallMapFrame {
     position: relative;
     margin: auto;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 132, 255);
-    background: radial-gradient(rgb(57, 188, 231), rgb(48, 48, 230));
+    width: 95%;
+    height: 95%;
+    background: radial-gradient(circle at center, #3a66d8 0%, #1a2a6c 90%);
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
     overflow: hidden;
-    clip: auto;
     z-index: 0;
 }
 
-/* map */
-#imgMap,
-#svgMap {
+#imgMap, #svgMap {
     position: absolute;
-    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: auto;
     height: 80%;
     min-height: 30px;
     min-width: 30px;
     max-height: 3000px;
     max-width: 3000px;
-    clip: auto;
     pointer-events: none;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
-#imgMap {
-    height: 100%;
-    width: 100%;
-    aspect-ratio: 1/1;
-    max-height: 100%;
-    max-width: 100%;
-    margin: auto;
-}
-
-/* svg map element */
-.road,
-.special,
-.city {
-    pointer-events: auto;
-    cursor: pointer;
-}
-
-/* center map */
+/* center map button */
 #centered {
     position: absolute;
-    height: max-content;
-    width: max-content;
     bottom: 1em;
     right: 1em;
+    background-color: rgba(255, 255, 255, 0.15);
     color: white;
-    text-align: right;
-    font-size: 2vh;
-    display: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 1.4vh;
     cursor: pointer;
-    align-content: center;
-    padding-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 6px rgba(0,0,0,0.5);
 }
 
+#centered:hover,
 #centered:focus {
-    border: solid 1px white;
+    background-color: rgba(255, 255, 255, 0.35);
+    outline: none;
 }
 
 #refocus {
-    position: relative;
-    height: 100%;
-    width: auto;
-    left: 0;
-    color: white;
-    text-align: right;
-    right: 100%;
     height: 2.5vh;
+    width: auto;
+    filter: drop-shadow(0 0 2px black);
 }
-
 
 /*#endregion*/
 
-/* #region Bubble (Interactive */
+/* #region Interactive */
 
 #bubble {
     display: none;
-    background-color: grey;
+    background-color: #444c6b;
     position: absolute;
     left: 60px;
     top: 40px;
-    width: 25px;
+    width: 30px;
+    height: 30px;
     transform: rotate(45deg);
-    height: 25px;
     pointer-events: none;
+    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    border-radius: 6px 0 0 0;
 }
 
 #locationName {
@@ -133,294 +108,337 @@ body {
     bottom: 15px;
     left: -115px;
     height: min-content;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
-    background-color: grey;
+    background-color: #576590;
+    padding: 8px 12px;
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
 }
 
 /* #endregion */
 
 /* #region Info panel */
 
-/* container */
 #info {
     max-width: 50%;
     position: relative;
-    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
+    background: linear-gradient(180deg, #440000 0%, #880000 60%, #330000 100%);
     width: 30%;
-    height: calc(100% - 140px);
-    ;
+    height: calc(100% - 150px);
     flex-direction: column;
     display: flex;
     overflow: hidden;
+    border-radius: 0 15px 15px 0;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.7);
+    padding: 15px 20px;
 }
 
 #phoneContainer1 {
-    margin-left: 10px;
+    margin-left: 0;
+    margin-bottom: 20px;
 }
 
-/* label */
-#currentgen {
-    width: 100%;
-    height: auto;
-    color: white;
-    font-size: auto;
+/* labels */
+#currentgen, #locationLabel {
+    color: #f2f2f2;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
 }
 
-/* select box */
+/* select*/
 #mapList {
     position: relative;
-    color: white;
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
-    width: 80%;
-    height: 25px;
-    left: 10%;
-    margin-top: 2%;
+    color: #fff;
+    background: linear-gradient(145deg, #993333, #660000);
+    width: 85%;
+    height: 32px;
+    margin-top: 5px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 0 6px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 
 /* Arrow */
 select {
-    border: unset;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 1vw top 50%;
-    background-size: 1vw auto;
+    background-position: right 15px center;
+    background-size: 15px auto;
     padding-left: 10px;
 }
 
-.select-selected {
-    border: 6px solid transparent;
-}
-
-/* select value in sleect list for region */
+/* select option */
 .gens {
-    background-color: #af0000;
+    background-color: #b33333;
     color: white;
-    align-content: center;
 }
 
-/* radio button container */
+/* buttons */
 #radioButtonsHolder {
-    display: inline;
-    padding-top: 12px;
-    margin-top: 5%;
+    display: flex;
+    gap: 3px;
+    margin-top: 15px;
     font-size: 14px;
 }
 
-/* radio button label */
 .radioLabel {
+    color: #f0f0f0;
+    cursor: pointer;
+    user-select: none;
+    margin-right: 6px;
     position: relative;
-    color: white;
-    margin-left: 35px;
-    top: -3px;
+    top: 2px;
 }
 
-.radioBut input:checked~.radio {
-    background-color: #af0000;
+.radioBut input:checked ~ .radio {
+    background-color: #b33333;
+    box-shadow: 0 0 8px #b33333;
 }
 
 /* #endregion */
 
 /* #region location select */
-/* container */
 #phoneContainer2 {
-    margin-left: 10px;
+    margin-left: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-/* label */
-#locationLabel {
-    margin-top: 6%;
-    width: 100%;
-    height: auto;
-    color: white;
-    font-size: auto;
-}
-
-/* search bar */
 #searchBarContainer {
-    margin-top: 3%;
-    position: relative;
-    width: 80%;
-    left: 10%;
+    margin-top: 10px;
+    width: 85%;
+    margin-left: 0;
 }
 
 #searchBar {
     width: 100%;
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
-    color: aliceblue;
+    background: linear-gradient(145deg, #555a7b, #3a4061);
+    color: #eee;
+    border: none;
+    border-radius: 15px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    box-shadow: inset 2px 2px 6px rgba(0,0,0,0.5);
+    transition: background-color 0.3s ease;
 }
 
-::placeholder {
-    color: aliceblue;
+#searchBar::placeholder {
+    color: #bbb;
 }
 
-/* scroll list */
+#searchBar:focus {
+    outline: none;
+    background: linear-gradient(145deg, #6e74a9, #4c51a6);
+    box-shadow: 0 0 8px #6e74a9;
+}
+
 #mapLocation {
     position: relative;
-    height: auto;
-    width: 80%;
-    left: 10%;
-    display: inline-block;
-    overflow: auto;
-    clip: auto;
-    border: 2px solid;
-    vertical-align: middle;
-    margin-top: 1%;
-    margin-bottom: 5%;
-    padding-bottom: 2%;
-    overflow-y: scroll;
+    height: 300px;
+    width: 85%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    overflow-y: auto;
     overflow-x: hidden;
+    border: 2px solid #b33333;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #3b3f72, #262952);
+    color: #eee;
+    padding: 8px 12px;
+    box-shadow: inset 0 0 10px #1f2140;
 }
 
 #mapLocation:focus {
-    border: solid 1px white;
+    border-color: #fff;
+    outline: none;
 }
 
-#looseFocus {
-    width: 0;
-    height: 0;
-}
-
-
-/* scroll list option */
 .location {
-    border: double;
-    margin-top: 1%;
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
-    color: black;
-    border-color: white;
-    font-size-adjust: inherit;
-    border-radius: 1vw;
-    padding-left: 5%;
-    font-size: 15px;
-    max-width: 90%;
-    margin-left: 5%;
-    /* cursor: pointer; */
+    background: linear-gradient(135deg, #5a5d8f, #3e416b);
+    border: none;
+    border-radius: 10px;
+    color: #ddd;
+    padding: 10px 15px;
+    margin: 8px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
+.location:hover,
 .location:focus {
-    border-color: black;
+    background: linear-gradient(135deg, #7a78e0, #5e5ede);
+    color: white;
+    outline: none;
+    box-shadow: 0 0 12px #7a78e0;
 }
 
 /* #endregion */
 
-/* #region pokemon (Interactive) */
-
+/* #region search */
 #pokemonSearch {
     width: 180px;
-    height: 27px;
+    height: 30px;
     font-size: 14px;
-    padding-top: 0;
     resize: none;
-    margin-left: 10px;
-    margin-right: 10px;
-    overflow: auto;
-    border-radius: 5px;
-    margin-top: 2px;
+    margin: 8px 10px 0 10px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(145deg, #555a7b, #3a4061);
+    color: #eee;
+    box-shadow: inset 1px 1px 4px rgba(0,0,0,0.6);
+    transition: background-color 0.3s ease;
 }
 
-
-#pokemonSearch::placeholder{
-    color: grey;
+#pokemonSearch::placeholder {
+    color: #bbb;
 }
 
+#pokemonSearch:focus {
+    outline: none;
+    background: linear-gradient(145deg, #6e74a9, #4c51a6);
+    box-shadow: 0 0 8px #6e74a9;
+}
+
+/* #endregion */
+
+/* #region pokedex container */
 #pokedexContainer {
     display: none;
-    border: 2px, solid black;
+    background: linear-gradient(135deg, #4b4e79, #2d2f51);
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
     width: fit-content;
-    background: radial-gradient(rgb(150, 143, 143), rgb(63, 62, 63));
 }
 
-/* conainer scrollable */
 #pokedex {
     width: 200px;
-    overflow-y: scroll;
-    overflow-x: hidden;
     height: 150px;
-    font-size: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 12px;
+    color: #ddd;
+    scrollbar-width: thin;
+    scrollbar-color: #b33333 transparent;
 }
 
-/* pokemon */
+/* pokemons */
 .pokemonn {
     display: flex;
+    align-items: center;
     cursor: pointer;
-    color: white;
+    color: #eee;
+    padding: 5px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
 }
 
+.pokemonn:hover,
 .pokemonn:focus {
-    border: solid 1px white;
+    background: linear-gradient(135deg, #7a78e0, #5e5ede);
+    outline: none;
+    box-shadow: 0 0 10px #7a78e0;
 }
 
 .pokemonImage {
     height: 50px;
     width: 50px;
-}
-
-.pokemonn p {
-    align-self: center;
+    border-radius: 10px;
+    margin-right: 10px;
 }
 
 /* #endregion */
 
+/*#region responsive */
+@media (max-width: 1390px) {
+    #radioButtonsHolder {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 10px;
+    }
 
+    .radioLabel {
+        display: block;
+        font-size: 15px;
+    }
+}
 
-/* #region responsive */
 @media only screen and (max-width: 600px) {
     #mapFrame {
         position: absolute;
-        right: 0%;
+        right: 0;
         width: 100%;
         height: calc(60% - 100px);
         bottom: 15px;
         display: flex;
         flex-direction: row;
-        background-color: blueviolet;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 0 15px rgba(0,0,0,0.6);
     }
 
     #info {
         max-width: unset;
-        position: relative;
         width: 100%;
         height: calc(50% - 40px);
         flex-direction: row;
-        display: flex;
         overflow: auto;
-    }
-
-    #phoneContainer1 {
-        width: unset;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.7);
+        padding: 10px;
     }
 
     #mapLocation {
-        left: 0;
         width: 90%;
         height: 77%;
-        bottom: 0;
+        border-radius: 15px;
         border: none;
-        margin-bottom: 0;
-        margin-top: 7%;
+        margin: 7% 0 0 0;
     }
 
     .location {
-        font-size: 11px;
+        font-size: 13px;
     }
 
     #searchBarContainer {
-        left: 3%;
         margin-top: 6%;
+        left: 3%;
+    }
+        #radioButtonsHolder {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .radioLabel {
+        font-size: 15px;
+    }
+        #mapList {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #currentgen {
+        font-size: 16px;
     }
 }
+/*#endregion*/
 
-/* #endregion */
-
-/* #region interative hover */
+/*#region hover  */
 .mapLocation:hover {
-    filter: brightness(70%);
-    z-index: 0;
+    filter: brightness(80%);
+    z-index: 1;
 }
-
-/* #endregion */
+/*#endregion*/

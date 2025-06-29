@@ -70,17 +70,17 @@ include_once 'header.php';
                     <input checked='checked' name='mapType' type='radio' class='checkboxInput' id='gameMap'>
                     <span class='radio' tabindex='2'></span>
                 </label>
-                <label for='gameMap' id='gameMapLabel' class='radioLabel'> - Carte de jeu </label>
+                <label for='gameMap' id='gameMapLabel' class='radioLabel'> Carte de jeu </label>
                 <label class='radioBut'>
                     <input name='mapType' type='radio' id='realMap' class='checkboxInput'>
                     <span class='radio' tabindex='3'></span>
                 </label>
-                <label for='realMap' id='realMapLabel' class='radioLabel'> - Carte réaliste </label>
+                <label for='realMap' id='realMapLabel' class='radioLabel'> Carte réaliste </label>
                 <label class='radioBut'>
                     <input name='mapType' type='radio' id='interactiveMap' class='checkboxInput'>
                     <span class='radio' tabindex='4'></span>
                 </label>
-                <label for='interactiveMap' id='interactiveMapLabel' class='radioLabel'> - Carte interactive </label>
+                <label for='interactiveMap' id='interactiveMapLabel' class='radioLabel'> Carte interactive </label>
             </div>
 
         </div>

@@ -89,13 +89,24 @@ document.onmousemove = function (e) {
 
 // re-center / re-size the map
 function center() {
-  if (currentMode != "Interactive") return;
-  map.style.width = "350px";
-  map.style.height = "350px";
-  map.style.left =
-    mapP.offsetWidth / 2 - parseFloat(map.style.width) / 2 + "px";
-  map.style.top =
-    mapP.offsetHeight / 2 - parseFloat(map.style.height) / 2 + "px";
+  if (currentMode != "Interactive" && currentMode != "InGame" && currentMode != "Realistic") return;
+
+
+ // Taille de base actuelle
+  const baseWidth = map.naturalWidth || 350;
+  const baseHeight = map.naturalHeight || 350;
+
+  // Appliquer un zoom (x1.5 par défaut)
+  map.style.width = baseWidth * 1.5 + "px";
+  map.style.height = baseHeight * 1.5 + "px";
+
+  // Centrage dynamique
+// Suppression des styles inline left et top sur la map
+map.style.removeProperty("left");
+map.style.removeProperty("top");
+
+
+
   bubble.style.display = "none";
 }
 
@@ -104,8 +115,6 @@ document.getElementById("centered").addEventListener("click", center);
 // map management
 let imgMap = document.getElementById("imgMap");
 let svgMap = document.getElementById("svgMap");
-map.style.left = mapP.offsetWidth / 2 - parseFloat(map.offsetWidth) / 2 + "px";
-map.style.top = mapP.offsetHeight / 2 - parseFloat(map.offsetHeight) / 2 + "px";
 
 imgMap.style.margin = "auto";
 svgMap.style.left = "0px";
@@ -126,9 +135,19 @@ function updateMap(e) {
       }
       if (currentMode == "Realistic") {
         imgMap.src = "../../public/img/" + currentRegion + "Realist.png";
+        imgMap.style.width = "550px";
+imgMap.style.height = "550px";
+imgMap.style.left = mapP.offsetWidth / 2 - 275 + "px"; // 550 / 2
+imgMap.style.top = mapP.offsetHeight / 2 - 275 + "px";
+
         imgMap.alt = "image carte" + currentRegion + "realiste";
       } else {
         imgMap.src = "../../public/img/" + currentRegion + ".png";
+        imgMap.style.width = "550px";
+imgMap.style.height = "550px";
+imgMap.style.left = mapP.offsetWidth / 2 - 275 + "px"; // 550 / 2
+imgMap.style.top = mapP.offsetHeight / 2 - 275 + "px";
+
         imgMap.alt = "image carte" + currentRegion;
       }
 
@@ -591,5 +610,18 @@ document.addEventListener("keydown", (e) => {
     document.getElementById("looseFocus").focus();
   }
 });
+function safeCenter() {
 
-center();
+  if (imgMap.complete && imgMap.naturalWidth !== 0) {
+    center();
+  } else {
+    imgMap.onload = () => center();
+  }
+
+  if (svgMap.style.display !== "none") {
+    center();
+  }
+}
+
+safeCenter(); 
+
