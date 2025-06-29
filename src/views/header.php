@@ -16,8 +16,14 @@ include_once __DIR__ . '/../database/connection/connectSQL.php';
 </head>
 
 <?php
+
 if (isset($_SESSION['LOGGED_USER'][0]['picture'])) {
   $profilePictureUser = $_SESSION['LOGGED_USER'][0]['picture'];
+  if ($profilePictureUser === "emptyPicture.png" || empty($profilePictureUser)) {
+    $profilePictureUser = "../../public/img/emptyPicture.png";
+  }
+
+
   $user_id = $_SESSION['LOGGED_USER'][0]['id'];
 }
 
@@ -43,7 +49,12 @@ if (isset($_FILES['image'])) {
 <header id="header">
   <div class="header-top">
     <div class="header-logo">
-      <img src="../../public/img/PokeLogov3.png" alt="Logo Pokedex">
+      <?php
+  $currentPage = basename($_SERVER['PHP_SELF']);
+  $logoSrc = in_array($currentPage, ['login.php', 'register.php']) ? '../../public/img/PokeLogov4.png' : '../../public/img/PokeLogov3.png';
+?>
+<img src="<?= $logoSrc ?>" alt="Logo Pokedex">
+
     </div>
     <div class="header-login">
       <?php if (!isset($_SESSION['LOGGED_USER'])): ?>
@@ -55,14 +66,20 @@ if (isset($_FILES['image'])) {
       <?php endif; ?>
     </div>
   </div>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" />
+<label for="nav-toggle" class="nav-toggle-label">
+  <span></span>
+</label>
 
-  <div class="header-nav">
-    <a href="Pokedex.php" class="nav-btn">Pokedex</a>
-    <a href="typeTable.php" class="nav-btn">Types</a>
-    <a href="map.php" class="nav-btn">Maps</a>
-    <a href="pokemonMove.php" class="nav-btn">Attaques</a>
-    <a href="items.php" class="nav-btn">Objets</a>
-  </div>
+<div class="header-nav">
+  <a href="Pokedex.php" class="nav-btn <?= $currentPage === 'Pokedex.php' ? 'active' : '' ?>">Pokedex</a>
+  <a href="typeTable.php" class="nav-btn <?= $currentPage === 'typeTable.php' ? 'active' : '' ?>">Types</a>
+  <a href="map.php" class="nav-btn <?= $currentPage === 'map.php' ? 'active' : '' ?>">Maps</a>
+  <a href="pokemonMove.php" class="nav-btn <?= $currentPage === 'pokemonMove.php' ? 'active' : '' ?>">Attaques</a>
+  <a href="items.php" class="nav-btn <?= $currentPage === 'items.php' ? 'active' : '' ?>">Objets</a>
+  <a href="forum.php" class="nav-btn <?= $currentPage === 'forum.php' ? 'active' : '' ?>">Forum</a>
+</div>
+
 </header>
 
 <script>

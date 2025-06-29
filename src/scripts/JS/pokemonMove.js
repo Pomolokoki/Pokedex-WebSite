@@ -1,159 +1,90 @@
-let header = document.getElementById("thead");
-let container = document.getElementById("moveContainer");
-let nameFilter = document.getElementById("nameFilter");
-let typeFilter = document.getElementById("typeFilter");
-let categoryFilter = document.getElementById("categoryFilter");
-let pcFilter = document.getElementById("pcFilter");
-let ppFilter = document.getElementById("ppFilter");
-let accuracyFilter = document.getElementById("accuracyFilter");
-let priorityFilter = document.getElementById("priorityFilter");
-let descriptionFilter = document.getElementById("descriptionFilter");
-let criticityFilter = document.getElementById("criticityFilter");
-
-// current filters
-let inputs = {
-    nameInput : '',
-    typeInput : '',
-    categoryInput : '',
-    pcInput : '',
-    ppInput : '',
-    accuracyInput : '',
-    priorityInput : '',
-    descriptionInput : '',
-    criticityInput : ''
+const filters = {
+  name: document.getElementById("nameFilter"),
+  type: document.getElementById("typeFilter"),
+  category: document.getElementById("categoryFilter"),
+  pc: document.getElementById("pcFilter"),
+  pp: document.getElementById("ppFilter"),
+  accuracy: document.getElementById("accuracyFilter"),
+  priority: document.getElementById("priorityFilter"),
+  description: document.getElementById("descriptionFilter"),
+  criticity: document.getElementById("criticityFilter")
 };
-
-let inputsKeys = Object.keys(inputs);
-let listAtk = document.getElementsByTagName('tr');
-var column = "0";
-
-// sort all moves
-var lastColumn = "0";
-function sort()
-{
-    let table = document.getElementById("moveList");
-    let rows = Array.from(table.rows);
-    rows.splice(0, 2); // removes the 2 headers
-
-    if (lastColumn == column)
-        lastColumn = '-1';
-    else
-        lastColumn = column;
-
-    // sort
-    rows.sort((a,b) => {
-        // td = row index [column]
-        let td1 = a.getElementsByTagName('td')[parseInt(column)];
-        let td2 = b.getElementsByTagName('td')[parseInt(column)];
-        
-        // commpare td1 / td2
-        if (td1 == undefined)
-            return 1;
-        if (td2 == undefined)
-            return -1;
-        if (!isNaN(parseInt(td1.innerHTML))) {
-            let result;
-            if (isNaN(parseInt(td2.innerHTML)))
-                result = -1;
-            if (parseInt(td1.innerHTML) < parseInt(td2.innerHTML))
-                result = -1;
-            else if (parseInt(td1.innerHTML) > parseInt(td2.innerHTML))
-                result = 1;
-            else
-                result = 0;
-            if (lastColumn == '-1')
-                result *= -1;
-            return result;
-        }
-        else {
-            if (lastColumn == '-1')
-                return td2.innerHTML.localeCompare(td1.innerHTML);
-            return td1.innerHTML.localeCompare(td2.innerHTML);
-        }
-    })
-
-    // actualise the table
-    let body = document.getElementById("tbody")
-    body.innerHTML = "";
-    for (let i = 0; i < rows.length; ++i) {
-        body.appendChild(rows[i]);
-    }
+function getTextLang(jsText) {
+  const parts = jsText.split("///");
+  return parts.length > 1 ? parts[1] : parts[0];
 }
+let filterValues = {};
+Object.keys(filters).forEach(k => filterValues[k] = "");
 
-//update the filter array
-function filter()
-{
-    for (i = 0; i < listAtk.length; i++) {
+let currentSortColumn = null;
+let ascending = true;
 
-        tds = listAtk[i].getElementsByTagName('td');
-        if (tds.length == 0) continue;
+function applyFiltersAndSort() {
+  const tbody = document.getElementById("tbody");
+  const allRows = Array.from(tbody.getElementsByTagName("tr"));
 
-        listAtk[i].style.display = "";
-        for (j = 0; j < inputsKeys.length; ++j) {
-            if (!tds[j].innerHTML.toLowerCase().includes(inputs[inputsKeys[j]].toLowerCase())) {
-                listAtk[i].style.display = "none";
-                break;
-            }
-        }
-    }
-    callback(sort, 800);
-}
-
-function debounce(callback, delay) {
-  let timer
-  return function() {
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      callback();
-    }, delay)
+  // Tri
+  if (currentSortColumn !== null) {
+    allRows.sort((a, b) => {
+      const valA = a.children[currentSortColumn].textContent.trim();
+      const valB = b.children[currentSortColumn].textContent.trim();
+      const numA = parseFloat(valA);
+      const numB = parseFloat(valB);
+      if (!isNaN(numA) && !isNaN(numB)) {
+        return ascending ? numA - numB : numB - numA;
+      }
+      return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+    });
   }
+
+  // Réinitialisation
+  tbody.innerHTML = "";
+  allRows.forEach(row => tbody.appendChild(row));
+
+  // Filtres
+  allRows.forEach(row => {
+    const cells = row.getElementsByTagName("td");
+    let visible = true;
+
+    if (filterValues.name && !cells[0].textContent.toLowerCase().includes(filterValues.name.toLowerCase())) visible = false;
+    if (filterValues.type && !cells[1].textContent.toLowerCase().includes(filterValues.type.toLowerCase())) visible = false;
+    if (filterValues.category && !cells[2].textContent.toLowerCase().includes(filterValues.category.toLowerCase())) visible = false;
+    if (filterValues.pc && cells[3].textContent.trim() !== filterValues.pc) visible = false;
+    if (filterValues.pp && cells[4].textContent.trim() !== filterValues.pp) visible = false;
+    if (filterValues.accuracy && cells[5].textContent.trim() !== filterValues.accuracy) visible = false;
+    if (filterValues.priority && cells[6].textContent.trim() !== filterValues.priority) visible = false;
+    if (filterValues.description && !cells[7].textContent.toLowerCase().includes(filterValues.description.toLowerCase())) visible = false;
+    if (filterValues.criticity && cells[8].textContent.trim() !== filterValues.criticity) visible = false;
+
+    row.style.display = visible ? "" : "none";
+  });
 }
 
-// filter inputs
-nameFilter.addEventListener('input', () => {
-    inputs.nameInput = nameFilter.value;
-    callback(filter, 300);
-})
-typeFilter.addEventListener('change', () => {
-    inputs.typeInput = typeFilter.value;
-    callback(filter, 300);
-})
-categoryFilter.addEventListener('change', () => {
-    inputs.categoryInput = categoryFilter.value;
-    callback(filter, 300);
-})
-pcFilter.addEventListener('input', () => {
-    inputs.pcInput= pcFilter.value;
-    callback(filter, 300);
-})
-ppFilter.addEventListener('input', () => {
-    inputs.ppInput = ppFilter.value;
-    callback(filter, 300);
-})
-accuracyFilter.addEventListener('input', () => {
-    inputs.accuracyInput = accuracyFilter.value;
-    callback(filter, 300);
-})
-priorityFilter.addEventListener('input', () => {
-    inputs.priorityInput = priorityFilter.value;
-    callback(filter, 300);
-})
-descriptionFilter.addEventListener('input', () => {
-    inputs.descriptionInput = descriptionFilter.value;
-    callback(filter, 300);
-})
-criticityFilter.addEventListener('input', () => {
-    inputs.criticityInput = criticityFilter.value;
-    callback(filter, 300);
-})
-
-
-// sorter inputs
-let listHeads = document.getElementsByClassName('headText');
-for (let i = 0; i < listHeads.length; ++i)
-{
-    listHeads[i].addEventListener('click', () => {
-        column = listHeads[i].dataset.id;
-        callback(sort, 800);
-    })
+function debounce(func, delay = 300) {
+  let timeout;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(), delay);
+  };
 }
+
+// Lier les filtres
+Object.entries(filters).forEach(([key, input]) => {
+  const isSelect = input.tagName === "SELECT";
+  input.addEventListener(isSelect ? "change" : "input", debounce(() => {
+    filterValues[key] = input.value.trim();
+    applyFiltersAndSort();
+  }));
+});
+
+// Trier au clic
+document.querySelectorAll("#thead .headText").forEach((header, index) => {
+  header.addEventListener("click", () => {
+    if (currentSortColumn === index) ascending = !ascending;
+    else {
+      currentSortColumn = index;
+      ascending = true;
+    }
+    applyFiltersAndSort();
+  });
+});

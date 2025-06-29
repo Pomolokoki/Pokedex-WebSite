@@ -26,3 +26,4 @@ header('Content-type: text/css; charset: UTF-8');
 for ($i = 0; $i <count($type) ; $i++) {
     echo '.'.$type[$i].'{background: radial-gradient(#'.$typeColors[$i*4].' '.$typeColors[$i*4+1].'%, #'.$typeColors[$i*4+2].' '.$typeColors[$i*4+3].'%); }';
    }
+
