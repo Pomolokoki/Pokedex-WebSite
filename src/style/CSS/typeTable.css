@@ -1,168 +1,193 @@
 /*#region globalElement*/
 
-html {
-    margin: 0;
-    height: 100%;
-}
-
-body {
-    margin: 0;
-    height: 100%;
-
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-
-button {
-    cursor: pointer;
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: Arial, sans-serif;
+background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
+	color: white;
+	overflow-x: auto;
+	box-sizing: border-box;
 }
 
 /*#endregion*/
 
-/*#region headerPokedex*/
-/*#endregion*/
 
 /*#region aroundTypeTable*/
-#main {
-    width: 100%;
-    height: calc(100% - 140px);
-    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, #8d0000 0%, rgba(139, 13, 35, 1) 51%, rgba(61, 6, 16, 1) 100%);
-    margin-top: 140px;
-    margin: auto;
-    overflow:auto;
-}
 
-#horizontalFlex {
-    display: flex;
-    width: min-content;
-    margin: auto;
-    margin-top: 75px;
-    position: relative;
+#main {
+	width: 100%;
+	min-height: 100vh;
+	
+	padding-top: 40px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #defLabel {
-    /* position: fixed;
-    margin-left: 43%; */
-    text-align: center;
-    /* position: relative; */
-    position : fixed;
-    margin: auto;
-    width: 100%;
-    font-size: 35px;
-    color: white;
-    cursor: pointer;
-    pointer-events: none;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	color: white;
+	margin-bottom: 1rem;
+	z-index: 1;
+}
+
+#horizontalFlex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	flex-wrap: nowrap;
+	gap: 1rem;
+	width: 100%;
+	max-width: 100%;
+	padding: 1rem;
+	box-sizing: border-box;
+	overflow-x: auto;
 }
 
 #atckLabel {
-    margin-left: 10px;
-    position: relative;
-    font-size: 35px;
-    /* height: 100%; */
-    color: white;
-    writing-mode: vertical-rl;
-    /* text-orientation:upright; */
-    text-align: center;
+	writing-mode: vertical-rl;
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	margin-top: 1rem;
+	color: white;
+	white-space: nowrap;
 }
 
-#gridWrapper{
-    position: relative;
-    /* width: min-content;
-    height: min-content; */
-    display: flex;
-    flex-direction: column;
-}
 /*#endregion*/
 
 /*#region TypeTable*/
+
+#gridWrapper {
+	flex-shrink: 0;
+	padding: 1rem;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.3);
+	overflow-x: auto;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
 #grid {
-    /* position: relative; */
-    /* left: 100px;
-    top: 100px; */
-    display: grid;
-    gap: 0.4%;
-    grid-template-columns: 1fr repeat(18, 4em);
-    grid-template-rows: repeat(19, 2em);
-    align-content: center;
-    /* width: max-content; */
-    height: 655px;
-    width: 1464px;
-    background-color: black;
-    grid-auto-flow: row dense;
+	display: grid;
+	gap: 5px;
+	grid-template-columns: minmax(120px, 6em) repeat(18, minmax(2.5rem, 4em));
+	grid-template-rows: 3.2em repeat(18, 2.5em);
+	width: max-content;
+	background-color: black;
+	padding: 10px;
+	border-radius: 10px;
+	box-sizing: border-box;
 }
 
-
+/* Cellules */
 .gridElement {
-    border-radius: 5px;
-    background-color: white;
-    border: none;
-    padding: 0;
-    text-align: center;
-    margin-top: 2px;
-    align-content: center;
+	border-radius: 5px;
+	background-color: white;
+	border: none;
+	padding: 0.2rem;
+	text-align: center;
+	font-size: 0.9rem;
+	box-shadow: 0 0 5px rgba(255,255,255,0.1);
+	transition: transform 0.2s;
+	z-index: 0;
 }
 
-.gridElement>img {
-    height: 25px;
-    aspect-ratio: 1/1;
-    filter: brightness(0);
-    vertical-align: middle;
+.gridElement:hover {
+	transform: scale(1.05);
 }
+
 
 .gridElementButton {
-    padding: 0, 5px, 0, 5px;
-    /* margin-top: 0.5%; */
-    /* min-width: 155px; */
-    /* width: max-content; */
-    min-width: max-content;
-    text-align: center;
-    /* float: left; */
-    font-family: 'pokefont';
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0.2rem 0.5rem;
+	font-size: 0.85rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.3rem;
+	text-align: center;
+	background-color: #f8f8f8;
+	font-weight: bold;
+	color: #333;
+	font-family: 'pokefont', sans-serif;
 }
 
-.gridElementButton>text {
-    align-self: center;
-    vertical-align: middle;
+.gridElementButton img {
+	height: 22px;
+	filter: brightness(0);
+}
+
+.gridElement > img {
+	height: 25px;
+	aspect-ratio: 1/1;
+	vertical-align: middle;
+	filter: brightness(0);
+	pointer-events: none;
 }
 
 /*#endregion*/
 
 /*#region under TypeTable*/
+
 .info {
-    color: white;
-    width: 100%;
-    color: white;
+	color: white;
+	font-size: 0.9rem;
+	text-align: center;
+	margin: 1rem 0;
+}
+
+#warning > a {
+	color: #ffc;
+	text-decoration: underline;
 }
 
 #warning > a:focus-visible {
-    border: 2px solid white;
-    border-radius: 10px;
-    cursor: pointer;
+	border: 2px solid white;
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 0 4px;
 }
 
 /*#endregion*/
 
 /*#region responsive*/
-@media only screen and (max-width: 600px) {
 
+@media screen and (max-width: 768px) {
+	#grid {
+		font-size: 0.7rem;
+	}
 
-    #defLabel, #atckLabel {
-        font-size: 20px;
-    }
+	.gridElement > img {
+		height: 18px;
+	}
 
-    #main {
-        height: 100%;
-    }
+	.gridElementButton {
+		font-size: 0.75rem;
+	}
 
-    #horizontalFlex {
-        margin-top: 50px;
-    }
+	#defLabel,
+	#atckLabel {
+		font-size: 1.2rem;
+	}
 
-    .info {
-        font-size: 10px;
-    }
+	.info {
+		font-size: 0.75rem;
+	}
 
-
+	#horizontalFlex {
+		flex-wrap: wrap;
+		flex-direction: column;
+		align-items: center;
+	}
 }
 
 /*#endregion*/

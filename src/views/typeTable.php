@@ -42,11 +42,11 @@ include_once 'header.php';
 									<img src=\'../../public/img/' . $typeData[$j - 1]['sprite'] . '\' alt=\'' . getTextLang($typeData[$j - 1]['name']) .'\' loading=lazy decoding=async/>
 								</button>';
 						} else if ($j == 0) {
-							echo "
-								<button id = $id class = 'gridElement gridElementButton " . getTextLang($typeData[$i - 1]['name'], 'en') . '\' onclick = \'selectType(' . $i . ', true)\'>
-									<img src =\'../../public/img/' . $typeData[$i - 1]['sprite'] . '\' alt=\'image Type ' . getTextLang($typeData[$i - 1]['name']) .'\' loading=lazy decoding=async/>'
-									. getTextLang($typeData[$i - 1]['name']) . '
-					 			</button> ';
+    echo "
+        <button id = $id class = 'gridElement gridElementButton no-icon " . getTextLang($typeData[$i - 1]['name'], 'en') . '\' onclick = \'selectType(' . $i . ', true)\'>'
+            . getTextLang($typeData[$i - 1]['name']) . '
+         </button> ';
+
 						} else {
 							echo "<button id = $id class = 'gridElement x" . $typeEfficiency[$j] . '\' tabindex=-1 onclick = \'selectCell(' . $i . ', ' . $j . ')\'> x' . $typeEfficiency[$j] . '</button> ';
 						}
