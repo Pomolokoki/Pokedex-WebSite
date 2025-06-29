@@ -1,12 +1,19 @@
 <?php
 include_once __DIR__ . '/../database/get/FromPHP/getDBDataGlobal.php';
 $pokemonMoveData = getPokemonMoves();
-// not used but if pokedex -> link -> move
 $isSet = isset($_POST['moveId']);
-$columnList = ['Nom', 'Type', 'Catégorie', 'Puissance', 'PP', 'Précision', 'Priorité', 'Description', 'Taux_Crit'];
-$idForColumList = ['nameFilter', 'typeFilter', 'categoryFilter', 'pcFilter', 'ppFilter', 'accuracyFilter', 'priorityFilter', 'descriptionFilter', 'criticityFilter'];
-$selectedMoveData = $isSet ? getPokemonMove([$_POST['moveId']]) : null;
 $typeData = GetTypesForPokemonMoves();
+$selectedMoveData = $isSet ? getPokemonMove([$_POST['moveId']]) : null;
+
+function generateSelectOptions($data, $key) {
+    $values = array_unique(array_filter(array_column($data, $key)));
+    sort($values);
+    $options = "<option value=''>Tous</option>";
+    foreach ($values as $val) {
+        $options .= "<option value='" . htmlspecialchars($val) . "'>$val</option>";
+    }
+    return $options;
+}
 
 ?>
 
@@ -17,176 +24,115 @@ $typeData = GetTypesForPokemonMoves();
     <meta charset='utf-8'>
     <title>Pokedex</title>
     <link rel='stylesheet' type='text/css' href='../style/css/pokemonMove.css'>
-    <link rel='stylesheet' type='text/css' href='../style/php/typeColor.php'>
+    <link rel='stylesheet' type='text/css' href='../style/php/typeColor2.php'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 
-<?php
-include 'header.php';
-?>
+<?php include 'header.php'; ?>
 
 <body>
     <div id='moveContainer'>
-
         <table id='moveList'>
-            <?php // there is two header bcs I need one to be 'static' ?>
             <thead id='thead'>
                 <tr>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='0'>Nom
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+                    <th class='headCells'>
+                        <p class='headText' data-id='0'>
+                            Nom <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='nameFilter'></input>
+                        <input type='text' class='filter' id='nameFilter' placeholder="Rechercher">
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='1'>Type
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='1'>
+                            Type <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <select class='filter' id='typeFilter'>
-                            <option value=''>--Tout--</option>
-                            <?php for ($i = 0; $i < count($typeData); ++$i) { ?>
-                                <option data-type=<?= getTextLang($typeData[$i]['name'], 'en') ?>><?= getTextLang($typeData[$i]['name'], $language) ?></option>
-                            <?php } ?>
+                            <option value=''>Tous</option>
+                            <?php foreach ($typeData as $type): ?>
+                                <option value='<?= strtolower(getTextLang($type['name'], 'fr')) ?>'><?= getTextLang($type['name'], 'fr') ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='2'>Catégorie
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='2'>
+                            Catégorie <img class='sorter' src='../../public/img/selector.png'>
                         </p>
                         <select class='filter' id='categoryFilter'>
-                            <option value=''>--Tout--</option>
-                            <option data-type='special'>Spécial</option>
-                            <option data-type='physical'>Physique</option>
-                            <option data-type='statut'>Statut</option>
+                            <option value=''>Tous</option>
+                            <option value='physique'>Physique</option>
+                            <option value='spéciale'>Spéciale</option>
+                            <option value='statut'>Statut</option>
                         </select>
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='3'>Puissance
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='3'>
+                            Puissance <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='pcFilter' size='4'></input>
+                        <select class='filter' id='pcFilter'><?= generateSelectOptions($pokemonMoveData, 'pc') ?></select>
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='4'>PP
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='4'>
+                            PP <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='ppFilter' size='4'></input>
+                        <select class='filter' id='ppFilter'><?= generateSelectOptions($pokemonMoveData, 'pp') ?></select>
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='5'>Précision
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='5'>
+                            Précision <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='accuracyFilter' size='4'></input>
+                        <select class='filter' id='accuracyFilter'><?= generateSelectOptions($pokemonMoveData, 'accuracy') ?></select>
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='6'>Priority
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='6'>
+                            Priorité <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='priorityFilter' size='4'></input>
+                        <select class='filter' id='priorityFilter'><?= generateSelectOptions($pokemonMoveData, 'priority') ?></select>
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='7'>Description
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='7'>
+                            Description <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='descriptionFilter'></input>
+                        
                     </th>
-                    <th class='headCells' scope='col'>
-                        <p class='headText' data-id='8'>TauxCritique
-                            <img class='sorter' loading='lazy' decoding='async' src='../../public/img/selector.png' alt='trier'>
+
+                    <th class='headCells'>
+                        <p class='headText' data-id='8'>
+                            TauxCritique <img class='sorter' src='../../public/img/selector.png'>
                         </p>
-                        <input type='text' class='filter' id='criticityFilter' size='4'></input>
+                        <select class='filter' id='criticityFilter'><?= generateSelectOptions($pokemonMoveData, 'criticity') ?></select>
                     </th>
                 </tr>
             </thead>
-            <!-- <thead>
-                <tr>
-                    <th class='headCells'>Nom<br>
-                        <input type='text' class='filter'></input>
-                    </th>
-                    <th class='headCells'>Type<br>
-                        <select class='filter'>
-                            <option>--Tout--</option>
-                            <?php for ($i = 0; $i < count($typeData); ++$i) { ?>
-                                <option><?= getTextLang($typeData[$i]['name'], $language) ?></option>
-                            <?php } ?>
-                        </select>
-                    </th>
-                    <th class='headCells'>Catégorie<br>
-                        <select class='filter'>
-                            <option>--Tout--</option>
-                            <option>Spécial</option>
-                            <option>Physique</option>
-                            <option>Statut</option>
-                        </select>
-                    </th>
-                    <th class='headCells'>Puissance<br>
-                        <input type='text' class='filter' size='4'></input>
-                    </th>
-                    <th class='headCells'>PP<br>
-                        <input type='text' class='filter' size='4'></input>
-                    </th>
-                    <th class='headCells'>Précision<br>
-                        <input type='text' class='filter' size='4'></input>
-                    </th>
-                    <th class='headCells'>Priority<br>
-                        <input type='text' class='filter' size='4'></input>
-                    </th>
-                    <th class='headCells'>Description<br>
-                        <input type='text' class='filter'></input>
-                    </th>
-                    <th class='headCells'>TauxCritique<br>
-                        <input type='text' class='filter' size='4'></input>
-                    </th>
-                </tr>
-            </thead> -->
+
             <tbody id='tbody'>
-                <?php
-                for ($i = 0; $i < count($pokemonMoveData); ++$i) {
-                    ?>
+                <?php foreach ($pokemonMoveData as $move): ?>
                     <tr>
-                        <td class='AtkCell AtkName'><?= getTextLang($pokemonMoveData[$i]['name'], $language) ?>
-                        </td>
+                        <td class='AtkCell AtkName'><?= getTextLang($move['name'], 'fr') ?></td>
                         <td class='AtkCell AtkType'>
-                            <p class='AtkTypeLabel <?= getTextLang($pokemonMoveData[$i]['type'], 'en') ?>'>
-                                <?= getTextLang($pokemonMoveData[$i]['type'], $language) ?>
+                            <p class='AtkTypeLabel pokemon <?= strtolower(getTextLang($move['type'], 'en')) ?>'>
+                                <?= getTextLang($move['type'], 'fr') ?>
                             </p>
                         </td>
-                        <td class='AtkCell AtkEffectType'><?php $category = $pokemonMoveData[$i]['effectType'];
-                        if ($category == 1)
-                            echo getTextLang('Physical///Physique', $language);
-                        else if ($category == 2)
-                            echo getTextLang('Special///Spéciale', $language);
-                        else if ($category == 3)
-                            echo getTextLang('Statut///Statut', $language);
-                        else
-                            echo getTextLang('Other///Autre', $language); ?> </td>
-                        <td class='AtkCell AtkPc'>
-                            <?= $pokemonMoveData[$i]['pc'] == '' ? '- -' : $pokemonMoveData[$i]['pc'] ?>
+                        <td class='AtkCell AtkEffectType'>
+                            <?php
+                            $cat = ['1' => 'Physique', '2' => 'Spéciale', '3' => 'Statut'];
+                            echo $cat[$move['effectType']] ?? 'Autre';
+                            ?>
                         </td>
-                        <td class='AtkCell AtkPp'>
-                            <?= $pokemonMoveData[$i]['pp'] == '' ? '- -' : $pokemonMoveData[$i]['pp'] ?>
-                        </td>
-                        <td class='AtkCell AtkAccuracy'>
-                            <?= $pokemonMoveData[$i]['accuracy'] == '' ? '- -' : $pokemonMoveData[$i]['accuracy'] ?>
-                        </td>
-                        <td class='AtkCell AtkPriority'>
-                            <?= $pokemonMoveData[$i]['priority'] == '' ? '- -' : $pokemonMoveData[$i]['priority'] ?>
-                        </td>
-                        <td class='AtkCell AtkDescription'><?php $value = getTextLang($pokemonMoveData[$i]['smallDescription'], $language);
-                        if ($value == 'NULL') {
-                            echo 'Pas de description pour l\'instant';
-                        } else {
-                            echo $value;
-                        } ?> </td>
-                        <td class='AtkCell AtkCriticity'>
-                            <?= $pokemonMoveData[$i]['criticity'] == '' ? '- -' : $pokemonMoveData[$i]['criticity'] ?>
-                        </td>
-
+                        <td class='AtkCell AtkPc'><?= $move['pc'] ?: '- -' ?></td>
+                        <td class='AtkCell AtkPp'><?= $move['pp'] ?: '- -' ?></td>
+                        <td class='AtkCell AtkAccuracy'><?= $move['accuracy'] ?: '- -' ?></td>
+                        <td class='AtkCell AtkPriority'><?= $move['priority'] ?: '- -' ?></td>
+                        <td class='AtkCell AtkDescription'><?= getTextLang($move['smallDescription'], 'fr') ?: 'Pas de description' ?></td>
+                        <td class='AtkCell AtkCriticity'><?= $move['criticity'] ?: '- -' ?></td>
                     </tr>
-
-                    <?php
-                }
-                ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
